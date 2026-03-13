@@ -1,85 +1,78 @@
-# **Control**
+# Control
 
-Primary control interface for MSG gripper is **CAN bus**. Secondary control mode is with **UART**. 
+The primary control interface for the MSG gripper is **CAN bus**. The secondary control mode is **UART**.
 
-!!! Tip annotate "" 
+!!! tip
     **The gripper can:**
 
     * Control the force, speed and position of gripper jaws
     * Movements of the both jaws are always in sync
     * Movement is initiated with a CAN "Send_gripper_data_pack" command
-    * Gripper has built in object detection feature that will report back when a object is detected
+    * Gripper has a built-in object detection feature that reports when an object is detected
 
-!!! Danger annotate "**Go to Application interfaces tab for more details about the gripper commands!**" 
-!!! Warning annotate "**The best way to learn how the gripper works is thru [examples!](https://github.com/PCrnjak/Spectral-BLDC-Python/tree/main/examples)**" 
+!!! danger "Go to the Application interfaces page for command details"
 
+!!! warning "The best way to learn how the gripper works is through [examples](https://github.com/PCrnjak/Spectral-BLDC-Python/tree/main/examples)"
 
-!!! Note annotate "" 
-
-## **Working principle**
+## Working principle
 
 * After every power up the gripper needs to be calibrated to function.
 * Calling the calibration command will start the gripper movement. Calibration will find exact endpoints of the gripper.
 * After calibration the gripper needs to be activated.
 * After activation, gripper can be used (If there are any errors they need to be cleared also)
-* Now you can issues "Send_gripper_data_pack" commands that will move the gripper to the specified position with desired speed and torque presets.
+* Now you can issue `Send_gripper_data_pack` commands to move the gripper to the specified position with desired speed and torque presets.
 
-The gripper will never send CAN commands on its own. Gripper will only respod to "Send_gripper_data_pack" with "Respond_Gripper_data_pack".
+The gripper will never send CAN commands on its own. The gripper only responds to `Send_gripper_data_pack` with `Respond_Gripper_data_pack`.
 
-!!! Note annotate "Empty commands" 
-    Note that Send_gripper_data_pack can be an empty command containg no data. The gripper will still respond to that with Respond_Gripper_data_pack. This options works great if you have a lot of devices on the can bus of the gripper and dont want to overload it with big data packets. The workflow here would be to send one Send_gripper_data_pack that contains the needed move and after that call Send_gripper_data_pack with no data to get responses from the gripper.
+!!! note "Empty commands"
+    `Send_gripper_data_pack` can be an empty command containing no data. The gripper still responds with `Respond_Gripper_data_pack`. This option works well if you have many devices on the CAN bus and do not want to overload it with large data packets. A common workflow is to send one `Send_gripper_data_pack` with the required move, then poll status by sending `Send_gripper_data_pack` with no data.
 
-!!! Tip annotate "Command rate" 
-    It is recommended to send commands to the gripper with rate of 50Hz or higher!
+!!! tip "Command rate"
+    It is recommended to send commands to the gripper at 50 Hz or higher.
 
-
-!!! Note annotate "" 
-
-## **Gripper GUI**
+## Gripper GUI
 
 
-You can install GUI from [here!](https://github.com/PCrnjak/SSG-gripper-GUI) <br /> 
-To connect to gripper GUI you will have to have [CAN bus adapter for PC](https://source-robotics.com/products/canvas-usb-to-can-adapter).   <br /> </p> 
+You can install the GUI from [here](https://github.com/PCrnjak/SSG-gripper-GUI).
+To connect to the gripper GUI, you need a [CAN bus adapter for PC](https://source-robotics.com/products/canvas-usb-to-can-adapter).
 
 
-<p align="left"> <img src="../assets/GUI2.png" alt="drawing" width="1200"/> <br /></p>
+<p align="left"><img src="../assets/GUI2.png" alt="MSG gripper GUI overview" width="1200" /><br /></p>
 
 * **Section 1** has a few commands important to operation of the gripper and connecting to it. 
-* **Section 2** has slider and entry boxes for commanding the gripper
+* **Section 2** has sliders and entry boxes for commanding the gripper
 * **Section 3** shows gripper status
 * **Section 4** shows current gripper position and current
 * **Section 5** shows live plots of gripper position and current
 * **Section 6** shows FPS of the GUI and options for dark/light mode
 
-!!! Note annotate "Note" 
-    Only one gripper can be connected to the GUI at the time.
+!!! note "GUI connection"
+    Only one gripper can be connected to the GUI at a time.
 
-### **Using the GUI**
+### Using the GUI
 
-First you will need to know the COM port where your USB to CAN adapter is connected. After that enter it to the COM port box in section one. 
+First, identify the COM port where your USB-to-CAN adapter is connected. Then enter it in the COM port box in section 1.
 **Press connect.**
-!!! Note annotate "Default CAN Node ID"
-    **Default CAN Node ID is 0. To change it you check out spectral micro docs on how to change CANID [Link](https://source-robotics.github.io/Spectral-BLDC-docs/apage1_specs/)**
+!!! note "Default CAN node ID"
+    **Default CAN node ID is 0. To change it, check the Spectral Micro docs for CAN ID configuration: [Link](https://source-robotics.github.io/Spectral-BLDC-docs/apage1_specs/)**
 
-After you have connected to the GUI you will need to **calibrate the gripper**. Press the calibrate button in the section one. The gripper will start to move and if calibration was success you will see "**Calibrated**" in section 3.    
+After connecting to the GUI, **calibrate the gripper**. Press the calibrate button in section 1. The gripper starts to move, and if calibration succeeds, you will see "**Calibrated**" in section 3.
 
-Now that the gripper is calibrated press **activate button** and in case there is an error active press **clear error** button.
+After calibration, press the **activate** button. If an error is active, press the **clear error** button.
 
 Now you can control your gripper by setting position, speed and current values in section 2. 
 
-!!! Tip annotate "Movement"
-    Only setting the position value will start the gripper movement.
+!!! tip "Movement"
+    Changing the position value starts gripper movement.
 
-In the section 5 you will see live values of gripper position and current.
+In section 5, you can see live values of gripper position and current.
 
-!!! Note annotate "" 
+## Using python API
 
-## **Using python API**
+This example calibrates the gripper, then opens and closes it. If the gripper is in an error state, clear the error first.
+Get the API [here](https://github.com/PCrnjak/Spectral-BLDC-Python/tree/main).
 
-This example will calibrate the gripper; after that it will open and close it. Note if the gripper is in error state you will have to first clear the error!  <br />
-Get the API [here!](https://github.com/PCrnjak/Spectral-BLDC-Python/tree/main)
-
-``` py 
+```python
 import Spectral_BLDC as Spectral
 import time
 
@@ -125,32 +118,26 @@ while True:
 
 ```
 
+## Using UART
 
-!!! Note annotate "" 
+To use UART, access the UART port on the MSG gripper. Unscrew the coupler connector and connect a UART adapter to the connector shown in the image. The interface uses 3.3V; using 5V can damage your driver or gripper.
+To read more about UART with MSG/STEPFOC, go to this [link](https://source-robotics.github.io/STEPFOC-docs/uart/).
 
-## **Using UART**
-
-To use uart you will have to acces UART port on the MSG gripper. Unscrew coupler connector and connect uart adapter to the connector on the image. Note that it uses 3v3, using 5V can destroy your driver/gripper.
-To read more about how to use UART with MSG/STEPFOC go to this [link!](https://source-robotics.github.io/STEPFOC-docs/uart/)
-
-Compatible USB to uart adapter can be bought here: [Link](https://source-robotics.com/products/usb-to-serial-adapter)
+A compatible USB-to-UART adapter is available here: [Link](https://source-robotics.com/products/usb-to-serial-adapter).
 
 Setup:
 
-* Gripper 1 (Tells our motor controller we are using it as gripper)
-* Gripcal (this will calibrate the gripper)
+* Gripper 1 (tells the motor controller to operate in gripper mode)
+* Gripcal (calibrates the gripper)
 
 Control:
 
-* Gripvel x (x is value from 0 - 255; 0 being min speed 255 max speed)
-* Gripcur x (x is value from 0 - 700 [mA]) (depends what stepper you are using with your MSG gripper)
-* Grippos x (x is vale from 0 - 255; 0 being fully open 255 fully closed)
+* Gripvel x (x is a value from 0 - 255; 0 is minimum speed, 255 is maximum speed)
+* Gripcur x (x is a value from 0 - 700 [mA], depending on your stepper)
+* Grippos x (x is a value from 0 - 255; 0 is fully open, 255 is fully closed)
 
-!!! Note annotate "Note" 
-    **Only Grippos will start the gripper movement!**
-
-
-!!! Note annotate "" 
+!!! note "Movement trigger"
+    **Only Grippos starts gripper movement.**
 
 
 

@@ -1,19 +1,19 @@
-# **Performance and tests**
+# Performance and Tests
 
-These tests represent termal performance of the MSG gripper under different conditions. The default value for termal error is 75 degrees.
+These tests represent the thermal performance of the MSG gripper under different conditions. The default thermal error limit is 75°C.
 
-!!! Note annotate "Errors" 
-    If you built MSG gripper by yourself and did not place thermistor in the motor coils you risk destroying your gripper during normal operation.
+!!! note "Errors"
+    If you build the MSG gripper yourself and do not place a thermistor in the motor coils, you risk damaging your gripper during normal operation.
 
-## **Performance over multiple days**
+## Performance over multiple days
 
 * Testing: cycle open and close every 2.5s
 * No load present; current/torque applied is near 0
-* Continous testing for 7 days
+* Continuous testing for 7 days
 * Motor temperature: 42
 * Ambient temperature:  33 
 
-## **Max constant current over some time**
+## Max constant current over some time
 
 * Testing: Hold object
 * Max current setpoint: TBD
@@ -21,9 +21,9 @@ These tests represent termal performance of the MSG gripper under different cond
 * Stable motor temperature during testing: TBD
 * Ambient temperature:  TBD
 
-## **Max current to trigger termal error**
+## Max current to trigger thermal error
 
 * Testing: Hold object
 * Max current setpoint: TBD
-* Time to trigger termal error under x load: TBD
+* Time to trigger thermal error under x load: TBD
 * Ambient temperature:  TBD
