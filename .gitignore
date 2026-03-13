@@ -1,0 +1,33 @@
+# MkDocs build output
+site/
+
+# Python cache and bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Python virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Tool caches
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+coverage.xml
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor settings
+.vscode/
+.idea/
+
+# Private Copilot instruction files
+.github/copilot_instruction.md
+.github/copilot-instructions.md
+.github/copilot_instructions.md
