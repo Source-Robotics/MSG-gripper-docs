@@ -1,56 +1,56 @@
-# **Safety and Maintenance**
+# Safety and Maintenance
 
-MSG gripper is not ment to be used with industrial robots. The gripper, robot and equipment used need to be evaluated with risk assessment and it is duty of the gripper integrator.
+The MSG gripper is not meant for use with industrial robots. You must evaluate the gripper, robot, and surrounding equipment with a risk assessment, and this is the responsibility of the system integrator.
 
-!!! Warning annotate "Warning" 
+!!! warning "Warning"
     The operator must read and understand all of the instructions noted in this manual before using and handling the gripper.
 
-## **Warning**
-!!! Danger annotate "Danger"
-    The Gripper should not be used in disregard of these safety tips and warnings, as it may lead to injury or damage.
+## Warning
+!!! danger "Danger"
+    The gripper should not be used in disregard of these safety tips and warnings, as it may lead to injury or damage.
 
-## **Temperature warning**
+## Temperature warning
 
-The gripper has built in termistor on motor surface that will stop it from reaching too high temperatures. That limit is 75 degrees. After it is reached the temperature error will be triggered and the gripper will go do idle mode. This temperature limit can be changed via UART commands-
+The gripper has a built-in thermistor on the motor surface to prevent excessive temperature rise. The default limit is 75°C. When this limit is reached, a temperature error is triggered and the gripper goes to idle mode. You can change this limit through UART commands.
 
-## **Gripper force**
+## Gripper force
 
-This gripper can exert large amount of force on top of that it reach really high speeds.
-Those 2 combined can be dangerous for humans and other objects. It is recommneded to always keep current preset and speed at low values while testing. Those values could be:
+This gripper can exert large force and also reach high speeds.
+These two factors can be dangerous for people and nearby objects. It is recommended to keep current and speed at low values during testing, for example:
 
 * Current: 500
 * Speed: 30
 
-After you confirm your aplication works increase the values.
+After you confirm your application works safely, increase values gradually.
 
-!!! Danger annotate "Danger" 
+!!! danger "Danger"
     **NEVER PLACE YOUR FINGER INSIDE THE GRIPPER.**
 
-## **Pinching points**
+## Pinching points
 
-!!! Danger annotate "Pinching points" 
-    The gripper Jaws act as a pinching point and if current limit is set to a large value it can hurt you and others.
+!!! danger "Pinching points"
+    The gripper jaws act as a pinching point. If the current limit is set high, they can injure you or others.
 
-## **Estop**
+## Estop
 
-The gripper will go do idle mode if it receives estop_status = 1 from Send_gripper_data_pack
+The gripper goes to idle mode if it receives `estop_status = 1` from `Send_gripper_data_pack`.
 
-## **Maintenance**
+## Maintenance
 
-Note that gripper is not waterproof or dust proof. The jaws part has a large gaps that allow dust, water and particles to enter the gripper. Never use the gripper in dusty and moist environments. 
+The gripper is not waterproof or dustproof. The jaws area has large gaps that allow dust, water, and particles to enter. Never use the gripper in dusty or moist environments.
 
-## **Gear lubrication**
+## Gear lubrication
 
-You can apply lithium greese to lubricate the gears of the gripper. To do that remove 4 screw that hold linear track of the jaws and apply greese to the jaws.
+You can apply lithium grease to lubricate the gripper gears. Remove the 4 screws that hold the jaw linear track, then apply grease to the jaw mechanism.
 
-## **Errors**
+## Errors
 
-The gripper returns 4 bits related to errors with its **Respond_Gripper_data_pack**
+The gripper returns 4 error-related bits in **Respond_Gripper_data_pack**:
 
 * **General error bit** - This bit will be 1 if any other error is active
 * **Temperature error bit** - If temperature of motor coils goes above some value this will go to 1
 * **Timeout error bit** - Not implemented
 * **Estop error bit** - Will go to 1 if we receive Estop status 1 from Send_gripper_data_pack
 
-!!! Note annotate "Errors" 
-    Note that errors will remain active until you call Send_Clear_Error
+!!! note "Errors"
+    Errors remain active until you call `Send_Clear_Error`.
