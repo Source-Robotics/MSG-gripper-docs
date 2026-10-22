@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+         <loc>https://docs.source-robotics.com/MSG-gripper-docs/</loc>
+         <lastmod>2026-10-22</lastmod>
+    </url>
+    <url>
+         <loc>https://docs.source-robotics.com/MSG-gripper-docs/page1_about_the_gripper/</loc>
+         <lastmod>2026-10-22</lastmod>
+    </url>
+    <url>
+         <loc>https://docs.source-robotics.com/MSG-gripper-docs/page2_1_gripper_options/</loc>
+         <lastmod>2026-10-22</lastmod>
+    </url>
+    <url>
+         <loc>https://docs.source-robotics.com/MSG-gripper-docs/page2_installation/</loc>
+         <lastmod>2026-10-22</lastmod>
+    </url>
+    <url>
+         <loc>https://docs.source-robotics.com/MSG-gripper-docs/page3_control/</loc>
+         <lastmod>2026-10-22</lastmod>
+    </url>
+    <url>
+         <loc>https://docs.source-robotics.com/MSG-gripper-docs/page4_Application_interfaces/</loc>
+         <lastmod>2026-10-22</lastmod>
+    </url>
+    <url>
+         <loc>https://docs.source-robotics.com/MSG-gripper-docs/page6_safety/</loc>
+         <lastmod>2026-10-22</lastmod>
+    </url>
+    <url>
+         <loc>https://docs.source-robotics.com/MSG-gripper-docs/page7_performance/</loc>
+         <lastmod>2026-10-22</lastmod>
+    </url>
+</urlset>
