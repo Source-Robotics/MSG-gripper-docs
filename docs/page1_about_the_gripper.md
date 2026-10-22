@@ -44,7 +44,7 @@ Print parts from the STEP files folder based on your chosen configuration:
 | [Python API](https://github.com/Source-Robotics/Spectral-BLDC-Python/tree/main) | Control the gripper from Python over CAN bus |
 | [BOM](https://github.com/Source-Robotics/MSG-compliant-AI-stepper-gripper/blob/main/BOM.md) | Complete list of parts needed to build the gripper |
 | [Building instructions](https://youtu.be/oAUhDKYgLso) | Mechanical assembly walkthrough |
-| [URDF & MJCF files](/MSG_gripper_description/) | Ready-to-use robot description files for ROS2, Gazebo, and MuJoCo |
+| [URDF & MJCF files](https://github.com/Source-Robotics/MSG-compliant-AI-stepper-gripper/tree/main/MSG_gripper_description) | Ready-to-use robot description files for ROS2, Gazebo, and MuJoCo |
 | [ROS2 package — MSG gripper](https://github.com/BiomechatronicsLab/source_robotics_msg_gripper_ros2) | ROS2 driver and example nodes for the MSG gripper |
 | [ROS2 package — SSG48 gripper](https://github.com/Lass6230/ssg48_adaptive_electric_gripper_ros2) | ROS2 driver and example nodes for the SSG48 gripper (should also work with MSG) |
 
