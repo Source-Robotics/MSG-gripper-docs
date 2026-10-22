@@ -1,6 +1,9 @@
 # MkDocs build output
 site/
 
+# MkDocs Material cache (social cards)
+.cache/
+
 # Python cache and bytecode
 __pycache__/
 *.py[cod]
