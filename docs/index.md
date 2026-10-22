@@ -2,13 +2,13 @@
 
 <p align="left"><img src="assets/MSG_and_camera.png" alt="MSG gripper with a camera setup" width="900" /><br /></p>
 
-- [About the gripper](page1_about_the_gripper/)
-- [Gripper options](page2_1_gripper_options/)
-- [Installation](page2_installation/)
-- [Control](page3_control/)
-- [Application interfaces](page4_Application_interfaces/)
-- [Safety](page6_safety/)
-- [Performance](page7_performance/)
+- [About the gripper](page1_about_the_gripper.md)
+- [Gripper options](page2_1_gripper_options.md)
+- [Installation](page2_installation.md)
+- [Control](page3_control.md)
+- [Application interfaces](page4_Application_interfaces.md)
+- [Safety](page6_safety.md)
+- [Performance](page7_performance.md)
 
 | YouTube | Instagram | Twitter | LinkedIn |
 |---------|-----------|---------|----------|
