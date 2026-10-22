@@ -1,6 +1,7 @@
 site_name: MSG gripper
-site_url: https://PCrnjak.github.io/MSG_gripper/
-repo_url: https://github.com/PCrnjak/MSG-compliant-AI-stepper-gripper
+site_url: https://docs.source-robotics.com/MSG-gripper-docs/
+repo_url: https://github.com/Source-Robotics/MSG-compliant-AI-stepper-gripper
+edit_uri: https://github.com/Source-Robotics/MSG-gripper-docs/edit/main/docs/
 
 theme:
   name: material

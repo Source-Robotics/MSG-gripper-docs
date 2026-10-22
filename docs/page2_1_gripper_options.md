@@ -54,7 +54,7 @@ The gripper is powered and controlled with a single cable that carries CAN bus c
 
 ## 3D model
 
-[Link to the STEP model](https://github.com/PCrnjak/SSG-48-adaptive-electric-gripper/tree/main/STEPS)
+[Link to the STEP model](https://github.com/Source-Robotics/SSG-48-adaptive-electric-gripper/tree/main/STEPS)
 <p align="left"><img src="../assets/MSG_3D_model.png" alt="MSG gripper 3D model render" width="900" /><br /></p>
 
 

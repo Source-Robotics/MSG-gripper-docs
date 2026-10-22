@@ -25,7 +25,7 @@ Connect one end of the cable to the gripper and the other end to the robotic arm
 
 ## Jaws
 
-You can download [jaw STEP files](https://github.com/PCrnjak/MSG-compliant-AI-stepper-gripper/tree/main/STEP%20files/Gripper%20jaws%20attachment) and adapt your gripper jaws to your specifications.
+You can download [jaw STEP files](https://github.com/Source-Robotics/MSG-compliant-AI-stepper-gripper/tree/main/STEP%20files/Gripper%20jaws%20attachment) and adapt your gripper jaws to your specifications.
 
 The folder contains multiple jaw options.
 

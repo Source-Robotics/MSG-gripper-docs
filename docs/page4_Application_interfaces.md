@@ -1,7 +1,7 @@
 # Application Interfaces
 
-Since the MSG gripper is based on STEPFOC drivers, which are based on [Spectral Micro BLDC drivers](https://github.com/PCrnjak/Spectral-Micro-BLDC-controller), it inherits their control methods and functionality.
-This page describes only the commands needed for gripper operation. For the full command list, go [here](https://source-robotics.github.io/STEPFOC-docs/can/).
+Since the MSG gripper is based on STEPFOC drivers, which are based on [Spectral Micro BLDC drivers](https://github.com/Source-Robotics/Spectral-Micro-BLDC-controller), it inherits their control methods and functionality.
+This page describes only the commands needed for gripper operation. For the full command list, go [here](https://docs.source-robotics.com/STEPFOC-docs/can/).
 The gripper is also based on Spectral Micro, so it includes a UART interface for control.
 
 
@@ -155,7 +155,7 @@ Size (bytes) | Variable | Type
 
 ## UART interface
 
-For the full list of UART commands, check this [link](https://source-robotics.github.io/STEPFOC-docs/uart/).
+For the full list of UART commands, check this [link](https://docs.source-robotics.com/STEPFOC-docs/uart/).
 
 ### Gripper commands
 Commands used in gripper mode. Procedure:

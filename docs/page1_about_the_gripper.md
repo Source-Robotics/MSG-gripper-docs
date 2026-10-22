@@ -31,18 +31,18 @@ Print parts from the STEP files folder based on your chosen configuration:
 | 150 mm | [Common parts](STEP%20files/Common%20parts) + [Linear rail dependant parts/150mm rail](STEP%20files/Linear%20rail%20dependant%20parts/150mm%20rail) + [Stepper dependant parts/\<your stepper size\>](STEP%20files/Stepper%20dependant%20parts) |
 | 200 mm | [Common parts](STEP%20files/Common%20parts) + [Linear rail dependant parts/200mm rail](STEP%20files/Linear%20rail%20dependant%20parts/200mm%20rail) + [Stepper dependant parts/\<your stepper size\>](STEP%20files/Stepper%20dependant%20parts) |
 
-- Source all parts from the [BOM](https://github.com/PCrnjak/MSG-compliant-AI-stepper-gripper/blob/main/BOM.md)
+- Source all parts from the [BOM](https://github.com/Source-Robotics/MSG-compliant-AI-stepper-gripper/blob/main/BOM.md)
 - Follow the [assembly video instructions](https://youtu.be/oAUhDKYgLso) to assemble your gripper
-- Follow the [docs](https://source-robotics.github.io/MSG-gripper-docs/) to get your gripper up and running
+- Follow the [docs](index.md) to get your gripper up and running
 
 ## 📚 Documentation
 
 | Resource | Description |
 |----------|-------------|
 | [Official website](https://source-robotics.com) | Buy the MSG gripper or explore other Source Robotics products |
-| [DOCS](https://source-robotics.github.io/MSG-gripper-docs/) | Getting started, wiring, configuration, and full API reference |
-| [Python API](https://github.com/PCrnjak/Spectral-BLDC-Python/tree/main) | Control the gripper from Python over CAN bus |
-| [BOM](https://github.com/PCrnjak/MSG-compliant-AI-stepper-gripper/blob/main/BOM.md) | Complete list of parts needed to build the gripper |
+| [DOCS](index.md) | Getting started, wiring, configuration, and full API reference |
+| [Python API](https://github.com/Source-Robotics/Spectral-BLDC-Python/tree/main) | Control the gripper from Python over CAN bus |
+| [BOM](https://github.com/Source-Robotics/MSG-compliant-AI-stepper-gripper/blob/main/BOM.md) | Complete list of parts needed to build the gripper |
 | [Building instructions](https://youtu.be/oAUhDKYgLso) | Mechanical assembly walkthrough |
 | [URDF & MJCF files](/MSG_gripper_description/) | Ready-to-use robot description files for ROS2, Gazebo, and MuJoCo |
 | [ROS2 package — MSG gripper](https://github.com/BiomechatronicsLab/source_robotics_msg_gripper_ros2) | ROS2 driver and example nodes for the MSG gripper |

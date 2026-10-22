@@ -12,7 +12,7 @@ The primary control interface for the MSG gripper is **CAN bus**. The secondary 
 
 !!! danger "Go to the Application interfaces page for command details"
 
-!!! warning "The best way to learn how the gripper works is through [examples](https://github.com/PCrnjak/Spectral-BLDC-Python/tree/main/examples)"
+!!! warning "The best way to learn how the gripper works is through [examples](https://github.com/Source-Robotics/Spectral-BLDC-Python/tree/main/examples)"
 
 ## Working principle
 
@@ -33,7 +33,7 @@ The gripper will never send CAN commands on its own. The gripper only responds t
 ## Gripper GUI
 
 
-You can install the GUI from [here](https://github.com/PCrnjak/SSG-gripper-GUI).
+You can install the GUI from [here](https://github.com/Source-Robotics/SSG-gripper-GUI).
 To connect to the gripper GUI, you need a [CAN bus adapter for PC](https://source-robotics.com/products/canvas-usb-to-can-adapter).
 
 
@@ -54,7 +54,7 @@ To connect to the gripper GUI, you need a [CAN bus adapter for PC](https://sourc
 First, identify the COM port where your USB-to-CAN adapter is connected. Then enter it in the COM port box in section 1.
 **Press connect.**
 !!! note "Default CAN node ID"
-    **Default CAN node ID is 0. To change it, check the Spectral Micro docs for CAN ID configuration: [Link](https://source-robotics.github.io/Spectral-BLDC-docs/apage1_specs/)**
+    **Default CAN node ID is 0. To change it, check the Spectral Micro docs for CAN ID configuration: [Link](https://docs.source-robotics.com/Spectral-BLDC-docs/apage1_specs/)**
 
 After connecting to the GUI, **calibrate the gripper**. Press the calibrate button in section 1. The gripper starts to move, and if calibration succeeds, you will see "**Calibrated**" in section 3.
 
@@ -70,7 +70,7 @@ In section 5, you can see live values of gripper position and current.
 ## Using python API
 
 This example calibrates the gripper, then opens and closes it. If the gripper is in an error state, clear the error first.
-Get the API [here](https://github.com/PCrnjak/Spectral-BLDC-Python/tree/main).
+Get the API [here](https://github.com/Source-Robotics/Spectral-BLDC-Python/tree/main).
 
 ```python
 import Spectral_BLDC as Spectral
@@ -121,7 +121,7 @@ while True:
 ## Using UART
 
 To use UART, access the UART port on the MSG gripper. Unscrew the coupler connector and connect a UART adapter to the connector shown in the image. The interface uses 3.3V; using 5V can damage your driver or gripper.
-To read more about UART with MSG/STEPFOC, go to this [link](https://source-robotics.github.io/STEPFOC-docs/uart/).
+To read more about UART with MSG/STEPFOC, go to this [link](https://docs.source-robotics.com/STEPFOC-docs/uart/).
 
 A compatible USB-to-UART adapter is available here: [Link](https://source-robotics.com/products/usb-to-serial-adapter).
 
