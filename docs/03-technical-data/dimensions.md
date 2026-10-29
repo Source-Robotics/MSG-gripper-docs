@@ -13,7 +13,7 @@ has to fit:
   the same parts as 3MF, ready to slice.
 
 <figure markdown="span">
-  ![The STEP model](../assets/MSG_3D_model.png){ width="600" }
+  ![The STEP model](../assets/MSG_3D_model.webp){ width="600" }
   <figcaption>Figure 7: The STEP model of the gripper, seen from the coupler plate.</figcaption>
 </figure>
 

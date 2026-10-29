@@ -29,9 +29,9 @@ at the gripper and whatever the other end needs:
 | M8 4-pin male cable connector, for a robot with an M8 port | 1 | the same listing |
 
 <div class="grid" markdown>
-![The M8 male connector](../assets/M8_male.png){ width="260" }
+![The M8 male connector](../assets/M8_male.webp){ width="260" }
 ![The M8 female connector](../assets/M8_female.png){ width="260" }
-![A finished cable](../assets/cable_assembly.png){ width="340" }
+![A finished cable](../assets/cable_assembly.webp){ width="340" }
 </div>
 
 Wire it as the diagram for your robot shows. Pin 1 to 4 are the numbers moulded into the M8 connectors; the
@@ -39,7 +39,7 @@ colours are those of the cable in the BOM.
 
 === "PAROL6"
     <figure markdown="span">
-      ![The PAROL6 gripper cable](../assets/PAROL6_cable.png){ width="320" }
+      ![The PAROL6 gripper cable](../assets/PAROL6_cable.webp){ width="320" }
       <figcaption>Figure 10: The PAROL6 cable: the pins are crossed between the two ends.</figcaption>
     </figure>
 

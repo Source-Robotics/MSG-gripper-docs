@@ -11,13 +11,13 @@ stepper cover are printed for the chosen combination.
 
 === "Black"
     <figure markdown="span">
-      ![The nine variants, black body](../assets/MSG_variants_black.jpg){ width="900" }
+      ![The nine variants, black body](../assets/MSG_variants_black.webp){ width="900" }
       <figcaption>Figure 3: The nine combinations of rail and stepper, black body: 55, 105 and 155 mm of stroke across, the 21.5, 40 and 60 mm steppers down.</figcaption>
     </figure>
 
 === "Grey"
     <figure markdown="span">
-      ![The nine variants, grey body](../assets/MSG_variants_grey.jpg){ width="900" }
+      ![The nine variants, grey body](../assets/MSG_variants_grey.webp){ width="900" }
       <figcaption>The same nine combinations, grey body.</figcaption>
     </figure>
 
@@ -60,6 +60,6 @@ and its lid are printed parts (`camera extension`, `camera_lid`), and a gripper 
 them off.
 
 <figure markdown="span">
-  ![The camera's view](../assets/MSG_and_camera.png){ width="700" }
+  ![The camera's view](../assets/MSG_and_camera.webp){ width="700" }
   <figcaption>Figure 4: The gripper on a PAROL6 and what its camera sees.</figcaption>
 </figure>

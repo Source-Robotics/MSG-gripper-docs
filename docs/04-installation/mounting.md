@@ -10,7 +10,7 @@ part: the gripper slides onto an 8 mm shaft and is clamped with the two M4 screw
 offers an 8 mm shaft takes the gripper this way.
 
 <figure markdown="span">
-  ![The coupler plate for an 8 mm shaft](../assets/MSG_conn_8mm.png){ width="600" }
+  ![The coupler plate for an 8 mm shaft](../assets/MSG_conn_8mm.webp){ width="600" }
   <figcaption>Figure 8: The coupler plate with the 8 mm shaft coupler.</figcaption>
 </figure>
 
@@ -21,7 +21,7 @@ to the robot's last joint. The PAROL6 gripper cable then runs from the gripper t
 [The cable](cable.md) and [On PAROL6 and PAR6](../06-operation/robots.md).
 
 <figure markdown="span">
-  ![The PAROL6 ring cover](../assets/MSG with parol cover.png){ width="600" }
+  ![The PAROL6 ring cover](../assets/MSG with parol cover.webp){ width="600" }
   <figcaption>Figure 9: The gripper with the PAROL6 ring cover (red).</figcaption>
 </figure>
 

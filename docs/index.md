@@ -5,7 +5,7 @@ hide:
 
 # MSG Gripper Manual
 
-![MSG gripper](assets/hero.png){ .hero }
+![MSG gripper](assets/hero.webp){ .hero }
 
 <!-- doc-meta: msg -->
 

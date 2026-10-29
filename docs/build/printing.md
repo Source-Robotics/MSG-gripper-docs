@@ -7,7 +7,7 @@ PETG for every part but the TPU jaw pads. The repository's print table is one li
 Supports where your slicer asks for them; the body prints on its back.
 
 <figure markdown="span">
-  ![The body printed in PETG](../assets/petg_print.jpg){ width="600" }
+  ![The body printed in PETG](../assets/petg_print.webp){ width="600" }
   <figcaption>Figure 16: The body printed in PETG.</figcaption>
 </figure>
 
@@ -34,8 +34,8 @@ Two kinds, both in `Gripper jaws attachment`; mirror the file in the slicer for 
   prints solid too.
 
 <figure markdown="span">
-  ![The TPU jaw in the slicer](../assets/jaw_slicer1.png){ width="520" }
-  ![The TPU pad's settings](../assets/jaw_slicer2.png){ width="520" }
+  ![The TPU jaw in the slicer](../assets/jaw_slicer1.webp){ width="520" }
+  ![The TPU pad's settings](../assets/jaw_slicer2.webp){ width="520" }
   <figcaption>Figure 17: The TPU jaw: the PETG body and the TPU pad as separate prints, and the pad's settings.</figcaption>
 </figure>
 

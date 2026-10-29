@@ -7,7 +7,7 @@ grip force. The jaws stop on an object, hold it with that force, and the driver 
 A camera mount looks between the jaws, for teleoperation and for training vision-language-action models.
 
 <figure markdown="span">
-  ![The MSG gripper](../assets/MSG_banner.png){ width="900" }
+  ![The MSG gripper](../assets/MSG_banner.webp){ width="900" }
   <figcaption>Figure 1: The MSG gripper with the 150 mm rail and the camera mount.</figcaption>
 </figure>
 

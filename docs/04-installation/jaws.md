@@ -18,7 +18,7 @@ each file is one jaw, mirrored in the slicer for the other side.
 ## The TPU jaw
 
 <figure markdown="span">
-  ![TPU jaws](../assets/tpujaws.png){ width="700" }
+  ![TPU jaws](../assets/tpujaws.webp){ width="700" }
   <figcaption>Figure 13: The TPU jaw: a PETG body (orange) and a TPU pad (green).</figcaption>
 </figure>
 
@@ -27,7 +27,7 @@ two walls, for the softest pad. Then glue the pad to the body with ordinary supe
 pictures show: a pad glued the wrong way round leaves the jaws facing the wrong direction.
 
 <div class="grid" markdown>
-![Apply super glue](../assets/jaw_glue.png){ width="300" }
+![Apply super glue](../assets/jaw_glue.webp){ width="300" }
 ![Press the pad on](../assets/jaw_assembly.jpg){ width="300" }
 ![Check the orientation](../assets/jaw_orientation.jpg){ width="300" }
 </div>
