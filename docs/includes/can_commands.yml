@@ -1,0 +1,187 @@
+# The hand-written half of the CAN reference of the gripper: what each message is for, the byte layout of each
+# form, the Python call. The other half (the command IDs, the lengths the firmware accepts, the responses, the
+# frame lengths the driver sends) comes from the STEPFOC firmware at its release tag (generated/firmware_facts.json),
+# and the build fails when the two disagree. This file describes only the messages a gripper needs (partial: true);
+# the complete reference of the driver is on the STEPFOC site. Keys are the firmware's #define names. Bytes are
+# numbered from 0 = data[0]; multi-byte values are big-endian; bits are numbered from the most significant bit.
+
+partial: true
+
+groups:
+  gripper:
+    title: Gripper
+    page: gripper.md
+  system:
+    title: System
+    page: system.md
+  status:
+    title: Status requests
+    page: status.md
+
+commands:
+  # ------------------------------------------------------------ gripper
+  IN_GRIPPER_DATA_PACK:
+    name: Send_gripper_data_pack
+    group: gripper
+    python: Send_gripper_data_pack()
+    description: >
+      The gripper command, for a driver set up as a gripper (`#Gripper 1`, saved). Position, speed and the current
+      limit of the move, plus the activate, action and E-stop bits. A move is carried out only while the gripper is
+      calibrated, activated and the action bit is 1. An empty frame (0 bytes) only asks for the state.
+    forms:
+      - length: 5
+        fields:
+          - {bytes: "0", name: Position, type: unsigned 8-bit, meaning: "0 fully open, 255 fully closed"}
+          - {bytes: "1", name: Speed, type: unsigned 8-bit, meaning: "0 slowest, 255 fastest"}
+          - {bytes: "2-3", name: Current, type: signed 16-bit, meaning: "current limit of the move in mA, the grip force; not clamped by the firmware, keep it at or below the stepper's rated current (Force and speed)"}
+          - {bytes: "4", bit: 7, name: Activate, type: bit, meaning: "1 activate the gripper, 0 deactivate"}
+          - {bytes: "4", bit: 6, name: Action, type: bit, meaning: "1 go to the position, 0 idle", _shared: true}
+          - {bytes: "4", bit: 5, name: E-stop, type: bit, meaning: 1 raises the gripper E-stop error, _shared: true}
+          - {bytes: "4", bit: 4, name: Release direction, type: bit, meaning: read by the firmware but not used, _shared: true}
+  OUT_GRIPPER_DATA_PACK:
+    name: Respond_Gripper_data_pack
+    group: gripper
+    description: >
+      The driver's answer to Send_gripper_data_pack: position, measured current, and the state bits. Python
+      attributes `gripper_position`, `gripper_current`, `gripper_activated`, `gripper_action_status`,
+      `gripper_object_detection`, `gripper_temperature_error`, `gripper_timeout_error`, `gripper_estop_error`,
+      `gripper_calibrated`.
+    response_fields:
+      - {bytes: "0", name: gripper_position, type: unsigned 8-bit, meaning: "0 fully open, 255 fully closed"}
+      - {bytes: "1-2", name: gripper_current, type: signed 16-bit, meaning: measured current in mA}
+      - {bytes: "3", bit: 7, name: gripper_activated, type: bit, meaning: 1 activated}
+      - {bytes: "3", bit: 6, name: gripper_action_status, type: bit, meaning: "1 going to the position, 0 idle, auto-release or calibrating", _shared: true}
+      - {bytes: "3", bit: "5-4", name: gripper_object_detection, type: 2 bits, meaning: "bit 5 is the low bit, bit 4 the high bit: 0 moving, 1 object detected while closing, 2 object detected while opening, 3 at the position", _shared: true}
+      - {bytes: "3", bit: 3, name: gripper_temperature_error, type: bit, meaning: "", _shared: true}
+      - {bytes: "3", bit: 2, name: gripper_timeout_error, type: bit, meaning: "", _shared: true}
+      - {bytes: "3", bit: 1, name: gripper_estop_error, type: bit, meaning: "", _shared: true}
+      - {bytes: "3", bit: 0, name: gripper_calibrated, type: bit, meaning: 1 calibrated, _shared: true}
+  IN_GRIPPER_CALIB:
+    name: Send_gripper_calibrate
+    group: gripper
+    python: Send_gripper_calibrate()
+    description: Starts the gripper calibration (the jaws find their end stops). Needed after every power-up.
+  # ------------------------------------------------------------ system
+  IN_CAN_ID:
+    name: Send_CAN_ID
+    group: system
+    python: Send_CAN_ID()
+    description: >
+      Gives the driver a new node ID, 0 to 13 (the firmware accepts up to 15, but the bootloader reserves 14 and 15:
+      a driver on one of those cannot be updated over CAN). Setting the ID also sets the bootloader's board ID.
+      The driver answers to the new ID at once; the ID is kept over a power cycle only after Send_Save_config.
+    forms:
+      - length: 1
+        fields:
+          - {bytes: "0", name: ID, type: unsigned 8-bit, meaning: 0 to 15}
+  IN_ESTOP:
+    name: Send_ESTOP
+    group: system
+    python: Send_ESTOP()
+    description: Stops the motor and raises the E-stop error, which stays until Send_Clear_Error.
+  IN_IDLE:
+    name: Send_Idle
+    group: system
+    python: Send_Idle()
+    description: Puts the driver in idle mode (the motor coasts or brakes, see Send_Settings).
+  IN_SAVE_CONFIG:
+    name: Send_Save_config
+    group: system
+    python: Send_Save_config()
+    description: Writes the current configuration (gains, limits, calibration, CAN ID, heartbeat, watchdog, gripper flag) to the EEPROM.
+  IN_RESET:
+    name: Send_Reset
+    group: system
+    python: Send_Reset()
+    description: >
+      Resets the driver. From firmware 105 the reset lands in the bootloader, which waits 2 s for a flashing host
+      and then starts the firmware again; this is how a firmware update begins.
+  IN_CLEAR_ERROR:
+    name: Send_Clear_Error
+    group: system
+    python: Send_Clear_Error()
+    description: >
+      Clears the error flags and goes to idle. An error whose cause is still present comes straight back. A
+      calibration error is cleared only by calibrating.
+  IN_WATCHDOG_TIMEOUT:
+    name: Send_Watchdog
+    group: system
+    python: Send_Watchdog()
+    description: >
+      Sets the watchdog: every valid CAN frame the driver receives resets it; when the time runs out the driver
+      reports a watchdog error and stops. 0 turns it off (the default). The action byte is stored but not acted on
+      by this firmware: the driver always stops into its idle behaviour.
+    forms:
+      - length: 5
+        fields:
+          - {bytes: "0-3", name: Time, type: unsigned 32-bit, meaning: ms; 0 = off}
+          - {bytes: "4", name: Action, type: unsigned 8-bit, meaning: "0 idle, 1 hold, 2 brake (stored only)"}
+  HEARTBEAT_SETUP:
+    name: Send_Heartbeat_Setup
+    group: system
+    python: Send_Heartbeat_Setup()
+    description: Sets the heartbeat interval in ms; 0 turns the heartbeat off (the default). Kept by Send_Save_config.
+    forms:
+      - length: 4
+        fields:
+          - {bytes: "0-3", name: Interval, type: unsigned 32-bit, meaning: ms; 0 = off}
+  # ------------------------------------------------------------ status
+  OUT_IN_PING:
+    name: Send_Respond_Ping
+    group: status
+    python: Send_Respond_Ping()
+    description: Asks the driver to answer with an empty frame, to see that it is on the bus.
+    response_fields: []
+  OUT_IN_TEMPERATURE_CAN:
+    name: Send_Respond_Temperature
+    group: status
+    python: Send_Respond_Temperature()
+    description: Asks for the thermistor temperature. Meaningful only with the thermistor enabled (`#Term 1`).
+    response_fields:
+      - {bytes: "0-1", name: temperature, type: signed 16-bit, meaning: "°C"}
+  OUT_IN_VOLTAGE_CAN:
+    name: Send_Respond_Voltage
+    group: status
+    python: Send_Respond_Voltage()
+    description: Asks for the supply voltage.
+    response_fields:
+      - {bytes: "0-1", name: voltage, type: unsigned 16-bit, meaning: mV}
+  OUT_IN_DEVICE_INFO_CAN:
+    name: Send_Respond_Device_Info
+    group: status
+    python: Send_Respond_Device_Info()
+    description: >
+      Asks for the driver's identity: hardware version, batch date and serial number from the EEPROM, and the
+      firmware release (from firmware 105 on this is the build's own version; before, a value from the EEPROM).
+    response_fields:
+      - {bytes: "0", name: HARDWARE_VERSION, type: unsigned 8-bit, meaning: PCB revision}
+      - {bytes: "1", name: BATCH_DATE, type: unsigned 8-bit, meaning: production batch}
+      - {bytes: "2", name: SOFTWARE_VERSION, type: unsigned 8-bit, meaning: "firmware release, e.g. 108"}
+      - {bytes: "3-6", name: SERIAL_NUMBER, type: unsigned 32-bit, meaning: serial number}
+  OUT_IN_STATE_OF_ERRORS_CAN:
+    name: Send_Respond_State_of_Errors
+    group: status
+    python: Send_Respond_State_of_Errors()
+    description: Asks for every error flag and the calibrated, activated and watchdog states.
+    response_fields:
+      - {bytes: "0", bit: 7, name: error, type: bit, meaning: any error is active}
+      - {bytes: "0", bit: 6, name: temperature_error, type: bit, meaning: motor over the temperature limit, _shared: true}
+      - {bytes: "0", bit: 5, name: encoder_error, type: bit, meaning: magnet not detected or misaligned, _shared: true}
+      - {bytes: "0", bit: 4, name: vbus_error, type: bit, meaning: supply voltage outside the limits, _shared: true}
+      - {bytes: "0", bit: 3, name: driver_error, type: bit, meaning: "the MOSFET driver reports undervoltage, thermal shutdown or overcurrent", _shared: true}
+      - {bytes: "0", bit: 2, name: velocity_error, type: bit, meaning: speed over the limit, _shared: true}
+      - {bytes: "0", bit: 1, name: current_error, type: bit, meaning: reserved; never set by this firmware, _shared: true}
+      - {bytes: "0", bit: 0, name: estop_error, type: bit, meaning: Send_ESTOP was received, _shared: true}
+      - {bytes: "1", bit: 7, name: calibrated, type: bit, meaning: the motor is calibrated}
+      - {bytes: "1", bit: 6, name: activated, type: bit, meaning: the controller is activated, _shared: true}
+      - {bytes: "1", bit: 5, name: watchdog_error, type: bit, meaning: the watchdog ran out, _shared: true}
+  OUT_HEARTBEAT:
+    name: Respond_Heartbeat
+    group: status
+    description: >
+      The frame the driver sends on its own at the heartbeat interval (Send_Heartbeat_Setup); empty. Off by
+      default. Any other frame the driver sends resets the heartbeat timer, so a driver that answers motion commands
+      at a high rate never sends a heartbeat.
+    response_fields: []
+
+  # ------------------------------------------------------------ system

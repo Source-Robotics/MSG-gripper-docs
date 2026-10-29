@@ -1,0 +1,1967 @@
+{
+ "can": {
+  "handlers": {
+   "HEARTBEAT_SETUP": {
+    "empty": false,
+    "lengths": [
+     4
+    ],
+    "responds": []
+   },
+   "IN_CAN_ID": {
+    "empty": false,
+    "lengths": [
+     1
+    ],
+    "responds": []
+   },
+   "IN_CLEAR_ERROR": {
+    "empty": false,
+    "lengths": [],
+    "responds": []
+   },
+   "IN_DATA_PACK_1": {
+    "empty": false,
+    "lengths": [
+     2,
+     5,
+     8
+    ],
+    "responds": [
+     "Data_pack_1_CAN"
+    ]
+   },
+   "IN_DATA_PACK_2": {
+    "empty": true,
+    "lengths": [],
+    "responds": []
+   },
+   "IN_DATA_PACK_3": {
+    "empty": true,
+    "lengths": [],
+    "responds": []
+   },
+   "IN_DATA_PACK_PD": {
+    "empty": false,
+    "lengths": [
+     8
+    ],
+    "responds": [
+     "Data_pack_1_CAN"
+    ]
+   },
+   "IN_ESTOP": {
+    "empty": false,
+    "lengths": [],
+    "responds": []
+   },
+   "IN_GRIPPER_CALIB": {
+    "empty": false,
+    "lengths": [],
+    "responds": []
+   },
+   "IN_GRIPPER_DATA_PACK": {
+    "empty": false,
+    "lengths": [
+     5
+    ],
+    "responds": []
+   },
+   "IN_HALL_INDEX": {
+    "empty": false,
+    "lengths": [
+     4
+    ],
+    "responds": [
+     "HALL_data_pack"
+    ]
+   },
+   "IN_IDLE": {
+    "empty": false,
+    "lengths": [],
+    "responds": []
+   },
+   "IN_KIIQ_KPIQ": {
+    "empty": false,
+    "lengths": [
+     8
+    ],
+    "responds": []
+   },
+   "IN_KPP": {
+    "empty": false,
+    "lengths": [
+     4
+    ],
+    "responds": []
+   },
+   "IN_KPV_KIV": {
+    "empty": false,
+    "lengths": [
+     8
+    ],
+    "responds": []
+   },
+   "IN_KP_KD": {
+    "empty": false,
+    "lengths": [
+     8
+    ],
+    "responds": []
+   },
+   "IN_KT": {
+    "empty": false,
+    "lengths": [
+     4
+    ],
+    "responds": []
+   },
+   "IN_LIMITS": {
+    "empty": false,
+    "lengths": [
+     8
+    ],
+    "responds": []
+   },
+   "IN_RESET": {
+    "empty": false,
+    "lengths": [],
+    "responds": []
+   },
+   "IN_SAVE_CONFIG": {
+    "empty": false,
+    "lengths": [],
+    "responds": []
+   },
+   "IN_SETTINGS": {
+    "empty": false,
+    "lengths": [],
+    "responds": []
+   },
+   "IN_VLIM": {
+    "empty": false,
+    "lengths": [
+     4
+    ],
+    "responds": []
+   },
+   "IN_WATCHDOG_TIMEOUT": {
+    "empty": false,
+    "lengths": [
+     5
+    ],
+    "responds": []
+   },
+   "OUT_IN_DEVICE_INFO_CAN": {
+    "empty": false,
+    "lengths": [],
+    "responds": [
+     "Device_info_CAN"
+    ]
+   },
+   "OUT_IN_ENCODER": {
+    "empty": false,
+    "lengths": [],
+    "responds": [
+     "Encoder_data_CAN"
+    ]
+   },
+   "OUT_IN_IQ": {
+    "empty": false,
+    "lengths": [],
+    "responds": [
+     "Current_data_CAN"
+    ]
+   },
+   "OUT_IN_KT": {
+    "empty": false,
+    "lengths": [],
+    "responds": [
+     "KT_data_CAN"
+    ]
+   },
+   "OUT_IN_PING": {
+    "empty": false,
+    "lengths": [],
+    "responds": [
+     "Ping_response"
+    ]
+   },
+   "OUT_IN_STATE_OF_ERRORS_CAN": {
+    "empty": false,
+    "lengths": [],
+    "responds": [
+     "State_of_Errors_CAN"
+    ]
+   },
+   "OUT_IN_TEMPERATURE_CAN": {
+    "empty": false,
+    "lengths": [],
+    "responds": [
+     "Temperature_CAN"
+    ]
+   },
+   "OUT_IN_VOLTAGE_CAN": {
+    "empty": false,
+    "lengths": [],
+    "responds": [
+     "Voltage_CAN"
+    ]
+   }
+  },
+  "ids": [
+   {
+    "comment": "",
+    "id": 9,
+    "name": "OUT_HEARTBEAT"
+   },
+   {
+    "comment": "",
+    "id": 3,
+    "name": "OUT_DATA_PACK_1"
+   },
+   {
+    "comment": "",
+    "id": 5,
+    "name": "OUT_DATA_PACK_2"
+   },
+   {
+    "comment": "",
+    "id": 7,
+    "name": "OUT_DATA_PACK_3"
+   },
+   {
+    "comment": "Response to IN_HALL_INDEX",
+    "id": 32,
+    "name": "OUT_DATA_HALL"
+   },
+   {
+    "comment": "",
+    "id": 23,
+    "name": "OUT_IN_TEMPERATURE_CAN"
+   },
+   {
+    "comment": "",
+    "id": 24,
+    "name": "OUT_IN_VOLTAGE_CAN"
+   },
+   {
+    "comment": "",
+    "id": 25,
+    "name": "OUT_IN_DEVICE_INFO_CAN"
+   },
+   {
+    "comment": "",
+    "id": 26,
+    "name": "OUT_IN_STATE_OF_ERRORS_CAN"
+   },
+   {
+    "comment": "",
+    "id": 27,
+    "name": "OUT_IN_IQ"
+   },
+   {
+    "comment": "",
+    "id": 28,
+    "name": "OUT_IN_ENCODER"
+   },
+   {
+    "comment": "",
+    "id": 10,
+    "name": "OUT_IN_PING"
+   },
+   {
+    "comment": "",
+    "id": 33,
+    "name": "OUT_IN_KT"
+   },
+   {
+    "comment": "",
+    "id": 11,
+    "name": "IN_CAN_ID"
+   },
+   {
+    "comment": "",
+    "id": 0,
+    "name": "IN_ESTOP"
+   },
+   {
+    "comment": "",
+    "id": 12,
+    "name": "IN_IDLE"
+   },
+   {
+    "comment": "",
+    "id": 13,
+    "name": "IN_SAVE_CONFIG"
+   },
+   {
+    "comment": "",
+    "id": 14,
+    "name": "IN_RESET"
+   },
+   {
+    "comment": "",
+    "id": 1,
+    "name": "IN_CLEAR_ERROR"
+   },
+   {
+    "comment": "",
+    "id": 15,
+    "name": "IN_WATCHDOG_TIMEOUT"
+   },
+   {
+    "comment": "",
+    "id": 30,
+    "name": "HEARTBEAT_SETUP"
+   },
+   {
+    "comment": "",
+    "id": 29,
+    "name": "IN_CYCLIC"
+   },
+   {
+    "comment": "",
+    "id": 16,
+    "name": "IN_KP_KD"
+   },
+   {
+    "comment": "",
+    "id": 17,
+    "name": "IN_KIIQ_KPIQ"
+   },
+   {
+    "comment": "",
+    "id": 18,
+    "name": "IN_KPV_KIV"
+   },
+   {
+    "comment": "",
+    "id": 19,
+    "name": "IN_KPP"
+   },
+   {
+    "comment": "",
+    "id": 20,
+    "name": "IN_LIMITS"
+   },
+   {
+    "comment": "",
+    "id": 21,
+    "name": "IN_IQ"
+   },
+   {
+    "comment": "",
+    "id": 22,
+    "name": "IN_KT"
+   },
+   {
+    "comment": "PID voltage limit (PID.Voltage_limit)",
+    "id": 34,
+    "name": "IN_VLIM"
+   },
+   {
+    "comment": "",
+    "id": 35,
+    "name": "IN_SETTINGS"
+   },
+   {
+    "comment": "",
+    "id": 2,
+    "name": "IN_DATA_PACK_1"
+   },
+   {
+    "comment": "",
+    "id": 6,
+    "name": "IN_DATA_PACK_2"
+   },
+   {
+    "comment": "",
+    "id": 8,
+    "name": "IN_DATA_PACK_3"
+   },
+   {
+    "comment": "",
+    "id": 4,
+    "name": "IN_DATA_PACK_PD"
+   },
+   {
+    "comment": "",
+    "id": 31,
+    "name": "IN_HALL_INDEX"
+   },
+   {
+    "comment": "",
+    "id": 60,
+    "name": "OUT_GRIPPER_DATA_PACK"
+   },
+   {
+    "comment": "",
+    "id": 61,
+    "name": "IN_GRIPPER_DATA_PACK"
+   },
+   {
+    "comment": "",
+    "id": 62,
+    "name": "IN_GRIPPER_CALIB"
+   }
+  ],
+  "tx": {
+   "Current_data_CAN": {
+    "id_define": "OUT_IN_IQ",
+    "len": 2
+   },
+   "Data_pack_1_CAN": {
+    "id_define": "OUT_DATA_PACK_1",
+    "len": 8
+   },
+   "Data_pack_2_CAN": {
+    "id_define": "OUT_DATA_PACK_2",
+    "len": 0
+   },
+   "Data_pack_3_CAN": {
+    "id_define": "OUT_DATA_PACK_3",
+    "len": 0
+   },
+   "Device_info_CAN": {
+    "id_define": "OUT_IN_DEVICE_INFO_CAN",
+    "len": 7
+   },
+   "Encoder_data_CAN": {
+    "id_define": "OUT_IN_ENCODER",
+    "len": 8
+   },
+   "Gripper_pack_data": {
+    "id_define": "OUT_GRIPPER_DATA_PACK",
+    "len": 4
+   },
+   "HALL_data_pack": {
+    "id_define": "OUT_DATA_HALL",
+    "len": 4
+   },
+   "Heartbeat_CAN": {
+    "id_define": "OUT_HEARTBEAT",
+    "len": 0
+   },
+   "KT_data_CAN": {
+    "id_define": "OUT_IN_KT",
+    "len": 4
+   },
+   "Ping_response": {
+    "id_define": "OUT_IN_PING",
+    "len": 0
+   },
+   "State_of_Errors_CAN": {
+    "id_define": "OUT_IN_STATE_OF_ERRORS_CAN",
+    "len": 2
+   },
+   "Temperature_CAN": {
+    "id_define": "OUT_IN_TEMPERATURE_CAN",
+    "len": 2
+   },
+   "Voltage_CAN": {
+    "id_define": "OUT_IN_VOLTAGE_CAN",
+    "len": 2
+   }
+  }
+ },
+ "commit": "46b4911dd8f7",
+ "defaults": [
+  {
+   "comment": "",
+   "name": "SERIAL_NUMBER",
+   "value": "1"
+  },
+  {
+   "comment": "Version of the Spectral BLDC driver PCB",
+   "name": "HARDWARE_VERSION",
+   "value": "1"
+  },
+  {
+   "comment": "Date the batch was produced",
+   "name": "BATCH_DATE",
+   "value": "1"
+  },
+  {
+   "comment": "Software release",
+   "name": "SOFTWARE_VERSION",
+   "value": "1"
+  },
+  {
+   "comment": "Is motor controller gripper (1) or not (0)",
+   "name": "I_AM_GRIPPER",
+   "value": "1"
+  },
+  {
+   "comment": "Use LED for status indication",
+   "name": "LED_ON_OFF",
+   "value": "1"
+  },
+  {
+   "comment": "Ticks of our interrupt routine",
+   "name": "interrupt_tick",
+   "value": "0"
+  },
+  {
+   "comment": "Temperature in degrees celsius",
+   "name": "TEMP_DEG",
+   "value": "23"
+  },
+  {
+   "comment": "will be determined at calibration",
+   "name": "theta_offset",
+   "value": "0.0f"
+  },
+  {
+   "comment": "Number of pole pairs of your Stepper motor",
+   "name": "pole_pairs",
+   "value": "50"
+  },
+  {
+   "comment": "default 200 HZ; Will set PI gains for Q and D current loops based on phase resistance",
+   "name": "current_control_bandwidth",
+   "value": "500"
+  },
+  {
+   "comment": "",
+   "name": "sleep_pin_state",
+   "value": "0"
+  },
+  {
+   "comment": "",
+   "name": "reset_pin_state",
+   "value": "0"
+  },
+  {
+   "comment": "Crossover frequency, in Radians per sample",
+   "name": "Crossover_frequency",
+   "value": "0.0"
+  },
+  {
+   "comment": "When looking at the magnetic encoder counter-clockwise is POSITIVE rotation.",
+   "name": "DIR_",
+   "value": "1"
+  },
+  {
+   "comment": "",
+   "name": "Phase_order",
+   "value": "2"
+  },
+  {
+   "comment": "+1 or -1, auto-detected at calibration so +Iq/+velocity/+rotation map to +encoder rotation",
+   "name": "commutation_dir",
+   "value": "1"
+  },
+  {
+   "comment": "Are we taking termistor mesurements? 0 is off, 1 is on",
+   "name": "Thermistor_on_off",
+   "value": "0"
+  },
+  {
+   "comment": "0 -> idle, 1 -> Positon, 2 -> Speed, 3 -> Current, 4 -> PD, 5 -> Open-loop speed, 6 -> Voltage Torque mode",
+   "name": "Controller_mode",
+   "value": "0"
+  },
+  {
+   "comment": "Resistance of SINGLE PHASE of your BLDC motor",
+   "name": "Resistance",
+   "value": "0"
+  },
+  {
+   "comment": "= 2 * Resistance + 2 * R_sense + 2 *Rdson",
+   "name": "Total_Resistance",
+   "value": "0"
+  },
+  {
+   "comment": "Inductance of SINGLE PHASE of your BLDC motor",
+   "name": "Inductance",
+   "value": "0"
+  },
+  {
+   "comment": "Torque constant of your BLDC motor",
+   "name": "Kt",
+   "value": "0"
+  },
+  {
+   "comment": "Flux linkage of your BLDC motor",
+   "name": "flux_linkage",
+   "value": "0"
+  },
+  {
+   "comment": "",
+   "name": "KV",
+   "value": "0"
+  },
+  {
+   "comment": "Max temperature in degrees",
+   "name": "Max_temperature",
+   "value": "75"
+  },
+  {
+   "comment": "Min temperature in degrees",
+   "name": "Min_temperature",
+   "value": "-20"
+  },
+  {
+   "comment": "Max vbus voltage in mV",
+   "name": "Max_Vbus",
+   "value": "29500"
+  },
+  {
+   "comment": "Min vbus voltage in mV",
+   "name": "Min_Vbus",
+   "value": "9000"
+  },
+  {
+   "comment": "Execution time of our interrupt loops",
+   "name": "execution_time",
+   "value": "0"
+  },
+  {
+   "comment": "",
+   "name": "watchdog_time_ms",
+   "value": "0"
+  },
+  {
+   "comment": "",
+   "name": "watchdog_reset",
+   "value": "1"
+  },
+  {
+   "comment": "Hold position, Idle, brake",
+   "name": "watchdog_action",
+   "value": "0"
+  },
+  {
+   "comment": "Motor controller will send data every Heartbeat_rate_ms",
+   "name": "Heartbeat_rate_ms",
+   "value": "0"
+  },
+  {
+   "comment": "",
+   "name": "Send_heartbeat",
+   "value": "0"
+  },
+  {
+   "comment": "If controller is activated or not",
+   "name": "Activated",
+   "value": "0"
+  },
+  {
+   "comment": "General error",
+   "name": "Error",
+   "value": "0"
+  },
+  {
+   "comment": "Termistor reported error",
+   "name": "temperature_error",
+   "value": "0"
+  },
+  {
+   "comment": "Encoder magnet is not alligned error",
+   "name": "encoder_error",
+   "value": "0"
+  },
+  {
+   "comment": "Vbus voltage is too small or too large",
+   "name": "Vbus_error",
+   "value": "0"
+  },
+  {
+   "comment": "Driver reported error. 3 possible conditions: Undervoltage, thermal shutdown, overcurrent",
+   "name": "Driver_error",
+   "value": "0"
+  },
+  {
+   "comment": "We are moving too fast",
+   "name": "Velocity_error",
+   "value": "0"
+  },
+  {
+   "comment": "We go past max current",
+   "name": "Current_error",
+   "value": "0"
+  },
+  {
+   "comment": "If we received estop command",
+   "name": "ESTOP_error",
+   "value": "0"
+  },
+  {
+   "comment": "If we pass watchdog timeout time",
+   "name": "Watchdog_error",
+   "value": "0"
+  },
+  {
+   "comment": "0 is space vector, 1 is sine",
+   "name": "commutation",
+   "value": "0"
+  },
+  {
+   "comment": "0 - outside of calibration, 1 inside of calibration, 2 failed calibration, 3 success calibration",
+   "name": "Calibration",
+   "value": "0"
+  },
+  {
+   "comment": "0 if motor is not calibrated, 1 if it is calibrated",
+   "name": "Calibrated",
+   "value": "1"
+  },
+  {
+   "comment": "Voltage used to calculate resistance //1000",
+   "name": "Resistance_calc_voltage",
+   "value": "1000"
+  },
+  {
+   "comment": "Max power that can dissipate during inductance test.",
+   "name": "Calibration_power",
+   "value": "12"
+  },
+  {
+   "comment": "Calculated from Calibration power and resistance",
+   "name": "Calibration_Inductance_voltage",
+   "value": "0"
+  },
+  {
+   "comment": "Voltage to use when spinning the motor open loop. In mV",
+   "name": "Open_loop_voltage",
+   "value": "5000"
+  },
+  {
+   "comment": "Speed to be used when spinning the motor open loop. In RAD/s",
+   "name": "Open_loop_speed",
+   "value": "20.0"
+  },
+  {
+   "comment": "Number of open loop electrical rotations during calibration",
+   "name": "Number_of_rotations",
+   "value": "8"
+  },
+  {
+   "comment": "Max voltage to be used during Kv calculation",
+   "name": "Phase_voltage",
+   "value": "5000"
+  },
+  {
+   "comment": "",
+   "name": "Calib_error",
+   "value": "0"
+  },
+  {
+   "comment": "",
+   "name": "PP_status",
+   "value": "0"
+  },
+  {
+   "comment": "",
+   "name": "Magnet_cal_status",
+   "value": "0"
+  },
+  {
+   "comment": "",
+   "name": "Vbus_cal_status",
+   "value": "0"
+  },
+  {
+   "comment": "",
+   "name": "Resistance_cal_status",
+   "value": "0"
+  },
+  {
+   "comment": "",
+   "name": "Inductance_cal_status",
+   "value": "0"
+  },
+  {
+   "comment": "",
+   "name": "Open_loop_cal_status",
+   "value": "0"
+  },
+  {
+   "comment": "",
+   "name": "Kt_cal_status",
+   "value": "0"
+  },
+  {
+   "comment": "",
+   "name": "Phase_order_status",
+   "value": "0"
+  },
+  {
+   "comment": "",
+   "name": "KV_status",
+   "value": "0"
+  },
+  {
+   "comment": "diagnostic: last \"confirm commutation\" spin delta (ticks), on failure",
+   "name": "Spin_confirm_delta",
+   "value": "0"
+  },
+  {
+   "comment": "diagnostic: VBUS_mV sampled at that same failure",
+   "name": "Spin_confirm_vbus_mV",
+   "value": "0"
+  },
+  {
+   "comment": "If 1 we Periodically send messages without request from host.",
+   "name": "cyclic",
+   "value": "0"
+  },
+  {
+   "comment": "If 1 we Periodically send messages without request from host.",
+   "name": "cyclic_a",
+   "value": "0"
+  },
+  {
+   "comment": "We send messages every cyclic_period",
+   "name": "cyclic_period",
+   "value": "0"
+  },
+  {
+   "comment": "CAN id of THIS motor driver! No 2 motor drivers can share the same ID.",
+   "name": "CAN_ID",
+   "value": "0"
+  },
+  {
+   "comment": "",
+   "name": "Wrong_DL",
+   "value": "0"
+  },
+  {
+   "comment": "Set if CAN peripheral failed to initialize; CAN bus is skipped, UART stays usable",
+   "name": "CAN_init_error",
+   "value": "0"
+  },
+  {
+   "comment": "",
+   "name": "temp",
+   "value": "0"
+  },
+  {
+   "comment": "",
+   "name": "temp1",
+   "value": "0"
+  },
+  {
+   "comment": "",
+   "name": "temp2",
+   "value": "0"
+  },
+  {
+   "comment": "",
+   "name": "handle_can",
+   "value": "0"
+  },
+  {
+   "comment": "1 is brake 0 is coast",
+   "name": "brake_coast",
+   "value": "1"
+  },
+  {
+   "comment": "",
+   "name": "additional1_var",
+   "value": "0"
+  },
+  {
+   "comment": "",
+   "name": "additional2_var",
+   "value": "0"
+  },
+  {
+   "comment": "used to record if hall sensor was triggered or not, normal state of hall is high (1)",
+   "name": "hall_trigger",
+   "value": "1"
+  },
+  {
+   "comment": "0=low level, 1=high level, 2=any edge",
+   "name": "trigger_value",
+   "value": "0"
+  },
+  {
+   "comment": "output: set to 1 when edge is detected",
+   "name": "hall_index",
+   "value": "0"
+  },
+  {
+   "comment": "previous Hall reading, for edge detection",
+   "name": "additional2_var_prev",
+   "value": "0"
+  },
+  {
+   "comment": "flag to snapshot prev on first call after (re-)arming edge mode",
+   "name": "hall_edge_needs_init",
+   "value": "1"
+  },
+  {
+   "comment": "",
+   "name": "calibration_offset_current",
+   "value": "500"
+  },
+  {
+   "comment": "",
+   "name": "temp_var_offset_calib",
+   "value": "0"
+  },
+  {
+   "comment": "",
+   "name": "align_state",
+   "value": "0"
+  },
+  {
+   "comment": "",
+   "name": "align_counter",
+   "value": "0"
+  },
+  {
+   "comment": "",
+   "name": "aligned_angle",
+   "value": "0"
+  },
+  {
+   "comment": "",
+   "name": "align_done",
+   "value": "false"
+  },
+  {
+   "comment": "",
+   "name": "calib_done",
+   "value": "false"
+  },
+  {
+   "comment": "",
+   "name": "calib_reset",
+   "value": "false"
+  },
+  {
+   "comment": "",
+   "name": "Velocity_fwd",
+   "value": "0"
+  },
+  {
+   "comment": "",
+   "name": "Velocity_bwd",
+   "value": "0"
+  },
+  {
+   "comment": "",
+   "name": "Align_stage",
+   "value": "0"
+  },
+  {
+   "comment": "",
+   "name": "Align_point",
+   "value": "0"
+  },
+  {
+   "comment": "",
+   "name": "microstep",
+   "value": "16"
+  },
+  {
+   "comment": "",
+   "name": "gosteps",
+   "value": "0"
+  },
+  {
+   "comment": "step interval in microseconds",
+   "name": "step_interval",
+   "value": "1000"
+  },
+  {
+   "comment": "1 = finished, cleared by user",
+   "name": "open_loop_move_done",
+   "value": "0"
+  },
+  {
+   "comment": "Voltage limit for Ud and Uq voltages. If 0 value of controller.VBUS_mV will be used",
+   "name": "Voltage_limit",
+   "value": "6000"
+  },
+  {
+   "comment": "",
+   "name": "Reset_integral_accumulator",
+   "value": "0"
+  },
+  {
+   "comment": "",
+   "name": "Kp_p",
+   "value": "5"
+  },
+  {
+   "comment": "",
+   "name": "Position_setpoint",
+   "value": "0"
+  },
+  {
+   "comment": "",
+   "name": "P_errSum",
+   "value": "0"
+  },
+  {
+   "comment": "basic values that work for most motors but not optimal",
+   "name": "Kp_v",
+   "value": "0.007"
+  },
+  {
+   "comment": "basic values that work for most motors but not optimal",
+   "name": "Ki_v",
+   "value": "0.0005"
+  },
+  {
+   "comment": "",
+   "name": "V_errSum",
+   "value": "0"
+  },
+  {
+   "comment": "",
+   "name": "Feedforward_speed",
+   "value": "0"
+  },
+  {
+   "comment": "-1.5",
+   "name": "Velocity_setpoint",
+   "value": "0"
+  },
+  {
+   "comment": "Clamp integrals to this  [TICKS/s]",
+   "name": "Velocity_limit",
+   "value": "800000"
+  },
+  {
+   "comment": "[TICKS/s] ; Velocity when we will report error / For stepper speed runout is around 250 nfo000",
+   "name": "Velocity_limit_error",
+   "value": "30000000"
+  },
+  {
+   "comment": "zero location",
+   "name": "Ki",
+   "value": "0"
+  },
+  {
+   "comment": "motor1",
+   "name": "Kp_id",
+   "value": "7"
+  },
+  {
+   "comment": "motor1",
+   "name": "Ki_id",
+   "value": "3"
+  },
+  {
+   "comment": "",
+   "name": "Id_setpoint",
+   "value": "0"
+  },
+  {
+   "comment": "motor1",
+   "name": "Kp_iq",
+   "value": "3"
+  },
+  {
+   "comment": "motor1",
+   "name": "Ki_iq",
+   "value": "0.3"
+  },
+  {
+   "comment": "",
+   "name": "Iq_current_limit",
+   "value": "1700"
+  },
+  {
+   "comment": "",
+   "name": "Id_current_limit",
+   "value": "0"
+  },
+  {
+   "comment": "",
+   "name": "Feedforward_current",
+   "value": "0"
+  },
+  {
+   "comment": "[Nm*s/rad]",
+   "name": "KD",
+   "value": "0.0028"
+  },
+  {
+   "comment": "[Nm/rad]",
+   "name": "KP",
+   "value": "0.1400"
+  },
+  {
+   "comment": "",
+   "name": "Uq_setpoint",
+   "value": "0"
+  },
+  {
+   "comment": "",
+   "name": "Ud_setpoint",
+   "value": "0"
+  },
+  {
+   "comment": "",
+   "name": "Same_command",
+   "value": "0"
+  },
+  {
+   "comment": "",
+   "name": "At_position",
+   "value": "0"
+  },
+  {
+   "comment": "",
+   "name": "position_setpoint",
+   "value": "0"
+  },
+  {
+   "comment": "",
+   "name": "speed_setpoint",
+   "value": "50"
+  },
+  {
+   "comment": "",
+   "name": "current_setpoint",
+   "value": "400"
+  },
+  {
+   "comment": "",
+   "name": "position",
+   "value": "0"
+  },
+  {
+   "comment": "",
+   "name": "speed",
+   "value": "0"
+  },
+  {
+   "comment": "",
+   "name": "current",
+   "value": "0"
+  },
+  {
+   "comment": "",
+   "name": "calibrated",
+   "value": "0"
+  },
+  {
+   "comment": "-0 Stopped(or performing activation /automatic release).",
+   "name": "action_status",
+   "value": "0"
+  },
+  {
+   "comment": "",
+   "name": "activated",
+   "value": "0"
+  },
+  {
+   "comment": "",
+   "name": "object_detection_status",
+   "value": "3"
+  },
+  {
+   "comment": "",
+   "name": "temperature_error",
+   "value": "0"
+  },
+  {
+   "comment": "",
+   "name": "timeout_error",
+   "value": "0"
+  },
+  {
+   "comment": "",
+   "name": "estop_error",
+   "value": "0"
+  },
+  {
+   "comment": "",
+   "name": "release_direction",
+   "value": "0"
+  },
+  {
+   "comment": "",
+   "name": "estop_status",
+   "value": "0"
+  },
+  {
+   "comment": "",
+   "name": "max_open_position",
+   "value": "10329"
+  },
+  {
+   "comment": "",
+   "name": "max_closed_position",
+   "value": "-229"
+  },
+  {
+   "comment": "",
+   "name": "position_ticks",
+   "value": "0"
+  },
+  {
+   "comment": "",
+   "name": "max_speed",
+   "value": "60000"
+  },
+  {
+   "comment": "",
+   "name": "min_speed",
+   "value": "500"
+  },
+  {
+   "comment": "",
+   "name": "In_calibration",
+   "value": "0"
+  }
+ ],
+ "tag": "V108",
+ "uart": {
+  "accepted": [
+   "Iq",
+   "Id",
+   "Uq",
+   "Ud",
+   "V",
+   "Vlim",
+   "P",
+   "PD",
+   "Kpp",
+   "Kpv",
+   "Kpiq",
+   "Kpid",
+   "Kiv",
+   "Kiiq",
+   "Kiid",
+   "KP",
+   "KD",
+   "PDV",
+   "PDI",
+   "R",
+   "L",
+   "Kt",
+   "KV",
+   "flux",
+   "zz",
+   "Cal",
+   "Save",
+   "Reset",
+   "Ilim",
+   "Dir",
+   "Temp",
+   "Magnet",
+   "Term",
+   "Mode",
+   "Vbus",
+   "Vmin",
+   "Vmax",
+   "Error",
+   "Clear",
+   "Default",
+   "SIN",
+   "SPWM",
+   "Iabc",
+   "Close",
+   "Cbw",
+   "Resv",
+   "Calpwr",
+   "Openv",
+   "Opens",
+   "Vp",
+   "Calibrated",
+   "Param",
+   "PP",
+   "Openloop",
+   "LED",
+   "Cyc",
+   "Cyca",
+   "CANID",
+   "SERNUM",
+   "Info",
+   "Help",
+   "Vlimit",
+   "Phase",
+   "Activate",
+   "Gripper",
+   "Gripcal",
+   "Grippos",
+   "Gripvel",
+   "Gripcur",
+   "Gripact",
+   "Gripstop",
+   "Gripinfo",
+   "Rstint",
+   "Pullconfig",
+   "Tlim",
+   "Brake",
+   "HALL",
+   "Coast",
+   "Calangle",
+   "Offset",
+   "Iqoffset",
+   "microstep",
+   "stepinterval",
+   "gosteps",
+   "Idle",
+   "EN",
+   "PWM"
+  ],
+  "handlers": [
+   {
+    "arg": "float",
+    "comment": "Set Iq setpoint Switches actuator to current control mode",
+    "kind": "Set/Get",
+    "mode": "current",
+    "name": "Iq",
+    "response": "Iq"
+   },
+   {
+    "arg": "float",
+    "comment": "Set Id setpoint",
+    "kind": "Set/Get",
+    "mode": "",
+    "name": "Id",
+    "response": "Id"
+   },
+   {
+    "arg": "int",
+    "comment": "Set Velocity setpoint Switches actuator to velocity mode",
+    "kind": "Set/Get",
+    "mode": "velocity",
+    "name": "V",
+    "response": "V"
+   },
+   {
+    "arg": "int",
+    "comment": "Go to voltage torque mode Sets/ gets Uq setpoint",
+    "kind": "Set/Get",
+    "mode": "voltage torque",
+    "name": "Uq",
+    "response": "Uq"
+   },
+   {
+    "arg": "int",
+    "comment": "Set Ud voltage setpoint Does not place motor in the voltage torque mode",
+    "kind": "Set/Get",
+    "mode": "voltage torque",
+    "name": "Ud",
+    "response": "Ud"
+   },
+   {
+    "arg": "int",
+    "comment": "Get/Set clamp velocity integrator to this value v",
+    "kind": "Set/Get",
+    "mode": "",
+    "name": "Vlimit",
+    "response": "Vlimit"
+   },
+   {
+    "arg": "",
+    "comment": "Set Brake",
+    "kind": "Action",
+    "mode": "idle",
+    "name": "Brake",
+    "response": "Brake"
+   },
+   {
+    "arg": "",
+    "comment": "Set HALL mode",
+    "kind": "Action",
+    "mode": "HALL",
+    "name": "HALL",
+    "response": "HALL"
+   },
+   {
+    "arg": "",
+    "comment": "Set Coast",
+    "kind": "Action",
+    "mode": "idle",
+    "name": "Coast",
+    "response": "Coast"
+   },
+   {
+    "arg": "int",
+    "comment": "Get/Set PID voltage limit",
+    "kind": "Set/Get",
+    "mode": "",
+    "name": "Vlim",
+    "response": "Vlim"
+   },
+   {
+    "arg": "int",
+    "comment": "Set Position setpoint Switches actuator to position mode",
+    "kind": "Set/Get",
+    "mode": "position",
+    "name": "P",
+    "response": "P"
+   },
+   {
+    "arg": "int",
+    "comment": "Switches actuator to PD mode and sets/gets position setpoint",
+    "kind": "Set/Get",
+    "mode": "PD",
+    "name": "PD",
+    "response": "PD"
+   },
+   {
+    "arg": "int",
+    "comment": "Set get velocity setpoint when in PD mode",
+    "kind": "Set/Get",
+    "mode": "",
+    "name": "PDV",
+    "response": "PDV"
+   },
+   {
+    "arg": "int",
+    "comment": "Set get Current setpoint when in PD mode",
+    "kind": "Set/Get",
+    "mode": "",
+    "name": "PDI",
+    "response": "PDI"
+   },
+   {
+    "arg": "float",
+    "comment": "Set/Get Kpp (Position loop Kp gain)",
+    "kind": "Set/Get",
+    "mode": "",
+    "name": "Kpp",
+    "response": "Kpp"
+   },
+   {
+    "arg": "float",
+    "comment": "Set/Get KP (PD loop)",
+    "kind": "Set/Get",
+    "mode": "",
+    "name": "KP",
+    "response": "KP"
+   },
+   {
+    "arg": "float",
+    "comment": "Set/Get KD (PD loop)",
+    "kind": "Set/Get",
+    "mode": "",
+    "name": "KD",
+    "response": "KD"
+   },
+   {
+    "arg": "float",
+    "comment": "Set/Get Kpv (Velocity loop Kp gain)",
+    "kind": "Set/Get",
+    "mode": "",
+    "name": "Kpv",
+    "response": "Kpv"
+   },
+   {
+    "arg": "float",
+    "comment": "Set/Get Kpiq (Iq current loop Kp gain) It will also set Kpid",
+    "kind": "Set/Get",
+    "mode": "",
+    "name": "Kpiq",
+    "response": "Kpiq"
+   },
+   {
+    "arg": "float",
+    "comment": "Set/Get Kpid (Id current loop Kp gain)",
+    "kind": "Set/Get",
+    "mode": "",
+    "name": "Kpid",
+    "response": "Kpid"
+   },
+   {
+    "arg": "float",
+    "comment": "Set/Get Kpiv (Velocity loop integrator gain)",
+    "kind": "Set/Get",
+    "mode": "",
+    "name": "Kiv",
+    "response": "Kiv"
+   },
+   {
+    "arg": "float",
+    "comment": "Set/Get Kiiq (Iq loop integrator gain) It will also set Kiid",
+    "kind": "Set/Get",
+    "mode": "",
+    "name": "Kiiq",
+    "response": "Kiiq"
+   },
+   {
+    "arg": "float",
+    "comment": "Set/Get Kiid (Id loop integrator gain)",
+    "kind": "Set/Get",
+    "mode": "",
+    "name": "Kiid",
+    "response": "Kiid"
+   },
+   {
+    "arg": "float",
+    "comment": "Set/Get Resistance",
+    "kind": "Set/Get",
+    "mode": "",
+    "name": "R",
+    "response": "R"
+   },
+   {
+    "arg": "float",
+    "comment": "Set/Get Inductance",
+    "kind": "Set/Get",
+    "mode": "",
+    "name": "L",
+    "response": "L"
+   },
+   {
+    "arg": "float",
+    "comment": "Set/Get Kt (Torque constant)",
+    "kind": "Set/Get",
+    "mode": "",
+    "name": "Kt",
+    "response": "Kt"
+   },
+   {
+    "arg": "float",
+    "comment": "Set/Get KV (motor velocity constant)",
+    "kind": "Set/Get",
+    "mode": "",
+    "name": "KV",
+    "response": "KV"
+   },
+   {
+    "arg": "int",
+    "comment": "Set/Get Max motor voltage",
+    "kind": "Set/Get",
+    "mode": "",
+    "name": "Vmax",
+    "response": "Vmax in mV:"
+   },
+   {
+    "arg": "float",
+    "comment": "Set/Get Flux linkage",
+    "kind": "Set/Get",
+    "mode": "",
+    "name": "Flux",
+    "response": "Flux"
+   },
+   {
+    "arg": "",
+    "comment": "Go to idle state",
+    "kind": "Action",
+    "mode": "idle",
+    "name": "Idle",
+    "response": "Idle"
+   },
+   {
+    "arg": "",
+    "comment": "Enter calibration mode",
+    "kind": "Action",
+    "mode": "",
+    "name": "Cal",
+    "response": ""
+   },
+   {
+    "arg": "",
+    "comment": "Enter calibration mode fro angle offset",
+    "kind": "Action",
+    "mode": "angle-offset calibration",
+    "name": "Calangle",
+    "response": "Idle"
+   },
+   {
+    "arg": "float",
+    "comment": "set get theta_offset",
+    "kind": "Set/Get",
+    "mode": "",
+    "name": "Offset",
+    "response": "Offset"
+   },
+   {
+    "arg": "int",
+    "comment": "set get Iqoffset that will be used to search angle offset",
+    "kind": "Set/Get",
+    "mode": "",
+    "name": "Iqoffset",
+    "response": "Iq Offset current:"
+   },
+   {
+    "arg": "",
+    "comment": "Check position sensor magnet warrning",
+    "kind": "Get",
+    "mode": "",
+    "name": "Magnet",
+    "response": "Magnet"
+   },
+   {
+    "arg": "",
+    "comment": "Save config",
+    "kind": "Action",
+    "mode": "",
+    "name": "Save",
+    "response": "Save"
+   },
+   {
+    "arg": "",
+    "comment": "Reset MCU",
+    "kind": "Action",
+    "mode": "",
+    "name": "Reset",
+    "response": ""
+   },
+   {
+    "arg": "int",
+    "comment": "Set Iq current limit If bigger than what driver FETS are capable; clamp it",
+    "kind": "Set/Get",
+    "mode": "",
+    "name": "Ilim",
+    "response": "Ilim"
+   },
+   {
+    "arg": "int",
+    "comment": "Set new max temperature limit",
+    "kind": "Set/Get",
+    "mode": "",
+    "name": "Tlim",
+    "response": "Temp limit"
+   },
+   {
+    "arg": "int",
+    "comment": "Set/Get Dir",
+    "kind": "Set/Get",
+    "mode": "",
+    "name": "Dir",
+    "response": "Dir"
+   },
+   {
+    "arg": "",
+    "comment": "Get phase order",
+    "kind": "Get",
+    "mode": "",
+    "name": "Phase",
+    "response": "Phase order is:"
+   },
+   {
+    "arg": "",
+    "comment": "Load default config to EEPROM",
+    "kind": "Action",
+    "mode": "",
+    "name": "Default",
+    "response": "Loaded default config!"
+   },
+   {
+    "arg": "",
+    "comment": "Get termistor temperature in degrees",
+    "kind": "Get",
+    "mode": "",
+    "name": "Temp",
+    "response": "Temp"
+   },
+   {
+    "arg": "int",
+    "comment": "Enable/disable termistor mesurement 0 is off, 1 is on",
+    "kind": "Set/Get",
+    "mode": "",
+    "name": "Term",
+    "response": "Term"
+   },
+   {
+    "arg": "",
+    "comment": "Print controller mode",
+    "kind": "Get",
+    "mode": "",
+    "name": "Mode",
+    "response": "Idle mode"
+   },
+   {
+    "arg": "",
+    "comment": "Print Vbus in mA",
+    "kind": "Get",
+    "mode": "",
+    "name": "Vbus",
+    "response": "Vbus"
+   },
+   {
+    "arg": "",
+    "comment": "Print if there are any errors",
+    "kind": "Get",
+    "mode": "",
+    "name": "Error",
+    "response": "In error state!"
+   },
+   {
+    "arg": "",
+    "comment": "Clear All errors and set mode to IDLE Will not clear calibration error. If motor is not calibrated you will need to set controller.Calibrated to 1. with #Calibrated 1 command",
+    "kind": "Action",
+    "mode": "idle",
+    "name": "Clear",
+    "response": "Clear errors"
+   },
+   {
+    "arg": "",
+    "comment": "Print phase currents",
+    "kind": "Get",
+    "mode": "",
+    "name": "Iabc",
+    "response": "Ia"
+   },
+   {
+    "arg": "",
+    "comment": "Enter closed loop mode, idle state",
+    "kind": "Action",
+    "mode": "idle",
+    "name": "Close",
+    "response": ""
+   },
+   {
+    "arg": "",
+    "comment": "Print PWM values",
+    "kind": "Get",
+    "mode": "",
+    "name": "PWM",
+    "response": "PWM1"
+   },
+   {
+    "arg": "float",
+    "comment": "Set/Get Current loop bandwidth",
+    "kind": "Set/Get",
+    "mode": "",
+    "name": "Cbw",
+    "response": "Current loop bandwidth:"
+   },
+   {
+    "arg": "int",
+    "comment": "Set/get voltage used when looking for resistance value",
+    "kind": "Set/Get",
+    "mode": "",
+    "name": "Resv",
+    "response": "Resistance voltage:"
+   },
+   {
+    "arg": "float",
+    "comment": "Set/get max power that can be used during Inductance and resistance search",
+    "kind": "Set/Get",
+    "mode": "",
+    "name": "Calpwr",
+    "response": "Max Power dissipation:"
+   },
+   {
+    "arg": "int",
+    "comment": "Set/get open loop calibration voltage NOTE also used for voltage of the open loop control",
+    "kind": "Set/Get",
+    "mode": "",
+    "name": "Openv",
+    "response": "Open loop voltage:"
+   },
+   {
+    "arg": "int",
+    "comment": "Set/get open loop stepper mode microstep",
+    "kind": "Set/Get",
+    "mode": "",
+    "name": "microstep",
+    "response": "Microstep is:"
+   },
+   {
+    "arg": "int",
+    "comment": "Set/get open loop stepper mode step interval",
+    "kind": "Set/Get",
+    "mode": "",
+    "name": "stepinterval",
+    "response": "Step interval is:"
+   },
+   {
+    "arg": "int",
+    "comment": "Set/get open loop stepper mode microstep",
+    "kind": "Set/Get",
+    "mode": "open-loop steps",
+    "name": "gosteps",
+    "response": "Moving for"
+   },
+   {
+    "arg": "float",
+    "comment": "Set/get open loop calibration speed",
+    "kind": "Set/Get",
+    "mode": "",
+    "name": "Opens",
+    "response": "Open loop Speed:"
+   },
+   {
+    "arg": "int",
+    "comment": "Set/get Phase order search voltage",
+    "kind": "Set/Get",
+    "mode": "",
+    "name": "Vp",
+    "response": "Phase search voltage:"
+   },
+   {
+    "arg": "",
+    "comment": "Print a summary of available commands",
+    "kind": "Action",
+    "mode": "",
+    "name": "Help",
+    "response": "--- STEPFOC command reference ---"
+   },
+   {
+    "arg": "",
+    "comment": "Print Information about motor driver and motor",
+    "kind": "Get",
+    "mode": "",
+    "name": "Info",
+    "response": "Hardware version:"
+   },
+   {
+    "arg": "int",
+    "comment": "Set/get Am I a gripper?",
+    "kind": "Set/Get",
+    "mode": "",
+    "name": "Gripper",
+    "response": "Gripper:"
+   },
+   {
+    "arg": "",
+    "comment": "Calibrate gripper",
+    "kind": "Action",
+    "mode": "gripper calibration",
+    "name": "Gripcal",
+    "response": "Gripper calibration!"
+   },
+   {
+    "arg": "",
+    "comment": "Gripper info",
+    "kind": "Get",
+    "mode": "",
+    "name": "Gripinfo",
+    "response": "I am not a gripper"
+   },
+   {
+    "arg": "int",
+    "comment": "Set/Get gripper estop bit",
+    "kind": "Set/Get",
+    "mode": "",
+    "name": "Gripstop",
+    "response": "Gripper estop bit is:"
+   },
+   {
+    "arg": "int",
+    "comment": "Set/Get gripper activation bit",
+    "kind": "Set/Get",
+    "mode": "",
+    "name": "Gripact",
+    "response": "Gripper activation bit is:"
+   },
+   {
+    "arg": "int",
+    "comment": "Set/Get gripper current",
+    "kind": "Set/Get",
+    "mode": "",
+    "name": "Gripcur",
+    "response": "Gripper current setpoint is:"
+   },
+   {
+    "arg": "int",
+    "comment": "Set/Get gripper velocity",
+    "kind": "Set/Get",
+    "mode": "",
+    "name": "Gripvel",
+    "response": "Gripper velocity setpoint is:"
+   },
+   {
+    "arg": "int",
+    "comment": "Set/Get gripper position setpoint and go to gripper mode (goto action big)",
+    "kind": "Set/Get",
+    "mode": "gripper",
+    "name": "Grippos",
+    "response": "Gripper current position is:"
+   },
+   {
+    "arg": "",
+    "comment": "Print all currently set PID parameters for every control mode",
+    "kind": "Get",
+    "mode": "",
+    "name": "Param",
+    "response": "Position loop Kp:"
+   },
+   {
+    "arg": "int",
+    "comment": "Periodically send messages without request from host. Messeges are position, speed and Iq current. Format of the command is #Cyc time. Time is variable in millisecond (needs to be integer) If time is not given (or 0) command is disabled. Format of cyclic output is: $Position Speed Torque\\n Cyclic can also be used with: https://github.com/nathandunk/BetterSerialPlotter",
+    "kind": "Set/Get",
+    "mode": "",
+    "name": "Cyc",
+    "response": "Cyclic disabled"
+   },
+   {
+    "arg": "int",
+    "comment": "Periodically send messages without request from host. Messeges are position, speed and Iq current. Format of the command is #Cyca time. Time is variable in millisecond (needs to be integer) If time is not given (or 0) command is disabled. Format of cyclic output is: $,Position,Speed,Torque\\n Cyca can be used with arduino plotter",
+    "kind": "Set/Get",
+    "mode": "",
+    "name": "Cyca",
+    "response": "Cyclic disabled"
+   },
+   {
+    "arg": "int",
+    "comment": "Set/Get CAN ID",
+    "kind": "Set/Get",
+    "mode": "",
+    "name": "CANID",
+    "response": "Invalid CAN ID"
+   },
+   {
+    "arg": "int",
+    "comment": "Set/Get motor controller serial number",
+    "kind": "Set/Get",
+    "mode": "",
+    "name": "SERNUM",
+    "response": "Serial number is:"
+   },
+   {
+    "arg": "int",
+    "comment": "Set/Get motor calibration status",
+    "kind": "Set/Get",
+    "mode": "",
+    "name": "Calibrated",
+    "response": "Not calibrated!"
+   },
+   {
+    "arg": "int",
+    "comment": "Set/get Number of POLE PAIRS!",
+    "kind": "Set/Get",
+    "mode": "",
+    "name": "PP",
+    "response": "Pole pairs:"
+   },
+   {
+    "arg": "",
+    "comment": "Activate the motor",
+    "kind": "Action",
+    "mode": "",
+    "name": "Activate",
+    "response": "Controller activated"
+   },
+   {
+    "arg": "float",
+    "comment": "",
+    "kind": "Set/Get",
+    "mode": "open loop",
+    "name": "Openloop",
+    "response": "Open loop speed:"
+   },
+   {
+    "arg": "",
+    "comment": "Pull motor config",
+    "kind": "Get",
+    "mode": "",
+    "name": "Pullconfig",
+    "response": "%"
+   },
+   {
+    "arg": "int",
+    "comment": "Enable disable LED status",
+    "kind": "Set/Get",
+    "mode": "",
+    "name": "LED",
+    "response": "LED status is OFF"
+   },
+   {
+    "arg": "int",
+    "comment": "Set/Get do we want to reset integral accumulators after receiving new setopint 1 reset 0 do not reset",
+    "kind": "Set/Get",
+    "mode": "",
+    "name": "Rstint",
+    "response": "Reseting integral accumulators:"
+   }
+  ]
+ },
+ "version": "108"
+}

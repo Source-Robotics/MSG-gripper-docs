@@ -1,0 +1,34 @@
+# The version facts of this documentation, in ONE place (the same system as Source-Robotics/par6).
+#
+# Edit them here, never in a page. hooks/versions.py writes them into each document's version box
+# (<!-- doc-meta: KEY --> on its landing page) and into the list of documents (<!-- documents-table -->), and the
+# publishing workflow reads docs_version. README.md, "Versions and releases", says when to change what.
+
+# The documentation version: the STEPFOC firmware release the gripper runs and these pages describe. The gripper
+# has no firmware of its own; it is a STEPFOC driver in gripper mode. The publishing workflow publishes the site
+# under this name (the version selector in the header) and points "latest" at it.
+docs_version: "108"
+
+# The firmware release the pages describe, and the generated reference comes from. Its tag must be V<docs_version>.
+firmware:
+  repository: https://github.com/Source-Robotics/STEPFOC-stepper-controller
+  tag: V108
+  # The firmware's source folder in that repository, and its Controller_mode numbers with their names (for the
+  # "enters mode" column of the UART reference). tools/sync_firmware.py reads both.
+  src: STEPFOC firmware/src
+  modes: {0: idle, 1: position, 2: velocity, 3: current, 4: PD, 5: open loop, 6: voltage torque,
+          7: gripper calibration, 8: HALL, 9: angle-offset calibration, 10: open-loop steps, 11: gripper}
+
+# One entry per document. revision: YEAR.LETTER, a new letter for every published revision of that document.
+# status: draft until the document is published; published: the date of the revision's publication, or null.
+# firmware: true for a document that describes one firmware release (docs_version) and shows it in its version box.
+manuals:
+  msg:
+    number: SR-5003
+    title: MSG Gripper Manual
+    revision: 2026.A
+    status: draft
+    published: null
+    firmware: true
+    applies_to: MSG gripper V1.1 with the STEPFOC driver PCB v1
+    covers: "the MSG compliant AI stepper gripper: quick start, safety, technical data, installation, setup, operation over CAN, UART, Python and ROS 2, firmware; the gripper's API reference; guides"

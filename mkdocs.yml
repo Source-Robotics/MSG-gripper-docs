@@ -1,70 +1,104 @@
 site_name: MSG gripper
-site_url: https://docs.source-robotics.com/MSG-gripper-docs/
 site_description: Documentation for the MSG compliant AI stepper gripper by Source Robotics.
-repo_url: https://github.com/Source-Robotics/MSG-compliant-AI-stepper-gripper
-edit_uri: https://github.com/Source-Robotics/MSG-gripper-docs/edit/main/docs/
+# Where the site is published: the organisation's docs domain, this repository's path. Search engines take each
+# page's address from here, and the sitemap is built from it. mike adds the version under it (/MSG-gripper-docs/108/).
+site_url: https://docs.source-robotics.com/MSG-gripper-docs/
+# The docs repository: the "edit this page" target. The header card points at the product repository instead
+# (extra.repos below, overrides/partials/source.html).
+repo_url: https://github.com/Source-Robotics/MSG-gripper-docs
+repo_name: Source-Robotics/MSG-gripper-docs
+edit_uri: edit/main/docs/
+copyright: |
+  &copy; 2026 <a href="https://source-robotics.com" target="_blank" rel="noopener">Source Robotics d.o.o.</a> ·
+  Text and images <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA 4.0</a> ·
+  Code examples <a href="https://github.com/Source-Robotics/MSG-gripper-docs/blob/main/LICENSE-CODE" target="_blank" rel="noopener">MIT</a>
 
 theme:
   name: material
+  custom_dir: overrides
+  logo: assets/logo_new_2.png
+  favicon: assets/Icon2.png
   language: en
-  logo: assets/Icon2.png
-
+  font:
+    text: Roboto
+    code: Roboto Mono
+  icon:
+    repo: fontawesome/brands/github
+    edit: material/pencil
+    view: material/eye
   features:
-    - navigation.sections
-    - toc.integrate
+    - navigation.tabs          # one tab per part: Manual, API reference, Guides, Support
+    - navigation.tabs.sticky
+    - navigation.sections      # the bold sidebar groups
+    - navigation.indexes       # a chapter is a folder with its own page
+    - navigation.footer        # Previous / Next
     - navigation.top
+    - navigation.path
+    - toc.follow
     - search.suggest
     - search.highlight
+    - search.share
     - content.tabs.link
-    - content.code.annotation
     - content.code.copy
-    - content.code.select
+    - content.code.annotate
+    - content.action.view
     - content.action.edit
-
-  palette:
-    # Light mode (default)
-    - scheme: default
+    - content.tooltips          # title="..." on links and abbreviations become tooltips
+    - content.footnote.tooltips
+  palette:                      # the same as the PAR6 docs
+    - scheme: slate            # dark by default
+      primary: black
+      accent: green
       toggle:
         icon: material/weather-night
-        name: Switch to dark mode
-      primary: blue
-      accent: blue
-
-    # Dark mode
-    - scheme: slate
+        name: Switch to light mode
+    - scheme: default
+      primary: black
+      accent: green
       toggle:
         icon: material/weather-sunny
-        name: Switch to light mode
-      primary: blue
-      accent: blue
-
+        name: Switch to dark mode
 
 plugins:
-- search
+  - search
+  - glightbox                 # click any image to zoom
+  - social:
+      cards_layout: default
+      enabled: !ENV [ENABLE_SOCIAL, false]   # social cards only in CI (ENABLE_SOCIAL=true; they need Cairo + Pillow)
+  # The addresses of the pages of the old site keep working.
+  - redirects:
+      redirect_maps:
+        page1_about_the_gripper.md: 01-overview/gripper-at-a-glance.md
+        page2_1_gripper_options.md: 01-overview/variants.md
+        page2_installation.md: 04-installation/index.md
+        page3_control.md: 06-operation/index.md
+        page4_Application_interfaces.md: reference/index.md
+        page6_safety.md: 02-safety.md
+        page7_performance.md: appendix/performance.md
 
-extra:
-  social:
-    - icon: fontawesome/brands/github-alt
-      link: https://github.com/PCrnjak
-    - icon: fontawesome/brands/instagram
-      link: https://www.instagram.com/source_robotics/
-    - icon: fontawesome/brands/twitter
-      link: https://twitter.com/SourceRobotics     
-    - icon: fontawesome/brands/linkedin
-      link: https://www.linkedin.com/in/petar-crnjak-009b43180/
-    - icon: fontawesome/brands/discord
-      link: https://discord.gg/prjUvjmGpZ
-    - icon: fontawesome/brands/patreon
-      link: https://www.patreon.com/PCrnjak
+# The version facts of versions.yml written into the pages (the version box and the list of documents), and the
+# reference pages built from the firmware facts (docs/includes/generated/firmware_facts.json, written by
+# tools/sync_firmware.py from the release tag) and the hand-written command descriptions (docs/includes/*.yml).
+hooks:
+  - hooks/versions.py
+  - hooks/firmware_pages.py
 
 markdown_extensions:
   - admonition
-  - pymdownx.details
-  - pymdownx.superfences
-  - pymdownx.arithmatex:
-      generic: true
   - attr_list
   - md_in_html
+  - tables
+  - def_list
+  - footnotes
+  - abbr
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
   - pymdownx.tabbed:
       alternate_style: true
   - pymdownx.highlight:
@@ -72,11 +106,146 @@ markdown_extensions:
       line_spans: __span
       pygments_lang_class: true
   - pymdownx.inlinehilite
-  - pymdownx.snippets
+  - pymdownx.keys
+  - pymdownx.snippets:
+      base_path:
+        - docs/includes
+      check_paths: true
+      auto_append:
+        - abbreviations.md    # site-wide abbreviations -> tooltips on every page
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.smartsymbols
+
+extra:
+  # The version selector in the header (built by mike: one entry per published firmware release + "latest").
+  version:
+    provider: mike
+    default: latest
+    alias: true
+  # The header's repository card per section (overrides/partials/source.html): page-URL prefix -> repository.
+  # A longer prefix listed later overrides a shorter one listed earlier.
+  repos:
+    - prefix: ""
+      name: Source-Robotics/MSG-compliant-AI-stepper-gripper
+      url: https://github.com/Source-Robotics/MSG-compliant-AI-stepper-gripper
+    - prefix: reference/
+      name: Source-Robotics/STEPFOC-stepper-controller
+      url: https://github.com/Source-Robotics/STEPFOC-stepper-controller
+    - prefix: guides/
+      name: Source-Robotics/Spectral-BLDC-Python
+      url: https://github.com/Source-Robotics/Spectral-BLDC-Python
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/Source-Robotics
+    - icon: fontawesome/brands/instagram
+      link: https://www.instagram.com/5arcrnjak/
+    - icon: fontawesome/brands/x-twitter
+      link: https://twitter.com/SourceRobotics
+    - icon: fontawesome/brands/linkedin
+      link: https://www.linkedin.com/in/petar-crnjak-009b43180/
+    - icon: fontawesome/brands/discord
+      link: https://discord.gg/prjUvjmGpZ
+    - icon: fontawesome/brands/patreon
+      link: https://www.patreon.com/PCrnjak
+  # Page status markers (front matter `status: ...`) shown as an icon in the sidebar.
+  status:
+    new: Recently added
+    deprecated: Deprecated
+    draft: Not written yet
+
+extra_css:
+  - stylesheets/extra.css
 
 extra_javascript:
   - javascripts/mathjax.js
   - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
+  - https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js   # sortable tables (click a header)
+  - javascripts/tablesort.js
 
-copyright: |
-  &copy; 2023 <a href="https://github.com/PCrnjak"  target="_blank" rel="noopener">Petar Crnjak</a>
+exclude_docs: |
+  includes/
+
+validation:
+  omitted_files: warn
+  absolute_links: warn
+  unrecognized_links: warn
+
+nav:
+  - MSG Gripper Manual:
+      - index.md
+      - Before you start:
+          - Quick start: quick-start.md
+          - About this manual: about.md
+      - Chapters:
+          - 1. Overview:
+              - 01-overview/index.md
+              - The gripper at a glance: 01-overview/gripper-at-a-glance.md
+              - Variants: 01-overview/variants.md
+              - What you need: 01-overview/what-you-need.md
+          - 2. Safety: 02-safety.md
+          - 3. Technical data:
+              - 03-technical-data/index.md
+              - Specifications: 03-technical-data/specifications.md
+              - Force and speed: 03-technical-data/force-and-speed.md
+              - Connector and pinout: 03-technical-data/connector.md
+              - Dimensions and CAD: 03-technical-data/dimensions.md
+          - 4. Installation:
+              - 04-installation/index.md
+              - Mounting on a robot: 04-installation/mounting.md
+              - The cable: 04-installation/cable.md
+              - Jaws: 04-installation/jaws.md
+              - CAN termination: 04-installation/can-termination.md
+          - 5. First setup:
+              - 05-setup/index.md
+              - The gripper GUI: 05-setup/gripper-gui.md
+              - Calibrate, activate, move: 05-setup/first-moves.md
+              - Driver configuration for a self-built gripper: 05-setup/driver-configuration.md
+          - 6. Operation:
+              - 06-operation/index.md
+              - How the gripper works: 06-operation/how-it-works.md
+              - Over CAN: 06-operation/can.md
+              - Over UART: 06-operation/uart.md
+              - With Python: 06-operation/python.md
+              - With ROS 2: 06-operation/ros2.md
+              - On PAROL6 and PAR6: 06-operation/robots.md
+              - Errors and recovery: 06-operation/errors.md
+          - 7. Firmware: 07-firmware.md
+          - 8. Troubleshooting: 08-troubleshooting.md
+      - Appendix:
+          - Performance tests: appendix/performance.md
+          - Firmware release notes: appendix/firmware-release-notes.md
+          - Versions and compatibility: appendix/compatibility.md
+      - Resources:
+          - Glossary: terminology.md
+          - CAD and downloads: cad-files.md
+
+  - API reference:
+      - reference/index.md
+      - CAN messages:
+          - reference/can/index.md
+          - Gripper: reference/can/gripper.md
+          - System: reference/can/system.md
+          - Status requests: reference/can/status.md
+      - UART commands:
+          - reference/uart/index.md
+          - Gripper: reference/uart/gripper.md
+          - Driver setup: reference/uart/setup.md
+          - Status and utility: reference/uart/utility.md
+      - Errors and status bits: reference/errors.md
+      - Python library: reference/python.md
+
+  - Guides:
+      - guides/index.md
+      - Build your own: guides/build.md
+      - Teleoperation with two grippers: guides/teleoperation.md
+
+  - Support:
+      - Getting help: support/index.md
+      - Report a problem: support/report-a-problem.md
+      - Contributing: support/contributing.md

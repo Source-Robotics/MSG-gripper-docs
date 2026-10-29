@@ -1,38 +1,59 @@
-# Index
-
-<p align="left"><img src="assets/MSG_and_camera.png" alt="MSG gripper with a camera setup" width="900" /><br /></p>
-
-- [About the gripper](page1_about_the_gripper.md)
-- [Gripper options](page2_1_gripper_options.md)
-- [Installation](page2_installation.md)
-- [Control](page3_control.md)
-- [Application interfaces](page4_Application_interfaces.md)
-- [Safety](page6_safety.md)
-- [Performance](page7_performance.md)
-
-| YouTube | Instagram | Twitter | LinkedIn |
-|---------|-----------|---------|----------|
-| [![YouTube](https://img.shields.io/badge/YouTube-FF0000?logo=youtube&logoColor=white)](https://www.youtube.com/@source-robotics) | [![Instagram](https://img.shields.io/badge/Instagram-E4405F?logo=instagram&logoColor=white)](https://www.instagram.com/source_robotics/) | [![Twitter](https://img.shields.io/badge/Twitter-1DA1F2?logo=twitter&logoColor=white)](https://twitter.com/SourceRobotics) | [![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?logo=linkedin&logoColor=white)](https://www.linkedin.com/company/source-robotics) |
-
-
-| Discord | Forum | Hackaday | Blog |
-|---------|-------|----------|------|
-| [![Discord](https://img.shields.io/badge/Discord-5865F2?logo=discord&logoColor=white)](https://discord.com/invite/prjUvjmGpZ) | [![Forum](https://img.shields.io/badge/Forum-0A0A0A)](https://discourse.source-robotics.com/) | [![Hackaday](https://img.shields.io/badge/Hackaday-000000?logo=hackaday&logoColor=white)](https://hackaday.io/project/191860-parol6-desktop-robotic-arm) | [![Blog](https://img.shields.io/badge/Blog-Source%20Robotics-blue)](https://source-robotics.com/blogs/blog) 
-
-
-## ⚠️ Safety, Liability & Disclaimer
-This project includes experimental software, hardware designs, and assembly documentation that are still under development and may contain bugs, errors, or incomplete features. By using, building, or modifying this project, you acknowledge that:
-
-* You use this project entirely at your own risk
-* You are solely responsible for safe assembly, testing, and operation
-* No guarantee is made regarding correctness, safety, or reliability
-* The authors are not responsible for any damage, injury, or loss resulting from the use or misuse of this project
-* Hardware performance and safety depend on user assembly, component quality, calibration, and handling, which cannot be guaranteed
-* This project is provided “as is.” If you choose to build a device yourself using these files, designs, or instructions, you do so without any warranties or guarantees, including regarding safety, reliability, or suitability for any particular purpose.
-
-THIS PROJECT INVOLVES LETHAL VOLTAGES AND OTHER SERIOUS HAZARDS THAT CAN CAUSE SEVERE INJURY. YOU MUST READ THE FULL [SAFETY WARNING AND DISCLAIMER DOCUMENT](https://github.com/Source-Robotics/PAROL6-Desktop-robot-arm/blob/main/SAFETY_WARNING_AND_DISCLAIMER.md)  BEFORE USING ANY PROJECT FILES. BY PROCEEDING, YOU ACKNOWLEDGE AND ACCEPT ALL RISKS AND AGREE TO USE THIS PROJECT ENTIRELY AT YOUR OWN RESPONSIBILITY.
-
+---
+hide:
+  - toc
 ---
 
-## 🛡️ Licensing
-This project is licensed under CERN Open Hardware Licence Version 2 - Strongly Reciprocal.
+# MSG Gripper Manual
+
+![MSG gripper](assets/hero.png){ .hero }
+
+<!-- doc-meta: msg -->
+
+[Quick start](quick-start.md){ .md-button .md-button--primary } [About this manual](about.md){ .md-button }
+
+Source Robotics d.o.o. publishes this document for the MSG compliant AI stepper gripper. It is revised as the
+product and its firmware change; the document number, firmware version, revision and date above identify the
+version you are reading, and the document history on the About page says what changed. The gripper runs the
+STEPFOC driver's firmware: take care that the firmware version named under *Applies to* matches what the gripper
+reports; the version selector in the header switches between firmware releases. The text and the images are
+licensed CC BY-SA 4.0, the code examples MIT.
+
+<div class="grid cards" markdown>
+
+-   :material-rocket-launch:{ .lg .middle } **Quick start**
+
+    ---
+
+    [One page](quick-start.md) from the box to a gripper that opens and closes on command, through the gripper
+    GUI or Python, with a link into the manual at every step.
+
+-   :material-book-open-variant:{ .lg .middle } **The manual**
+
+    ---
+
+    [Safety](02-safety.md), [Technical data](03-technical-data/index.md), [Installation](04-installation/index.md),
+    [First setup](05-setup/index.md), [Operation](06-operation/index.md), [Firmware](07-firmware.md),
+    [Troubleshooting](08-troubleshooting.md).
+
+-   :material-robot-industrial:{ .lg .middle } **On a robot**
+
+    ---
+
+    [PAROL6 and PAR6](06-operation/robots.md), [ROS 2](06-operation/ros2.md), [Python](06-operation/python.md):
+    the gripper from the robot's own software, from a ROS 2 node, or from your program over CAN.
+
+-   :material-code-braces:{ .lg .middle } **API reference**
+
+    ---
+
+    The gripper's [CAN messages](reference/can/index.md) and [UART commands](reference/uart/index.md), the
+    [status bits](reference/errors.md) and the [Python library](reference/python.md), read from the firmware.
+
+-   :material-hammer-wrench:{ .lg .middle } **Build your own**
+
+    ---
+
+    [The guide](guides/build.md): print the parts for your rail and stepper, source the rest from the BOM,
+    assemble, configure the driver.
+
+</div>
