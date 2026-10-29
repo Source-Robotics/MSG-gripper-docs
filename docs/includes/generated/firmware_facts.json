@@ -63,9 +63,12 @@
    "IN_GRIPPER_DATA_PACK": {
     "empty": false,
     "lengths": [
+     0,
      5
     ],
-    "responds": []
+    "responds": [
+     "Gripper_pack_data"
+    ]
    },
    "IN_HALL_INDEX": {
     "empty": false,

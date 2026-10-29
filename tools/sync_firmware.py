@@ -122,7 +122,7 @@ def uart_handlers(communication_cpp: str) -> list[dict]:
 DEFINE = re.compile(r"^#define[ \t]+((?:IN_|OUT_|OUT_IN_)[A-Z0-9_]+|HEARTBEAT_SETUP)[ \t]+(\d+)[ \t]*(?://[ \t]*(.*))?$", re.M)
 CASE = re.compile(r"case\s+([A-Z0-9_]+)\s*:")
 LEN = re.compile(r"CAN_RX_msg\.len\s*==\s*(\d+)")
-RESPONSE_FN = re.compile(r"\b([A-Z][A-Za-z_0-9]*(?:_CAN|_response|_pack))\(\)\s*;")
+RESPONSE_FN = re.compile(r"\b([A-Z][A-Za-z_0-9]*(?:_CAN|_response|_pack|_pack_data))\(\)\s*;")
 TX_FN = re.compile(r"^void\s+(\w+)\s*\(\s*\)\s*\{", re.M)
 TX_LEN = re.compile(r"CAN_TX_msg\.len\s*=\s*(\d+)")
 TX_ID = re.compile(r"Combine_2_CAN_ID\([^,]+,\s*([A-Z0-9_]+)")
@@ -140,7 +140,12 @@ def can_handlers(communication_can_cpp: str) -> dict[str, dict]:
     for i, m in enumerate(matches):
         end = matches[i + 1].start() if i + 1 < len(matches) else len(text)
         block = text[m.start():end]
-        body = block.split("break;")[0]
+        # up to the case's own `break;`: the first one that is not inside a loop or an if of the handler
+        body = block
+        for bm in re.finditer(r"break;", block):
+            if block[:bm.start()].count("{") - block[:bm.start()].count("}") <= 1:
+                body = block[:bm.start()]
+                break
         out[m.group(1)] = {"lengths": sorted({int(x) for x in LEN.findall(body)}),
                            "responds": list(dict.fromkeys(RESPONSE_FN.findall(body))),
                            "empty": body.strip().count("\n") <= 1}
