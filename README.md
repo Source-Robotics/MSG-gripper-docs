@@ -19,7 +19,7 @@ the gripper runs the firmware of the STEPFOC driver,
 | `docs/includes/` | text shared by pages (glossary, symbols, abbreviations) and the data the reference pages are built from |
 | `docs/includes/can_commands.yml`, `uart_commands.yml` | the hand-written descriptions of the CAN messages and UART commands a gripper needs (`partial: true`: the rest of the driver's commands are on the STEPFOC site) |
 | `docs/includes/generated/` | written by `tools/sync_firmware.py` from the firmware's release tag: `firmware_facts.json`, `firmware_release_notes.md`. Never edit |
-| `versions.yml` | every version fact: the firmware release the site describes, the manual's number and revision |
+| `versions.yml` | every version fact: the gripper release the site is versioned by, the firmware release it describes, the manual's number and revision |
 | `compatibility.yml` | which firmware release works with which bootloader, gripper hardware, Python library and ROS 2 driver |
 | `hooks/` | `versions.py` writes the version facts into the pages; `firmware_pages.py` builds the reference pages |
 | `tools/` | `sync_firmware.py`, `test_tools.py`, `root_404.html` |
@@ -67,26 +67,38 @@ there). The CI build does not run it; the generated files are committed.
 
 ## Versions and releases
 
-The gripper runs the STEPFOC firmware, so each STEPFOC release the gripper is documented for has its own version
-of this site, named after the release: `108`, ... The version selector in the site's header switches between
-them, and a page of an older version says so in a bar at the top. The versions are built with
-[mike](https://github.com/jimporter/mike) and kept in the `gh-pages` branch; `latest` points at the newest.
+The site is versioned by **gripper release**: the version the product repository tags (`V1.1`, ...), published
+under that name (`1.1`, ...). The version selector in the site's header switches between releases, and a page of
+an older release says so in a bar at the top. The versions are built with [mike](https://github.com/jimporter/mike)
+and kept in the `gh-pages` branch; `latest` points at the newest.
 
-**All version facts live in `versions.yml`, never in a page**: `docs_version` (the firmware release these pages
-describe, which is also the name the version is published under), `firmware.tag` (`V` + `docs_version`), and the
-manual's number, title, revision, status and publication date. `hooks/versions.py` writes them into the version
-box on the landing page and into the list of documents on the About page; a malformed or missing fact stops the
-build.
+The gripper runs the STEPFOC driver's firmware, and the pages describe one firmware release (the version box
+on the landing page names it). A new firmware release for the same gripper does not make a new version of the
+site: the pages are updated in place, with a new revision letter.
+
+**All version facts live in `versions.yml`, never in a page**: `docs_version` (the gripper release, which is also
+the name the version is published under) with `product.tag` (`V` + `docs_version`), `firmware.version` with
+`firmware.tag` (`V` + `firmware.version`), and the manual's number, title, revision, status and publication date.
+`hooks/versions.py` writes them into the version box on the landing page and into the list of documents on the
+About page; a malformed or missing fact stops the build.
 
 ### When the firmware releases a new version
 
-1. Set `docs_version` and `firmware.tag` in `versions.yml`; add a row to `compatibility.yml`.
+1. Set `firmware.version` and `firmware.tag` in `versions.yml`; add a row to `compatibility.yml`, with the docs
+   cell naming this site's version.
 2. Run `python tools/sync_firmware.py`. If the firmware changed a gripper command, the build now fails until
    `can_commands.yml` / `uart_commands.yml` describe it: write the description.
 3. Update the pages for what changed, using the release notes; give the manual a new revision letter in
    `versions.yml` and a line in its *Document history* on `docs/about.md`.
-4. Commit and push to `main`. The site publishes the new version, `latest` moves to it, and the previous version
-   stays as it was.
+4. Commit and push to `main`. The site republishes the current version with the new firmware.
+
+### When the gripper releases a new version
+
+1. Set `docs_version`, `product.tag` and `product.released` in `versions.yml`, and the manual's `applies_to` if
+   the hardware the manual applies to changed.
+2. Update the pages for what changed in the hardware; a new revision letter and a *Document history* line.
+3. Commit and push to `main`. The site publishes the new version, `latest` moves to it, and the previous
+   gripper release's pages stay as they were.
 
 ### Publishing
 

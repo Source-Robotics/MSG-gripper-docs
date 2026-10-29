@@ -1,6 +1,7 @@
-# Which firmware release works with what. One row per STEPFOC firmware release the gripper can run, newest first.
+# Which driver firmware release works with what. One row per STEPFOC firmware release the gripper can run, newest first.
 # hooks/firmware_pages.py writes it into the "Versions and compatibility" page (<!-- compatibility-table -->);
-# tools/test_tools.py checks that docs_version has a row.
+# tools/test_tools.py checks that firmware.version has a row and that one row's docs cell is docs_version.
+# docs: the version of this site (a gripper release) that describes the firmware release, or "not published".
 columns:
   - {key: firmware, title: Firmware (STEPFOC)}
   - {key: date, title: Released}
@@ -8,7 +9,7 @@ columns:
   - {key: gripper, title: MSG gripper}
   - {key: python, title: Python library (Spectral-BLDC)}
   - {key: ros2, title: ROS 2 driver}
-  - {key: docs, title: Docs}
+  - {key: docs, title: Docs (gripper release)}
 
 rows:
   - firmware: "108"
@@ -17,7 +18,7 @@ rows:
     gripper: V1.1
     python: 1.20 or newer
     ros2: msg_gripper_ros2 (ROS 2 Humble)
-    docs: "108"
+    docs: "1.1"
   - firmware: "107"
     date: 2026-08-24
     bootloader: required

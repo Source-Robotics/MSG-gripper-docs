@@ -13,8 +13,8 @@
 | The driver's documentation | [docs.source-robotics.com/STEPFOC-docs](https://docs.source-robotics.com/STEPFOC-docs/) |
 | Python library | [Spectral-BLDC-Python](https://github.com/Source-Robotics/Spectral-BLDC-Python), `pip install Spectral-BLDC` |
 | ROS 2 driver | [source_robotics_msg_gripper_ros2](https://github.com/Source-Robotics/source_robotics_msg_gripper_ros2) |
-| The gripper GUI | [SSG-gripper-GUI](https://github.com/Source-Robotics/SSG-gripper-GUI) |
-| Motor GUI (the driver's browser tool, with a gripper panel) | [motorgui.com](https://motorgui.com/) |
+| Motor GUI, the browser tool for the driver and the gripper | [motorgui.com](https://motorgui.com/) |
+| The legacy gripper GUI, a Python program | [SSG-gripper-GUI](https://github.com/Source-Robotics/SSG-gripper-GUI) |
 | CANvas USB-to-CAN adapter | [CANvas-adapter](https://github.com/Source-Robotics/CANvas-adapter) |
 | This documentation | [MSG-gripper-docs](https://github.com/Source-Robotics/MSG-gripper-docs) |
 | Shop | [source-robotics.com](https://source-robotics.com/products/msg-gripper) |

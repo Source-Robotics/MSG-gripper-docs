@@ -1,13 +1,25 @@
 # Variants
 
 The gripper is modular in two ways: the length of the linear rail sets the stroke, the length of the stepper sets
-the force. Any rail goes with any stepper; the body, the jaws and the stepper cover are printed for the chosen
-combination.
+the force. Any rail goes with any stepper, and the body comes in black or grey; the body, the jaw carriers and the
+stepper cover are printed for the chosen combination.
 
 <figure markdown="span">
   ![The three rail lengths](../assets/Gripper_strokes.png){ width="900" }
   <figcaption>Figure 2: The three rail lengths and the stroke each gives.</figcaption>
 </figure>
+
+=== "Black"
+    <figure markdown="span">
+      ![The nine variants, black body](../assets/MSG_variants_black.jpg){ width="900" }
+      <figcaption>Figure 3: The nine combinations of rail and stepper, black body: 55, 105 and 155 mm of stroke across, the 21.5, 40 and 60 mm steppers down.</figcaption>
+    </figure>
+
+=== "Grey"
+    <figure markdown="span">
+      ![The nine variants, grey body](../assets/MSG_variants_grey.jpg){ width="900" }
+      <figcaption>The same nine combinations, grey body.</figcaption>
+    </figure>
 
 ## Rail length and stroke
 
@@ -21,23 +33,18 @@ The stroke is the distance between the jaw carriers from fully open to fully clo
 jaw faces depends on the jaws you fit ([Jaws](../04-installation/jaws.md)). A longer rail makes the gripper wider
 and a little heavier and does not change the force.
 
-<figure markdown="span">
-  ![The 150 mm variant](../assets/MSG_150mm rail.png){ width="520" }
-  <figcaption>Figure 3: The 150 mm rail: 105 mm of stroke.</figcaption>
-</figure>
-
 ## Stepper length and force
 
-| Stepper | Motor | Rated current | Holding torque | Printed parts |
-|---|---|---|---|---|
-| 21.5 mm | 17HS08-1004S | 1.0 A | 16 Ncm | `Stepper_cover_21_5mm`, `Stepper_spacer_21_5` |
-| 40 mm | 17HS16-2004S1 | 2.0 A | 45 Ncm | `Stepper_cover_40mm` |
-| 60 mm | 17HS24-2104S | 2.1 A | 65 Ncm | `Stepper_cover_60mm` |
+| Stepper | Motor | Rated current | Torque constant | Grip force at the rated current | Printed parts |
+|---|---|---|---|---|---|
+| 21.5 mm | 17HS08-1004S | 1.0 A | 0.17 Nm/A | about 20 N | `Stepper_cover_21_5mm`, `Stepper_spacer_21_5` |
+| 40 mm | 17HS16-2004S1 | 2.0 A | 0.21 Nm/A | about 50 N | `Stepper_cover_40mm` |
+| 60 mm | 17HS24-2104S | 2.1 A | 0.30 Nm/A | about 76 N | `Stepper_cover_60mm` |
 
 A longer stepper gives more torque and so more grip force, at the price of weight and length behind the
-gripper. The force the current produces, and what each stepper can do, is in
-[Force and speed](../03-technical-data/force-and-speed.md). The current limit you command must stay within the
-stepper's rating.
+gripper. The force is proportional to the current limit you command, with the slope of the stepper's torque
+constant; the curves and the formula are in [Force and speed](../03-technical-data/force-and-speed.md). The
+current limit must stay within the stepper's rating.
 
 ## Grasps
 

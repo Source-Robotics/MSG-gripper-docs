@@ -17,6 +17,14 @@ and the [STEPFOC documentation](https://docs.source-robotics.com/STEPFOC-docs/) 
 - The thermistor from the BOM, soldered to the driver's thermistor connector and placed in the motor's windings
   with thermal cement.
 
+## With Motor GUI
+
+[Motor GUI](motor-gui.md), connected over **UART** through the serial adapter, has a preset per stepper on its
+setup page: *MSG 21.5 mm motor*, *MSG 40 mm motor* and *MSG 60 mm motor*. A preset writes the stepper's
+resistance, inductance and 50 pole pairs, the current limit, the loop gains, gripper mode, the thermistor and
+the CAN ID, then saves; its CAN ID is 6, the PAR6 gripper's, so change it before applying for another robot.
+Apply it after the motor calibration of step 1: it does step 2 for you.
+
 ## 1. The motor calibration
 
 Restore the defaults first, so that nothing from another motor or junk in the EEPROM goes into the calibration,
@@ -47,8 +55,8 @@ need it.
 #Gripper 1
 #Term 1
 #Tlim 75
-#Kpiq 3
-#Kiiq 0.3
+#Kpiq 1.4047
+#Kiiq 0.1149
 #CANID 0
 #Save
 ```
@@ -57,13 +65,13 @@ need it.
 |---|---|
 | `#Gripper 1` | gripper mode: the driver runs the gripper state machine and answers the gripper messages |
 | `#Term 1`, `#Tlim 75` | the thermistor on, the temperature limit at 75 °C. Without it the motor can burn out under a long grip |
-| `#Kpiq 3`, `#Kiiq 0.3` | the current loop gains the shipped grippers use; the gains calibration computes for the stepper are sharper than a gripper needs |
+| `#Kpiq 1.4047`, `#Kiiq 0.1149` | the current loop gains of Motor GUI's gripper presets, the same for the three steppers; the gains the calibration computes for the stepper are sharper than a gripper needs |
 | `#CANID 0` | the node ID on the robot's bus; 0 to 13, see [Over CAN](../06-operation/can.md) |
 | `#Save` | nothing above survives a power cycle until it is saved |
 
 ## 3. Assemble and calibrate the gripper
 
-Fit the pinion and assemble the gripper, power it up, and run the gripper calibration (`#Gripcal`, or the GUI's
+Fit the pinion and assemble the gripper, power it up, and run the gripper calibration (`#Gripcal`, or Motor GUI's
 **Calibrate**): the jaws open fully and close fully. Then a first move at a low current, as in
 [Calibrate, activate, move](first-moves.md). `#Gripinfo` prints the gripper's state, including the end stops the
 calibration found.

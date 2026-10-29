@@ -12,8 +12,8 @@
     11-bit CAN frame identifier; the command ID occupies bits 6 to 1 and the error bit is bit 0.
 
 **CANvas**
-:   Source Robotics' USB-to-CAN adapter. It appears as a serial port and speaks slcan, which `python-can`, the
-    gripper GUI and the ROS 2 driver use.
+:   Source Robotics' USB-to-CAN adapter. It appears as a serial port and speaks slcan, which `python-can`, Motor
+    GUI and the ROS 2 driver use.
 
 **Current limit** (grip force)
 :   The current, in mA, the driver may put into the motor during a move. Torque is current times the motor's

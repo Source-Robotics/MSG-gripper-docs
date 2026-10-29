@@ -5,41 +5,37 @@ newtons and millimetres per second.
 
 ## Grip force
 
-The driver limits the motor's current to the value you command, so the torque the motor can produce is limited
-to
+The driver limits the motor's current to the value you command, so the torque the motor produces is limited to
+$T = K_t \, I_q$, with $K_t$ the motor's torque constant in Nm/A (`#Kt` prints what the driver uses) and $I_q$
+the current limit in amperes (the command is in mA). The pinion turns the torque into the force the jaws press
+with:
 
 $$
-T = K_t \, I_q
+F = \frac{K_t \, I_q}{r}, \qquad r = 8.3\ \text{mm}
 $$
 
-with $K_t$ the motor's torque constant in Nm/A, which the driver measures when the stepper is calibrated (`#Kt`
-prints it), and $I_q$ the current limit in amperes (the command is in mA). The pinion turns that torque into a
-force on the two racks. With an object between the jaws both racks are loaded, so the torque is shared between
-them and each jaw presses with
+$r$ is the pitch radius of the pinion (32 DP, 21 teeth). The force is proportional to the current, with a slope
+set by the stepper:
 
-$$
-F = \frac{T}{2\,r}, \qquad r = 8.3\ \text{mm}
-$$
+| Stepper | Motor | $K_t$ | Force per ampere | Rated current | Grip force at the rated current |
+|---|---|---|---|---|---|
+| 21.5 mm | 17HS08-1004S | 0.17 Nm/A | 20 N/A | 1.0 A | about 20 N |
+| 40 mm | 17HS16-2004S1 | 0.21 Nm/A | 25 N/A | 2.0 A | about 50 N |
+| 60 mm | 17HS24-2104S | 0.30 Nm/A | 36 N/A | 2.1 A | about 76 N |
 
-$r$ is the pitch radius of the pinion (32 DP, 21 teeth). A current of 1 A on a motor with $K_t$ = 0.16 Nm/A gives
-0.16 Nm and about 10 N of grip force.
+<figure markdown="span">
+  ![Grip force against the current limit, per stepper](../assets/grip_force_light.png#only-light){ width="820" }
+  ![Grip force against the current limit, per stepper](../assets/grip_force_dark.png#only-dark){ width="820" }
+  <figcaption>Figure 5: The grip force against the current limit for the three steppers, each up to its rated current, from the formula above.</figcaption>
+</figure>
 
-!!! note "Estimates per stepper"
-    The torque constant of a stepper under field-oriented control is in the order of its holding torque divided
-    by its rated current, times about 0.7 (the holding torque is rated with both phases driven). With that, the
-    grip force at the rated current comes to roughly:
-
-    | Stepper | Rated current | Holding torque | Grip force at the rated current, about |
-    |---|---|---|---|
-    | 21.5 mm, 17HS08-1004S | 1.0 A | 16 Ncm | 7 N |
-    | 40 mm, 17HS16-2004S1 | 2.0 A | 45 Ncm | 19 N |
-    | 60 mm, 17HS24-2104S | 2.1 A | 65 Ncm | 27 N |
-
-    These are estimates from the motors' datasheets, not measurements. Measured force-against-current curves for
-    the three steppers will follow; until then, use the `#Kt` your driver reports and the formula above.
+The curves are computed from the torque constants, not measured with a force gauge: a measurement on your gripper
+is the only exact calibration, and a self-built gripper with another stepper has another $K_t$. Below about
+150 mA the motor does not move reliably, so the usable range starts at a few newtons. Motor GUI commands up to
+1500 mA; the full force of the 40 mm and 60 mm steppers needs a command from Python or over CAN.
 
 The force is a limit, not a controlled value: a hard object takes the full force the moment the jaws touch it; a
-soft object is squeezed until the force is reached. Below about 150 mA the motor does not move reliably.
+soft object is squeezed until the force is reached.
 
 !!! danger "Stay within the stepper's rating"
     The firmware does not clamp the gripper's current. A current above the stepper's rated current overheats the

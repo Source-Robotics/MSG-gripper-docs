@@ -17,7 +17,7 @@ between the jaws, for teleoperation and for training vision-language-action mode
 
 | Part | What it does |
 |---|---|
-| NEMA 17 stepper motor, 21.5, 40 or 60 mm long | the actuator; its length sets the grip force |
+| NEMA 17 stepper motor, 21.5, 40 or 60 mm long | the actuator; its length sets the grip force: about 20, 50 or 76 N at the rated current |
 | STEPFOC driver on the back of the stepper | field-oriented control of the stepper, the gripper state machine, the CAN and UART interfaces |
 | Pinion on the motor shaft, two racks on a linear rail | the pinion turns, the two racks move in opposite directions: the jaws open and close symmetrically |
 | MGN7 linear rail, 100, 150 or 200 mm | carries the jaws; its length sets the stroke |
@@ -50,6 +50,6 @@ CAN watchdog that runs out, and on every fault the driver itself detects (supply
   state. From a PC with the CANvas adapter, from a ROS 2 node, from PAROL6 or PAR6, or from your own controller.
   See [Over CAN](../06-operation/can.md).
 - **Python**, the `Spectral-BLDC` library on top of CAN. See [With Python](../06-operation/python.md).
-- **The gripper GUI** on a PC: connect, calibrate, move with sliders, watch the plots. See [The gripper GUI](../05-setup/gripper-gui.md).
+- **Motor GUI** in the browser: connect, calibrate, open and close, watch the plots. See [Motor GUI](../05-setup/motor-gui.md).
 - **UART**, the driver's serial port inside the housing: for configuration, and for a self-built gripper. See
   [Over UART](../06-operation/uart.md).

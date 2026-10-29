@@ -1,7 +1,8 @@
 # Versions and compatibility
 
 Which STEPFOC firmware release works with which bootloader, gripper hardware, Python library and ROS 2 driver.
-One row per firmware release, newest first.
+One row per firmware release, newest first; the last column names the version of this site, a gripper release, that
+describes it.
 
 <!-- compatibility-table -->
 

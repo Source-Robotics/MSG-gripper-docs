@@ -4,13 +4,24 @@
 # (<!-- doc-meta: KEY --> on its landing page) and into the list of documents (<!-- documents-table -->), and the
 # publishing workflow reads docs_version. README.md, "Versions and releases", says when to change what.
 
-# The documentation version: the STEPFOC firmware release the gripper runs and these pages describe. The gripper
-# has no firmware of its own; it is a STEPFOC driver in gripper mode. The publishing workflow publishes the site
-# under this name (the version selector in the header) and points "latest" at it.
-docs_version: "108"
+# The documentation version: the gripper release these pages describe, the product repository's release tag
+# without its V. The publishing workflow publishes the site under this name (the version selector in the header)
+# and points "latest" at it. A new gripper release gets a new version of the site; a new firmware release for the
+# same gripper updates this version in place (firmware.version below).
+docs_version: "1.1"
 
-# The firmware release the pages describe, and the generated reference comes from. Its tag must be V<docs_version>.
+# The gripper release: the product repository and its tag, which must be V<docs_version>.
+product:
+  name: MSG gripper
+  repository: https://github.com/Source-Robotics/MSG-compliant-AI-stepper-gripper
+  tag: V1.1
+  released: 2026-02-19
+
+# The driver firmware release the gripper runs and the pages describe; the generated reference is read from its
+# source at this tag. The gripper has no firmware of its own: it is a STEPFOC stepper driver in gripper mode.
 firmware:
+  name: STEPFOC
+  version: "108"
   repository: https://github.com/Source-Robotics/STEPFOC-stepper-controller
   tag: V108
   # The firmware's source folder in that repository, and its Controller_mode numbers with their names (for the
@@ -21,7 +32,8 @@ firmware:
 
 # One entry per document. revision: YEAR.LETTER, a new letter for every published revision of that document.
 # status: draft until the document is published; published: the date of the revision's publication, or null.
-# firmware: true for a document that describes one firmware release (docs_version) and shows it in its version box.
+# firmware: true for a document that describes one firmware release (firmware.version) and shows it in its box.
+# applies_to: what follows "<product> release <docs_version>" in the box's Applies-to line.
 manuals:
   msg:
     number: SR-5003
@@ -30,5 +42,5 @@ manuals:
     status: draft
     published: null
     firmware: true
-    applies_to: MSG gripper V1.1 with the STEPFOC driver PCB v1
-    covers: "the MSG compliant AI stepper gripper: quick start, safety, technical data, installation, setup, operation over CAN, UART, Python and ROS 2, firmware; the gripper's API reference; guides"
+    applies_to: with the STEPFOC driver PCB v1
+    covers: "the MSG compliant AI stepper gripper: safety, technical data, installation, setup, operation over CAN, UART, Python and ROS 2, firmware; the gripper's API reference; guides"

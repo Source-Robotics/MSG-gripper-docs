@@ -1,7 +1,7 @@
 # With Python
 
 The `Spectral-BLDC` library wraps the driver's CAN protocol, gripper messages included: one method per message,
-and the gripper's answers unpacked into attributes. The gripper GUI and the ROS 2 driver are built on it.
+and the gripper's answers unpacked into attributes. The ROS 2 driver and the legacy gripper GUI are built on it.
 
 ## Installing
 

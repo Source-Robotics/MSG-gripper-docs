@@ -1,7 +1,7 @@
 site_name: MSG gripper
 site_description: Documentation for the MSG compliant AI stepper gripper by Source Robotics.
 # Where the site is published: the organisation's docs domain, this repository's path. Search engines take each
-# page's address from here, and the sitemap is built from it. mike adds the version under it (/MSG-gripper-docs/108/).
+# page's address from here, and the sitemap is built from it. mike adds the version under it (/MSG-gripper-docs/1.1/).
 site_url: https://docs.source-robotics.com/MSG-gripper-docs/
 # The docs repository: the "edit this page" target. The header card points at the product repository instead
 # (extra.repos below, overrides/partials/source.html).
@@ -123,7 +123,7 @@ markdown_extensions:
   - pymdownx.smartsymbols
 
 extra:
-  # The version selector in the header (built by mike: one entry per published firmware release + "latest").
+  # The version selector in the header (built by mike: one entry per published gripper release + "latest").
   version:
     provider: mike
     default: latest
@@ -180,7 +180,6 @@ nav:
   - MSG Gripper Manual:
       - index.md
       - Before you start:
-          - Quick start: quick-start.md
           - About this manual: about.md
       - Chapters:
           - 1. Overview:
@@ -203,7 +202,7 @@ nav:
               - CAN termination: 04-installation/can-termination.md
           - 5. First setup:
               - 05-setup/index.md
-              - The gripper GUI: 05-setup/gripper-gui.md
+              - Motor GUI: 05-setup/motor-gui.md
               - Calibrate, activate, move: 05-setup/first-moves.md
               - Driver configuration for a self-built gripper: 05-setup/driver-configuration.md
           - 6. Operation:
@@ -242,7 +241,6 @@ nav:
 
   - Guides:
       - guides/index.md
-      - Build your own: guides/build.md
       - Teleoperation with two grippers: guides/teleoperation.md
 
   - Support:

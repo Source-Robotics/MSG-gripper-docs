@@ -1,8 +1,8 @@
 # Firmware
 
-The gripper has no firmware of its own: it runs the STEPFOC driver's firmware with gripper mode turned on, and a
-gripper release is a STEPFOC release. This site describes the release named in the version box on the landing
-page; the version selector in the header switches between releases.
+The gripper has no firmware of its own: it runs the STEPFOC driver's firmware with gripper mode turned on. This
+site describes the firmware release named in the version box on the landing page, for the gripper release the
+site is versioned by; a new firmware release for the same gripper updates these pages in place.
 
 ## Which release does my gripper run?
 

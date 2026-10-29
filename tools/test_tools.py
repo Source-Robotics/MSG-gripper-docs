@@ -34,11 +34,12 @@ pages = load_module("firmware_pages", ROOT / "hooks" / "firmware_pages.py")
 from mkdocs.exceptions import PluginError  # noqa: E402
 
 # ---------------------------------------------------------------- the version hook
-GOOD = """docs_version: "108"
-firmware: {repository: x, tag: V108}
+GOOD = """docs_version: "1.1"
+product: {name: MSG gripper, repository: x, tag: V1.1}
+firmware: {name: STEPFOC, version: "108", repository: x, tag: V108}
 manuals:
   msg: {number: SR-5003, title: MSG Gripper Manual, revision: 2026.A, status: draft, published: null, firmware: true,
-            applies_to: "MSG gripper V1.1", covers: the driver}
+            applies_to: "with the STEPFOC driver PCB v1", covers: the driver}
   guide: {number: SR-5101, title: Some Guide, revision: 2026.B, status: published, published: 2026-11-02,
           applies_to: "", covers: a guide}
 """
@@ -60,9 +61,11 @@ check("A1 a valid versions.yml loads", data is not None, err)
 d, e = load_text(GOOD.replace("tag: V108", "tag: v108"))
 check("A1b a lowercase tag loads (the v101 tag of the Spectral firmware)", d is not None, e)
 for label, bad, word in (
-        ("docs_version not a release number", GOOD.replace('"108"', '"1.08"'), "docs_version"),
-        ("a tag of another release", GOOD.replace("tag: V108", "tag: V107"), "does not belong"),
-        ("a malformed tag", GOOD.replace("tag: V108", "tag: 108"), "firmware.tag"),
+        ("docs_version not a release", GOOD.replace('"1.1"', '"x"'), "docs_version"),
+        ("a product tag of another release", GOOD.replace("tag: V1.1", "tag: V1.0"), "does not belong"),
+        ("a firmware tag of another release", GOOD.replace("tag: V108", "tag: V107"), "does not belong"),
+        ("a malformed firmware tag", GOOD.replace("tag: V108", "tag: 108"), "firmware.tag"),
+        ("a product without a tag", GOOD.replace("tag: V1.1", "tag: ''"), "product needs"),
         ("a revision not YEAR.LETTER", GOOD.replace("2026.A", "A"), "YEAR.LETTER"),
         ("an unknown status", GOOD.replace("status: draft", "status: final"), "status"),
         ("published without a date", GOOD.replace("published: 2026-11-02", "published: null"), "publication date"),
@@ -70,12 +73,13 @@ for label, bad, word in (
     d, e = load_text(bad)
     check(f"A2 refused: {label}", d is None and word in (e or ""), e)
 meta = hook.meta_block("msg", data)
-check("A3 a firmware document's box: number, firmware version, revision (draft), applies to the firmware",
-      "SR-5003" in meta and "**Firmware version:** 108" in meta and "2026.A (draft)" in meta
-      and "**Applies to:** MSG gripper V1.1, firmware 108" in meta, meta)
+check("A3 a firmware document's box: number, gripper release, firmware, revision (draft), applies to both",
+      "SR-5003" in meta and "**MSG gripper release:** 1.1" in meta and "**Firmware:** STEPFOC 108" in meta
+      and "2026.A (draft)" in meta
+      and "**Applies to:** MSG gripper release 1.1 with the STEPFOC driver PCB v1, STEPFOC firmware 108" in meta, meta)
 meta = hook.meta_block("guide", data)
-check("A4 a published document's box: no firmware line, the date, no (draft)",
-      "Firmware version" not in meta and "2026-11-02" in meta and "(draft)" not in meta, meta)
+check("A4 a published document's box: no firmware line, the gripper release, the date, no (draft)",
+      "**Firmware:**" not in meta and "release:** 1.1" in meta and "2026-11-02" in meta and "(draft)" not in meta, meta)
 try:
     hook.meta_block("nope", data)
     raised = False
@@ -83,7 +87,8 @@ except PluginError:
     raised = True
 check("A5 an unknown manual stops the build", raised)
 table = hook.documents_table(data)
-check("A6 the documents table: one row per manual", table.count("| SR-") == 2 and "108" in table, table)
+check("A6 the documents table: one row per manual, the gripper release and the firmware named",
+      table.count("| SR-") == 2 and "release 1.1" in table and "108" in table, table)
 hook._facts = data
 page = hook.on_page_markdown("x\n<!-- doc-meta: msg -->\ny\n<!-- documents-table -->\n", None, None, None)
 check("A7 both placeholders are replaced", "doc-meta:" not in page and "documents-table" not in page and "SR-5101" in page)
@@ -102,14 +107,15 @@ except PluginError as exc:
 check("B1 the shipped facts and descriptions load and agree (every command described, layouts fit the frames)", loaded, load_err)
 if loaded:
     facts = d["facts"]
-    check("B2 the generated facts are from the release versions.yml names", facts["tag"] == shipped["firmware"]["tag"]
-          and facts["version"] == shipped["docs_version"], f"{facts['tag']} vs {shipped['firmware']['tag']}")
+    check("B2 the generated facts are from the firmware release versions.yml names", facts["tag"] == shipped["firmware"]["tag"]
+          and facts["version"] == str(shipped["firmware"]["version"]), f"{facts['tag']} vs {shipped['firmware']['tag']}")
     missing = [g["page"] for src in (d["can"], d["uart"]) for g in src["groups"].values()]
     missing = [p for p, base in zip(missing, ["can"] * len(d["can"]["groups"]) + ["uart"] * len(d["uart"]["groups"]))
                if not (ROOT / "docs" / "reference" / base / p).exists()]
     check("B3 every command group has its reference page", not missing, str(missing))
-    check("B4 the compatibility table has a row for this docs version",
-          any(str(r.get("firmware")) == shipped["docs_version"] for r in d["compat"]["rows"]))
+    check("B4 the compatibility table has a row for this firmware release, and names this docs version",
+          any(str(r.get("firmware")) == str(shipped["firmware"]["version"]) for r in d["compat"]["rows"])
+          and any(str(r.get("docs")) == shipped["docs_version"] for r in d["compat"]["rows"]))
     check("B5 every column of the compatibility table has a key and a title",
           all("key" in c and "title" in c for c in d["compat"]["columns"]))
     gen = ROOT / "docs" / "includes" / "generated" / "firmware_release_notes.md"

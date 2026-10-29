@@ -8,7 +8,7 @@ every CAN frame it sends. The grip is released: an idle stepper holds nothing be
 - **The error bit** of every answer's identifier: 1 while any error is active.
 - **Respond_Gripper_data_pack** carries the three gripper error bits: temperature, timeout, E-stop.
 - **Send_Respond_State_of_Errors** returns every flag of the driver, which is where the other causes show.
-- The gripper GUI shows the errors in its status section; `#Error` over UART prints them.
+- Motor GUI shows the errors in its gripper panel; `#Error` over UART prints them.
 
 ## The errors
 
