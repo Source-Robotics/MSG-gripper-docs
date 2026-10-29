@@ -55,11 +55,10 @@ thermistor in the windings has no protection and can burn out its motor; see [Dr
 None of these is a certified safety function. A machine that can hurt someone needs an emergency stop that cuts
 the power, independent of the gripper and the robot software.
 
-## Maintenance
+## Care
 
 The gripper is not waterproof or dustproof: the rail and the racks are open to dust, chips and liquids. Keep it out
-of wet or dusty places. The rail and the rack-and-pinion take a little lithium grease now and then: remove the
-four screws that hold the linear rail to reach the mechanism.
+of wet or dusty places. What to check, and when to grease the mechanism, is in [Maintenance](07-maintenance.md).
 
 ## Liability
 

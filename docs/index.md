@@ -37,8 +37,8 @@ fit it to any robot. [Build your own](01-overview/build-your-own.md) is the orde
     ---
 
     [Safety](02-safety.md), [Technical data](03-technical-data/index.md), [Installation](04-installation/index.md),
-    [First setup](05-setup/index.md), [Operation](06-operation/index.md), [Firmware](07-firmware.md),
-    [Troubleshooting](08-troubleshooting.md).
+    [First setup](05-setup/index.md), [Operation](06-operation/index.md), [Maintenance](07-maintenance.md), [Firmware](08-firmware.md),
+    [Troubleshooting](09-troubleshooting.md).
 
 -   :material-robot-industrial:{ .lg .middle } **On a robot**
 

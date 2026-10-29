@@ -26,7 +26,7 @@ set by the stepper:
 <figure markdown="span">
   ![Grip force against the current limit, per stepper](../assets/grip_force_light.png#only-light){ width="820" }
   ![Grip force against the current limit, per stepper](../assets/grip_force_dark.png#only-dark){ width="820" }
-  <figcaption>Figure 5: The grip force against the current limit for the three steppers, each up to its maximum current, from the formula above.</figcaption>
+  <figcaption>Figure 6: The grip force against the current limit for the three steppers, each up to its maximum current, from the formula above.</figcaption>
 </figure>
 
 The curves are computed from the torque constants, not measured with a force gauge: a measurement on your gripper
@@ -41,6 +41,23 @@ soft object is squeezed until the force is reached.
     The firmware does not clamp the gripper's current. A current above the stepper's maximum overheats the
     motor; the thermistor stops the gripper at 75 °C, but a motor driven far over its rating heats faster than
     the thermistor follows. The maximums are in the table above.
+
+## Payload
+
+The grip force is not the weight the gripper can lift. An object held by friction between the two jaws is held
+by $2\,\mu F$, with $\mu$ the friction coefficient between the jaw faces and the object, and a safety factor $S$
+covers what the robot adds:
+
+$$
+W = \frac{2\,\mu\,F}{S}
+$$
+
+With a conservative $\mu$ = 0.3 (a hard printed jaw on steel or smooth plastic; a TPU pad or sponge tape on a dry
+object gives more) and $S$ = 2, the 60 mm stepper at 76 N holds about 23 N, 2.3 kg, and the 21.5 mm stepper at
+31 N about 9 N, 0.9 kg. That is the weight held at rest: a robot accelerating at 1 g doubles the load, and an
+emergency stop decelerates harder than any programmed move. The friction coefficient is the big unknown; measure
+it with your jaws on your object, or close on the object's shape (a form-fit grip) and let friction be the
+reserve.
 
 ## Speed
 

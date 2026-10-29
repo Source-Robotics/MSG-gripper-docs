@@ -215,8 +215,9 @@ nav:
               - With ROS 2: 06-operation/ros2.md
               - On PAROL6 and PAR6: 06-operation/robots.md
               - Errors and recovery: 06-operation/errors.md
-          - 7. Firmware: 07-firmware.md
-          - 8. Troubleshooting: 08-troubleshooting.md
+          - 7. Maintenance: 07-maintenance.md
+          - 8. Firmware: 08-firmware.md
+          - 9. Troubleshooting: 09-troubleshooting.md
       - Appendix:
           - Performance tests: appendix/performance.md
           - Firmware release notes: appendix/firmware-release-notes.md

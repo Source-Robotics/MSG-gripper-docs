@@ -11,7 +11,7 @@ error state:
 
 <figure markdown="span">
   ![The CAN identifier](../assets/CANID.PNG){ width="600" }
-  <figcaption>Figure 15: Bits 10 to 7 of the identifier are the node ID, bits 6 to 1 the command ID, bit 0 the error bit.</figcaption>
+  <figcaption>Figure 16: Bits 10 to 7 of the identifier are the node ID, bits 6 to 1 the command ID, bit 0 the error bit.</figcaption>
 </figure>
 
 - **Node ID**, bits 10 to 7: which device. Every gripper ships as node 0; set another with Send_CAN_ID or `#CANID`

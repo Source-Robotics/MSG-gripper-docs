@@ -11,6 +11,12 @@ the end stops) runs after every power-up and is part of normal use.
 materials, the assembly video, the firmware and the software are all published. [Build your own](build-your-own.md)
 is the order to do it in.
 
+## What is in the box
+
+The gripper, assembled, calibrated and configured, in the rail, stepper and colour you ordered, with the camera
+module when ordered. **Not in the box:** the jaws, which you print from the repository or buy in the shop; the
+cable, sold separately; a CAN adapter for a PC.
+
 ## A cable and a 24 V supply
 
 The gripper is powered and controlled through one M8 4-pin cable: 24 V, GND, CANH, CANL.

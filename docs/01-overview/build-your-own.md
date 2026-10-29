@@ -18,6 +18,18 @@ not designed for. This page is the order to do it in.
 A rail length for the stroke and a stepper length for the force: [Variants](variants.md). The parts to print
 depend on both.
 
+=== "Black"
+    <figure markdown="span">
+      ![The nine variants, black body](../assets/MSG_variants_black.jpg){ width="900" }
+      <figcaption>Figure 5: The nine combinations of rail and stepper, black body: 55, 105 and 155 mm of stroke across, the 21.5, 40 and 60 mm steppers down.</figcaption>
+    </figure>
+
+=== "Grey"
+    <figure markdown="span">
+      ![The nine variants, grey body](../assets/MSG_variants_grey.jpg){ width="900" }
+      <figcaption>The same nine combinations, grey body.</figcaption>
+    </figure>
+
 ## 2. Print the parts
 
 | Variant | Folders in [STEP files](https://github.com/Source-Robotics/MSG-compliant-AI-stepper-gripper/tree/main/STEP%20files) |

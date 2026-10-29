@@ -43,4 +43,4 @@ After clearing, the gripper is idle and still calibrated and activated; the next
 - Moves to one end during calibration and stops there: the other end stop is blocked, or the mechanism is too
   stiff for the calibration's 500 mA; after 24 seconds the routine gives up.
 
-[Troubleshooting](../08-troubleshooting.md) goes through the symptoms one by one.
+[Troubleshooting](../09-troubleshooting.md) goes through the symptoms one by one.

@@ -19,6 +19,7 @@
 | | Value |
 |---|---|
 | Stroke | 55 mm (100 mm rail), 105 mm (150 mm rail), 155 mm (200 mm rail) |
+| Mass | about 320 g; a longer rail or stepper adds to it |
 | Position resolution | 1/255 of the stroke: 0.2 to 0.6 mm per step of the position byte |
 | Drive | NEMA 17 stepper, pinion (32 DP, 21 teeth, 8.3 mm pitch radius) on two racks, MGN7 linear rail |
 | Grip force | up to about 31 N (21.5 mm stepper), 50 N (40 mm) or 76 N (60 mm) at the stepper's maximum current; set per move by the current limit, see [Force and speed](force-and-speed.md) |

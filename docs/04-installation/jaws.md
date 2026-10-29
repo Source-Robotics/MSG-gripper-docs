@@ -12,14 +12,14 @@ each file is one jaw, mirrored in the slicer for the other side.
 
 <figure markdown="span">
   ![A jaw](../assets/gripper_jaws.png){ width="520" }
-  <figcaption>Figure 12: The jaw body, with the mounting holes for the carrier.</figcaption>
+  <figcaption>Figure 13: The jaw body, with the mounting holes for the carrier.</figcaption>
 </figure>
 
 ## The TPU jaw
 
 <figure markdown="span">
   ![TPU jaws](../assets/tpujaws.png){ width="700" }
-  <figcaption>Figure 13: The TPU jaw: a PETG body (orange) and a TPU pad (green).</figcaption>
+  <figcaption>Figure 14: The TPU jaw: a PETG body (orange) and a TPU pad (green).</figcaption>
 </figure>
 
 Print the body in PETG with your usual settings and the pad in TPU with 16 % infill, no top or bottom layers and
