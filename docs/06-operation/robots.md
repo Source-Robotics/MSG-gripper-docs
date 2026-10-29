@@ -12,14 +12,13 @@ it, moves it and reads its state, so a program for the robot does not talk CAN i
 3. Leave the gripper's node ID at 0 and its termination switch ON; it is the last node on the robot's bus.
 
 The PAROL6 commander software has the electric gripper's controls: calibrate, then a position, a speed and a
-current for a move, and the gripper's status. The PAROL6 Python API does the same from a program:
+current for a move, and the gripper's status. The PAROL6 Python API drives it as a tool, from a program:
 
 ```python
-from robot_api import control_electric_gripper, get_electric_gripper_status
-
-control_electric_gripper(action="calibrate")
-control_electric_gripper(action="move", position=100, speed=150, current=200)
-print(get_electric_gripper_status())
+rbt.select_tool("MSG", variant_key="150mm")           # the parol6 package; 100mm, 150mm or 200mm, the rail
+rbt.tool.calibrate()                                   # queued with the motion; lasts a few seconds
+rbt.tool.set_position(0.8, speed=0.5, current=0.4)     # fractions of the ranges
+print(rbt.tool.status())
 ```
 
 The [PAROL6 documentation](https://docs.source-robotics.com/PAROL-docs/) covers the robot's side: the gripper
