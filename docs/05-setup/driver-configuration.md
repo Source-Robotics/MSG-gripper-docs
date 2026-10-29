@@ -79,5 +79,5 @@ calibration found.
 ## Current limit
 
 The gripper's moves use the current limit of each command, not the driver's `#Ilim`. Keep the commanded current
-at or below the stepper's rated current ([Force and speed](../03-technical-data/force-and-speed.md)); the
+at or below the stepper's maximum current ([Force and speed](../03-technical-data/force-and-speed.md)); the
 firmware does not clamp it.

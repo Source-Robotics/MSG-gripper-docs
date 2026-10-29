@@ -187,6 +187,7 @@ nav:
               - The gripper at a glance: 01-overview/gripper-at-a-glance.md
               - Variants: 01-overview/variants.md
               - What you need: 01-overview/what-you-need.md
+              - Build your own: 01-overview/build-your-own.md
           - 2. Safety: 02-safety.md
           - 3. Technical data:
               - 03-technical-data/index.md
@@ -241,6 +242,7 @@ nav:
 
   - Guides:
       - guides/index.md
+      - Basic control in Python: guides/basic-control.md
       - Teleoperation with two grippers: guides/teleoperation.md
 
   - Support:

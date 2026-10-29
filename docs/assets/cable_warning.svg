@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="420" viewBox="0 0 1600 420" role="img"
+     aria-label="PAROL6 and PAR6 gripper cables are not interchangeable: the wrong cable destroys the gripper's driver">
+  <rect width="1600" height="420" rx="24" fill="#b3261e"/>
+  <g transform="translate(165,210)">
+    <polygon points="0,-130 150,130 -150,130" fill="#ffd600" stroke="#1a1a1a" stroke-width="14" stroke-linejoin="round"/>
+    <rect x="-17" y="-62" width="34" height="112" rx="10" fill="#1a1a1a"/>
+    <circle cx="0" cy="86" r="21" fill="#1a1a1a"/>
+  </g>
+  <text x="370" y="118" font-family="Roboto, Arial, Helvetica, sans-serif" font-size="56" font-weight="700" fill="#ffffff">PAROL6 and PAR6 gripper cables</text>
+  <text x="370" y="186" font-family="Roboto, Arial, Helvetica, sans-serif" font-size="56" font-weight="700" fill="#ffffff">are NOT interchangeable</text>
+  <text x="370" y="262" font-family="Roboto, Arial, Helvetica, sans-serif" font-size="34" fill="#ffffff">A PAROL6 cable on a PAR6, or a PAR6 cable on a PAROL6,</text>
+  <text x="370" y="310" font-family="Roboto, Arial, Helvetica, sans-serif" font-size="34" fill="#ffffff">puts 24 V on the CAN pins and destroys the gripper's driver.</text>
+  <text x="370" y="376" font-family="Roboto, Arial, Helvetica, sans-serif" font-size="30" font-weight="700" fill="#ffd600">Use the cable sold for your robot; check a self-made one pin by pin.</text>
+</svg>

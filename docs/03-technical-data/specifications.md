@@ -6,7 +6,7 @@
 |---|---|
 | Supply voltage | 24 V DC; the driver tolerates 12 to 29 V, the force and speed figures assume 24 V |
 | Idle power | 0.5 W |
-| Motor current | up to the stepper's rated current: 1.0 A (21.5 mm), 2.0 A (40 mm), 2.1 A (60 mm); set per move as the grip force |
+| Motor current | up to 1.5 A (21.5 mm stepper), 2.0 A (40 mm), 2.1 A (60 mm); set per move as the grip force |
 | Interface | CAN 2.0, 1 Mbit/s, 11-bit identifiers; node ID 0 as shipped |
 | Connector | M8, 4 pins: 24 V, GND, CANH, CANL |
 | CAN termination | 120 Ω, switchable, reachable through the stepper cover |
@@ -21,7 +21,7 @@
 | Stroke | 55 mm (100 mm rail), 105 mm (150 mm rail), 155 mm (200 mm rail) |
 | Position resolution | 1/255 of the stroke: 0.2 to 0.6 mm per step of the position byte |
 | Drive | NEMA 17 stepper, pinion (32 DP, 21 teeth, 8.3 mm pitch radius) on two racks, MGN7 linear rail |
-| Grip force | up to about 20 N (21.5 mm stepper), 50 N (40 mm) or 76 N (60 mm) at the stepper's rated current; set per move by the current limit, see [Force and speed](force-and-speed.md) |
+| Grip force | up to about 31 N (21.5 mm stepper), 50 N (40 mm) or 76 N (60 mm) at the stepper's maximum current; set per move by the current limit, see [Force and speed](force-and-speed.md) |
 | Jaw speed | up to about 190 mm/s per jaw at speed 255; see [Force and speed](force-and-speed.md) |
 | Grasps | external (closing on the object) and internal (opening inside a hollow object) |
 | Mounting | coupler plate for an 8 mm shaft (shaft coupler with M4 clamp screws); a ring cover for the PAROL6 wrist |
@@ -38,9 +38,9 @@
 
 ## Variants
 
-| Rail | Stroke | | Stepper | Motor | Rated current | Torque constant | Grip force at the rated current |
+| Rail | Stroke | | Stepper | Motor | Maximum current | Torque constant | Grip force at the maximum current |
 |---|---|---|---|---|---|---|---|
-| 100 mm | 55 mm | | 21.5 mm | 17HS08-1004S | 1.0 A | 0.17 Nm/A | about 20 N |
+| 100 mm | 55 mm | | 21.5 mm | 17HS08-1004S | 1.5 A | 0.17 Nm/A | about 31 N |
 | 150 mm | 105 mm | | 40 mm | 17HS16-2004S1 | 2.0 A | 0.21 Nm/A | about 50 N |
 | 200 mm | 155 mm | | 60 mm | 17HS24-2104S | 2.1 A | 0.30 Nm/A | about 76 N |
 

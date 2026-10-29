@@ -13,3 +13,4 @@ gripping.
 - [The gripper at a glance](gripper-at-a-glance.md)
 - [Variants](variants.md)
 - [What you need](what-you-need.md)
+- [Build your own](build-your-own.md)

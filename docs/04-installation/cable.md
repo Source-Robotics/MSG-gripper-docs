@@ -1,5 +1,7 @@
 # The cable
 
+![PAROL6 and PAR6 gripper cables are not interchangeable](../assets/cable_warning.svg){ width="1000" }
+
 One cable with an M8 4-pin connector powers the gripper and carries its CAN bus. The robot end differs from robot
 to robot.
 

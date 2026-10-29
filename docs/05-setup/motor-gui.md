@@ -53,7 +53,7 @@ side of the switch shows the same driver as a motor, which the gripper does not 
 | Events | the feedback rate and the recent gripper events, with **Export events** for diagnostics |
 | Cycle test | moves between two positions at a speed and a current, a number of times with a dwell: for endurance tests and demonstrations. Keep the tab visible while it runs |
 
-Motor GUI's current limit stops at 1500 mA. The 40 mm and 60 mm steppers are rated higher
+Motor GUI's current limit stops at 1500 mA. The 40 mm and 60 mm steppers take more
 ([Force and speed](../03-technical-data/force-and-speed.md)); for their full force, command the move from
 Python or over CAN.
 

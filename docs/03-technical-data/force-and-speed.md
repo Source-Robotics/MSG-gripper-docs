@@ -17,16 +17,16 @@ $$
 $r$ is the pitch radius of the pinion (32 DP, 21 teeth). The force is proportional to the current, with a slope
 set by the stepper:
 
-| Stepper | Motor | $K_t$ | Force per ampere | Rated current | Grip force at the rated current |
+| Stepper | Motor | $K_t$ | Force per ampere | Maximum current | Grip force at the maximum current |
 |---|---|---|---|---|---|
-| 21.5 mm | 17HS08-1004S | 0.17 Nm/A | 20 N/A | 1.0 A | about 20 N |
+| 21.5 mm | 17HS08-1004S | 0.17 Nm/A | 20 N/A | 1.5 A | about 31 N |
 | 40 mm | 17HS16-2004S1 | 0.21 Nm/A | 25 N/A | 2.0 A | about 50 N |
 | 60 mm | 17HS24-2104S | 0.30 Nm/A | 36 N/A | 2.1 A | about 76 N |
 
 <figure markdown="span">
   ![Grip force against the current limit, per stepper](../assets/grip_force_light.png#only-light){ width="820" }
   ![Grip force against the current limit, per stepper](../assets/grip_force_dark.png#only-dark){ width="820" }
-  <figcaption>Figure 5: The grip force against the current limit for the three steppers, each up to its rated current, from the formula above.</figcaption>
+  <figcaption>Figure 5: The grip force against the current limit for the three steppers, each up to its maximum current, from the formula above.</figcaption>
 </figure>
 
 The curves are computed from the torque constants, not measured with a force gauge: a measurement on your gripper
@@ -37,10 +37,10 @@ is the only exact calibration, and a self-built gripper with another stepper has
 The force is a limit, not a controlled value: a hard object takes the full force the moment the jaws touch it; a
 soft object is squeezed until the force is reached.
 
-!!! danger "Stay within the stepper's rating"
-    The firmware does not clamp the gripper's current. A current above the stepper's rated current overheats the
+!!! danger "Stay within the stepper's maximum"
+    The firmware does not clamp the gripper's current. A current above the stepper's maximum overheats the
     motor; the thermistor stops the gripper at 75 °C, but a motor driven far over its rating heats faster than
-    the thermistor follows. The ratings are in the table above.
+    the thermistor follows. The maximums are in the table above.
 
 ## Speed
 

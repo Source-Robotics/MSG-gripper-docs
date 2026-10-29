@@ -35,16 +35,16 @@ and a little heavier and does not change the force.
 
 ## Stepper length and force
 
-| Stepper | Motor | Rated current | Torque constant | Grip force at the rated current | Printed parts |
+| Stepper | Motor | Maximum current | Torque constant | Grip force at the maximum current | Printed parts |
 |---|---|---|---|---|---|
-| 21.5 mm | 17HS08-1004S | 1.0 A | 0.17 Nm/A | about 20 N | `Stepper_cover_21_5mm`, `Stepper_spacer_21_5` |
+| 21.5 mm | 17HS08-1004S | 1.5 A | 0.17 Nm/A | about 31 N | `Stepper_cover_21_5mm`, `Stepper_spacer_21_5` |
 | 40 mm | 17HS16-2004S1 | 2.0 A | 0.21 Nm/A | about 50 N | `Stepper_cover_40mm` |
 | 60 mm | 17HS24-2104S | 2.1 A | 0.30 Nm/A | about 76 N | `Stepper_cover_60mm` |
 
 A longer stepper gives more torque and so more grip force, at the price of weight and length behind the
 gripper. The force is proportional to the current limit you command, with the slope of the stepper's torque
 constant; the curves and the formula are in [Force and speed](../03-technical-data/force-and-speed.md). The
-current limit must stay within the stepper's rating.
+current limit must stay within the stepper's maximum.
 
 ## Grasps
 
