@@ -40,13 +40,13 @@ colours are those of the cable in the BOM.
 === "PAROL6"
     <figure markdown="span">
       ![The PAROL6 gripper cable](../assets/PAROL6_cable.png){ width="320" }
-      <figcaption>Figure 11: The PAROL6 cable: the pins are crossed between the two ends.</figcaption>
+      <figcaption>Figure 10: The PAROL6 cable: the pins are crossed between the two ends.</figcaption>
     </figure>
 
 === "PAR6"
     <figure markdown="span">
       ![The PAR6 gripper cable](../assets/PAR6_cable.png){ width="200" }
-      <figcaption>Figure 12: The PAR6 cable: pin to pin.</figcaption>
+      <figcaption>Figure 11: The PAR6 cable: pin to pin.</figcaption>
     </figure>
 
 === "Bench or your own robot"

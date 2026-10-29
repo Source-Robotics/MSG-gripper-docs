@@ -1,4 +1,4 @@
-# Driver configuration for a self-built gripper
+# Driver setup and first run
 
 A gripper from the shop arrives with its driver configured: the stepper calibrated, gripper mode on, the
 thermistor on, the gains set, everything saved. A gripper you build has a bare STEPFOC driver that must be
@@ -19,7 +19,7 @@ and the [STEPFOC documentation](https://docs.source-robotics.com/STEPFOC-docs/) 
 
 ## With Motor GUI
 
-[Motor GUI](motor-gui.md), connected over **UART** through the serial adapter, has a preset per stepper on its
+[Motor GUI](../05-setup/motor-gui.md), connected over **UART** through the serial adapter, has a preset per stepper on its
 setup page: *MSG 21.5 mm motor*, *MSG 40 mm motor* and *MSG 60 mm motor*. A preset writes the stepper's
 resistance, inductance and 50 pole pairs, the current limit, the loop gains, gripper mode, the thermistor and
 the CAN ID, then saves; its CAN ID is 6, the PAR6 gripper's, so change it before applying for another robot.
@@ -73,7 +73,7 @@ need it.
 
 Fit the pinion and assemble the gripper, power it up, and run the gripper calibration (`#Gripcal`, or Motor GUI's
 **Calibrate**): the jaws open fully and close fully. Then a first move at a low current, as in
-[Calibrate, activate, move](first-moves.md). `#Gripinfo` prints the gripper's state, including the end stops the
+[Calibrate, activate, move](../05-setup/first-moves.md). `#Gripinfo` prints the gripper's state, including the end stops the
 calibration found.
 
 ## Current limit

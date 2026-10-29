@@ -5,7 +5,7 @@ reachable through an opening in the stepper cover: **ON** connects the resistor,
 
 <figure markdown="span">
   ![The termination switch through the stepper cover](../assets/Gripper_termination.jpg){ width="700" }
-  <figcaption>Figure 15: The termination switch of the driver, seen through the stepper cover.</figcaption>
+  <figcaption>Figure 14: The termination switch of the driver, seen through the stepper cover.</figcaption>
 </figure>
 
 | The gripper is | Switch |

@@ -26,7 +26,7 @@ set by the stepper:
 <figure markdown="span">
   ![Grip force against the current limit, per stepper](../assets/grip_force_light.png#only-light){ width="820" }
   ![Grip force against the current limit, per stepper](../assets/grip_force_dark.png#only-dark){ width="820" }
-  <figcaption>Figure 6: The grip force against the current limit for the three steppers, each up to its maximum current, from the formula above.</figcaption>
+  <figcaption>Figure 5: The grip force against the current limit for the three steppers, each up to its maximum current, from the formula above.</figcaption>
 </figure>
 
 The curves are computed from the torque constants, not measured with a force gauge: a measurement on your gripper

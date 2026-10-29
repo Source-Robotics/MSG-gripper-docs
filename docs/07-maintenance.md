@@ -31,5 +31,5 @@ rail, the carriages, the pinion and the screws are in the
 is the same part as a new one, and the gripper calibration at the next power-up takes care of the end stops.
 
 A stepper or a driver is not serviced but replaced: the stepper by one of the three in the BOM, after which the
-motor calibration of [Driver configuration](05-setup/driver-configuration.md) is run again; the driver by a new
+motor calibration of [Driver configuration](build/first-run.md) is run again; the driver by a new
 [STEPFOC driver](https://source-robotics.com/products/stepfoc-stepper-controller), configured the same way.

@@ -14,7 +14,7 @@ has to fit:
 
 <figure markdown="span">
   ![The STEP model](../assets/MSG_3D_model.png){ width="600" }
-  <figcaption>Figure 8: The STEP model of the gripper, seen from the coupler plate.</figcaption>
+  <figcaption>Figure 7: The STEP model of the gripper, seen from the coupler plate.</figcaption>
 </figure>
 
 ## For simulation

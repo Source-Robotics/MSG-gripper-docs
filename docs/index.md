@@ -21,7 +21,7 @@ CC BY-SA 4.0, the code examples MIT.
 **The MSG is open source, and that is important to us.** Everything the gripper is made of is published: the
 CAD and print files, the bill of materials, the assembly instructions, the driver's firmware and the software that
 drives it. Buy the gripper assembled, or build one yourself; change the jaws or the body for your application and
-fit it to any robot. [Build your own](01-overview/build-your-own.md) is the order to do it in.
+fit it to any robot. The [build guide](build/index.md) is the order to do it in.
 
 <div class="grid cards" markdown>
 
@@ -58,7 +58,7 @@ fit it to any robot. [Build your own](01-overview/build-your-own.md) is the orde
 
     ---
 
-    [Everything is published](01-overview/build-your-own.md): print the parts, source the rest from the BOM,
-    assemble, configure the driver. The same manual applies.
+    [The build guide](build/index.md): the repository's bill of materials, printing, the assembly, the driver's
+    setup and the first run. The same manual applies.
 
 </div>

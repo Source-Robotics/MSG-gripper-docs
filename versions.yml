@@ -43,4 +43,4 @@ manuals:
     published: null
     firmware: true
     applies_to: with the STEPFOC driver PCB v1
-    covers: "the MSG compliant AI stepper gripper: safety, technical data, installation, setup, operation over CAN, UART, Python and ROS 2, firmware; the gripper's API reference; guides"
+    covers: "the MSG compliant AI stepper gripper: safety, technical data, installation, setup, operation over CAN, UART, Python and ROS 2, firmware, the build guide; the gripper's API reference; guides"

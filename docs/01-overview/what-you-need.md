@@ -8,7 +8,7 @@ the bootloader installed, its driver in gripper mode and its stepper calibrated;
 the end stops) runs after every power-up and is part of normal use.
 
 **Or build it.** The MSG is open source, and that is important to us: the CAD and print files, the bill of
-materials, the assembly video, the firmware and the software are all published. [Build your own](build-your-own.md)
+materials, the assembly video, the firmware and the software are all published. [The build guide](../build/index.md)
 is the order to do it in.
 
 ## What is in the box
@@ -56,7 +56,7 @@ with the library.
 - **PAROL6 and PAR6**: the robots' own software drives the gripper; see [On PAROL6 and PAR6](../06-operation/robots.md).
 - **For a self-built gripper**: a 3.3 V USB-to-serial adapter ([serial adapter](https://source-robotics.com/products/usb-to-serial-adapter))
   for the driver's UART port, to configure the driver with Motor GUI or a terminal; see
-  [Driver configuration](../05-setup/driver-configuration.md).
+  [Driver configuration](../build/first-run.md).
 
 ## Optional
 

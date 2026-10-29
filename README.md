@@ -15,14 +15,15 @@ the gripper runs the firmware of the STEPFOC driver,
 
 | | |
 |---|---|
-| `docs/` | the pages: the manual chapters at the top level, `reference/`, `guides/`, `support/`, `appendix/` |
+| `docs/` | the pages: the manual chapters at the top level, `build/`, `reference/`, `guides/`, `support/`, `appendix/` |
+| `docs/build/bill-of-materials.md`, `docs/assets/bom/` | written by `tools/sync_bom.py` from the gripper repository's BOM and its reference images. Never edit |
 | `docs/includes/` | text shared by pages (glossary, symbols, abbreviations) and the data the reference pages are built from |
 | `docs/includes/can_commands.yml`, `uart_commands.yml` | the hand-written descriptions of the CAN messages and UART commands a gripper needs (`partial: true`: the rest of the driver's commands are on the STEPFOC site) |
 | `docs/includes/generated/` | written by `tools/sync_firmware.py` from the firmware's release tag: `firmware_facts.json`, `firmware_release_notes.md`. Never edit |
 | `versions.yml` | every version fact: the gripper release the site is versioned by, the firmware release it describes, the manual's number and revision |
 | `compatibility.yml` | which firmware release works with which bootloader, gripper hardware, Python library and ROS 2 driver |
 | `hooks/` | `versions.py` writes the version facts into the pages; `firmware_pages.py` builds the reference pages |
-| `tools/` | `sync_firmware.py`, `test_tools.py`, `root_404.html` |
+| `tools/` | `sync_firmware.py`, `sync_bom.py`, `test_tools.py`, `root_404.html` |
 | `overrides/` | the theme changes: the older-version banner, the edit/report line, the header's repository card |
 
 The site is built with [MkDocs](https://www.mkdocs.org/) and the
@@ -64,6 +65,19 @@ python tools/sync_firmware.py --check    # exit 1 if they are out of date
 The tool needs a clone of the STEPFOC firmware repository with its tags, next to this repository or named by
 `--firmware PATH` / `FIRMWARE_DIR`, and the network for the release notes (`--no-network` keeps the file that is
 there). The CI build does not run it; the generated files are committed.
+
+## The bill of materials is copied from the gripper repository
+
+`docs/build/bill-of-materials.md` is the gripper repository's BOM, as it is, with its reference images shown
+inline: `tools/sync_bom.py` reads a clone of the repository named in `versions.yml` (`--repo PATH`,
+`$GRIPPER_REPO_DIR`, a sibling folder or `../../projects/<name>`), converts the note blocks, copies and scales the
+images into `docs/assets/bom/`, and writes a header naming the commit it copied. A wrong part or a broken link is
+fixed in the repository's file, then:
+
+```bash
+python tools/sync_bom.py            # rewrite the page and the images from the clone
+python tools/sync_bom.py --check    # exit 1 if the page is out of date
+```
 
 ## Versions and releases
 

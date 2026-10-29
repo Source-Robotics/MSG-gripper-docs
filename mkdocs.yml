@@ -187,7 +187,6 @@ nav:
               - The gripper at a glance: 01-overview/gripper-at-a-glance.md
               - Variants: 01-overview/variants.md
               - What you need: 01-overview/what-you-need.md
-              - Build your own: 01-overview/build-your-own.md
           - 2. Safety: 02-safety.md
           - 3. Technical data:
               - 03-technical-data/index.md
@@ -205,7 +204,6 @@ nav:
               - 05-setup/index.md
               - Motor GUI: 05-setup/motor-gui.md
               - Calibrate, activate, move: 05-setup/first-moves.md
-              - Driver configuration for a self-built gripper: 05-setup/driver-configuration.md
           - 6. Operation:
               - 06-operation/index.md
               - How the gripper works: 06-operation/how-it-works.md
@@ -218,6 +216,12 @@ nav:
           - 7. Maintenance: 07-maintenance.md
           - 8. Firmware: 08-firmware.md
           - 9. Troubleshooting: 09-troubleshooting.md
+      - Build guide:
+          - build/index.md
+          - Bill of materials: build/bill-of-materials.md
+          - Printing the parts: build/printing.md
+          - Mechanical assembly: build/mechanical-assembly.md
+          - Driver setup and first run: build/first-run.md
       - Appendix:
           - Performance tests: appendix/performance.md
           - Firmware release notes: appendix/firmware-release-notes.md

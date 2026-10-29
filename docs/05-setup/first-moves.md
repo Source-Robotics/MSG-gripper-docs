@@ -11,7 +11,7 @@ explains what happens inside.
 ## 1. Power up
 
 At power-up the gripper reports *Not calibrated* and does not move. Its stepper must be calibrated too, which a
-bought gripper is from the factory; a self-built gripper gets that in [Driver configuration](driver-configuration.md).
+bought gripper is from the factory; a self-built gripper gets that in [Driver configuration](../build/first-run.md).
 
 ## 2. Calibrate
 

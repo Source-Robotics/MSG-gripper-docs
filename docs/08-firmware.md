@@ -32,7 +32,7 @@ and [The bootloader](https://docs.source-robotics.com/STEPFOC-docs/latest/07-fir
     - Open the gripper or take the object out: it loses its grip during the update and until it is calibrated
       and commanded again.
     - An update may clear the driver's configuration (the release notes say so when it does). A bought gripper's
-      configuration is in [Driver configuration](05-setup/driver-configuration.md), so it can be restored; note
+      configuration is in [Driver configuration](build/first-run.md), so it can be restored; note
       what `#Info` prints before you start.
     - Give the gripper a node ID from 0 to 13: the bootloader cannot address 14 or 15.
 

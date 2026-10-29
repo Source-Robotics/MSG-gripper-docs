@@ -1,6 +1,6 @@
 # Driver setup
 
-The driver commands a self-built gripper is configured with; [Driver configuration](../../05-setup/driver-configuration.md)
+The driver commands a self-built gripper is configured with; [Driver configuration](../../build/first-run.md)
 is the procedure.
 
 <!-- uart-commands: setup -->
