@@ -30,7 +30,7 @@ at the gripper and whatever the other end needs:
 
 <div class="grid" markdown>
 ![The M8 male connector](../assets/M8_male.webp){ width="260" }
-![The M8 female connector](../assets/M8_female.png){ width="260" }
+![The M8 female connector](../assets/M8_female.webp){ width="260" }
 ![A finished cable](../assets/cable_assembly.webp){ width="340" }
 </div>
 

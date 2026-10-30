@@ -5,7 +5,7 @@ the force. Any rail goes with any stepper, and the body comes in black or grey; 
 stepper cover are printed for the chosen combination.
 
 <figure markdown="span">
-  ![The three rail lengths](../assets/Gripper_strokes.png){ width="900" }
+  ![The three rail lengths](../assets/Gripper_strokes.webp){ width="900" }
   <figcaption>Figure 2: The three rail lengths and the stroke each gives.</figcaption>
 </figure>
 

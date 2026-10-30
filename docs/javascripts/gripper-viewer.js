@@ -1,5 +1,6 @@
 /* The gripper configurator: a three.js view of the model that tools/build_model.py writes (body.glb, one
-   jaws_<option>.glb per finger option, viewer.json). The reader turns and zooms the gripper, opens and closes
+   jaws_<option>.glb per finger option, viewer.json). A model without jaws and colours (the driver boards) is
+   shown as it is: turn and zoom only. The reader turns and zooms the gripper, opens and closes
    the jaws, picks the fingers and the colours of the body and the fingers. Loaded as a module by
    gripper-viewer-loader.js only on a page that has a .gripper-viewer element; three.js comes from the import
    map in overrides/main.html. */
@@ -32,7 +33,7 @@ async function mount(el) {
   const load = (file) => new Promise((ok, err) => loader.load(base + file, (g) => ok(g.scene), undefined, err));
 
   const state = { body: null, jaws: null, jawNodes: {}, colors: { ...cfg.default }, opening: cfg.default.opening };
-  const dirs = { jaw1: new THREE.Vector3().fromArray(cfg.dir.jaw1), jaw2: new THREE.Vector3().fromArray(cfg.dir.jaw2) };
+  const dirs = cfg.dir ? { jaw1: new THREE.Vector3().fromArray(cfg.dir.jaw1), jaw2: new THREE.Vector3().fromArray(cfg.dir.jaw2) } : null;
 
   function paint(obj, hex) {
     if (!obj) return;
@@ -44,6 +45,7 @@ async function mount(el) {
     });
   }
   function applyOpening() {
+    if (!dirs) return;
     for (const name of ["jaw1", "jaw2"]) {
       const n = state.jawNodes[name];
       if (n) n.position.copy(dirs[name]).multiplyScalar(cfg.travel_m * state.opening);
@@ -72,8 +74,8 @@ async function mount(el) {
 
   state.body = await load(cfg.body);
   root.add(state.body);
-  paint(state.body, state.colors.body);
-  await setJaws(cfg.default.jaws);
+  if (state.colors.body) paint(state.body, state.colors.body);   // a model with its own colours (a board) is left as it is
+  if (cfg.jaws && cfg.jaws.length) await setJaws(cfg.default.jaws);
   frame();
 
   // the controls
@@ -91,7 +93,7 @@ async function mount(el) {
     const swatches = el.querySelector(`.gripper-viewer__swatches[data-target="${target}"]`);
     const apply = (hex) => { state.colors[key] = hex; paint(target === "body" ? state.body : state.jaws, hex); if (input) input.value = hex; };
     if (swatches) {
-      for (const [name, hex] of Object.entries(cfg.colors[target])) {
+      for (const [name, hex] of Object.entries(cfg.colors[target] || {})) {
         const b = document.createElement("button");
         b.type = "button"; b.title = name; b.setAttribute("aria-label", name);
         b.style.background = hex;

@@ -34,7 +34,7 @@ COLOURS = {
     "body": {"Grey": "#d2d2cf", "Black": "#1a1a1a", "White": "#f2f2f0"},
     "jaws": {"Black": "#1a1a1a", "Grey": "#9a9a98", "Yellow": "#f2c230"},
 }
-MAX_FACES = 30000          # the body mesh of the URDF has 64 000 faces: too many for a landing page
+MAX_FACES = 15000          # the body mesh of the URDF has 64 000 faces: too many for a landing page
 Y_UP = trimesh.transformations.rotation_matrix(np.pi / 2, [1, 0, 0])
 
 

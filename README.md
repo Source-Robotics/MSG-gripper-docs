@@ -107,6 +107,13 @@ Comments under every page come from Giscus, wired in `overrides/partials/comment
 `Source-Robotics/source-robotics.github.io`, with one thread per site and page. A page opts out with
 `comments: false` in its front matter (the landing page does).
 
+## The PDF of the manual
+
+The `print-site` plugin (the last plugin in `mkdocs.yml`) builds one page with every chapter in order, a cover and
+a table of contents, at `print_page/`. `hooks/pdf.py` prints that page to `site/assets/MSG-gripper-manual.pdf` with headless
+Chrome when the environment variable `DOCS_PDF` is set, which the publish workflow does; a local build sets it on
+demand (`DOCS_PDF=1 mkdocs build`). While the hook is on, the page-help line of every page links the PDF.
+
 ## Versions and releases
 
 The site is versioned by **gripper release**: the version the product repository tags (`V1.1`, ...), published

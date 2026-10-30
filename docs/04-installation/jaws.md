@@ -11,7 +11,7 @@ each file is one jaw, mirrored in the slicer for the other side.
 | Hollow jaw | `MSG_JAW_HOLLOW` | lighter, and suited to multi-colour prints |
 
 <figure markdown="span">
-  ![A jaw](../assets/gripper_jaws.png){ width="520" }
+  ![A jaw](../assets/gripper_jaws.webp){ width="520" }
   <figcaption>Figure 12: The jaw body, with the mounting holes for the carrier.</figcaption>
 </figure>
 
@@ -28,8 +28,8 @@ pictures show: a pad glued the wrong way round leaves the jaws facing the wrong 
 
 <div class="grid" markdown>
 ![Apply super glue](../assets/jaw_glue.webp){ width="300" }
-![Press the pad on](../assets/jaw_assembly.jpg){ width="300" }
-![Check the orientation](../assets/jaw_orientation.jpg){ width="300" }
+![Press the pad on](../assets/jaw_assembly.webp){ width="300" }
+![Check the orientation](../assets/jaw_orientation.webp){ width="300" }
 </div>
 
 ## Sponge pads
