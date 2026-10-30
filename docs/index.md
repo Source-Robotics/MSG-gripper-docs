@@ -1,6 +1,7 @@
 ---
 hide:
   - toc
+comments: false
 ---
 
 # MSG Gripper Manual
