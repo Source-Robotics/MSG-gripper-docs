@@ -12,6 +12,19 @@ By symptom. The error flags and what clears them are in [Errors and recovery](06
 
 ## It does not move
 
+```mermaid
+flowchart TD
+    A([The gripper does not move]) --> B{Does it answer on CAN?}
+    B -- no --> C[24 V on the cable, the pinout, the node ID,<br>1 Mbit/s, the termination]
+    B -- yes --> D{Calibrated?}
+    D -- no --> E[Run the gripper calibration;<br>a self-built gripper: the stepper calibration first]
+    D -- yes --> F{An error flag set?}
+    F -- yes --> G[Clear it; if it comes back,<br>Errors and recovery names the cause]
+    F -- no --> H{Activate and action bits at 1?}
+    H -- no --> I[Send the command with activate = 1 and action = 1]
+    H -- yes --> J[The command equals the previous one:<br>change the speed or the current by one]
+```
+
 | Symptom | Check |
 |---|---|
 | calibrated, activated, no error, no motion | the action bit of the command is 0; the command is identical to the previous one (change the speed or the current by one to repeat a move) |

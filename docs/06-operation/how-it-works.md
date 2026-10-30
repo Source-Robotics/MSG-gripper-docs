@@ -85,6 +85,29 @@ Every Send_gripper_data_pack is answered with Respond_Gripper_data_pack, 4 bytes
 The bits are listed in [Errors and status bits](../reference/errors.md), with the byte layout in the
 [CAN reference](../reference/can/gripper.md).
 
+## A grip, message by message
+
+What a host sends and what comes back, from power-up to a held object:
+
+```mermaid
+sequenceDiagram
+    participant H as Host
+    participant G as Gripper
+    H->>G: Send_Clear_Error
+    H->>G: Send_gripper_calibrate
+    G-->>H: status: calibrating (action status 0)
+    Note over G: the jaws open, pause, close: 0 and 255 are found
+    G-->>H: status: calibrated
+    H->>G: Send_gripper_data_pack(200, 30, 400, activate 1, action 1)
+    G-->>H: answer: moving (object detection 0)
+    loop every 20 ms, an empty Send_gripper_data_pack
+        H->>G: (0 bytes)
+        G-->>H: answer: position, current, state
+    end
+    G-->>H: answer: object found while closing (1), or at the position (3)
+    Note over H: the grip is in, the next move waits for the program
+```
+
 ## Object detection, exactly
 
 While a move is in progress and the jaws are not yet at the target, the driver reads *moving* (0) as long as the

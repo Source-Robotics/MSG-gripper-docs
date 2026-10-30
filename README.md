@@ -86,7 +86,8 @@ python tools/sync_bom.py --check    # exit 1 if the page is out of date
 published version (`extra.llms_base`). The "Copy this page as Markdown" button in the page header reads the twin.
 
 The "Last update" date under every page comes from the `git-revision-date-localized` plugin (the page's last
-commit; the CI checks out the whole history for it).
+commit; the CI checks out the whole history for it). The calculator on the Force and speed page is
+`docs/javascripts/gripper-calculator.js`, driven by the data attributes and the selects of its block.
 
 ## Analytics and comments
 

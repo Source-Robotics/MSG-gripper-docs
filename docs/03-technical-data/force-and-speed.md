@@ -42,6 +42,45 @@ soft object is squeezed until the force is reached.
     motor; the thermistor stops the gripper at 75 °C, but a motor driven far over its rating heats faster than
     the thermistor follows. The maximums are in the table above.
 
+## Try it
+
+<div class="gripper-calc" data-newtons-per-amp="25.3" data-radius-mm="8.3" data-ticks-min="500" data-ticks-max="60000" data-ticks-per-rev="16384" data-stroke-mm="105" markdown="0">
+  <div class="gripper-calc__row gripper-calc__row--inline">
+    <label for="gc-stepper">Stepper</label>
+    <select id="gc-stepper" name="stepper">
+      <option value="20.5" data-max-ma="1500">21.5 mm, 17HS08-1004S</option>
+      <option value="25.3" data-max-ma="2000" selected>40 mm, 17HS16-2004S1</option>
+      <option value="36.1" data-max-ma="2100">60 mm, 17HS24-2104S</option>
+    </select>
+    <label for="gc-rail">Rail</label>
+    <select id="gc-rail" name="rail">
+      <option value="55">100 mm, 55 mm stroke</option>
+      <option value="105" selected>150 mm, 105 mm stroke</option>
+      <option value="155">200 mm, 155 mm stroke</option>
+    </select>
+  </div>
+  <div class="gripper-calc__row">
+    <label for="gc-current">Current limit of the move: <output data-out="current">400 mA</output></label>
+    <input id="gc-current" type="range" name="current" min="150" max="2000" step="10" value="400">
+  </div>
+  <div class="gripper-calc__row gripper-calc__row--inline">
+    <label for="gc-mu">Friction coefficient µ</label>
+    <input id="gc-mu" type="number" name="mu" min="0.1" max="1.5" step="0.05" value="0.3">
+    <label for="gc-safety">Safety factor</label>
+    <input id="gc-safety" type="number" name="safety" min="1" max="5" step="0.5" value="2">
+  </div>
+  <p class="gripper-calc__result">Grip force <strong data-out="force">10 N</strong> · holds <strong data-out="payload">0.31 kg</strong> at rest by friction</p>
+  <div class="gripper-calc__row">
+    <label for="gc-speed">Speed byte: <output data-out="speedbyte">30</output></label>
+    <input id="gc-speed" type="range" name="speed" min="0" max="255" step="1" value="30">
+  </div>
+  <p class="gripper-calc__result">Each jaw <strong data-out="jaw">24 mm/s</strong> · the jaws close at <strong data-out="closing">48 mm/s</strong> · the full stroke takes <strong data-out="stroke">2.2 s</strong></p>
+</div>
+
+The formulas of this page, with your numbers: the force from the current and the stepper's torque constant, the
+weight held by friction with the safety factor of the next section, and the speed from the speed byte over the
+rail's stroke.
+
 ## Payload
 
 The grip force is not the weight the gripper can lift. An object held by friction between the two jaws is held
