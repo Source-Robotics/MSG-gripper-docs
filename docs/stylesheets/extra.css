@@ -270,3 +270,19 @@
 }
 .gripper-calc__result { font-size: 0.8rem; margin: 0.2rem 0 0.9rem 0; }
 .gripper-calc__result strong { color: var(--md-accent-fg-color); }
+
+/* The gripper configurator (three.js) on the landing and dimensions pages */
+.gripper-viewer { margin: 0.5rem 0 1rem 0; }
+.gripper-viewer__canvas { display: block; width: 100%; height: 26rem; border-radius: 0.2rem; touch-action: none; }
+.gripper-viewer__controls { display: flex; flex-wrap: wrap; gap: 0.6rem 1.4rem; align-items: center; margin-top: 0.5rem; font-size: 0.7rem; color: var(--md-default-fg-color--light); }
+.gripper-viewer__field { display: inline-flex; align-items: center; gap: 0.4rem; }
+.gripper-viewer__field input[type=range] { width: 9rem; accent-color: var(--md-accent-fg-color); }
+.gripper-viewer__field select, .gripper-viewer__field input[type=color] {
+  font: inherit; font-size: 0.7rem; color: var(--md-default-fg-color); background: var(--md-default-bg-color);
+  border: 1px solid var(--md-default-fg-color--lighter); border-radius: 0.15rem; padding: 0.1rem 0.3rem;
+}
+.gripper-viewer__field input[type=color] { width: 1.6rem; height: 1.3rem; padding: 0; }
+.gripper-viewer__swatches { display: inline-flex; gap: 0.25rem; }
+.gripper-viewer__swatches button { width: 1.1rem; height: 1.1rem; border-radius: 50%; border: 1px solid var(--md-default-fg-color--lighter); cursor: pointer; padding: 0; }
+.gripper-viewer__controls .md-button { font-size: 0.65rem; padding: 0.3em 0.9em; margin: 0; }
+.gripper-viewer__hint { font-size: 0.7rem; color: var(--md-default-fg-color--light); margin-top: 0.5rem; }

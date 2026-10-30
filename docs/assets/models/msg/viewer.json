@@ -1,0 +1,46 @@
+{
+ "body": "body.glb",
+ "jaws": [
+  {
+   "key": "printed",
+   "label": "Printed jaws",
+   "file": "jaws_printed.glb"
+  }
+ ],
+ "travel_m": 0.052,
+ "dir": {
+  "jaw1": [
+   7e-06,
+   7e-06,
+   -1.0
+  ],
+  "jaw2": [
+   -7e-06,
+   -7e-06,
+   1.0
+  ]
+ },
+ "colors": {
+  "body": {
+   "Grey": "#d2d2cf",
+   "Black": "#1a1a1a",
+   "White": "#f2f2f0"
+  },
+  "jaws": {
+   "Black": "#1a1a1a",
+   "Grey": "#9a9a98",
+   "Yellow": "#f2c230"
+  }
+ },
+ "default": {
+  "jaws": "printed",
+  "opening": 0.5,
+  "body": "#d2d2cf",
+  "jaws_color": "#1a1a1a"
+ },
+ "camera": {
+  "azimuth_deg": -35,
+  "polar_deg": 72,
+  "fill": 1.25
+ }
+}

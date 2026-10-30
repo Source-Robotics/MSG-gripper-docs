@@ -24,6 +24,18 @@ CAD and print files, the bill of materials, the assembly instructions, the drive
 drives it. Buy the gripper assembled, or build one yourself; change the jaws or the body for your application and
 fit it to any robot. The [build guide](build/index.md) is the order to do it in.
 
+<div class="gripper-viewer" data-base="assets/models/msg/" markdown="0">
+  <canvas class="gripper-viewer__canvas" aria-label="The MSG gripper in 3D: drag to turn, scroll to zoom"></canvas>
+  <div class="gripper-viewer__controls">
+    <label class="gripper-viewer__field">Opening <input type="range" name="opening" min="0" max="100" value="50"></label>
+    <label class="gripper-viewer__field">Body <span class="gripper-viewer__swatches" data-target="body"></span><input type="color" name="body" value="#d2d2cf" title="Any colour"></label>
+    <label class="gripper-viewer__field">Jaws <span class="gripper-viewer__swatches" data-target="jaws"></span><input type="color" name="jaws_color" value="#1a1a1a" title="Any colour"></label>
+    <button type="button" name="reset" class="md-button">Reset view</button>
+  </div>
+  <p class="gripper-viewer__hint">Drag to turn the gripper, scroll to zoom, open and close the jaws, try the colours. The model is the
+repository's <a href="https://github.com/Source-Robotics/MSG-compliant-AI-stepper-gripper/tree/main/MSG_gripper_description">URDF</a> of the 150 mm rail variant; the shop sells the body in black and grey.</p>
+</div>
+
 <div class="grid cards" markdown>
 
 -   :material-play-circle:{ .lg .middle } **First setup**

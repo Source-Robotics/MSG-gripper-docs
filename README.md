@@ -79,7 +79,13 @@ python tools/sync_bom.py            # rewrite the page and the images from the c
 python tools/sync_bom.py --check    # exit 1 if the page is out of date
 ```
 
-## Markdown twins and the "Last update" dates
+## The 3D model, the Markdown twins and the "Last update" dates
+
+`tools/build_model.py` builds `docs/assets/models/msg/` from the gripper repository's URDF (the same `--repo`
+as the BOM tool; needs `trimesh` with `fast-simplification`): the body, the jaws and `viewer.json`. The landing
+and dimensions pages show them in the configurator `docs/javascripts/gripper-viewer.js` (three.js from a CDN,
+through the import map in `overrides/main.html`, loaded only on those pages): turn and zoom, open the jaws,
+choose the colours. Run the tool again when the meshes change.
 
 `hooks/llms.py` writes, at every build, a Markdown twin of every page next to its HTML (`…/index.md`), `llms.txt`
 (an index of the twins by tab) and `llms-full.txt` (every page in one file), with the links absolute to the
