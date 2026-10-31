@@ -14,6 +14,8 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import shutil
+import subprocess
 import sys
 import xml.etree.ElementTree as ET
 from pathlib import Path
@@ -34,7 +36,7 @@ COLOURS = {
     "body": {"Grey": "#d2d2cf", "Black": "#1a1a1a", "White": "#f2f2f0"},
     "jaws": {"Black": "#1a1a1a", "Grey": "#9a9a98", "Yellow": "#f2c230"},
 }
-MAX_FACES = 15000          # the body mesh of the URDF has 64 000 faces: too many for a landing page
+MAX_FACES = 30000          # the body mesh of the URDF has 64 000 faces: too many for a landing page
 Y_UP = trimesh.transformations.rotation_matrix(np.pi / 2, [1, 0, 0])
 
 
@@ -77,6 +79,22 @@ def export(meshes: dict[str, trimesh.Trimesh], path: Path, colour: str):
     path.parent.mkdir(parents=True, exist_ok=True)
     scene.export(path)
     return path.stat().st_size // 1024
+
+
+def compress(path: Path) -> str:
+    """Meshopt compression with gltfpack (Node.js): the file shrinks to a fraction, the browser decodes it with
+    three.js's MeshoptDecoder. Named nodes are kept (-kn). Without Node.js the file stays as trimesh wrote it,
+    which the viewer reads as well."""
+    exe = os.environ.get("GLTFPACK") or shutil.which("gltfpack")
+    npx = shutil.which("npx")
+    cmd = [exe] if exe else ([npx, "--yes", "gltfpack@1.3.0"] if npx else None)
+    if not cmd:
+        print(f"note: no gltfpack (Node.js); {path.name} left uncompressed")
+        return "uncompressed"
+    packed = path.with_name(path.stem + ".packed.glb")
+    subprocess.run(cmd + ["-i", str(path), "-o", str(packed), "-cc", "-kn"], check=True, capture_output=True)
+    packed.replace(path)
+    return "meshopt"
 
 
 def main(argv=None) -> int:
@@ -150,6 +168,8 @@ def main(argv=None) -> int:
         "colors": COLOURS, "default": {"jaws": OPTIONS[0][0], "opening": 0.5, "body": "#d2d2cf", "jaws_color": "#1a1a1a"},
         "camera": {"azimuth_deg": -35, "polar_deg": 72, "fill": 1.25},
     }
+    packed = {f.name: compress(f) for f in sorted(OUT.glob("*.glb"))}
+    sizes_after = {f.name: f.stat().st_size // 1024 for f in sorted(OUT.glob("*.glb"))}
     (OUT / "viewer.json").write_text(json.dumps(config, indent=1) + "\n", encoding="utf-8")
     for m in default.values():
         m.apply_translation(offset)
@@ -157,6 +177,7 @@ def main(argv=None) -> int:
     ext = (allb.max(axis=0) - allb.min(axis=0)) * 1000
     print(f"wrote {OUT.relative_to(ROOT)}: " + ", ".join(f"{k} {v} KB" for k, v in sizes.items())
           + f"; travel {travel * 1000:.0f} mm, model {ext[0]:.0f} x {ext[1]:.0f} x {ext[2]:.0f} mm")
+    print("after compression: " + ", ".join(f"{k} {v} KB ({packed[k]})" for k, v in sizes_after.items()))
     return 0
 
 

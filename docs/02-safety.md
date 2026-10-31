@@ -63,8 +63,8 @@ of wet or dusty places. What to check, and when to grease the mechanism, is in [
 ## Liability
 
 The MSG gripper is sold as a component for people who build their own machines, and its designs are published
-for people who build the gripper itself. The hardware designs, the firmware and this documentation are provided
-as they are, without a warranty, and are under development; they may contain errors. Whoever builds or operates
+for people who build the gripper itself. The hardware designs, the firmware and this documentation are under
+development and may contain errors. Whoever builds or operates
 a machine with the gripper is responsible for its safe design, assembly and operation. The
 [full disclaimer](https://github.com/Source-Robotics/MSG-compliant-AI-stepper-gripper/blob/main/SAFETY_WARNING_AND_DISCLAIMER.md)
 is in the product repository.

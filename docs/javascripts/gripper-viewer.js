@@ -8,6 +8,7 @@ import * as THREE from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
+import { MeshoptDecoder } from "three/addons/libs/meshopt_decoder.module.js";   // the models are meshopt-compressed (gltfpack)
 
 async function mount(el) {
   if (el.dataset.ready) return;
@@ -29,7 +30,7 @@ async function mount(el) {
   controls.addEventListener("start", () => { controls.autoRotate = false; });
   const root = new THREE.Group();
   scene.add(root);
-  const loader = new GLTFLoader();
+  const loader = new GLTFLoader().setMeshoptDecoder(MeshoptDecoder);
   const load = (file) => new Promise((ok, err) => loader.load(base + file, (g) => ok(g.scene), undefined, err));
 
   const state = { body: null, jaws: null, jawNodes: {}, colors: { ...cfg.default }, opening: cfg.default.opening };
@@ -48,7 +49,9 @@ async function mount(el) {
     if (!dirs) return;
     for (const name of ["jaw1", "jaw2"]) {
       const n = state.jawNodes[name];
-      if (n) n.position.copy(dirs[name]).multiplyScalar(cfg.travel_m * state.opening);
+      if (!n) continue;
+      if (!n.userData.base) n.userData.base = n.position.clone();   // the node's own offset (gltfpack may set one)
+      n.position.copy(dirs[name]).multiplyScalar(cfg.travel_m * state.opening).add(n.userData.base);
     }
   }
   function frame() {
