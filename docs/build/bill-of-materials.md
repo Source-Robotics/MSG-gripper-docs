@@ -2,7 +2,7 @@
 
 !!! note "This is a copy"
     The original is [BOM.md](https://github.com/Source-Robotics/MSG-compliant-AI-stepper-gripper/blob/main/BOM.md) in the gripper's repository; this page is that file as of
-    2026-10-31 (commit `c45ac2c`), with the reference images shown inline. If a link is broken or a part is wrong,
+    2026-10-31 (commit `38fb76c`), with the reference images shown inline. If a link is broken or a part is wrong,
     [open an issue](https://github.com/Source-Robotics/MSG-compliant-AI-stepper-gripper/issues/new) there, and the fix lands here with the next sync. The shop's
     [starter kit](index.md#kits-and-the-shop) covers the driver and everything its setup needs.
 
@@ -52,11 +52,11 @@ This BOM lists all components required to build the MSG gripper. Quantities are 
 | Type | Quantity | Description | Link |
 |------|----------|-------------|------|
 | Shaft coupler | 1 | 8 mm bore, M4 screw holes<br>![shaft_coupler](../assets/bom/shaft_coupler.webp){ width="120" } | [Link](https://s.click.aliexpress.com/e/_c2xnQgI7) |
-| MGN7C slider | 2 | Linear guide carriage | [Link](https://s.click.aliexpress.com/e/_c4EMqbrV) |
-| Linear guide | 1 | 100 mm, 150 mm and 200 length works | [Link](https://s.click.aliexpress.com/e/_c4sRNxXV) |
-| Diametrical Neodymium Magnet | 1 | 6 mm diameter, 2.5 mm thickness<br>![Magnet](../assets/bom/Magnet.webp){ width="120" } | [Link](https://source-robotics.com/products/6x2-5mm-diametrical-neodymium-magnet) |
-| Magnet 8 x 2.5mm or 8 x 3mm | 1 | | [Link](https://s.click.aliexpress.com/e/_c4tF3Rzf) |
-| Gear 32P 21T for 5mm shaft | 1 | | [Link](https://s.click.aliexpress.com/e/_c3oAnoc7) |
+| MGN7C slider | 2 | Linear guide carriage<br>![MGN7C_slider](../assets/bom/MGN7C_slider.webp){ width="120" } | [Link](https://s.click.aliexpress.com/e/_c4EMqbrV) |
+| Linear guide | 1 | 100 mm, 150 mm and 200 length works<br>![MGN7C_slider](../assets/bom/MGN7C_slider.webp){ width="120" } | [Link](https://s.click.aliexpress.com/e/_c4sRNxXV) |
+| Diametrical Neodymium Magnet | 1 | 6 mm diameter, 2.5 mm thickness<br>![magnet_diametrically](../assets/bom/magnet_diametrically.webp){ width="120" } | [Link](https://source-robotics.com/products/6x2-5mm-diametrical-neodymium-magnet) |
+| Magnet 8 x 2.5mm or 8 x 3mm | 1 | ![Magnet](../assets/bom/Magnet.webp){ width="120" } | [Link](https://s.click.aliexpress.com/e/_c4tF3Rzf) |
+| Gear 32P 21T for 5mm shaft | 1 | ![gear_32P_21T](../assets/bom/gear_32P_21T.webp){ width="120" } | [Link](https://s.click.aliexpress.com/e/_c3oAnoc7) |
 | Thermal cement | 1 | ![Thermal_cement](../assets/bom/Thermal_cement.webp){ width="120" } | [Link](https://s.click.aliexpress.com/e/_c3dBOwTD) |
 | Sponge tape — 30 mm width, 1 mm thickness | 1 |   | [Link](https://s.click.aliexpress.com/e/_c2zNJUaR) |
 
@@ -70,7 +70,7 @@ This BOM lists all components required to build the MSG gripper. Quantities are 
 | XH 2.54 mm cable | 1 | 300 mm, 2P, double-ended (24 V power)<br>![XH_cable](../assets/bom/XH_cable.webp){ width="120" } | [Link](https://s.click.aliexpress.com/e/_c3f1efET) |
 | ZH 1.5 mm cable | 1 | 300 mm, 2P, double-ended (CAN bus)<br>![ZH_cable](../assets/bom/ZH_cable.webp){ width="120" } | [Link](https://s.click.aliexpress.com/e/_c3f1efET)  |
 | M8 Male 4-pin connector | 1 | ![M8connectormale4pin](../assets/bom/M8connectormale4pin.webp){ width="120" } | [Link](https://s.click.aliexpress.com/e/_c4OWHPKF) |
-| OV9732 Camera | 1 | 100 Degree version | [Link](https://s.click.aliexpress.com/e/_c3WWVLjl) |
+| OV9732 Camera | 1 | 100 Degree version<br>![camera_OV9732](../assets/bom/camera_OV9732.webp){ width="120" } | [Link](https://s.click.aliexpress.com/e/_c3WWVLjl) |
 
 
 

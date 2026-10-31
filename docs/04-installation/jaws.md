@@ -19,7 +19,7 @@ each file is one jaw, mirrored in the slicer for the other side.
 
 <figure markdown="span">
   ![TPU jaws](../assets/tpujaws.webp){ width="700" }
-  <figcaption>Figure 13: The TPU jaw: a PETG body (orange) and a TPU pad (green).</figcaption>
+  <figcaption>Figure 13: The TPU jaw: a PETG body (black) and a TPU pad (yellow).</figcaption>
 </figure>
 
 Print the body in PETG with your usual settings and the pad in TPU with 16 % infill, no top or bottom layers and
@@ -42,6 +42,11 @@ and smooth objects a great deal. Cut it to length, peel the backing and press it
 Keep the carrier's hole pattern from one of the designs and shape the rest for your objects. Long jaws
 multiply the lever arm on the carriers: keep them short and stiff, and remember that the grip force is set at the
 jaw faces, not at the rail.
+
+!!! warning "Custom jaws on a PAR6"
+    On a PAR6, custom jaws must keep the size of the original jaws: no longer, no wider and no thicker. The
+    PAR6 software works with the gripper's original dimensions (its collision model of the tool and the tool
+    centre point), so a larger jaw reaches where the robot does not expect it.
 
 ## Calibrate after changing the jaws
 

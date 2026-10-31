@@ -12,8 +12,6 @@ comments: false
 
 [Quick start](quick-start.md){ .md-button .md-button--primary } [About this manual](about.md){ .md-button }
 
-[Try Motor GUI without hardware](05-setup/motor-gui.md#try-it-without-a-gripper){ .md-button }
-
 Source Robotics d.o.o. publishes this document for the MSG compliant AI stepper gripper. It is revised as the gripper and its
 firmware change; the document number, the gripper release, the firmware, the revision and the date above identify
 the version you are reading, and the document history on the About page says what changed. The version selector
