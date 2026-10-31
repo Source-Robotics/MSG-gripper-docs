@@ -247,3 +247,88 @@
   color: var(--md-default-fg-color--light);
   margin-top: -0.6rem;
 }
+
+/* The "Copy this page as Markdown" button sits with the edit and view buttons */
+.md-copy-md svg { fill: currentcolor; }
+
+/* The force and speed calculator */
+.gripper-calc {
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: 0.2rem;
+  padding: 0.8rem 1rem 0.2rem 1rem;
+  margin: 1rem 0;
+  background: var(--md-code-bg-color);
+}
+.gripper-calc__row { margin: 0.3rem 0 0.6rem 0; }
+.gripper-calc__row label { display: block; font-size: 0.7rem; color: var(--md-default-fg-color--light); }
+.gripper-calc__row--inline label { display: inline-block; margin-right: 0.4rem; }
+.gripper-calc__row input[type=range] { width: 100%; accent-color: var(--md-accent-fg-color); }
+.gripper-calc__row input[type=number] {
+  width: 4.5rem; margin-right: 1.2rem; padding: 0.15rem 0.3rem; font: inherit; font-size: 0.75rem;
+  color: var(--md-default-fg-color); background: var(--md-default-bg-color);
+  border: 1px solid var(--md-default-fg-color--lighter); border-radius: 0.15rem;
+}
+.gripper-calc__result { font-size: 0.8rem; margin: 0.2rem 0 0.9rem 0; }
+.gripper-calc__result strong { color: var(--md-accent-fg-color); }
+
+/* The gripper configurator (three.js) on the landing and dimensions pages */
+.gripper-viewer { margin: 0.5rem 0 1rem 0; }
+.gripper-viewer__canvas { display: block; width: 100%; height: 26rem; border-radius: 0.2rem; touch-action: none; }
+.gripper-viewer__controls { display: flex; flex-wrap: wrap; gap: 0.6rem 1.4rem; align-items: center; margin-top: 0.5rem; font-size: 0.7rem; color: var(--md-default-fg-color--light); }
+.gripper-viewer__field { display: inline-flex; align-items: center; gap: 0.4rem; }
+.gripper-viewer__field input[type=range] { width: 9rem; accent-color: var(--md-accent-fg-color); }
+.gripper-viewer__field select, .gripper-viewer__field input[type=color] {
+  font: inherit; font-size: 0.7rem; color: var(--md-default-fg-color); background: var(--md-default-bg-color);
+  border: 1px solid var(--md-default-fg-color--lighter); border-radius: 0.15rem; padding: 0.1rem 0.3rem;
+}
+.gripper-viewer__field input[type=color] { width: 1.6rem; height: 1.3rem; padding: 0; }
+.gripper-viewer__swatches { display: inline-flex; gap: 0.25rem; }
+.gripper-viewer__swatches button { width: 1.1rem; height: 1.1rem; border-radius: 50%; border: 1px solid var(--md-default-fg-color--lighter); cursor: pointer; padding: 0; }
+.gripper-viewer__controls .md-button { font-size: 0.65rem; padding: 0.3em 0.9em; margin: 0; }
+.gripper-viewer__hint { font-size: 0.7rem; color: var(--md-default-fg-color--light); margin-top: 0.5rem; }
+
+/* The print page (print-site plugin) and the PDF printed from it: no interactive blocks, no page chrome */
+#print-site-page .gripper-viewer, #print-site-page .arm-viewer, #print-site-page .calc, #print-site-page .gripper-calc,
+#print-site-page .md-feedback, #print-site-page .page-help, #print-site-page .md-source-file, #print-site-page .md-copy-md { display: none !important; }
+@media print {
+  .md-consent, .md-banner, .md-top, .md-copy-md, .page-help, .md-feedback { display: none !important; }
+  .md-typeset img { max-height: 24cm; }
+}
+
+/* Numbered annotations sit over original screenshots; the captured UI is unmodified. */
+.gui-shot { margin: 1.3rem 0; }
+.gui-shot__image { position: relative; }
+.gui-shot__image p { margin: 0; }
+.gui-shot__image img { display: block; width: 100%; border: 1px solid var(--md-default-fg-color--lightest); border-radius: .3rem; }
+.gui-shot__mark { position: absolute; display: grid; place-items: center; width: 1.3rem; height: 1.3rem; border-radius: 50%; background: #166534; color: #fff; border: 2px solid #fff; font: bold .8rem/1 sans-serif; box-shadow: 0 1px 5px #0005; pointer-events: none; }
+.gui-shot figcaption { margin-top: .6rem; text-align: left; font-style: normal; }
+.can-tool { margin: 1rem 0; }
+.can-tool fieldset { min-width: 0; margin: 1rem 0; padding: 1rem; border: 1px solid var(--md-default-fg-color--lightest); border-radius: .4rem; }
+.can-tool legend { padding: 0 .4rem; font-weight: 700; }
+.can-tool label, .can-tool small { display: block; margin-top: .6rem; }
+.can-tool small { margin-top: .15rem; color: var(--md-default-fg-color--light); }
+.can-tool input[type=number], .can-tool input[type=text], .can-tool select { display: block; box-sizing: border-box; width: 100%; max-width: 100%; padding: .5rem; border: 1px solid var(--md-default-fg-color--light); border-radius: .2rem; background: var(--md-default-bg-color); color: var(--md-default-fg-color); font: inherit; }
+.can-tool select { white-space: normal; }
+.can-tool input:focus, .can-tool select:focus { outline: 2px solid var(--md-accent-fg-color); outline-offset: 2px; }
+.can-tool button { margin: .8rem .4rem 0 0; }
+.can-tool button:disabled { opacity: .5; cursor: default; }
+.can-tool pre { white-space: pre-wrap; overflow-wrap: anywhere; }
+.can-tool__decoded { overflow-x: auto; margin-top: 1rem; }
+.can-tool__status { font-size: .8rem; }
+@media print { .can-tool { display: none; } }
+
+/* Two repositories in the header: the product's (with the theme's stars, forks and release) over this documentation's */
+@media screen and (min-width: 60em) {
+  .md-header__source { display: flex; flex-direction: column; justify-content: center; gap: 0.15rem; height: 2.4rem; width: 12.5rem; max-width: 12.5rem; }
+}
+.sr-repo { display: flex; align-items: center; line-height: 1.15; }
+.sr-repo .md-source__icon { display: flex; align-items: center; justify-content: center; height: auto; width: 1.1rem; flex-shrink: 0; }
+.sr-repo .md-source__icon svg { margin: 0; height: 0.8rem; width: 0.8rem; }
+[dir=ltr] .sr-repo .md-source__icon + .md-source__repository { margin-left: 0.35rem; padding-left: 0; }
+.sr-repo .md-source__repository { display: block; min-width: 0; max-width: none; flex: 1; font-size: 0.6rem; }
+.sr-repo--product .md-source__facts { font-size: 0.5rem; margin: 0.05rem 0 0; }
+.sr-repo--docs { opacity: 0.8; }
+.sr-repo--docs .md-source__icon svg { height: 0.7rem; width: 0.7rem; }
+.sr-repo--docs .md-source__repository { font-size: 0.55rem; }
+.md-nav__source .sr-repo { padding: 0.35rem 0.4rem; }
+.md-nav__source .sr-repo--docs { padding-top: 0; }

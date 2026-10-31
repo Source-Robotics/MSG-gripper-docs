@@ -1,0 +1,90 @@
+# Bill of materials
+
+!!! note "This is a copy"
+    The original is [BOM.md](https://github.com/Source-Robotics/MSG-compliant-AI-stepper-gripper/blob/main/BOM.md) in the gripper's repository; this page is that file as of
+    2026-10-31 (commit `9862f62`), with the reference images shown inline. If a link is broken or a part is wrong,
+    [open an issue](https://github.com/Source-Robotics/MSG-compliant-AI-stepper-gripper/issues/new) there, and the fix lands here with the next sync. The shop's
+    [starter kit](https://docs.source-robotics.com/MSG-gripper-docs/1.1/build/#kits-and-the-shop) covers the driver and everything its setup needs.
+
+This BOM lists all components required to build the MSG gripper. Quantities are for **one gripper**.
+
+!!! note
+    If any product links are broken, unavailable, or no longer point to the correct item, please [open an issue](https://github.com/Source-Robotics/MSG-compliant-AI-stepper-gripper/issues/new), send us a message on Discord, or contact us via email. You can also use the reference images to find the same or an equivalent part from another supplier.
+
+## Screws and Nuts
+
+| Diameter / Type | Length | Quantity | Description | Link |
+|-----------------|--------|----------|-------------|------|
+| M3 nut |  | 1 |  |  |
+| M4 | 10 mm | 2 | Screw |  |
+| M3 | 6 mm | 4 | Cheese head screw |  |
+| M3 | 25 mm | 4 | Screw |  |
+| M3 | 8 mm | 6 | Screw |  |
+| M2 | 10 mm | 1 | Screw |  |
+| M2 | 4 mm | 8 | Screw |  |
+| M2.5 | 8 mm | 6 | Screw |  |
+| M2 | 6 mm | 4 | Screw |  |
+| M3 | 22 mm | 4 | For 17HS08-1004S stepper |  |
+| M3 | 40 mm | 4 | For 17HS16-2004S1 stepper |  |
+| M3 | 60 mm | 4 | For 17HS24-2104S stepper |  |
+
+## Brass Inserts
+
+| Thread | Length | Outer Diameter | Quantity | Description | Link |
+|-------|--------|----------------|----------|-------------|------|
+| M3 | 5 mm | 4.5 mm | 8 | ![brass_insert](https://docs.source-robotics.com/MSG-gripper-docs/1.1/assets/bom/brass_insert.webp){ width="120" } | [Link](https://s.click.aliexpress.com/e/_c2RX6lzp) |
+
+## Motors (You need one of these per gripper!)
+
+| Type | Quantity | Description | Link |
+|------|----------|-------------|------|
+| 17HS08-1004S | 1 | 21.5mm stepper<br>![stepper_21_5mm](https://docs.source-robotics.com/MSG-gripper-docs/1.1/assets/bom/stepper_21_5mm.webp){ width="120" } | [Link](https://www.omc-stepperonline.com/nema-17-bipolar-1-8deg-16ncm-22-6oz-in-1a-3-7v-42x42x20mm-4-wires-17hs08-1004s?tracking=6543849d6ff69) |
+| 17HS16-2004S1 | 1 | 40mm stepper<br>![stepper_40mm](https://docs.source-robotics.com/MSG-gripper-docs/1.1/assets/bom/stepper_40mm.webp){ width="120" } | [Link](https://www.omc-stepperonline.com/nema-17-bipolar-45ncm-64oz-in-2a-42x42x40mm-4-wires-w-1m-cable-connector-17hs16-2004s1?tracking=6543849d6ff69)  |
+| 17HS24-2104S | 1 | 60mm stepper<br>![stepper_60mm](https://docs.source-robotics.com/MSG-gripper-docs/1.1/assets/bom/stepper_60mm.webp){ width="120" } | [Link](https://www.omc-stepperonline.com/nema-17-bipolar-1-8deg-65ncm-92oz-in-2-1a-3-36v-42x42x60mm-4-wires-17hs24-2104s?tracking=6543849d6ff69)  |
+
+## Mechanical Components
+
+| Type | Quantity | Description | Link |
+|------|----------|-------------|------|
+| Shaft coupler | 1 | 8 mm bore, M4 screw holes<br>![shaft_coupler](https://docs.source-robotics.com/MSG-gripper-docs/1.1/assets/bom/shaft_coupler.webp){ width="120" } | [Link](https://s.click.aliexpress.com/e/_c2xnQgI7) |
+| MGN7C slider | 2 | Linear guide carriage<br>![MGN7C_carriage](https://docs.source-robotics.com/MSG-gripper-docs/1.1/assets/bom/MGN7C_carriage.webp){ width="120" } | [Link](https://s.click.aliexpress.com/e/_c4EMqbrV) |
+| Linear guide | 1 | 100 mm, 150 mm and 200 length works<br>![MGN7_rail](https://docs.source-robotics.com/MSG-gripper-docs/1.1/assets/bom/MGN7_rail.webp){ width="120" } | [Link](https://s.click.aliexpress.com/e/_c4sRNxXV) |
+| Diametrical Neodymium Magnet | 1 | 6 mm diameter, 2.5 mm thickness<br>![magnet_diametrically](https://docs.source-robotics.com/MSG-gripper-docs/1.1/assets/bom/magnet_diametrically.webp){ width="120" } | [Link](https://source-robotics.com/products/6x2-5mm-diametrical-neodymium-magnet) |
+| Magnet 8 x 2.5mm or 8 x 3mm | 1 | ![Magnet](https://docs.source-robotics.com/MSG-gripper-docs/1.1/assets/bom/Magnet.webp){ width="120" } | [Link](https://s.click.aliexpress.com/e/_c4tF3Rzf) |
+| Gear 32P 21T for 5mm shaft | 1 | ![gear_32P_21T](https://docs.source-robotics.com/MSG-gripper-docs/1.1/assets/bom/gear_32P_21T.webp){ width="120" } | [Link](https://s.click.aliexpress.com/e/_c3oAnoc7) |
+| Thermal cement | 1 | ![Thermal_cement](https://docs.source-robotics.com/MSG-gripper-docs/1.1/assets/bom/Thermal_cement.webp){ width="120" } | [Link](https://s.click.aliexpress.com/e/_c3dBOwTD) |
+| Sponge tape — 30 mm width, 1 mm thickness | 1 |   | [Link](https://s.click.aliexpress.com/e/_c2zNJUaR) |
+
+## Electronics
+
+| Type | Quantity | Description | Link |
+|------|----------|-------------|------|
+| STEPFOC motor controller | 1 | Motor controller<br>![STEPFOC](https://docs.source-robotics.com/MSG-gripper-docs/1.1/assets/bom/STEPFOC.webp){ width="120" } | [Link](https://source-robotics.com/products/stepfoc-stepper-controller) |
+| 100K Thermistor | 1 | NTC temperature sensor<br>![Thermistor](https://docs.source-robotics.com/MSG-gripper-docs/1.1/assets/bom/Thermistor.webp){ width="120" } | [Link](https://source-robotics.com/products/100k-ntc-thermistor) |
+| XH 2.54 mm cable | 1 | 300 mm, 2P, double-ended (24 V power)<br>![XH_cable](https://docs.source-robotics.com/MSG-gripper-docs/1.1/assets/bom/XH_cable.webp){ width="120" } | [Link](https://s.click.aliexpress.com/e/_c3f1efET) |
+| ZH 1.5 mm cable | 1 | 300 mm, 2P, double-ended (CAN bus)<br>![ZH_cable](https://docs.source-robotics.com/MSG-gripper-docs/1.1/assets/bom/ZH_cable.webp){ width="120" } | [Link](https://s.click.aliexpress.com/e/_c3f1efET)  |
+| M8 Male 4-pin connector | 1 | ![M8connectormale4pin](https://docs.source-robotics.com/MSG-gripper-docs/1.1/assets/bom/M8connectormale4pin.webp){ width="120" } | [Link](https://s.click.aliexpress.com/e/_c4OWHPKF) |
+| OV9732 Camera | 1 | 100 Degree version<br>![camera_OV9732](https://docs.source-robotics.com/MSG-gripper-docs/1.1/assets/bom/camera_OV9732.webp){ width="120" } | [Link](https://s.click.aliexpress.com/e/_c3WWVLjl) |
+
+## Cables
+
+!!! note
+    **PAROL6 and PAR6 robots use different cables for SSG48 and MSG grippers. Using incorrect one can damage your robot**
+
+Official cables from Source Robotics: 
+- [PAROL6 cable](https://source-robotics.com/products/gripper-cable)
+- PAR6 cable - Coming soon
+
+If you want to build your own cable, use the parts below and follow the wiring guide.
+
+!!! tip
+    See the [**cable building guide**](https://github.com/Source-Robotics/MSG-compliant-AI-stepper-gripper/blob/main/Assembly%20manual/Building_cables.md) in the Assembly manual for full wiring diagrams for both the PAR6 and PAROL6 robots.
+
+| Type | Length / Spec | Quantity | Description | Link |
+|------|---------------|----------|-------------|------|
+| 26 AWG cable | 0.15 mm², 4-wire twisted pair | 0.4 m | ~40 cm usually sufficient<br>![Twisted_pair_cable](https://docs.source-robotics.com/MSG-gripper-docs/1.1/assets/bom/Twisted_pair_cable.webp){ width="120" } | [Link](https://s.click.aliexpress.com/e/_c4m3ggwn) |
+| M8 4-pin male wire connector | — | 1 | ![M8_male](https://docs.source-robotics.com/MSG-gripper-docs/1.1/assets/bom/M8_male.webp){ width="120" } |[Link](https://s.click.aliexpress.com/e/_c4OWHPKF) |
+| M8 4-pin female wire connector | — | 1 | ![M8_female](https://docs.source-robotics.com/MSG-gripper-docs/1.1/assets/bom/M8_female.webp){ width="120" } | [Link](https://s.click.aliexpress.com/e/_c4OWHPKF) |
+
+!!! note
+    Equivalent parts from other suppliers may be used as long as specifications match.

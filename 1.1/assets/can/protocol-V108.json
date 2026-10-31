@@ -1,0 +1,767 @@
+{
+  "product": "MSG gripper",
+  "firmware": "V108",
+  "commit": "46b4911dd8f7",
+  "byte_order": "big-endian",
+  "bitrate": 1000000,
+  "commands": [
+    {
+      "key": "IN_GRIPPER_DATA_PACK",
+      "id": 61,
+      "name": "Send_gripper_data_pack",
+      "description": "The gripper command, for a driver set up as a gripper (`#Gripper 1`, saved). Position, speed and the current limit of the move, plus the activate, action and E-stop bits. A move is carried out only while the gripper is calibrated, activated and the action bit is 1. An empty frame (0 bytes) only asks for the state.",
+      "forms": [
+        {
+          "direction": "host",
+          "length": 5,
+          "remote": false,
+          "title": "command",
+          "fields": [
+            {
+              "name": "Position",
+              "byte": 0,
+              "size": 1,
+              "bits": null,
+              "width": 8,
+              "signed": false,
+              "float": false,
+              "lsb_first": false,
+              "meaning": "0 fully open, 255 fully closed"
+            },
+            {
+              "name": "Speed",
+              "byte": 1,
+              "size": 1,
+              "bits": null,
+              "width": 8,
+              "signed": false,
+              "float": false,
+              "lsb_first": false,
+              "meaning": "0 slowest, 255 fastest"
+            },
+            {
+              "name": "Current",
+              "byte": 2,
+              "size": 2,
+              "bits": null,
+              "width": 16,
+              "signed": true,
+              "float": false,
+              "lsb_first": false,
+              "meaning": "current limit of the move in mA, the grip force; not clamped by the firmware, keep it at or below the stepper's rated current (Force and speed)"
+            },
+            {
+              "name": "Activate",
+              "byte": 4,
+              "size": 1,
+              "bits": [
+                7
+              ],
+              "width": 1,
+              "signed": false,
+              "float": false,
+              "lsb_first": false,
+              "meaning": "1 activate the gripper, 0 deactivate"
+            },
+            {
+              "name": "Action",
+              "byte": 4,
+              "size": 1,
+              "bits": [
+                6
+              ],
+              "width": 1,
+              "signed": false,
+              "float": false,
+              "lsb_first": false,
+              "meaning": "1 go to the position, 0 idle"
+            },
+            {
+              "name": "E-stop",
+              "byte": 4,
+              "size": 1,
+              "bits": [
+                5
+              ],
+              "width": 1,
+              "signed": false,
+              "float": false,
+              "lsb_first": false,
+              "meaning": "1 raises the gripper E-stop error"
+            },
+            {
+              "name": "Release direction",
+              "byte": 4,
+              "size": 1,
+              "bits": [
+                4
+              ],
+              "width": 1,
+              "signed": false,
+              "float": false,
+              "lsb_first": false,
+              "meaning": "read by the firmware but not used"
+            }
+          ]
+        },
+        {
+          "direction": "host",
+          "length": 0,
+          "remote": false,
+          "title": "status poll",
+          "fields": []
+        }
+      ]
+    },
+    {
+      "key": "OUT_GRIPPER_DATA_PACK",
+      "id": 60,
+      "name": "Respond_Gripper_data_pack",
+      "description": "The driver's answer to Send_gripper_data_pack: position, measured current, and the state bits. Python attributes `gripper_position`, `gripper_current`, `gripper_activated`, `gripper_action_status`, `gripper_object_detection`, `gripper_temperature_error`, `gripper_timeout_error`, `gripper_estop_error`, `gripper_calibrated`.",
+      "forms": [
+        {
+          "direction": "driver",
+          "length": 4,
+          "remote": false,
+          "title": "driver feedback",
+          "fields": [
+            {
+              "name": "gripper_position",
+              "byte": 0,
+              "size": 1,
+              "bits": null,
+              "width": 8,
+              "signed": false,
+              "float": false,
+              "lsb_first": false,
+              "meaning": "0 fully open, 255 fully closed"
+            },
+            {
+              "name": "gripper_current",
+              "byte": 1,
+              "size": 2,
+              "bits": null,
+              "width": 16,
+              "signed": true,
+              "float": false,
+              "lsb_first": false,
+              "meaning": "measured current in mA"
+            },
+            {
+              "name": "gripper_activated",
+              "byte": 3,
+              "size": 1,
+              "bits": [
+                7
+              ],
+              "width": 1,
+              "signed": false,
+              "float": false,
+              "lsb_first": false,
+              "meaning": "1 activated"
+            },
+            {
+              "name": "gripper_action_status",
+              "byte": 3,
+              "size": 1,
+              "bits": [
+                6
+              ],
+              "width": 1,
+              "signed": false,
+              "float": false,
+              "lsb_first": false,
+              "meaning": "1 going to the position, 0 idle, auto-release or calibrating"
+            },
+            {
+              "name": "gripper_object_detection",
+              "byte": 3,
+              "size": 1,
+              "bits": [
+                5,
+                4
+              ],
+              "width": 2,
+              "signed": false,
+              "float": false,
+              "lsb_first": true,
+              "meaning": "bit 5 is the low bit, bit 4 the high bit: 0 moving, 1 object detected while closing, 2 object detected while opening, 3 at the position"
+            },
+            {
+              "name": "gripper_temperature_error",
+              "byte": 3,
+              "size": 1,
+              "bits": [
+                3
+              ],
+              "width": 1,
+              "signed": false,
+              "float": false,
+              "lsb_first": false,
+              "meaning": ""
+            },
+            {
+              "name": "gripper_timeout_error",
+              "byte": 3,
+              "size": 1,
+              "bits": [
+                2
+              ],
+              "width": 1,
+              "signed": false,
+              "float": false,
+              "lsb_first": false,
+              "meaning": ""
+            },
+            {
+              "name": "gripper_estop_error",
+              "byte": 3,
+              "size": 1,
+              "bits": [
+                1
+              ],
+              "width": 1,
+              "signed": false,
+              "float": false,
+              "lsb_first": false,
+              "meaning": ""
+            },
+            {
+              "name": "gripper_calibrated",
+              "byte": 3,
+              "size": 1,
+              "bits": [
+                0
+              ],
+              "width": 1,
+              "signed": false,
+              "float": false,
+              "lsb_first": false,
+              "meaning": "1 calibrated"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "IN_GRIPPER_CALIB",
+      "id": 62,
+      "name": "Send_gripper_calibrate",
+      "description": "Starts the gripper calibration (the jaws find their end stops). Needed after every power-up.",
+      "forms": [
+        {
+          "direction": "host",
+          "length": 0,
+          "remote": false,
+          "title": "command",
+          "fields": []
+        }
+      ]
+    },
+    {
+      "key": "IN_CAN_ID",
+      "id": 11,
+      "name": "Send_CAN_ID",
+      "description": "Gives the driver a new node ID, 0 to 13 (the firmware accepts up to 15, but the bootloader reserves 14 and 15: a driver on one of those cannot be updated over CAN). Setting the ID also sets the bootloader's board ID. The driver answers to the new ID at once; the ID is kept over a power cycle only after Send_Save_config.",
+      "forms": [
+        {
+          "direction": "host",
+          "length": 1,
+          "remote": false,
+          "title": "command",
+          "fields": [
+            {
+              "name": "ID",
+              "byte": 0,
+              "size": 1,
+              "bits": null,
+              "width": 8,
+              "signed": false,
+              "float": false,
+              "lsb_first": false,
+              "meaning": "0 to 15"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "IN_ESTOP",
+      "id": 0,
+      "name": "Send_ESTOP",
+      "description": "Stops the motor and raises the E-stop error, which stays until Send_Clear_Error.",
+      "forms": [
+        {
+          "direction": "host",
+          "length": 0,
+          "remote": false,
+          "title": "command",
+          "fields": []
+        }
+      ]
+    },
+    {
+      "key": "IN_IDLE",
+      "id": 12,
+      "name": "Send_Idle",
+      "description": "Puts the driver in idle mode (the motor coasts or brakes, see Send_Settings).",
+      "forms": [
+        {
+          "direction": "host",
+          "length": 0,
+          "remote": false,
+          "title": "command",
+          "fields": []
+        }
+      ]
+    },
+    {
+      "key": "IN_SAVE_CONFIG",
+      "id": 13,
+      "name": "Send_Save_config",
+      "description": "Writes the current configuration (gains, limits, calibration, CAN ID, heartbeat, watchdog, gripper flag) to the EEPROM.",
+      "forms": [
+        {
+          "direction": "host",
+          "length": 0,
+          "remote": false,
+          "title": "command",
+          "fields": []
+        }
+      ]
+    },
+    {
+      "key": "IN_RESET",
+      "id": 14,
+      "name": "Send_Reset",
+      "description": "Resets the driver. From firmware 105 the reset lands in the bootloader, which waits 2 s for a flashing host and then starts the firmware again; this is how a firmware update begins.",
+      "forms": [
+        {
+          "direction": "host",
+          "length": 0,
+          "remote": false,
+          "title": "command",
+          "fields": []
+        }
+      ]
+    },
+    {
+      "key": "IN_CLEAR_ERROR",
+      "id": 1,
+      "name": "Send_Clear_Error",
+      "description": "Clears the error flags and goes to idle. An error whose cause is still present comes straight back. A calibration error is cleared only by calibrating.",
+      "forms": [
+        {
+          "direction": "host",
+          "length": 0,
+          "remote": false,
+          "title": "command",
+          "fields": []
+        }
+      ]
+    },
+    {
+      "key": "IN_WATCHDOG_TIMEOUT",
+      "id": 15,
+      "name": "Send_Watchdog",
+      "description": "Sets the watchdog: every valid CAN frame the driver receives resets it; when the time runs out the driver reports a watchdog error and stops. 0 turns it off (the default). The action byte is stored but not acted on by this firmware: the driver always stops into its idle behaviour.",
+      "forms": [
+        {
+          "direction": "host",
+          "length": 5,
+          "remote": false,
+          "title": "command",
+          "fields": [
+            {
+              "name": "Time",
+              "byte": 0,
+              "size": 4,
+              "bits": null,
+              "width": 32,
+              "signed": false,
+              "float": false,
+              "lsb_first": false,
+              "meaning": "ms; 0 = off"
+            },
+            {
+              "name": "Action",
+              "byte": 4,
+              "size": 1,
+              "bits": null,
+              "width": 8,
+              "signed": false,
+              "float": false,
+              "lsb_first": false,
+              "meaning": "0 idle, 1 hold, 2 brake (stored only)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "HEARTBEAT_SETUP",
+      "id": 30,
+      "name": "Send_Heartbeat_Setup",
+      "description": "Sets the heartbeat interval in ms; 0 turns the heartbeat off (the default). Kept by Send_Save_config.",
+      "forms": [
+        {
+          "direction": "host",
+          "length": 4,
+          "remote": false,
+          "title": "command",
+          "fields": [
+            {
+              "name": "Interval",
+              "byte": 0,
+              "size": 4,
+              "bits": null,
+              "width": 32,
+              "signed": false,
+              "float": false,
+              "lsb_first": false,
+              "meaning": "ms; 0 = off"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "OUT_IN_PING",
+      "id": 10,
+      "name": "Send_Respond_Ping",
+      "description": "Asks the driver to answer with an empty frame, to see that it is on the bus.",
+      "forms": [
+        {
+          "direction": "host",
+          "length": 0,
+          "remote": true,
+          "title": "status request (RTR)",
+          "fields": []
+        },
+        {
+          "direction": "driver",
+          "length": 0,
+          "remote": false,
+          "title": "reply",
+          "fields": []
+        }
+      ]
+    },
+    {
+      "key": "OUT_IN_TEMPERATURE_CAN",
+      "id": 23,
+      "name": "Send_Respond_Temperature",
+      "description": "Asks for the thermistor temperature. Meaningful only with the thermistor enabled (`#Term 1`).",
+      "forms": [
+        {
+          "direction": "host",
+          "length": 0,
+          "remote": true,
+          "title": "status request (RTR)",
+          "fields": []
+        },
+        {
+          "direction": "driver",
+          "length": 2,
+          "remote": false,
+          "title": "reply",
+          "fields": [
+            {
+              "name": "temperature",
+              "byte": 0,
+              "size": 2,
+              "bits": null,
+              "width": 16,
+              "signed": true,
+              "float": false,
+              "lsb_first": false,
+              "meaning": "\u00b0C"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "OUT_IN_VOLTAGE_CAN",
+      "id": 24,
+      "name": "Send_Respond_Voltage",
+      "description": "Asks for the supply voltage.",
+      "forms": [
+        {
+          "direction": "host",
+          "length": 0,
+          "remote": true,
+          "title": "status request (RTR)",
+          "fields": []
+        },
+        {
+          "direction": "driver",
+          "length": 2,
+          "remote": false,
+          "title": "reply",
+          "fields": [
+            {
+              "name": "voltage",
+              "byte": 0,
+              "size": 2,
+              "bits": null,
+              "width": 16,
+              "signed": false,
+              "float": false,
+              "lsb_first": false,
+              "meaning": "mV"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "OUT_IN_DEVICE_INFO_CAN",
+      "id": 25,
+      "name": "Send_Respond_Device_Info",
+      "description": "Asks for the driver's identity: hardware version, batch date and serial number from the EEPROM, and the firmware release (from firmware 105 on this is the build's own version; before, a value from the EEPROM).",
+      "forms": [
+        {
+          "direction": "host",
+          "length": 0,
+          "remote": true,
+          "title": "status request (RTR)",
+          "fields": []
+        },
+        {
+          "direction": "driver",
+          "length": 7,
+          "remote": false,
+          "title": "reply",
+          "fields": [
+            {
+              "name": "HARDWARE_VERSION",
+              "byte": 0,
+              "size": 1,
+              "bits": null,
+              "width": 8,
+              "signed": false,
+              "float": false,
+              "lsb_first": false,
+              "meaning": "PCB revision"
+            },
+            {
+              "name": "BATCH_DATE",
+              "byte": 1,
+              "size": 1,
+              "bits": null,
+              "width": 8,
+              "signed": false,
+              "float": false,
+              "lsb_first": false,
+              "meaning": "production batch"
+            },
+            {
+              "name": "SOFTWARE_VERSION",
+              "byte": 2,
+              "size": 1,
+              "bits": null,
+              "width": 8,
+              "signed": false,
+              "float": false,
+              "lsb_first": false,
+              "meaning": "firmware release, e.g. 108"
+            },
+            {
+              "name": "SERIAL_NUMBER",
+              "byte": 3,
+              "size": 4,
+              "bits": null,
+              "width": 32,
+              "signed": false,
+              "float": false,
+              "lsb_first": false,
+              "meaning": "serial number"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "OUT_IN_STATE_OF_ERRORS_CAN",
+      "id": 26,
+      "name": "Send_Respond_State_of_Errors",
+      "description": "Asks for every error flag and the calibrated, activated and watchdog states.",
+      "forms": [
+        {
+          "direction": "host",
+          "length": 0,
+          "remote": true,
+          "title": "status request (RTR)",
+          "fields": []
+        },
+        {
+          "direction": "driver",
+          "length": 2,
+          "remote": false,
+          "title": "reply",
+          "fields": [
+            {
+              "name": "error",
+              "byte": 0,
+              "size": 1,
+              "bits": [
+                7
+              ],
+              "width": 1,
+              "signed": false,
+              "float": false,
+              "lsb_first": false,
+              "meaning": "any error is active"
+            },
+            {
+              "name": "temperature_error",
+              "byte": 0,
+              "size": 1,
+              "bits": [
+                6
+              ],
+              "width": 1,
+              "signed": false,
+              "float": false,
+              "lsb_first": false,
+              "meaning": "motor over the temperature limit"
+            },
+            {
+              "name": "encoder_error",
+              "byte": 0,
+              "size": 1,
+              "bits": [
+                5
+              ],
+              "width": 1,
+              "signed": false,
+              "float": false,
+              "lsb_first": false,
+              "meaning": "magnet not detected or misaligned"
+            },
+            {
+              "name": "vbus_error",
+              "byte": 0,
+              "size": 1,
+              "bits": [
+                4
+              ],
+              "width": 1,
+              "signed": false,
+              "float": false,
+              "lsb_first": false,
+              "meaning": "supply voltage outside the limits"
+            },
+            {
+              "name": "driver_error",
+              "byte": 0,
+              "size": 1,
+              "bits": [
+                3
+              ],
+              "width": 1,
+              "signed": false,
+              "float": false,
+              "lsb_first": false,
+              "meaning": "the MOSFET driver reports undervoltage, thermal shutdown or overcurrent"
+            },
+            {
+              "name": "velocity_error",
+              "byte": 0,
+              "size": 1,
+              "bits": [
+                2
+              ],
+              "width": 1,
+              "signed": false,
+              "float": false,
+              "lsb_first": false,
+              "meaning": "speed over the limit"
+            },
+            {
+              "name": "current_error",
+              "byte": 0,
+              "size": 1,
+              "bits": [
+                1
+              ],
+              "width": 1,
+              "signed": false,
+              "float": false,
+              "lsb_first": false,
+              "meaning": "reserved; never set by this firmware"
+            },
+            {
+              "name": "estop_error",
+              "byte": 0,
+              "size": 1,
+              "bits": [
+                0
+              ],
+              "width": 1,
+              "signed": false,
+              "float": false,
+              "lsb_first": false,
+              "meaning": "Send_ESTOP was received"
+            },
+            {
+              "name": "calibrated",
+              "byte": 1,
+              "size": 1,
+              "bits": [
+                7
+              ],
+              "width": 1,
+              "signed": false,
+              "float": false,
+              "lsb_first": false,
+              "meaning": "the motor is calibrated"
+            },
+            {
+              "name": "activated",
+              "byte": 1,
+              "size": 1,
+              "bits": [
+                6
+              ],
+              "width": 1,
+              "signed": false,
+              "float": false,
+              "lsb_first": false,
+              "meaning": "the controller is activated"
+            },
+            {
+              "name": "watchdog_error",
+              "byte": 1,
+              "size": 1,
+              "bits": [
+                5
+              ],
+              "width": 1,
+              "signed": false,
+              "float": false,
+              "lsb_first": false,
+              "meaning": "the watchdog ran out"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "OUT_HEARTBEAT",
+      "id": 9,
+      "name": "Respond_Heartbeat",
+      "description": "The frame the driver sends on its own at the heartbeat interval (Send_Heartbeat_Setup); empty. Off by default. Any other frame the driver sends resets the heartbeat timer, so a driver that answers motion commands at a high rate never sends a heartbeat.",
+      "forms": [
+        {
+          "direction": "driver",
+          "length": 0,
+          "remote": false,
+          "title": "driver feedback",
+          "fields": []
+        }
+      ]
+    }
+  ]
+}

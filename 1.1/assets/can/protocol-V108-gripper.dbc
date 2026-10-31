@@ -1,0 +1,2476 @@
+VERSION "MSG gripper V108"
+
+NS_ :
+    CM_
+    VAL_
+    SIG_VALTYPE_
+
+BS_:
+
+BU_: Host Driver0 Driver1 Driver2 Driver3 Driver4 Driver5 Driver6 Driver7 Driver8 Driver9 Driver10 Driver11 Driver12 Driver13
+
+BO_ 122 Send_gripper_data_pack_N0: 5 Host
+ SG_ Position : 7|8@0+ (1,0) [0|255] "" Driver0
+ SG_ Speed : 15|8@0+ (1,0) [0|255] "" Driver0
+ SG_ Current : 23|16@0- (1,0) [-32768|32767] "" Driver0
+ SG_ Activate : 39|1@0+ (1,0) [0|1] "" Driver0
+ SG_ Action : 38|1@0+ (1,0) [0|1] "" Driver0
+ SG_ E_stop : 37|1@0+ (1,0) [0|1] "" Driver0
+ SG_ Release_direction : 36|1@0+ (1,0) [0|1] "" Driver0
+
+BO_ 120 Respond_Gripper_data_pack_N0: 4 Driver0
+ SG_ gripper_position : 7|8@0+ (1,0) [0|255] "" Host
+ SG_ gripper_current : 15|16@0- (1,0) [-32768|32767] "" Host
+ SG_ gripper_activated : 31|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_action_status : 30|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_object_detection_raw : 29|2@0+ (1,0) [0|3] "" Host
+ SG_ gripper_temperature_error : 27|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_timeout_error : 26|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_estop_error : 25|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_calibrated : 24|1@0+ (1,0) [0|1] "" Host
+
+BO_ 121 Respond_Gripper_data_pa_N0_Fault: 4 Driver0
+ SG_ gripper_position : 7|8@0+ (1,0) [0|255] "" Host
+ SG_ gripper_current : 15|16@0- (1,0) [-32768|32767] "" Host
+ SG_ gripper_activated : 31|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_action_status : 30|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_object_detection_raw : 29|2@0+ (1,0) [0|3] "" Host
+ SG_ gripper_temperature_error : 27|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_timeout_error : 26|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_estop_error : 25|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_calibrated : 24|1@0+ (1,0) [0|1] "" Host
+
+BO_ 124 Send_gripper_calibrate_N0: 0 Host
+
+BO_ 22 Send_CAN_ID_N0: 1 Host
+ SG_ ID : 7|8@0+ (1,0) [0|255] "" Driver0
+
+BO_ 0 Send_ESTOP_N0: 0 Host
+
+BO_ 24 Send_Idle_N0: 0 Host
+
+BO_ 26 Send_Save_config_N0: 0 Host
+
+BO_ 28 Send_Reset_N0: 0 Host
+
+BO_ 2 Send_Clear_Error_N0: 0 Host
+
+BO_ 30 Send_Watchdog_N0: 5 Host
+ SG_ Time : 7|32@0+ (1,0) [0|4294967295] "" Driver0
+ SG_ Action : 39|8@0+ (1,0) [0|255] "" Driver0
+
+BO_ 60 Send_Heartbeat_Setup_N0: 4 Host
+ SG_ Interval : 7|32@0+ (1,0) [0|4294967295] "" Driver0
+
+BO_ 20 Send_Respond_Ping_N0: 0 Driver0
+
+BO_ 21 Send_Respond_Ping_N0_Fault: 0 Driver0
+
+BO_ 46 Send_Respond_Temperature_N0: 2 Driver0
+ SG_ temperature : 7|16@0- (1,0) [-32768|32767] "" Host
+
+BO_ 47 Send_Respond_Temperatur_N0_Fault: 2 Driver0
+ SG_ temperature : 7|16@0- (1,0) [-32768|32767] "" Host
+
+BO_ 48 Send_Respond_Voltage_N0: 2 Driver0
+ SG_ voltage : 7|16@0+ (1,0) [0|65535] "" Host
+
+BO_ 49 Send_Respond_Voltage_N0_Fault: 2 Driver0
+ SG_ voltage : 7|16@0+ (1,0) [0|65535] "" Host
+
+BO_ 50 Send_Respond_Device_Info_N0: 7 Driver0
+ SG_ HARDWARE_VERSION : 7|8@0+ (1,0) [0|255] "" Host
+ SG_ BATCH_DATE : 15|8@0+ (1,0) [0|255] "" Host
+ SG_ SOFTWARE_VERSION : 23|8@0+ (1,0) [0|255] "" Host
+ SG_ SERIAL_NUMBER : 31|32@0+ (1,0) [0|4294967295] "" Host
+
+BO_ 51 Send_Respond_Device_Inf_N0_Fault: 7 Driver0
+ SG_ HARDWARE_VERSION : 7|8@0+ (1,0) [0|255] "" Host
+ SG_ BATCH_DATE : 15|8@0+ (1,0) [0|255] "" Host
+ SG_ SOFTWARE_VERSION : 23|8@0+ (1,0) [0|255] "" Host
+ SG_ SERIAL_NUMBER : 31|32@0+ (1,0) [0|4294967295] "" Host
+
+BO_ 52 Send_Respond_State_of_Errors_N0: 2 Driver0
+ SG_ error : 7|1@0+ (1,0) [0|1] "" Host
+ SG_ temperature_error : 6|1@0+ (1,0) [0|1] "" Host
+ SG_ encoder_error : 5|1@0+ (1,0) [0|1] "" Host
+ SG_ vbus_error : 4|1@0+ (1,0) [0|1] "" Host
+ SG_ driver_error : 3|1@0+ (1,0) [0|1] "" Host
+ SG_ velocity_error : 2|1@0+ (1,0) [0|1] "" Host
+ SG_ current_error : 1|1@0+ (1,0) [0|1] "" Host
+ SG_ estop_error : 0|1@0+ (1,0) [0|1] "" Host
+ SG_ calibrated : 15|1@0+ (1,0) [0|1] "" Host
+ SG_ activated : 14|1@0+ (1,0) [0|1] "" Host
+ SG_ watchdog_error : 13|1@0+ (1,0) [0|1] "" Host
+
+BO_ 53 Send_Respond_State_of_E_N0_Fault: 2 Driver0
+ SG_ error : 7|1@0+ (1,0) [0|1] "" Host
+ SG_ temperature_error : 6|1@0+ (1,0) [0|1] "" Host
+ SG_ encoder_error : 5|1@0+ (1,0) [0|1] "" Host
+ SG_ vbus_error : 4|1@0+ (1,0) [0|1] "" Host
+ SG_ driver_error : 3|1@0+ (1,0) [0|1] "" Host
+ SG_ velocity_error : 2|1@0+ (1,0) [0|1] "" Host
+ SG_ current_error : 1|1@0+ (1,0) [0|1] "" Host
+ SG_ estop_error : 0|1@0+ (1,0) [0|1] "" Host
+ SG_ calibrated : 15|1@0+ (1,0) [0|1] "" Host
+ SG_ activated : 14|1@0+ (1,0) [0|1] "" Host
+ SG_ watchdog_error : 13|1@0+ (1,0) [0|1] "" Host
+
+BO_ 18 Respond_Heartbeat_N0: 0 Driver0
+
+BO_ 19 Respond_Heartbeat_N0_Fault: 0 Driver0
+
+BO_ 250 Send_gripper_data_pack_N1: 5 Host
+ SG_ Position : 7|8@0+ (1,0) [0|255] "" Driver1
+ SG_ Speed : 15|8@0+ (1,0) [0|255] "" Driver1
+ SG_ Current : 23|16@0- (1,0) [-32768|32767] "" Driver1
+ SG_ Activate : 39|1@0+ (1,0) [0|1] "" Driver1
+ SG_ Action : 38|1@0+ (1,0) [0|1] "" Driver1
+ SG_ E_stop : 37|1@0+ (1,0) [0|1] "" Driver1
+ SG_ Release_direction : 36|1@0+ (1,0) [0|1] "" Driver1
+
+BO_ 248 Respond_Gripper_data_pack_N1: 4 Driver1
+ SG_ gripper_position : 7|8@0+ (1,0) [0|255] "" Host
+ SG_ gripper_current : 15|16@0- (1,0) [-32768|32767] "" Host
+ SG_ gripper_activated : 31|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_action_status : 30|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_object_detection_raw : 29|2@0+ (1,0) [0|3] "" Host
+ SG_ gripper_temperature_error : 27|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_timeout_error : 26|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_estop_error : 25|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_calibrated : 24|1@0+ (1,0) [0|1] "" Host
+
+BO_ 249 Respond_Gripper_data_pa_N1_Fault: 4 Driver1
+ SG_ gripper_position : 7|8@0+ (1,0) [0|255] "" Host
+ SG_ gripper_current : 15|16@0- (1,0) [-32768|32767] "" Host
+ SG_ gripper_activated : 31|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_action_status : 30|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_object_detection_raw : 29|2@0+ (1,0) [0|3] "" Host
+ SG_ gripper_temperature_error : 27|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_timeout_error : 26|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_estop_error : 25|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_calibrated : 24|1@0+ (1,0) [0|1] "" Host
+
+BO_ 252 Send_gripper_calibrate_N1: 0 Host
+
+BO_ 150 Send_CAN_ID_N1: 1 Host
+ SG_ ID : 7|8@0+ (1,0) [0|255] "" Driver1
+
+BO_ 128 Send_ESTOP_N1: 0 Host
+
+BO_ 152 Send_Idle_N1: 0 Host
+
+BO_ 154 Send_Save_config_N1: 0 Host
+
+BO_ 156 Send_Reset_N1: 0 Host
+
+BO_ 130 Send_Clear_Error_N1: 0 Host
+
+BO_ 158 Send_Watchdog_N1: 5 Host
+ SG_ Time : 7|32@0+ (1,0) [0|4294967295] "" Driver1
+ SG_ Action : 39|8@0+ (1,0) [0|255] "" Driver1
+
+BO_ 188 Send_Heartbeat_Setup_N1: 4 Host
+ SG_ Interval : 7|32@0+ (1,0) [0|4294967295] "" Driver1
+
+BO_ 148 Send_Respond_Ping_N1: 0 Driver1
+
+BO_ 149 Send_Respond_Ping_N1_Fault: 0 Driver1
+
+BO_ 174 Send_Respond_Temperature_N1: 2 Driver1
+ SG_ temperature : 7|16@0- (1,0) [-32768|32767] "" Host
+
+BO_ 175 Send_Respond_Temperatur_N1_Fault: 2 Driver1
+ SG_ temperature : 7|16@0- (1,0) [-32768|32767] "" Host
+
+BO_ 176 Send_Respond_Voltage_N1: 2 Driver1
+ SG_ voltage : 7|16@0+ (1,0) [0|65535] "" Host
+
+BO_ 177 Send_Respond_Voltage_N1_Fault: 2 Driver1
+ SG_ voltage : 7|16@0+ (1,0) [0|65535] "" Host
+
+BO_ 178 Send_Respond_Device_Info_N1: 7 Driver1
+ SG_ HARDWARE_VERSION : 7|8@0+ (1,0) [0|255] "" Host
+ SG_ BATCH_DATE : 15|8@0+ (1,0) [0|255] "" Host
+ SG_ SOFTWARE_VERSION : 23|8@0+ (1,0) [0|255] "" Host
+ SG_ SERIAL_NUMBER : 31|32@0+ (1,0) [0|4294967295] "" Host
+
+BO_ 179 Send_Respond_Device_Inf_N1_Fault: 7 Driver1
+ SG_ HARDWARE_VERSION : 7|8@0+ (1,0) [0|255] "" Host
+ SG_ BATCH_DATE : 15|8@0+ (1,0) [0|255] "" Host
+ SG_ SOFTWARE_VERSION : 23|8@0+ (1,0) [0|255] "" Host
+ SG_ SERIAL_NUMBER : 31|32@0+ (1,0) [0|4294967295] "" Host
+
+BO_ 180 Send_Respond_State_of_Errors_N1: 2 Driver1
+ SG_ error : 7|1@0+ (1,0) [0|1] "" Host
+ SG_ temperature_error : 6|1@0+ (1,0) [0|1] "" Host
+ SG_ encoder_error : 5|1@0+ (1,0) [0|1] "" Host
+ SG_ vbus_error : 4|1@0+ (1,0) [0|1] "" Host
+ SG_ driver_error : 3|1@0+ (1,0) [0|1] "" Host
+ SG_ velocity_error : 2|1@0+ (1,0) [0|1] "" Host
+ SG_ current_error : 1|1@0+ (1,0) [0|1] "" Host
+ SG_ estop_error : 0|1@0+ (1,0) [0|1] "" Host
+ SG_ calibrated : 15|1@0+ (1,0) [0|1] "" Host
+ SG_ activated : 14|1@0+ (1,0) [0|1] "" Host
+ SG_ watchdog_error : 13|1@0+ (1,0) [0|1] "" Host
+
+BO_ 181 Send_Respond_State_of_E_N1_Fault: 2 Driver1
+ SG_ error : 7|1@0+ (1,0) [0|1] "" Host
+ SG_ temperature_error : 6|1@0+ (1,0) [0|1] "" Host
+ SG_ encoder_error : 5|1@0+ (1,0) [0|1] "" Host
+ SG_ vbus_error : 4|1@0+ (1,0) [0|1] "" Host
+ SG_ driver_error : 3|1@0+ (1,0) [0|1] "" Host
+ SG_ velocity_error : 2|1@0+ (1,0) [0|1] "" Host
+ SG_ current_error : 1|1@0+ (1,0) [0|1] "" Host
+ SG_ estop_error : 0|1@0+ (1,0) [0|1] "" Host
+ SG_ calibrated : 15|1@0+ (1,0) [0|1] "" Host
+ SG_ activated : 14|1@0+ (1,0) [0|1] "" Host
+ SG_ watchdog_error : 13|1@0+ (1,0) [0|1] "" Host
+
+BO_ 146 Respond_Heartbeat_N1: 0 Driver1
+
+BO_ 147 Respond_Heartbeat_N1_Fault: 0 Driver1
+
+BO_ 378 Send_gripper_data_pack_N2: 5 Host
+ SG_ Position : 7|8@0+ (1,0) [0|255] "" Driver2
+ SG_ Speed : 15|8@0+ (1,0) [0|255] "" Driver2
+ SG_ Current : 23|16@0- (1,0) [-32768|32767] "" Driver2
+ SG_ Activate : 39|1@0+ (1,0) [0|1] "" Driver2
+ SG_ Action : 38|1@0+ (1,0) [0|1] "" Driver2
+ SG_ E_stop : 37|1@0+ (1,0) [0|1] "" Driver2
+ SG_ Release_direction : 36|1@0+ (1,0) [0|1] "" Driver2
+
+BO_ 376 Respond_Gripper_data_pack_N2: 4 Driver2
+ SG_ gripper_position : 7|8@0+ (1,0) [0|255] "" Host
+ SG_ gripper_current : 15|16@0- (1,0) [-32768|32767] "" Host
+ SG_ gripper_activated : 31|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_action_status : 30|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_object_detection_raw : 29|2@0+ (1,0) [0|3] "" Host
+ SG_ gripper_temperature_error : 27|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_timeout_error : 26|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_estop_error : 25|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_calibrated : 24|1@0+ (1,0) [0|1] "" Host
+
+BO_ 377 Respond_Gripper_data_pa_N2_Fault: 4 Driver2
+ SG_ gripper_position : 7|8@0+ (1,0) [0|255] "" Host
+ SG_ gripper_current : 15|16@0- (1,0) [-32768|32767] "" Host
+ SG_ gripper_activated : 31|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_action_status : 30|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_object_detection_raw : 29|2@0+ (1,0) [0|3] "" Host
+ SG_ gripper_temperature_error : 27|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_timeout_error : 26|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_estop_error : 25|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_calibrated : 24|1@0+ (1,0) [0|1] "" Host
+
+BO_ 380 Send_gripper_calibrate_N2: 0 Host
+
+BO_ 278 Send_CAN_ID_N2: 1 Host
+ SG_ ID : 7|8@0+ (1,0) [0|255] "" Driver2
+
+BO_ 256 Send_ESTOP_N2: 0 Host
+
+BO_ 280 Send_Idle_N2: 0 Host
+
+BO_ 282 Send_Save_config_N2: 0 Host
+
+BO_ 284 Send_Reset_N2: 0 Host
+
+BO_ 258 Send_Clear_Error_N2: 0 Host
+
+BO_ 286 Send_Watchdog_N2: 5 Host
+ SG_ Time : 7|32@0+ (1,0) [0|4294967295] "" Driver2
+ SG_ Action : 39|8@0+ (1,0) [0|255] "" Driver2
+
+BO_ 316 Send_Heartbeat_Setup_N2: 4 Host
+ SG_ Interval : 7|32@0+ (1,0) [0|4294967295] "" Driver2
+
+BO_ 276 Send_Respond_Ping_N2: 0 Driver2
+
+BO_ 277 Send_Respond_Ping_N2_Fault: 0 Driver2
+
+BO_ 302 Send_Respond_Temperature_N2: 2 Driver2
+ SG_ temperature : 7|16@0- (1,0) [-32768|32767] "" Host
+
+BO_ 303 Send_Respond_Temperatur_N2_Fault: 2 Driver2
+ SG_ temperature : 7|16@0- (1,0) [-32768|32767] "" Host
+
+BO_ 304 Send_Respond_Voltage_N2: 2 Driver2
+ SG_ voltage : 7|16@0+ (1,0) [0|65535] "" Host
+
+BO_ 305 Send_Respond_Voltage_N2_Fault: 2 Driver2
+ SG_ voltage : 7|16@0+ (1,0) [0|65535] "" Host
+
+BO_ 306 Send_Respond_Device_Info_N2: 7 Driver2
+ SG_ HARDWARE_VERSION : 7|8@0+ (1,0) [0|255] "" Host
+ SG_ BATCH_DATE : 15|8@0+ (1,0) [0|255] "" Host
+ SG_ SOFTWARE_VERSION : 23|8@0+ (1,0) [0|255] "" Host
+ SG_ SERIAL_NUMBER : 31|32@0+ (1,0) [0|4294967295] "" Host
+
+BO_ 307 Send_Respond_Device_Inf_N2_Fault: 7 Driver2
+ SG_ HARDWARE_VERSION : 7|8@0+ (1,0) [0|255] "" Host
+ SG_ BATCH_DATE : 15|8@0+ (1,0) [0|255] "" Host
+ SG_ SOFTWARE_VERSION : 23|8@0+ (1,0) [0|255] "" Host
+ SG_ SERIAL_NUMBER : 31|32@0+ (1,0) [0|4294967295] "" Host
+
+BO_ 308 Send_Respond_State_of_Errors_N2: 2 Driver2
+ SG_ error : 7|1@0+ (1,0) [0|1] "" Host
+ SG_ temperature_error : 6|1@0+ (1,0) [0|1] "" Host
+ SG_ encoder_error : 5|1@0+ (1,0) [0|1] "" Host
+ SG_ vbus_error : 4|1@0+ (1,0) [0|1] "" Host
+ SG_ driver_error : 3|1@0+ (1,0) [0|1] "" Host
+ SG_ velocity_error : 2|1@0+ (1,0) [0|1] "" Host
+ SG_ current_error : 1|1@0+ (1,0) [0|1] "" Host
+ SG_ estop_error : 0|1@0+ (1,0) [0|1] "" Host
+ SG_ calibrated : 15|1@0+ (1,0) [0|1] "" Host
+ SG_ activated : 14|1@0+ (1,0) [0|1] "" Host
+ SG_ watchdog_error : 13|1@0+ (1,0) [0|1] "" Host
+
+BO_ 309 Send_Respond_State_of_E_N2_Fault: 2 Driver2
+ SG_ error : 7|1@0+ (1,0) [0|1] "" Host
+ SG_ temperature_error : 6|1@0+ (1,0) [0|1] "" Host
+ SG_ encoder_error : 5|1@0+ (1,0) [0|1] "" Host
+ SG_ vbus_error : 4|1@0+ (1,0) [0|1] "" Host
+ SG_ driver_error : 3|1@0+ (1,0) [0|1] "" Host
+ SG_ velocity_error : 2|1@0+ (1,0) [0|1] "" Host
+ SG_ current_error : 1|1@0+ (1,0) [0|1] "" Host
+ SG_ estop_error : 0|1@0+ (1,0) [0|1] "" Host
+ SG_ calibrated : 15|1@0+ (1,0) [0|1] "" Host
+ SG_ activated : 14|1@0+ (1,0) [0|1] "" Host
+ SG_ watchdog_error : 13|1@0+ (1,0) [0|1] "" Host
+
+BO_ 274 Respond_Heartbeat_N2: 0 Driver2
+
+BO_ 275 Respond_Heartbeat_N2_Fault: 0 Driver2
+
+BO_ 506 Send_gripper_data_pack_N3: 5 Host
+ SG_ Position : 7|8@0+ (1,0) [0|255] "" Driver3
+ SG_ Speed : 15|8@0+ (1,0) [0|255] "" Driver3
+ SG_ Current : 23|16@0- (1,0) [-32768|32767] "" Driver3
+ SG_ Activate : 39|1@0+ (1,0) [0|1] "" Driver3
+ SG_ Action : 38|1@0+ (1,0) [0|1] "" Driver3
+ SG_ E_stop : 37|1@0+ (1,0) [0|1] "" Driver3
+ SG_ Release_direction : 36|1@0+ (1,0) [0|1] "" Driver3
+
+BO_ 504 Respond_Gripper_data_pack_N3: 4 Driver3
+ SG_ gripper_position : 7|8@0+ (1,0) [0|255] "" Host
+ SG_ gripper_current : 15|16@0- (1,0) [-32768|32767] "" Host
+ SG_ gripper_activated : 31|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_action_status : 30|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_object_detection_raw : 29|2@0+ (1,0) [0|3] "" Host
+ SG_ gripper_temperature_error : 27|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_timeout_error : 26|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_estop_error : 25|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_calibrated : 24|1@0+ (1,0) [0|1] "" Host
+
+BO_ 505 Respond_Gripper_data_pa_N3_Fault: 4 Driver3
+ SG_ gripper_position : 7|8@0+ (1,0) [0|255] "" Host
+ SG_ gripper_current : 15|16@0- (1,0) [-32768|32767] "" Host
+ SG_ gripper_activated : 31|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_action_status : 30|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_object_detection_raw : 29|2@0+ (1,0) [0|3] "" Host
+ SG_ gripper_temperature_error : 27|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_timeout_error : 26|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_estop_error : 25|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_calibrated : 24|1@0+ (1,0) [0|1] "" Host
+
+BO_ 508 Send_gripper_calibrate_N3: 0 Host
+
+BO_ 406 Send_CAN_ID_N3: 1 Host
+ SG_ ID : 7|8@0+ (1,0) [0|255] "" Driver3
+
+BO_ 384 Send_ESTOP_N3: 0 Host
+
+BO_ 408 Send_Idle_N3: 0 Host
+
+BO_ 410 Send_Save_config_N3: 0 Host
+
+BO_ 412 Send_Reset_N3: 0 Host
+
+BO_ 386 Send_Clear_Error_N3: 0 Host
+
+BO_ 414 Send_Watchdog_N3: 5 Host
+ SG_ Time : 7|32@0+ (1,0) [0|4294967295] "" Driver3
+ SG_ Action : 39|8@0+ (1,0) [0|255] "" Driver3
+
+BO_ 444 Send_Heartbeat_Setup_N3: 4 Host
+ SG_ Interval : 7|32@0+ (1,0) [0|4294967295] "" Driver3
+
+BO_ 404 Send_Respond_Ping_N3: 0 Driver3
+
+BO_ 405 Send_Respond_Ping_N3_Fault: 0 Driver3
+
+BO_ 430 Send_Respond_Temperature_N3: 2 Driver3
+ SG_ temperature : 7|16@0- (1,0) [-32768|32767] "" Host
+
+BO_ 431 Send_Respond_Temperatur_N3_Fault: 2 Driver3
+ SG_ temperature : 7|16@0- (1,0) [-32768|32767] "" Host
+
+BO_ 432 Send_Respond_Voltage_N3: 2 Driver3
+ SG_ voltage : 7|16@0+ (1,0) [0|65535] "" Host
+
+BO_ 433 Send_Respond_Voltage_N3_Fault: 2 Driver3
+ SG_ voltage : 7|16@0+ (1,0) [0|65535] "" Host
+
+BO_ 434 Send_Respond_Device_Info_N3: 7 Driver3
+ SG_ HARDWARE_VERSION : 7|8@0+ (1,0) [0|255] "" Host
+ SG_ BATCH_DATE : 15|8@0+ (1,0) [0|255] "" Host
+ SG_ SOFTWARE_VERSION : 23|8@0+ (1,0) [0|255] "" Host
+ SG_ SERIAL_NUMBER : 31|32@0+ (1,0) [0|4294967295] "" Host
+
+BO_ 435 Send_Respond_Device_Inf_N3_Fault: 7 Driver3
+ SG_ HARDWARE_VERSION : 7|8@0+ (1,0) [0|255] "" Host
+ SG_ BATCH_DATE : 15|8@0+ (1,0) [0|255] "" Host
+ SG_ SOFTWARE_VERSION : 23|8@0+ (1,0) [0|255] "" Host
+ SG_ SERIAL_NUMBER : 31|32@0+ (1,0) [0|4294967295] "" Host
+
+BO_ 436 Send_Respond_State_of_Errors_N3: 2 Driver3
+ SG_ error : 7|1@0+ (1,0) [0|1] "" Host
+ SG_ temperature_error : 6|1@0+ (1,0) [0|1] "" Host
+ SG_ encoder_error : 5|1@0+ (1,0) [0|1] "" Host
+ SG_ vbus_error : 4|1@0+ (1,0) [0|1] "" Host
+ SG_ driver_error : 3|1@0+ (1,0) [0|1] "" Host
+ SG_ velocity_error : 2|1@0+ (1,0) [0|1] "" Host
+ SG_ current_error : 1|1@0+ (1,0) [0|1] "" Host
+ SG_ estop_error : 0|1@0+ (1,0) [0|1] "" Host
+ SG_ calibrated : 15|1@0+ (1,0) [0|1] "" Host
+ SG_ activated : 14|1@0+ (1,0) [0|1] "" Host
+ SG_ watchdog_error : 13|1@0+ (1,0) [0|1] "" Host
+
+BO_ 437 Send_Respond_State_of_E_N3_Fault: 2 Driver3
+ SG_ error : 7|1@0+ (1,0) [0|1] "" Host
+ SG_ temperature_error : 6|1@0+ (1,0) [0|1] "" Host
+ SG_ encoder_error : 5|1@0+ (1,0) [0|1] "" Host
+ SG_ vbus_error : 4|1@0+ (1,0) [0|1] "" Host
+ SG_ driver_error : 3|1@0+ (1,0) [0|1] "" Host
+ SG_ velocity_error : 2|1@0+ (1,0) [0|1] "" Host
+ SG_ current_error : 1|1@0+ (1,0) [0|1] "" Host
+ SG_ estop_error : 0|1@0+ (1,0) [0|1] "" Host
+ SG_ calibrated : 15|1@0+ (1,0) [0|1] "" Host
+ SG_ activated : 14|1@0+ (1,0) [0|1] "" Host
+ SG_ watchdog_error : 13|1@0+ (1,0) [0|1] "" Host
+
+BO_ 402 Respond_Heartbeat_N3: 0 Driver3
+
+BO_ 403 Respond_Heartbeat_N3_Fault: 0 Driver3
+
+BO_ 634 Send_gripper_data_pack_N4: 5 Host
+ SG_ Position : 7|8@0+ (1,0) [0|255] "" Driver4
+ SG_ Speed : 15|8@0+ (1,0) [0|255] "" Driver4
+ SG_ Current : 23|16@0- (1,0) [-32768|32767] "" Driver4
+ SG_ Activate : 39|1@0+ (1,0) [0|1] "" Driver4
+ SG_ Action : 38|1@0+ (1,0) [0|1] "" Driver4
+ SG_ E_stop : 37|1@0+ (1,0) [0|1] "" Driver4
+ SG_ Release_direction : 36|1@0+ (1,0) [0|1] "" Driver4
+
+BO_ 632 Respond_Gripper_data_pack_N4: 4 Driver4
+ SG_ gripper_position : 7|8@0+ (1,0) [0|255] "" Host
+ SG_ gripper_current : 15|16@0- (1,0) [-32768|32767] "" Host
+ SG_ gripper_activated : 31|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_action_status : 30|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_object_detection_raw : 29|2@0+ (1,0) [0|3] "" Host
+ SG_ gripper_temperature_error : 27|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_timeout_error : 26|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_estop_error : 25|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_calibrated : 24|1@0+ (1,0) [0|1] "" Host
+
+BO_ 633 Respond_Gripper_data_pa_N4_Fault: 4 Driver4
+ SG_ gripper_position : 7|8@0+ (1,0) [0|255] "" Host
+ SG_ gripper_current : 15|16@0- (1,0) [-32768|32767] "" Host
+ SG_ gripper_activated : 31|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_action_status : 30|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_object_detection_raw : 29|2@0+ (1,0) [0|3] "" Host
+ SG_ gripper_temperature_error : 27|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_timeout_error : 26|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_estop_error : 25|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_calibrated : 24|1@0+ (1,0) [0|1] "" Host
+
+BO_ 636 Send_gripper_calibrate_N4: 0 Host
+
+BO_ 534 Send_CAN_ID_N4: 1 Host
+ SG_ ID : 7|8@0+ (1,0) [0|255] "" Driver4
+
+BO_ 512 Send_ESTOP_N4: 0 Host
+
+BO_ 536 Send_Idle_N4: 0 Host
+
+BO_ 538 Send_Save_config_N4: 0 Host
+
+BO_ 540 Send_Reset_N4: 0 Host
+
+BO_ 514 Send_Clear_Error_N4: 0 Host
+
+BO_ 542 Send_Watchdog_N4: 5 Host
+ SG_ Time : 7|32@0+ (1,0) [0|4294967295] "" Driver4
+ SG_ Action : 39|8@0+ (1,0) [0|255] "" Driver4
+
+BO_ 572 Send_Heartbeat_Setup_N4: 4 Host
+ SG_ Interval : 7|32@0+ (1,0) [0|4294967295] "" Driver4
+
+BO_ 532 Send_Respond_Ping_N4: 0 Driver4
+
+BO_ 533 Send_Respond_Ping_N4_Fault: 0 Driver4
+
+BO_ 558 Send_Respond_Temperature_N4: 2 Driver4
+ SG_ temperature : 7|16@0- (1,0) [-32768|32767] "" Host
+
+BO_ 559 Send_Respond_Temperatur_N4_Fault: 2 Driver4
+ SG_ temperature : 7|16@0- (1,0) [-32768|32767] "" Host
+
+BO_ 560 Send_Respond_Voltage_N4: 2 Driver4
+ SG_ voltage : 7|16@0+ (1,0) [0|65535] "" Host
+
+BO_ 561 Send_Respond_Voltage_N4_Fault: 2 Driver4
+ SG_ voltage : 7|16@0+ (1,0) [0|65535] "" Host
+
+BO_ 562 Send_Respond_Device_Info_N4: 7 Driver4
+ SG_ HARDWARE_VERSION : 7|8@0+ (1,0) [0|255] "" Host
+ SG_ BATCH_DATE : 15|8@0+ (1,0) [0|255] "" Host
+ SG_ SOFTWARE_VERSION : 23|8@0+ (1,0) [0|255] "" Host
+ SG_ SERIAL_NUMBER : 31|32@0+ (1,0) [0|4294967295] "" Host
+
+BO_ 563 Send_Respond_Device_Inf_N4_Fault: 7 Driver4
+ SG_ HARDWARE_VERSION : 7|8@0+ (1,0) [0|255] "" Host
+ SG_ BATCH_DATE : 15|8@0+ (1,0) [0|255] "" Host
+ SG_ SOFTWARE_VERSION : 23|8@0+ (1,0) [0|255] "" Host
+ SG_ SERIAL_NUMBER : 31|32@0+ (1,0) [0|4294967295] "" Host
+
+BO_ 564 Send_Respond_State_of_Errors_N4: 2 Driver4
+ SG_ error : 7|1@0+ (1,0) [0|1] "" Host
+ SG_ temperature_error : 6|1@0+ (1,0) [0|1] "" Host
+ SG_ encoder_error : 5|1@0+ (1,0) [0|1] "" Host
+ SG_ vbus_error : 4|1@0+ (1,0) [0|1] "" Host
+ SG_ driver_error : 3|1@0+ (1,0) [0|1] "" Host
+ SG_ velocity_error : 2|1@0+ (1,0) [0|1] "" Host
+ SG_ current_error : 1|1@0+ (1,0) [0|1] "" Host
+ SG_ estop_error : 0|1@0+ (1,0) [0|1] "" Host
+ SG_ calibrated : 15|1@0+ (1,0) [0|1] "" Host
+ SG_ activated : 14|1@0+ (1,0) [0|1] "" Host
+ SG_ watchdog_error : 13|1@0+ (1,0) [0|1] "" Host
+
+BO_ 565 Send_Respond_State_of_E_N4_Fault: 2 Driver4
+ SG_ error : 7|1@0+ (1,0) [0|1] "" Host
+ SG_ temperature_error : 6|1@0+ (1,0) [0|1] "" Host
+ SG_ encoder_error : 5|1@0+ (1,0) [0|1] "" Host
+ SG_ vbus_error : 4|1@0+ (1,0) [0|1] "" Host
+ SG_ driver_error : 3|1@0+ (1,0) [0|1] "" Host
+ SG_ velocity_error : 2|1@0+ (1,0) [0|1] "" Host
+ SG_ current_error : 1|1@0+ (1,0) [0|1] "" Host
+ SG_ estop_error : 0|1@0+ (1,0) [0|1] "" Host
+ SG_ calibrated : 15|1@0+ (1,0) [0|1] "" Host
+ SG_ activated : 14|1@0+ (1,0) [0|1] "" Host
+ SG_ watchdog_error : 13|1@0+ (1,0) [0|1] "" Host
+
+BO_ 530 Respond_Heartbeat_N4: 0 Driver4
+
+BO_ 531 Respond_Heartbeat_N4_Fault: 0 Driver4
+
+BO_ 762 Send_gripper_data_pack_N5: 5 Host
+ SG_ Position : 7|8@0+ (1,0) [0|255] "" Driver5
+ SG_ Speed : 15|8@0+ (1,0) [0|255] "" Driver5
+ SG_ Current : 23|16@0- (1,0) [-32768|32767] "" Driver5
+ SG_ Activate : 39|1@0+ (1,0) [0|1] "" Driver5
+ SG_ Action : 38|1@0+ (1,0) [0|1] "" Driver5
+ SG_ E_stop : 37|1@0+ (1,0) [0|1] "" Driver5
+ SG_ Release_direction : 36|1@0+ (1,0) [0|1] "" Driver5
+
+BO_ 760 Respond_Gripper_data_pack_N5: 4 Driver5
+ SG_ gripper_position : 7|8@0+ (1,0) [0|255] "" Host
+ SG_ gripper_current : 15|16@0- (1,0) [-32768|32767] "" Host
+ SG_ gripper_activated : 31|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_action_status : 30|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_object_detection_raw : 29|2@0+ (1,0) [0|3] "" Host
+ SG_ gripper_temperature_error : 27|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_timeout_error : 26|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_estop_error : 25|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_calibrated : 24|1@0+ (1,0) [0|1] "" Host
+
+BO_ 761 Respond_Gripper_data_pa_N5_Fault: 4 Driver5
+ SG_ gripper_position : 7|8@0+ (1,0) [0|255] "" Host
+ SG_ gripper_current : 15|16@0- (1,0) [-32768|32767] "" Host
+ SG_ gripper_activated : 31|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_action_status : 30|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_object_detection_raw : 29|2@0+ (1,0) [0|3] "" Host
+ SG_ gripper_temperature_error : 27|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_timeout_error : 26|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_estop_error : 25|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_calibrated : 24|1@0+ (1,0) [0|1] "" Host
+
+BO_ 764 Send_gripper_calibrate_N5: 0 Host
+
+BO_ 662 Send_CAN_ID_N5: 1 Host
+ SG_ ID : 7|8@0+ (1,0) [0|255] "" Driver5
+
+BO_ 640 Send_ESTOP_N5: 0 Host
+
+BO_ 664 Send_Idle_N5: 0 Host
+
+BO_ 666 Send_Save_config_N5: 0 Host
+
+BO_ 668 Send_Reset_N5: 0 Host
+
+BO_ 642 Send_Clear_Error_N5: 0 Host
+
+BO_ 670 Send_Watchdog_N5: 5 Host
+ SG_ Time : 7|32@0+ (1,0) [0|4294967295] "" Driver5
+ SG_ Action : 39|8@0+ (1,0) [0|255] "" Driver5
+
+BO_ 700 Send_Heartbeat_Setup_N5: 4 Host
+ SG_ Interval : 7|32@0+ (1,0) [0|4294967295] "" Driver5
+
+BO_ 660 Send_Respond_Ping_N5: 0 Driver5
+
+BO_ 661 Send_Respond_Ping_N5_Fault: 0 Driver5
+
+BO_ 686 Send_Respond_Temperature_N5: 2 Driver5
+ SG_ temperature : 7|16@0- (1,0) [-32768|32767] "" Host
+
+BO_ 687 Send_Respond_Temperatur_N5_Fault: 2 Driver5
+ SG_ temperature : 7|16@0- (1,0) [-32768|32767] "" Host
+
+BO_ 688 Send_Respond_Voltage_N5: 2 Driver5
+ SG_ voltage : 7|16@0+ (1,0) [0|65535] "" Host
+
+BO_ 689 Send_Respond_Voltage_N5_Fault: 2 Driver5
+ SG_ voltage : 7|16@0+ (1,0) [0|65535] "" Host
+
+BO_ 690 Send_Respond_Device_Info_N5: 7 Driver5
+ SG_ HARDWARE_VERSION : 7|8@0+ (1,0) [0|255] "" Host
+ SG_ BATCH_DATE : 15|8@0+ (1,0) [0|255] "" Host
+ SG_ SOFTWARE_VERSION : 23|8@0+ (1,0) [0|255] "" Host
+ SG_ SERIAL_NUMBER : 31|32@0+ (1,0) [0|4294967295] "" Host
+
+BO_ 691 Send_Respond_Device_Inf_N5_Fault: 7 Driver5
+ SG_ HARDWARE_VERSION : 7|8@0+ (1,0) [0|255] "" Host
+ SG_ BATCH_DATE : 15|8@0+ (1,0) [0|255] "" Host
+ SG_ SOFTWARE_VERSION : 23|8@0+ (1,0) [0|255] "" Host
+ SG_ SERIAL_NUMBER : 31|32@0+ (1,0) [0|4294967295] "" Host
+
+BO_ 692 Send_Respond_State_of_Errors_N5: 2 Driver5
+ SG_ error : 7|1@0+ (1,0) [0|1] "" Host
+ SG_ temperature_error : 6|1@0+ (1,0) [0|1] "" Host
+ SG_ encoder_error : 5|1@0+ (1,0) [0|1] "" Host
+ SG_ vbus_error : 4|1@0+ (1,0) [0|1] "" Host
+ SG_ driver_error : 3|1@0+ (1,0) [0|1] "" Host
+ SG_ velocity_error : 2|1@0+ (1,0) [0|1] "" Host
+ SG_ current_error : 1|1@0+ (1,0) [0|1] "" Host
+ SG_ estop_error : 0|1@0+ (1,0) [0|1] "" Host
+ SG_ calibrated : 15|1@0+ (1,0) [0|1] "" Host
+ SG_ activated : 14|1@0+ (1,0) [0|1] "" Host
+ SG_ watchdog_error : 13|1@0+ (1,0) [0|1] "" Host
+
+BO_ 693 Send_Respond_State_of_E_N5_Fault: 2 Driver5
+ SG_ error : 7|1@0+ (1,0) [0|1] "" Host
+ SG_ temperature_error : 6|1@0+ (1,0) [0|1] "" Host
+ SG_ encoder_error : 5|1@0+ (1,0) [0|1] "" Host
+ SG_ vbus_error : 4|1@0+ (1,0) [0|1] "" Host
+ SG_ driver_error : 3|1@0+ (1,0) [0|1] "" Host
+ SG_ velocity_error : 2|1@0+ (1,0) [0|1] "" Host
+ SG_ current_error : 1|1@0+ (1,0) [0|1] "" Host
+ SG_ estop_error : 0|1@0+ (1,0) [0|1] "" Host
+ SG_ calibrated : 15|1@0+ (1,0) [0|1] "" Host
+ SG_ activated : 14|1@0+ (1,0) [0|1] "" Host
+ SG_ watchdog_error : 13|1@0+ (1,0) [0|1] "" Host
+
+BO_ 658 Respond_Heartbeat_N5: 0 Driver5
+
+BO_ 659 Respond_Heartbeat_N5_Fault: 0 Driver5
+
+BO_ 890 Send_gripper_data_pack_N6: 5 Host
+ SG_ Position : 7|8@0+ (1,0) [0|255] "" Driver6
+ SG_ Speed : 15|8@0+ (1,0) [0|255] "" Driver6
+ SG_ Current : 23|16@0- (1,0) [-32768|32767] "" Driver6
+ SG_ Activate : 39|1@0+ (1,0) [0|1] "" Driver6
+ SG_ Action : 38|1@0+ (1,0) [0|1] "" Driver6
+ SG_ E_stop : 37|1@0+ (1,0) [0|1] "" Driver6
+ SG_ Release_direction : 36|1@0+ (1,0) [0|1] "" Driver6
+
+BO_ 888 Respond_Gripper_data_pack_N6: 4 Driver6
+ SG_ gripper_position : 7|8@0+ (1,0) [0|255] "" Host
+ SG_ gripper_current : 15|16@0- (1,0) [-32768|32767] "" Host
+ SG_ gripper_activated : 31|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_action_status : 30|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_object_detection_raw : 29|2@0+ (1,0) [0|3] "" Host
+ SG_ gripper_temperature_error : 27|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_timeout_error : 26|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_estop_error : 25|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_calibrated : 24|1@0+ (1,0) [0|1] "" Host
+
+BO_ 889 Respond_Gripper_data_pa_N6_Fault: 4 Driver6
+ SG_ gripper_position : 7|8@0+ (1,0) [0|255] "" Host
+ SG_ gripper_current : 15|16@0- (1,0) [-32768|32767] "" Host
+ SG_ gripper_activated : 31|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_action_status : 30|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_object_detection_raw : 29|2@0+ (1,0) [0|3] "" Host
+ SG_ gripper_temperature_error : 27|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_timeout_error : 26|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_estop_error : 25|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_calibrated : 24|1@0+ (1,0) [0|1] "" Host
+
+BO_ 892 Send_gripper_calibrate_N6: 0 Host
+
+BO_ 790 Send_CAN_ID_N6: 1 Host
+ SG_ ID : 7|8@0+ (1,0) [0|255] "" Driver6
+
+BO_ 768 Send_ESTOP_N6: 0 Host
+
+BO_ 792 Send_Idle_N6: 0 Host
+
+BO_ 794 Send_Save_config_N6: 0 Host
+
+BO_ 796 Send_Reset_N6: 0 Host
+
+BO_ 770 Send_Clear_Error_N6: 0 Host
+
+BO_ 798 Send_Watchdog_N6: 5 Host
+ SG_ Time : 7|32@0+ (1,0) [0|4294967295] "" Driver6
+ SG_ Action : 39|8@0+ (1,0) [0|255] "" Driver6
+
+BO_ 828 Send_Heartbeat_Setup_N6: 4 Host
+ SG_ Interval : 7|32@0+ (1,0) [0|4294967295] "" Driver6
+
+BO_ 788 Send_Respond_Ping_N6: 0 Driver6
+
+BO_ 789 Send_Respond_Ping_N6_Fault: 0 Driver6
+
+BO_ 814 Send_Respond_Temperature_N6: 2 Driver6
+ SG_ temperature : 7|16@0- (1,0) [-32768|32767] "" Host
+
+BO_ 815 Send_Respond_Temperatur_N6_Fault: 2 Driver6
+ SG_ temperature : 7|16@0- (1,0) [-32768|32767] "" Host
+
+BO_ 816 Send_Respond_Voltage_N6: 2 Driver6
+ SG_ voltage : 7|16@0+ (1,0) [0|65535] "" Host
+
+BO_ 817 Send_Respond_Voltage_N6_Fault: 2 Driver6
+ SG_ voltage : 7|16@0+ (1,0) [0|65535] "" Host
+
+BO_ 818 Send_Respond_Device_Info_N6: 7 Driver6
+ SG_ HARDWARE_VERSION : 7|8@0+ (1,0) [0|255] "" Host
+ SG_ BATCH_DATE : 15|8@0+ (1,0) [0|255] "" Host
+ SG_ SOFTWARE_VERSION : 23|8@0+ (1,0) [0|255] "" Host
+ SG_ SERIAL_NUMBER : 31|32@0+ (1,0) [0|4294967295] "" Host
+
+BO_ 819 Send_Respond_Device_Inf_N6_Fault: 7 Driver6
+ SG_ HARDWARE_VERSION : 7|8@0+ (1,0) [0|255] "" Host
+ SG_ BATCH_DATE : 15|8@0+ (1,0) [0|255] "" Host
+ SG_ SOFTWARE_VERSION : 23|8@0+ (1,0) [0|255] "" Host
+ SG_ SERIAL_NUMBER : 31|32@0+ (1,0) [0|4294967295] "" Host
+
+BO_ 820 Send_Respond_State_of_Errors_N6: 2 Driver6
+ SG_ error : 7|1@0+ (1,0) [0|1] "" Host
+ SG_ temperature_error : 6|1@0+ (1,0) [0|1] "" Host
+ SG_ encoder_error : 5|1@0+ (1,0) [0|1] "" Host
+ SG_ vbus_error : 4|1@0+ (1,0) [0|1] "" Host
+ SG_ driver_error : 3|1@0+ (1,0) [0|1] "" Host
+ SG_ velocity_error : 2|1@0+ (1,0) [0|1] "" Host
+ SG_ current_error : 1|1@0+ (1,0) [0|1] "" Host
+ SG_ estop_error : 0|1@0+ (1,0) [0|1] "" Host
+ SG_ calibrated : 15|1@0+ (1,0) [0|1] "" Host
+ SG_ activated : 14|1@0+ (1,0) [0|1] "" Host
+ SG_ watchdog_error : 13|1@0+ (1,0) [0|1] "" Host
+
+BO_ 821 Send_Respond_State_of_E_N6_Fault: 2 Driver6
+ SG_ error : 7|1@0+ (1,0) [0|1] "" Host
+ SG_ temperature_error : 6|1@0+ (1,0) [0|1] "" Host
+ SG_ encoder_error : 5|1@0+ (1,0) [0|1] "" Host
+ SG_ vbus_error : 4|1@0+ (1,0) [0|1] "" Host
+ SG_ driver_error : 3|1@0+ (1,0) [0|1] "" Host
+ SG_ velocity_error : 2|1@0+ (1,0) [0|1] "" Host
+ SG_ current_error : 1|1@0+ (1,0) [0|1] "" Host
+ SG_ estop_error : 0|1@0+ (1,0) [0|1] "" Host
+ SG_ calibrated : 15|1@0+ (1,0) [0|1] "" Host
+ SG_ activated : 14|1@0+ (1,0) [0|1] "" Host
+ SG_ watchdog_error : 13|1@0+ (1,0) [0|1] "" Host
+
+BO_ 786 Respond_Heartbeat_N6: 0 Driver6
+
+BO_ 787 Respond_Heartbeat_N6_Fault: 0 Driver6
+
+BO_ 1018 Send_gripper_data_pack_N7: 5 Host
+ SG_ Position : 7|8@0+ (1,0) [0|255] "" Driver7
+ SG_ Speed : 15|8@0+ (1,0) [0|255] "" Driver7
+ SG_ Current : 23|16@0- (1,0) [-32768|32767] "" Driver7
+ SG_ Activate : 39|1@0+ (1,0) [0|1] "" Driver7
+ SG_ Action : 38|1@0+ (1,0) [0|1] "" Driver7
+ SG_ E_stop : 37|1@0+ (1,0) [0|1] "" Driver7
+ SG_ Release_direction : 36|1@0+ (1,0) [0|1] "" Driver7
+
+BO_ 1016 Respond_Gripper_data_pack_N7: 4 Driver7
+ SG_ gripper_position : 7|8@0+ (1,0) [0|255] "" Host
+ SG_ gripper_current : 15|16@0- (1,0) [-32768|32767] "" Host
+ SG_ gripper_activated : 31|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_action_status : 30|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_object_detection_raw : 29|2@0+ (1,0) [0|3] "" Host
+ SG_ gripper_temperature_error : 27|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_timeout_error : 26|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_estop_error : 25|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_calibrated : 24|1@0+ (1,0) [0|1] "" Host
+
+BO_ 1017 Respond_Gripper_data_pa_N7_Fault: 4 Driver7
+ SG_ gripper_position : 7|8@0+ (1,0) [0|255] "" Host
+ SG_ gripper_current : 15|16@0- (1,0) [-32768|32767] "" Host
+ SG_ gripper_activated : 31|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_action_status : 30|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_object_detection_raw : 29|2@0+ (1,0) [0|3] "" Host
+ SG_ gripper_temperature_error : 27|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_timeout_error : 26|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_estop_error : 25|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_calibrated : 24|1@0+ (1,0) [0|1] "" Host
+
+BO_ 1020 Send_gripper_calibrate_N7: 0 Host
+
+BO_ 918 Send_CAN_ID_N7: 1 Host
+ SG_ ID : 7|8@0+ (1,0) [0|255] "" Driver7
+
+BO_ 896 Send_ESTOP_N7: 0 Host
+
+BO_ 920 Send_Idle_N7: 0 Host
+
+BO_ 922 Send_Save_config_N7: 0 Host
+
+BO_ 924 Send_Reset_N7: 0 Host
+
+BO_ 898 Send_Clear_Error_N7: 0 Host
+
+BO_ 926 Send_Watchdog_N7: 5 Host
+ SG_ Time : 7|32@0+ (1,0) [0|4294967295] "" Driver7
+ SG_ Action : 39|8@0+ (1,0) [0|255] "" Driver7
+
+BO_ 956 Send_Heartbeat_Setup_N7: 4 Host
+ SG_ Interval : 7|32@0+ (1,0) [0|4294967295] "" Driver7
+
+BO_ 916 Send_Respond_Ping_N7: 0 Driver7
+
+BO_ 917 Send_Respond_Ping_N7_Fault: 0 Driver7
+
+BO_ 942 Send_Respond_Temperature_N7: 2 Driver7
+ SG_ temperature : 7|16@0- (1,0) [-32768|32767] "" Host
+
+BO_ 943 Send_Respond_Temperatur_N7_Fault: 2 Driver7
+ SG_ temperature : 7|16@0- (1,0) [-32768|32767] "" Host
+
+BO_ 944 Send_Respond_Voltage_N7: 2 Driver7
+ SG_ voltage : 7|16@0+ (1,0) [0|65535] "" Host
+
+BO_ 945 Send_Respond_Voltage_N7_Fault: 2 Driver7
+ SG_ voltage : 7|16@0+ (1,0) [0|65535] "" Host
+
+BO_ 946 Send_Respond_Device_Info_N7: 7 Driver7
+ SG_ HARDWARE_VERSION : 7|8@0+ (1,0) [0|255] "" Host
+ SG_ BATCH_DATE : 15|8@0+ (1,0) [0|255] "" Host
+ SG_ SOFTWARE_VERSION : 23|8@0+ (1,0) [0|255] "" Host
+ SG_ SERIAL_NUMBER : 31|32@0+ (1,0) [0|4294967295] "" Host
+
+BO_ 947 Send_Respond_Device_Inf_N7_Fault: 7 Driver7
+ SG_ HARDWARE_VERSION : 7|8@0+ (1,0) [0|255] "" Host
+ SG_ BATCH_DATE : 15|8@0+ (1,0) [0|255] "" Host
+ SG_ SOFTWARE_VERSION : 23|8@0+ (1,0) [0|255] "" Host
+ SG_ SERIAL_NUMBER : 31|32@0+ (1,0) [0|4294967295] "" Host
+
+BO_ 948 Send_Respond_State_of_Errors_N7: 2 Driver7
+ SG_ error : 7|1@0+ (1,0) [0|1] "" Host
+ SG_ temperature_error : 6|1@0+ (1,0) [0|1] "" Host
+ SG_ encoder_error : 5|1@0+ (1,0) [0|1] "" Host
+ SG_ vbus_error : 4|1@0+ (1,0) [0|1] "" Host
+ SG_ driver_error : 3|1@0+ (1,0) [0|1] "" Host
+ SG_ velocity_error : 2|1@0+ (1,0) [0|1] "" Host
+ SG_ current_error : 1|1@0+ (1,0) [0|1] "" Host
+ SG_ estop_error : 0|1@0+ (1,0) [0|1] "" Host
+ SG_ calibrated : 15|1@0+ (1,0) [0|1] "" Host
+ SG_ activated : 14|1@0+ (1,0) [0|1] "" Host
+ SG_ watchdog_error : 13|1@0+ (1,0) [0|1] "" Host
+
+BO_ 949 Send_Respond_State_of_E_N7_Fault: 2 Driver7
+ SG_ error : 7|1@0+ (1,0) [0|1] "" Host
+ SG_ temperature_error : 6|1@0+ (1,0) [0|1] "" Host
+ SG_ encoder_error : 5|1@0+ (1,0) [0|1] "" Host
+ SG_ vbus_error : 4|1@0+ (1,0) [0|1] "" Host
+ SG_ driver_error : 3|1@0+ (1,0) [0|1] "" Host
+ SG_ velocity_error : 2|1@0+ (1,0) [0|1] "" Host
+ SG_ current_error : 1|1@0+ (1,0) [0|1] "" Host
+ SG_ estop_error : 0|1@0+ (1,0) [0|1] "" Host
+ SG_ calibrated : 15|1@0+ (1,0) [0|1] "" Host
+ SG_ activated : 14|1@0+ (1,0) [0|1] "" Host
+ SG_ watchdog_error : 13|1@0+ (1,0) [0|1] "" Host
+
+BO_ 914 Respond_Heartbeat_N7: 0 Driver7
+
+BO_ 915 Respond_Heartbeat_N7_Fault: 0 Driver7
+
+BO_ 1146 Send_gripper_data_pack_N8: 5 Host
+ SG_ Position : 7|8@0+ (1,0) [0|255] "" Driver8
+ SG_ Speed : 15|8@0+ (1,0) [0|255] "" Driver8
+ SG_ Current : 23|16@0- (1,0) [-32768|32767] "" Driver8
+ SG_ Activate : 39|1@0+ (1,0) [0|1] "" Driver8
+ SG_ Action : 38|1@0+ (1,0) [0|1] "" Driver8
+ SG_ E_stop : 37|1@0+ (1,0) [0|1] "" Driver8
+ SG_ Release_direction : 36|1@0+ (1,0) [0|1] "" Driver8
+
+BO_ 1144 Respond_Gripper_data_pack_N8: 4 Driver8
+ SG_ gripper_position : 7|8@0+ (1,0) [0|255] "" Host
+ SG_ gripper_current : 15|16@0- (1,0) [-32768|32767] "" Host
+ SG_ gripper_activated : 31|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_action_status : 30|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_object_detection_raw : 29|2@0+ (1,0) [0|3] "" Host
+ SG_ gripper_temperature_error : 27|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_timeout_error : 26|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_estop_error : 25|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_calibrated : 24|1@0+ (1,0) [0|1] "" Host
+
+BO_ 1145 Respond_Gripper_data_pa_N8_Fault: 4 Driver8
+ SG_ gripper_position : 7|8@0+ (1,0) [0|255] "" Host
+ SG_ gripper_current : 15|16@0- (1,0) [-32768|32767] "" Host
+ SG_ gripper_activated : 31|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_action_status : 30|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_object_detection_raw : 29|2@0+ (1,0) [0|3] "" Host
+ SG_ gripper_temperature_error : 27|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_timeout_error : 26|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_estop_error : 25|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_calibrated : 24|1@0+ (1,0) [0|1] "" Host
+
+BO_ 1148 Send_gripper_calibrate_N8: 0 Host
+
+BO_ 1046 Send_CAN_ID_N8: 1 Host
+ SG_ ID : 7|8@0+ (1,0) [0|255] "" Driver8
+
+BO_ 1024 Send_ESTOP_N8: 0 Host
+
+BO_ 1048 Send_Idle_N8: 0 Host
+
+BO_ 1050 Send_Save_config_N8: 0 Host
+
+BO_ 1052 Send_Reset_N8: 0 Host
+
+BO_ 1026 Send_Clear_Error_N8: 0 Host
+
+BO_ 1054 Send_Watchdog_N8: 5 Host
+ SG_ Time : 7|32@0+ (1,0) [0|4294967295] "" Driver8
+ SG_ Action : 39|8@0+ (1,0) [0|255] "" Driver8
+
+BO_ 1084 Send_Heartbeat_Setup_N8: 4 Host
+ SG_ Interval : 7|32@0+ (1,0) [0|4294967295] "" Driver8
+
+BO_ 1044 Send_Respond_Ping_N8: 0 Driver8
+
+BO_ 1045 Send_Respond_Ping_N8_Fault: 0 Driver8
+
+BO_ 1070 Send_Respond_Temperature_N8: 2 Driver8
+ SG_ temperature : 7|16@0- (1,0) [-32768|32767] "" Host
+
+BO_ 1071 Send_Respond_Temperatur_N8_Fault: 2 Driver8
+ SG_ temperature : 7|16@0- (1,0) [-32768|32767] "" Host
+
+BO_ 1072 Send_Respond_Voltage_N8: 2 Driver8
+ SG_ voltage : 7|16@0+ (1,0) [0|65535] "" Host
+
+BO_ 1073 Send_Respond_Voltage_N8_Fault: 2 Driver8
+ SG_ voltage : 7|16@0+ (1,0) [0|65535] "" Host
+
+BO_ 1074 Send_Respond_Device_Info_N8: 7 Driver8
+ SG_ HARDWARE_VERSION : 7|8@0+ (1,0) [0|255] "" Host
+ SG_ BATCH_DATE : 15|8@0+ (1,0) [0|255] "" Host
+ SG_ SOFTWARE_VERSION : 23|8@0+ (1,0) [0|255] "" Host
+ SG_ SERIAL_NUMBER : 31|32@0+ (1,0) [0|4294967295] "" Host
+
+BO_ 1075 Send_Respond_Device_Inf_N8_Fault: 7 Driver8
+ SG_ HARDWARE_VERSION : 7|8@0+ (1,0) [0|255] "" Host
+ SG_ BATCH_DATE : 15|8@0+ (1,0) [0|255] "" Host
+ SG_ SOFTWARE_VERSION : 23|8@0+ (1,0) [0|255] "" Host
+ SG_ SERIAL_NUMBER : 31|32@0+ (1,0) [0|4294967295] "" Host
+
+BO_ 1076 Send_Respond_State_of_Errors_N8: 2 Driver8
+ SG_ error : 7|1@0+ (1,0) [0|1] "" Host
+ SG_ temperature_error : 6|1@0+ (1,0) [0|1] "" Host
+ SG_ encoder_error : 5|1@0+ (1,0) [0|1] "" Host
+ SG_ vbus_error : 4|1@0+ (1,0) [0|1] "" Host
+ SG_ driver_error : 3|1@0+ (1,0) [0|1] "" Host
+ SG_ velocity_error : 2|1@0+ (1,0) [0|1] "" Host
+ SG_ current_error : 1|1@0+ (1,0) [0|1] "" Host
+ SG_ estop_error : 0|1@0+ (1,0) [0|1] "" Host
+ SG_ calibrated : 15|1@0+ (1,0) [0|1] "" Host
+ SG_ activated : 14|1@0+ (1,0) [0|1] "" Host
+ SG_ watchdog_error : 13|1@0+ (1,0) [0|1] "" Host
+
+BO_ 1077 Send_Respond_State_of_E_N8_Fault: 2 Driver8
+ SG_ error : 7|1@0+ (1,0) [0|1] "" Host
+ SG_ temperature_error : 6|1@0+ (1,0) [0|1] "" Host
+ SG_ encoder_error : 5|1@0+ (1,0) [0|1] "" Host
+ SG_ vbus_error : 4|1@0+ (1,0) [0|1] "" Host
+ SG_ driver_error : 3|1@0+ (1,0) [0|1] "" Host
+ SG_ velocity_error : 2|1@0+ (1,0) [0|1] "" Host
+ SG_ current_error : 1|1@0+ (1,0) [0|1] "" Host
+ SG_ estop_error : 0|1@0+ (1,0) [0|1] "" Host
+ SG_ calibrated : 15|1@0+ (1,0) [0|1] "" Host
+ SG_ activated : 14|1@0+ (1,0) [0|1] "" Host
+ SG_ watchdog_error : 13|1@0+ (1,0) [0|1] "" Host
+
+BO_ 1042 Respond_Heartbeat_N8: 0 Driver8
+
+BO_ 1043 Respond_Heartbeat_N8_Fault: 0 Driver8
+
+BO_ 1274 Send_gripper_data_pack_N9: 5 Host
+ SG_ Position : 7|8@0+ (1,0) [0|255] "" Driver9
+ SG_ Speed : 15|8@0+ (1,0) [0|255] "" Driver9
+ SG_ Current : 23|16@0- (1,0) [-32768|32767] "" Driver9
+ SG_ Activate : 39|1@0+ (1,0) [0|1] "" Driver9
+ SG_ Action : 38|1@0+ (1,0) [0|1] "" Driver9
+ SG_ E_stop : 37|1@0+ (1,0) [0|1] "" Driver9
+ SG_ Release_direction : 36|1@0+ (1,0) [0|1] "" Driver9
+
+BO_ 1272 Respond_Gripper_data_pack_N9: 4 Driver9
+ SG_ gripper_position : 7|8@0+ (1,0) [0|255] "" Host
+ SG_ gripper_current : 15|16@0- (1,0) [-32768|32767] "" Host
+ SG_ gripper_activated : 31|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_action_status : 30|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_object_detection_raw : 29|2@0+ (1,0) [0|3] "" Host
+ SG_ gripper_temperature_error : 27|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_timeout_error : 26|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_estop_error : 25|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_calibrated : 24|1@0+ (1,0) [0|1] "" Host
+
+BO_ 1273 Respond_Gripper_data_pa_N9_Fault: 4 Driver9
+ SG_ gripper_position : 7|8@0+ (1,0) [0|255] "" Host
+ SG_ gripper_current : 15|16@0- (1,0) [-32768|32767] "" Host
+ SG_ gripper_activated : 31|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_action_status : 30|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_object_detection_raw : 29|2@0+ (1,0) [0|3] "" Host
+ SG_ gripper_temperature_error : 27|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_timeout_error : 26|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_estop_error : 25|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_calibrated : 24|1@0+ (1,0) [0|1] "" Host
+
+BO_ 1276 Send_gripper_calibrate_N9: 0 Host
+
+BO_ 1174 Send_CAN_ID_N9: 1 Host
+ SG_ ID : 7|8@0+ (1,0) [0|255] "" Driver9
+
+BO_ 1152 Send_ESTOP_N9: 0 Host
+
+BO_ 1176 Send_Idle_N9: 0 Host
+
+BO_ 1178 Send_Save_config_N9: 0 Host
+
+BO_ 1180 Send_Reset_N9: 0 Host
+
+BO_ 1154 Send_Clear_Error_N9: 0 Host
+
+BO_ 1182 Send_Watchdog_N9: 5 Host
+ SG_ Time : 7|32@0+ (1,0) [0|4294967295] "" Driver9
+ SG_ Action : 39|8@0+ (1,0) [0|255] "" Driver9
+
+BO_ 1212 Send_Heartbeat_Setup_N9: 4 Host
+ SG_ Interval : 7|32@0+ (1,0) [0|4294967295] "" Driver9
+
+BO_ 1172 Send_Respond_Ping_N9: 0 Driver9
+
+BO_ 1173 Send_Respond_Ping_N9_Fault: 0 Driver9
+
+BO_ 1198 Send_Respond_Temperature_N9: 2 Driver9
+ SG_ temperature : 7|16@0- (1,0) [-32768|32767] "" Host
+
+BO_ 1199 Send_Respond_Temperatur_N9_Fault: 2 Driver9
+ SG_ temperature : 7|16@0- (1,0) [-32768|32767] "" Host
+
+BO_ 1200 Send_Respond_Voltage_N9: 2 Driver9
+ SG_ voltage : 7|16@0+ (1,0) [0|65535] "" Host
+
+BO_ 1201 Send_Respond_Voltage_N9_Fault: 2 Driver9
+ SG_ voltage : 7|16@0+ (1,0) [0|65535] "" Host
+
+BO_ 1202 Send_Respond_Device_Info_N9: 7 Driver9
+ SG_ HARDWARE_VERSION : 7|8@0+ (1,0) [0|255] "" Host
+ SG_ BATCH_DATE : 15|8@0+ (1,0) [0|255] "" Host
+ SG_ SOFTWARE_VERSION : 23|8@0+ (1,0) [0|255] "" Host
+ SG_ SERIAL_NUMBER : 31|32@0+ (1,0) [0|4294967295] "" Host
+
+BO_ 1203 Send_Respond_Device_Inf_N9_Fault: 7 Driver9
+ SG_ HARDWARE_VERSION : 7|8@0+ (1,0) [0|255] "" Host
+ SG_ BATCH_DATE : 15|8@0+ (1,0) [0|255] "" Host
+ SG_ SOFTWARE_VERSION : 23|8@0+ (1,0) [0|255] "" Host
+ SG_ SERIAL_NUMBER : 31|32@0+ (1,0) [0|4294967295] "" Host
+
+BO_ 1204 Send_Respond_State_of_Errors_N9: 2 Driver9
+ SG_ error : 7|1@0+ (1,0) [0|1] "" Host
+ SG_ temperature_error : 6|1@0+ (1,0) [0|1] "" Host
+ SG_ encoder_error : 5|1@0+ (1,0) [0|1] "" Host
+ SG_ vbus_error : 4|1@0+ (1,0) [0|1] "" Host
+ SG_ driver_error : 3|1@0+ (1,0) [0|1] "" Host
+ SG_ velocity_error : 2|1@0+ (1,0) [0|1] "" Host
+ SG_ current_error : 1|1@0+ (1,0) [0|1] "" Host
+ SG_ estop_error : 0|1@0+ (1,0) [0|1] "" Host
+ SG_ calibrated : 15|1@0+ (1,0) [0|1] "" Host
+ SG_ activated : 14|1@0+ (1,0) [0|1] "" Host
+ SG_ watchdog_error : 13|1@0+ (1,0) [0|1] "" Host
+
+BO_ 1205 Send_Respond_State_of_E_N9_Fault: 2 Driver9
+ SG_ error : 7|1@0+ (1,0) [0|1] "" Host
+ SG_ temperature_error : 6|1@0+ (1,0) [0|1] "" Host
+ SG_ encoder_error : 5|1@0+ (1,0) [0|1] "" Host
+ SG_ vbus_error : 4|1@0+ (1,0) [0|1] "" Host
+ SG_ driver_error : 3|1@0+ (1,0) [0|1] "" Host
+ SG_ velocity_error : 2|1@0+ (1,0) [0|1] "" Host
+ SG_ current_error : 1|1@0+ (1,0) [0|1] "" Host
+ SG_ estop_error : 0|1@0+ (1,0) [0|1] "" Host
+ SG_ calibrated : 15|1@0+ (1,0) [0|1] "" Host
+ SG_ activated : 14|1@0+ (1,0) [0|1] "" Host
+ SG_ watchdog_error : 13|1@0+ (1,0) [0|1] "" Host
+
+BO_ 1170 Respond_Heartbeat_N9: 0 Driver9
+
+BO_ 1171 Respond_Heartbeat_N9_Fault: 0 Driver9
+
+BO_ 1402 Send_gripper_data_pack_N10: 5 Host
+ SG_ Position : 7|8@0+ (1,0) [0|255] "" Driver10
+ SG_ Speed : 15|8@0+ (1,0) [0|255] "" Driver10
+ SG_ Current : 23|16@0- (1,0) [-32768|32767] "" Driver10
+ SG_ Activate : 39|1@0+ (1,0) [0|1] "" Driver10
+ SG_ Action : 38|1@0+ (1,0) [0|1] "" Driver10
+ SG_ E_stop : 37|1@0+ (1,0) [0|1] "" Driver10
+ SG_ Release_direction : 36|1@0+ (1,0) [0|1] "" Driver10
+
+BO_ 1400 Respond_Gripper_data_pack_N10: 4 Driver10
+ SG_ gripper_position : 7|8@0+ (1,0) [0|255] "" Host
+ SG_ gripper_current : 15|16@0- (1,0) [-32768|32767] "" Host
+ SG_ gripper_activated : 31|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_action_status : 30|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_object_detection_raw : 29|2@0+ (1,0) [0|3] "" Host
+ SG_ gripper_temperature_error : 27|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_timeout_error : 26|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_estop_error : 25|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_calibrated : 24|1@0+ (1,0) [0|1] "" Host
+
+BO_ 1401 Respond_Gripper_data_p_N10_Fault: 4 Driver10
+ SG_ gripper_position : 7|8@0+ (1,0) [0|255] "" Host
+ SG_ gripper_current : 15|16@0- (1,0) [-32768|32767] "" Host
+ SG_ gripper_activated : 31|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_action_status : 30|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_object_detection_raw : 29|2@0+ (1,0) [0|3] "" Host
+ SG_ gripper_temperature_error : 27|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_timeout_error : 26|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_estop_error : 25|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_calibrated : 24|1@0+ (1,0) [0|1] "" Host
+
+BO_ 1404 Send_gripper_calibrate_N10: 0 Host
+
+BO_ 1302 Send_CAN_ID_N10: 1 Host
+ SG_ ID : 7|8@0+ (1,0) [0|255] "" Driver10
+
+BO_ 1280 Send_ESTOP_N10: 0 Host
+
+BO_ 1304 Send_Idle_N10: 0 Host
+
+BO_ 1306 Send_Save_config_N10: 0 Host
+
+BO_ 1308 Send_Reset_N10: 0 Host
+
+BO_ 1282 Send_Clear_Error_N10: 0 Host
+
+BO_ 1310 Send_Watchdog_N10: 5 Host
+ SG_ Time : 7|32@0+ (1,0) [0|4294967295] "" Driver10
+ SG_ Action : 39|8@0+ (1,0) [0|255] "" Driver10
+
+BO_ 1340 Send_Heartbeat_Setup_N10: 4 Host
+ SG_ Interval : 7|32@0+ (1,0) [0|4294967295] "" Driver10
+
+BO_ 1300 Send_Respond_Ping_N10: 0 Driver10
+
+BO_ 1301 Send_Respond_Ping_N10_Fault: 0 Driver10
+
+BO_ 1326 Send_Respond_Temperature_N10: 2 Driver10
+ SG_ temperature : 7|16@0- (1,0) [-32768|32767] "" Host
+
+BO_ 1327 Send_Respond_Temperatu_N10_Fault: 2 Driver10
+ SG_ temperature : 7|16@0- (1,0) [-32768|32767] "" Host
+
+BO_ 1328 Send_Respond_Voltage_N10: 2 Driver10
+ SG_ voltage : 7|16@0+ (1,0) [0|65535] "" Host
+
+BO_ 1329 Send_Respond_Voltage_N10_Fault: 2 Driver10
+ SG_ voltage : 7|16@0+ (1,0) [0|65535] "" Host
+
+BO_ 1330 Send_Respond_Device_Info_N10: 7 Driver10
+ SG_ HARDWARE_VERSION : 7|8@0+ (1,0) [0|255] "" Host
+ SG_ BATCH_DATE : 15|8@0+ (1,0) [0|255] "" Host
+ SG_ SOFTWARE_VERSION : 23|8@0+ (1,0) [0|255] "" Host
+ SG_ SERIAL_NUMBER : 31|32@0+ (1,0) [0|4294967295] "" Host
+
+BO_ 1331 Send_Respond_Device_In_N10_Fault: 7 Driver10
+ SG_ HARDWARE_VERSION : 7|8@0+ (1,0) [0|255] "" Host
+ SG_ BATCH_DATE : 15|8@0+ (1,0) [0|255] "" Host
+ SG_ SOFTWARE_VERSION : 23|8@0+ (1,0) [0|255] "" Host
+ SG_ SERIAL_NUMBER : 31|32@0+ (1,0) [0|4294967295] "" Host
+
+BO_ 1332 Send_Respond_State_of_Errors_N10: 2 Driver10
+ SG_ error : 7|1@0+ (1,0) [0|1] "" Host
+ SG_ temperature_error : 6|1@0+ (1,0) [0|1] "" Host
+ SG_ encoder_error : 5|1@0+ (1,0) [0|1] "" Host
+ SG_ vbus_error : 4|1@0+ (1,0) [0|1] "" Host
+ SG_ driver_error : 3|1@0+ (1,0) [0|1] "" Host
+ SG_ velocity_error : 2|1@0+ (1,0) [0|1] "" Host
+ SG_ current_error : 1|1@0+ (1,0) [0|1] "" Host
+ SG_ estop_error : 0|1@0+ (1,0) [0|1] "" Host
+ SG_ calibrated : 15|1@0+ (1,0) [0|1] "" Host
+ SG_ activated : 14|1@0+ (1,0) [0|1] "" Host
+ SG_ watchdog_error : 13|1@0+ (1,0) [0|1] "" Host
+
+BO_ 1333 Send_Respond_State_of__N10_Fault: 2 Driver10
+ SG_ error : 7|1@0+ (1,0) [0|1] "" Host
+ SG_ temperature_error : 6|1@0+ (1,0) [0|1] "" Host
+ SG_ encoder_error : 5|1@0+ (1,0) [0|1] "" Host
+ SG_ vbus_error : 4|1@0+ (1,0) [0|1] "" Host
+ SG_ driver_error : 3|1@0+ (1,0) [0|1] "" Host
+ SG_ velocity_error : 2|1@0+ (1,0) [0|1] "" Host
+ SG_ current_error : 1|1@0+ (1,0) [0|1] "" Host
+ SG_ estop_error : 0|1@0+ (1,0) [0|1] "" Host
+ SG_ calibrated : 15|1@0+ (1,0) [0|1] "" Host
+ SG_ activated : 14|1@0+ (1,0) [0|1] "" Host
+ SG_ watchdog_error : 13|1@0+ (1,0) [0|1] "" Host
+
+BO_ 1298 Respond_Heartbeat_N10: 0 Driver10
+
+BO_ 1299 Respond_Heartbeat_N10_Fault: 0 Driver10
+
+BO_ 1530 Send_gripper_data_pack_N11: 5 Host
+ SG_ Position : 7|8@0+ (1,0) [0|255] "" Driver11
+ SG_ Speed : 15|8@0+ (1,0) [0|255] "" Driver11
+ SG_ Current : 23|16@0- (1,0) [-32768|32767] "" Driver11
+ SG_ Activate : 39|1@0+ (1,0) [0|1] "" Driver11
+ SG_ Action : 38|1@0+ (1,0) [0|1] "" Driver11
+ SG_ E_stop : 37|1@0+ (1,0) [0|1] "" Driver11
+ SG_ Release_direction : 36|1@0+ (1,0) [0|1] "" Driver11
+
+BO_ 1528 Respond_Gripper_data_pack_N11: 4 Driver11
+ SG_ gripper_position : 7|8@0+ (1,0) [0|255] "" Host
+ SG_ gripper_current : 15|16@0- (1,0) [-32768|32767] "" Host
+ SG_ gripper_activated : 31|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_action_status : 30|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_object_detection_raw : 29|2@0+ (1,0) [0|3] "" Host
+ SG_ gripper_temperature_error : 27|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_timeout_error : 26|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_estop_error : 25|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_calibrated : 24|1@0+ (1,0) [0|1] "" Host
+
+BO_ 1529 Respond_Gripper_data_p_N11_Fault: 4 Driver11
+ SG_ gripper_position : 7|8@0+ (1,0) [0|255] "" Host
+ SG_ gripper_current : 15|16@0- (1,0) [-32768|32767] "" Host
+ SG_ gripper_activated : 31|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_action_status : 30|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_object_detection_raw : 29|2@0+ (1,0) [0|3] "" Host
+ SG_ gripper_temperature_error : 27|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_timeout_error : 26|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_estop_error : 25|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_calibrated : 24|1@0+ (1,0) [0|1] "" Host
+
+BO_ 1532 Send_gripper_calibrate_N11: 0 Host
+
+BO_ 1430 Send_CAN_ID_N11: 1 Host
+ SG_ ID : 7|8@0+ (1,0) [0|255] "" Driver11
+
+BO_ 1408 Send_ESTOP_N11: 0 Host
+
+BO_ 1432 Send_Idle_N11: 0 Host
+
+BO_ 1434 Send_Save_config_N11: 0 Host
+
+BO_ 1436 Send_Reset_N11: 0 Host
+
+BO_ 1410 Send_Clear_Error_N11: 0 Host
+
+BO_ 1438 Send_Watchdog_N11: 5 Host
+ SG_ Time : 7|32@0+ (1,0) [0|4294967295] "" Driver11
+ SG_ Action : 39|8@0+ (1,0) [0|255] "" Driver11
+
+BO_ 1468 Send_Heartbeat_Setup_N11: 4 Host
+ SG_ Interval : 7|32@0+ (1,0) [0|4294967295] "" Driver11
+
+BO_ 1428 Send_Respond_Ping_N11: 0 Driver11
+
+BO_ 1429 Send_Respond_Ping_N11_Fault: 0 Driver11
+
+BO_ 1454 Send_Respond_Temperature_N11: 2 Driver11
+ SG_ temperature : 7|16@0- (1,0) [-32768|32767] "" Host
+
+BO_ 1455 Send_Respond_Temperatu_N11_Fault: 2 Driver11
+ SG_ temperature : 7|16@0- (1,0) [-32768|32767] "" Host
+
+BO_ 1456 Send_Respond_Voltage_N11: 2 Driver11
+ SG_ voltage : 7|16@0+ (1,0) [0|65535] "" Host
+
+BO_ 1457 Send_Respond_Voltage_N11_Fault: 2 Driver11
+ SG_ voltage : 7|16@0+ (1,0) [0|65535] "" Host
+
+BO_ 1458 Send_Respond_Device_Info_N11: 7 Driver11
+ SG_ HARDWARE_VERSION : 7|8@0+ (1,0) [0|255] "" Host
+ SG_ BATCH_DATE : 15|8@0+ (1,0) [0|255] "" Host
+ SG_ SOFTWARE_VERSION : 23|8@0+ (1,0) [0|255] "" Host
+ SG_ SERIAL_NUMBER : 31|32@0+ (1,0) [0|4294967295] "" Host
+
+BO_ 1459 Send_Respond_Device_In_N11_Fault: 7 Driver11
+ SG_ HARDWARE_VERSION : 7|8@0+ (1,0) [0|255] "" Host
+ SG_ BATCH_DATE : 15|8@0+ (1,0) [0|255] "" Host
+ SG_ SOFTWARE_VERSION : 23|8@0+ (1,0) [0|255] "" Host
+ SG_ SERIAL_NUMBER : 31|32@0+ (1,0) [0|4294967295] "" Host
+
+BO_ 1460 Send_Respond_State_of_Errors_N11: 2 Driver11
+ SG_ error : 7|1@0+ (1,0) [0|1] "" Host
+ SG_ temperature_error : 6|1@0+ (1,0) [0|1] "" Host
+ SG_ encoder_error : 5|1@0+ (1,0) [0|1] "" Host
+ SG_ vbus_error : 4|1@0+ (1,0) [0|1] "" Host
+ SG_ driver_error : 3|1@0+ (1,0) [0|1] "" Host
+ SG_ velocity_error : 2|1@0+ (1,0) [0|1] "" Host
+ SG_ current_error : 1|1@0+ (1,0) [0|1] "" Host
+ SG_ estop_error : 0|1@0+ (1,0) [0|1] "" Host
+ SG_ calibrated : 15|1@0+ (1,0) [0|1] "" Host
+ SG_ activated : 14|1@0+ (1,0) [0|1] "" Host
+ SG_ watchdog_error : 13|1@0+ (1,0) [0|1] "" Host
+
+BO_ 1461 Send_Respond_State_of__N11_Fault: 2 Driver11
+ SG_ error : 7|1@0+ (1,0) [0|1] "" Host
+ SG_ temperature_error : 6|1@0+ (1,0) [0|1] "" Host
+ SG_ encoder_error : 5|1@0+ (1,0) [0|1] "" Host
+ SG_ vbus_error : 4|1@0+ (1,0) [0|1] "" Host
+ SG_ driver_error : 3|1@0+ (1,0) [0|1] "" Host
+ SG_ velocity_error : 2|1@0+ (1,0) [0|1] "" Host
+ SG_ current_error : 1|1@0+ (1,0) [0|1] "" Host
+ SG_ estop_error : 0|1@0+ (1,0) [0|1] "" Host
+ SG_ calibrated : 15|1@0+ (1,0) [0|1] "" Host
+ SG_ activated : 14|1@0+ (1,0) [0|1] "" Host
+ SG_ watchdog_error : 13|1@0+ (1,0) [0|1] "" Host
+
+BO_ 1426 Respond_Heartbeat_N11: 0 Driver11
+
+BO_ 1427 Respond_Heartbeat_N11_Fault: 0 Driver11
+
+BO_ 1658 Send_gripper_data_pack_N12: 5 Host
+ SG_ Position : 7|8@0+ (1,0) [0|255] "" Driver12
+ SG_ Speed : 15|8@0+ (1,0) [0|255] "" Driver12
+ SG_ Current : 23|16@0- (1,0) [-32768|32767] "" Driver12
+ SG_ Activate : 39|1@0+ (1,0) [0|1] "" Driver12
+ SG_ Action : 38|1@0+ (1,0) [0|1] "" Driver12
+ SG_ E_stop : 37|1@0+ (1,0) [0|1] "" Driver12
+ SG_ Release_direction : 36|1@0+ (1,0) [0|1] "" Driver12
+
+BO_ 1656 Respond_Gripper_data_pack_N12: 4 Driver12
+ SG_ gripper_position : 7|8@0+ (1,0) [0|255] "" Host
+ SG_ gripper_current : 15|16@0- (1,0) [-32768|32767] "" Host
+ SG_ gripper_activated : 31|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_action_status : 30|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_object_detection_raw : 29|2@0+ (1,0) [0|3] "" Host
+ SG_ gripper_temperature_error : 27|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_timeout_error : 26|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_estop_error : 25|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_calibrated : 24|1@0+ (1,0) [0|1] "" Host
+
+BO_ 1657 Respond_Gripper_data_p_N12_Fault: 4 Driver12
+ SG_ gripper_position : 7|8@0+ (1,0) [0|255] "" Host
+ SG_ gripper_current : 15|16@0- (1,0) [-32768|32767] "" Host
+ SG_ gripper_activated : 31|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_action_status : 30|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_object_detection_raw : 29|2@0+ (1,0) [0|3] "" Host
+ SG_ gripper_temperature_error : 27|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_timeout_error : 26|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_estop_error : 25|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_calibrated : 24|1@0+ (1,0) [0|1] "" Host
+
+BO_ 1660 Send_gripper_calibrate_N12: 0 Host
+
+BO_ 1558 Send_CAN_ID_N12: 1 Host
+ SG_ ID : 7|8@0+ (1,0) [0|255] "" Driver12
+
+BO_ 1536 Send_ESTOP_N12: 0 Host
+
+BO_ 1560 Send_Idle_N12: 0 Host
+
+BO_ 1562 Send_Save_config_N12: 0 Host
+
+BO_ 1564 Send_Reset_N12: 0 Host
+
+BO_ 1538 Send_Clear_Error_N12: 0 Host
+
+BO_ 1566 Send_Watchdog_N12: 5 Host
+ SG_ Time : 7|32@0+ (1,0) [0|4294967295] "" Driver12
+ SG_ Action : 39|8@0+ (1,0) [0|255] "" Driver12
+
+BO_ 1596 Send_Heartbeat_Setup_N12: 4 Host
+ SG_ Interval : 7|32@0+ (1,0) [0|4294967295] "" Driver12
+
+BO_ 1556 Send_Respond_Ping_N12: 0 Driver12
+
+BO_ 1557 Send_Respond_Ping_N12_Fault: 0 Driver12
+
+BO_ 1582 Send_Respond_Temperature_N12: 2 Driver12
+ SG_ temperature : 7|16@0- (1,0) [-32768|32767] "" Host
+
+BO_ 1583 Send_Respond_Temperatu_N12_Fault: 2 Driver12
+ SG_ temperature : 7|16@0- (1,0) [-32768|32767] "" Host
+
+BO_ 1584 Send_Respond_Voltage_N12: 2 Driver12
+ SG_ voltage : 7|16@0+ (1,0) [0|65535] "" Host
+
+BO_ 1585 Send_Respond_Voltage_N12_Fault: 2 Driver12
+ SG_ voltage : 7|16@0+ (1,0) [0|65535] "" Host
+
+BO_ 1586 Send_Respond_Device_Info_N12: 7 Driver12
+ SG_ HARDWARE_VERSION : 7|8@0+ (1,0) [0|255] "" Host
+ SG_ BATCH_DATE : 15|8@0+ (1,0) [0|255] "" Host
+ SG_ SOFTWARE_VERSION : 23|8@0+ (1,0) [0|255] "" Host
+ SG_ SERIAL_NUMBER : 31|32@0+ (1,0) [0|4294967295] "" Host
+
+BO_ 1587 Send_Respond_Device_In_N12_Fault: 7 Driver12
+ SG_ HARDWARE_VERSION : 7|8@0+ (1,0) [0|255] "" Host
+ SG_ BATCH_DATE : 15|8@0+ (1,0) [0|255] "" Host
+ SG_ SOFTWARE_VERSION : 23|8@0+ (1,0) [0|255] "" Host
+ SG_ SERIAL_NUMBER : 31|32@0+ (1,0) [0|4294967295] "" Host
+
+BO_ 1588 Send_Respond_State_of_Errors_N12: 2 Driver12
+ SG_ error : 7|1@0+ (1,0) [0|1] "" Host
+ SG_ temperature_error : 6|1@0+ (1,0) [0|1] "" Host
+ SG_ encoder_error : 5|1@0+ (1,0) [0|1] "" Host
+ SG_ vbus_error : 4|1@0+ (1,0) [0|1] "" Host
+ SG_ driver_error : 3|1@0+ (1,0) [0|1] "" Host
+ SG_ velocity_error : 2|1@0+ (1,0) [0|1] "" Host
+ SG_ current_error : 1|1@0+ (1,0) [0|1] "" Host
+ SG_ estop_error : 0|1@0+ (1,0) [0|1] "" Host
+ SG_ calibrated : 15|1@0+ (1,0) [0|1] "" Host
+ SG_ activated : 14|1@0+ (1,0) [0|1] "" Host
+ SG_ watchdog_error : 13|1@0+ (1,0) [0|1] "" Host
+
+BO_ 1589 Send_Respond_State_of__N12_Fault: 2 Driver12
+ SG_ error : 7|1@0+ (1,0) [0|1] "" Host
+ SG_ temperature_error : 6|1@0+ (1,0) [0|1] "" Host
+ SG_ encoder_error : 5|1@0+ (1,0) [0|1] "" Host
+ SG_ vbus_error : 4|1@0+ (1,0) [0|1] "" Host
+ SG_ driver_error : 3|1@0+ (1,0) [0|1] "" Host
+ SG_ velocity_error : 2|1@0+ (1,0) [0|1] "" Host
+ SG_ current_error : 1|1@0+ (1,0) [0|1] "" Host
+ SG_ estop_error : 0|1@0+ (1,0) [0|1] "" Host
+ SG_ calibrated : 15|1@0+ (1,0) [0|1] "" Host
+ SG_ activated : 14|1@0+ (1,0) [0|1] "" Host
+ SG_ watchdog_error : 13|1@0+ (1,0) [0|1] "" Host
+
+BO_ 1554 Respond_Heartbeat_N12: 0 Driver12
+
+BO_ 1555 Respond_Heartbeat_N12_Fault: 0 Driver12
+
+BO_ 1786 Send_gripper_data_pack_N13: 5 Host
+ SG_ Position : 7|8@0+ (1,0) [0|255] "" Driver13
+ SG_ Speed : 15|8@0+ (1,0) [0|255] "" Driver13
+ SG_ Current : 23|16@0- (1,0) [-32768|32767] "" Driver13
+ SG_ Activate : 39|1@0+ (1,0) [0|1] "" Driver13
+ SG_ Action : 38|1@0+ (1,0) [0|1] "" Driver13
+ SG_ E_stop : 37|1@0+ (1,0) [0|1] "" Driver13
+ SG_ Release_direction : 36|1@0+ (1,0) [0|1] "" Driver13
+
+BO_ 1784 Respond_Gripper_data_pack_N13: 4 Driver13
+ SG_ gripper_position : 7|8@0+ (1,0) [0|255] "" Host
+ SG_ gripper_current : 15|16@0- (1,0) [-32768|32767] "" Host
+ SG_ gripper_activated : 31|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_action_status : 30|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_object_detection_raw : 29|2@0+ (1,0) [0|3] "" Host
+ SG_ gripper_temperature_error : 27|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_timeout_error : 26|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_estop_error : 25|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_calibrated : 24|1@0+ (1,0) [0|1] "" Host
+
+BO_ 1785 Respond_Gripper_data_p_N13_Fault: 4 Driver13
+ SG_ gripper_position : 7|8@0+ (1,0) [0|255] "" Host
+ SG_ gripper_current : 15|16@0- (1,0) [-32768|32767] "" Host
+ SG_ gripper_activated : 31|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_action_status : 30|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_object_detection_raw : 29|2@0+ (1,0) [0|3] "" Host
+ SG_ gripper_temperature_error : 27|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_timeout_error : 26|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_estop_error : 25|1@0+ (1,0) [0|1] "" Host
+ SG_ gripper_calibrated : 24|1@0+ (1,0) [0|1] "" Host
+
+BO_ 1788 Send_gripper_calibrate_N13: 0 Host
+
+BO_ 1686 Send_CAN_ID_N13: 1 Host
+ SG_ ID : 7|8@0+ (1,0) [0|255] "" Driver13
+
+BO_ 1664 Send_ESTOP_N13: 0 Host
+
+BO_ 1688 Send_Idle_N13: 0 Host
+
+BO_ 1690 Send_Save_config_N13: 0 Host
+
+BO_ 1692 Send_Reset_N13: 0 Host
+
+BO_ 1666 Send_Clear_Error_N13: 0 Host
+
+BO_ 1694 Send_Watchdog_N13: 5 Host
+ SG_ Time : 7|32@0+ (1,0) [0|4294967295] "" Driver13
+ SG_ Action : 39|8@0+ (1,0) [0|255] "" Driver13
+
+BO_ 1724 Send_Heartbeat_Setup_N13: 4 Host
+ SG_ Interval : 7|32@0+ (1,0) [0|4294967295] "" Driver13
+
+BO_ 1684 Send_Respond_Ping_N13: 0 Driver13
+
+BO_ 1685 Send_Respond_Ping_N13_Fault: 0 Driver13
+
+BO_ 1710 Send_Respond_Temperature_N13: 2 Driver13
+ SG_ temperature : 7|16@0- (1,0) [-32768|32767] "" Host
+
+BO_ 1711 Send_Respond_Temperatu_N13_Fault: 2 Driver13
+ SG_ temperature : 7|16@0- (1,0) [-32768|32767] "" Host
+
+BO_ 1712 Send_Respond_Voltage_N13: 2 Driver13
+ SG_ voltage : 7|16@0+ (1,0) [0|65535] "" Host
+
+BO_ 1713 Send_Respond_Voltage_N13_Fault: 2 Driver13
+ SG_ voltage : 7|16@0+ (1,0) [0|65535] "" Host
+
+BO_ 1714 Send_Respond_Device_Info_N13: 7 Driver13
+ SG_ HARDWARE_VERSION : 7|8@0+ (1,0) [0|255] "" Host
+ SG_ BATCH_DATE : 15|8@0+ (1,0) [0|255] "" Host
+ SG_ SOFTWARE_VERSION : 23|8@0+ (1,0) [0|255] "" Host
+ SG_ SERIAL_NUMBER : 31|32@0+ (1,0) [0|4294967295] "" Host
+
+BO_ 1715 Send_Respond_Device_In_N13_Fault: 7 Driver13
+ SG_ HARDWARE_VERSION : 7|8@0+ (1,0) [0|255] "" Host
+ SG_ BATCH_DATE : 15|8@0+ (1,0) [0|255] "" Host
+ SG_ SOFTWARE_VERSION : 23|8@0+ (1,0) [0|255] "" Host
+ SG_ SERIAL_NUMBER : 31|32@0+ (1,0) [0|4294967295] "" Host
+
+BO_ 1716 Send_Respond_State_of_Errors_N13: 2 Driver13
+ SG_ error : 7|1@0+ (1,0) [0|1] "" Host
+ SG_ temperature_error : 6|1@0+ (1,0) [0|1] "" Host
+ SG_ encoder_error : 5|1@0+ (1,0) [0|1] "" Host
+ SG_ vbus_error : 4|1@0+ (1,0) [0|1] "" Host
+ SG_ driver_error : 3|1@0+ (1,0) [0|1] "" Host
+ SG_ velocity_error : 2|1@0+ (1,0) [0|1] "" Host
+ SG_ current_error : 1|1@0+ (1,0) [0|1] "" Host
+ SG_ estop_error : 0|1@0+ (1,0) [0|1] "" Host
+ SG_ calibrated : 15|1@0+ (1,0) [0|1] "" Host
+ SG_ activated : 14|1@0+ (1,0) [0|1] "" Host
+ SG_ watchdog_error : 13|1@0+ (1,0) [0|1] "" Host
+
+BO_ 1717 Send_Respond_State_of__N13_Fault: 2 Driver13
+ SG_ error : 7|1@0+ (1,0) [0|1] "" Host
+ SG_ temperature_error : 6|1@0+ (1,0) [0|1] "" Host
+ SG_ encoder_error : 5|1@0+ (1,0) [0|1] "" Host
+ SG_ vbus_error : 4|1@0+ (1,0) [0|1] "" Host
+ SG_ driver_error : 3|1@0+ (1,0) [0|1] "" Host
+ SG_ velocity_error : 2|1@0+ (1,0) [0|1] "" Host
+ SG_ current_error : 1|1@0+ (1,0) [0|1] "" Host
+ SG_ estop_error : 0|1@0+ (1,0) [0|1] "" Host
+ SG_ calibrated : 15|1@0+ (1,0) [0|1] "" Host
+ SG_ activated : 14|1@0+ (1,0) [0|1] "" Host
+ SG_ watchdog_error : 13|1@0+ (1,0) [0|1] "" Host
+
+BO_ 1682 Respond_Heartbeat_N13: 0 Driver13
+
+BO_ 1683 Respond_Heartbeat_N13_Fault: 0 Driver13
+
+CM_ "Source commit 46b4911dd8f7. Combined clean/fault reply IDs; nodes 0-13. Send_data_pack_1 uses DLC 8. RTR requests and the empty gripper poll have no signal layout.";
+CM_ SG_ 122 Position "0 fully open, 255 fully closed";
+CM_ SG_ 122 Speed "0 slowest, 255 fastest";
+CM_ SG_ 122 Current "current limit of the move in mA, the grip force; not clamped by the firmware, keep it at or below the stepper's rated current (Force and speed)";
+CM_ SG_ 122 Activate "1 activate the gripper, 0 deactivate";
+CM_ SG_ 122 Action "1 go to the position, 0 idle";
+CM_ SG_ 122 E_stop "1 raises the gripper E-stop error";
+CM_ SG_ 122 Release_direction "read by the firmware but not used";
+CM_ SG_ 120 gripper_position "0 fully open, 255 fully closed";
+CM_ SG_ 120 gripper_current "measured current in mA";
+CM_ SG_ 120 gripper_activated "1 activated";
+CM_ SG_ 120 gripper_action_status "1 going to the position, 0 idle, auto-release or calibrating";
+CM_ SG_ 120 gripper_object_detection_raw "bit 5 is the low bit, bit 4 the high bit: 0 moving, 1 object detected while closing, 2 object detected while opening, 3 at the position; raw bit pair, see value labels (wire order differs from numeric status)";
+CM_ SG_ 120 gripper_temperature_error "";
+CM_ SG_ 120 gripper_timeout_error "";
+CM_ SG_ 120 gripper_estop_error "";
+CM_ SG_ 120 gripper_calibrated "1 calibrated";
+CM_ SG_ 121 gripper_position "0 fully open, 255 fully closed";
+CM_ SG_ 121 gripper_current "measured current in mA";
+CM_ SG_ 121 gripper_activated "1 activated";
+CM_ SG_ 121 gripper_action_status "1 going to the position, 0 idle, auto-release or calibrating";
+CM_ SG_ 121 gripper_object_detection_raw "bit 5 is the low bit, bit 4 the high bit: 0 moving, 1 object detected while closing, 2 object detected while opening, 3 at the position; raw bit pair, see value labels (wire order differs from numeric status)";
+CM_ SG_ 121 gripper_temperature_error "";
+CM_ SG_ 121 gripper_timeout_error "";
+CM_ SG_ 121 gripper_estop_error "";
+CM_ SG_ 121 gripper_calibrated "1 calibrated";
+CM_ SG_ 22 ID "0 to 15";
+CM_ SG_ 30 Time "ms; 0 = off";
+CM_ SG_ 30 Action "0 idle, 1 hold, 2 brake (stored only)";
+CM_ SG_ 60 Interval "ms; 0 = off";
+CM_ SG_ 46 temperature "\u00b0C";
+CM_ SG_ 47 temperature "\u00b0C";
+CM_ SG_ 48 voltage "mV";
+CM_ SG_ 49 voltage "mV";
+CM_ SG_ 50 HARDWARE_VERSION "PCB revision";
+CM_ SG_ 50 BATCH_DATE "production batch";
+CM_ SG_ 50 SOFTWARE_VERSION "firmware release, e.g. 108";
+CM_ SG_ 50 SERIAL_NUMBER "serial number";
+CM_ SG_ 51 HARDWARE_VERSION "PCB revision";
+CM_ SG_ 51 BATCH_DATE "production batch";
+CM_ SG_ 51 SOFTWARE_VERSION "firmware release, e.g. 108";
+CM_ SG_ 51 SERIAL_NUMBER "serial number";
+CM_ SG_ 52 error "any error is active";
+CM_ SG_ 52 temperature_error "motor over the temperature limit";
+CM_ SG_ 52 encoder_error "magnet not detected or misaligned";
+CM_ SG_ 52 vbus_error "supply voltage outside the limits";
+CM_ SG_ 52 driver_error "the MOSFET driver reports undervoltage, thermal shutdown or overcurrent";
+CM_ SG_ 52 velocity_error "speed over the limit";
+CM_ SG_ 52 current_error "reserved; never set by this firmware";
+CM_ SG_ 52 estop_error "Send_ESTOP was received";
+CM_ SG_ 52 calibrated "the motor is calibrated";
+CM_ SG_ 52 activated "the controller is activated";
+CM_ SG_ 52 watchdog_error "the watchdog ran out";
+CM_ SG_ 53 error "any error is active";
+CM_ SG_ 53 temperature_error "motor over the temperature limit";
+CM_ SG_ 53 encoder_error "magnet not detected or misaligned";
+CM_ SG_ 53 vbus_error "supply voltage outside the limits";
+CM_ SG_ 53 driver_error "the MOSFET driver reports undervoltage, thermal shutdown or overcurrent";
+CM_ SG_ 53 velocity_error "speed over the limit";
+CM_ SG_ 53 current_error "reserved; never set by this firmware";
+CM_ SG_ 53 estop_error "Send_ESTOP was received";
+CM_ SG_ 53 calibrated "the motor is calibrated";
+CM_ SG_ 53 activated "the controller is activated";
+CM_ SG_ 53 watchdog_error "the watchdog ran out";
+CM_ SG_ 250 Position "0 fully open, 255 fully closed";
+CM_ SG_ 250 Speed "0 slowest, 255 fastest";
+CM_ SG_ 250 Current "current limit of the move in mA, the grip force; not clamped by the firmware, keep it at or below the stepper's rated current (Force and speed)";
+CM_ SG_ 250 Activate "1 activate the gripper, 0 deactivate";
+CM_ SG_ 250 Action "1 go to the position, 0 idle";
+CM_ SG_ 250 E_stop "1 raises the gripper E-stop error";
+CM_ SG_ 250 Release_direction "read by the firmware but not used";
+CM_ SG_ 248 gripper_position "0 fully open, 255 fully closed";
+CM_ SG_ 248 gripper_current "measured current in mA";
+CM_ SG_ 248 gripper_activated "1 activated";
+CM_ SG_ 248 gripper_action_status "1 going to the position, 0 idle, auto-release or calibrating";
+CM_ SG_ 248 gripper_object_detection_raw "bit 5 is the low bit, bit 4 the high bit: 0 moving, 1 object detected while closing, 2 object detected while opening, 3 at the position; raw bit pair, see value labels (wire order differs from numeric status)";
+CM_ SG_ 248 gripper_temperature_error "";
+CM_ SG_ 248 gripper_timeout_error "";
+CM_ SG_ 248 gripper_estop_error "";
+CM_ SG_ 248 gripper_calibrated "1 calibrated";
+CM_ SG_ 249 gripper_position "0 fully open, 255 fully closed";
+CM_ SG_ 249 gripper_current "measured current in mA";
+CM_ SG_ 249 gripper_activated "1 activated";
+CM_ SG_ 249 gripper_action_status "1 going to the position, 0 idle, auto-release or calibrating";
+CM_ SG_ 249 gripper_object_detection_raw "bit 5 is the low bit, bit 4 the high bit: 0 moving, 1 object detected while closing, 2 object detected while opening, 3 at the position; raw bit pair, see value labels (wire order differs from numeric status)";
+CM_ SG_ 249 gripper_temperature_error "";
+CM_ SG_ 249 gripper_timeout_error "";
+CM_ SG_ 249 gripper_estop_error "";
+CM_ SG_ 249 gripper_calibrated "1 calibrated";
+CM_ SG_ 150 ID "0 to 15";
+CM_ SG_ 158 Time "ms; 0 = off";
+CM_ SG_ 158 Action "0 idle, 1 hold, 2 brake (stored only)";
+CM_ SG_ 188 Interval "ms; 0 = off";
+CM_ SG_ 174 temperature "\u00b0C";
+CM_ SG_ 175 temperature "\u00b0C";
+CM_ SG_ 176 voltage "mV";
+CM_ SG_ 177 voltage "mV";
+CM_ SG_ 178 HARDWARE_VERSION "PCB revision";
+CM_ SG_ 178 BATCH_DATE "production batch";
+CM_ SG_ 178 SOFTWARE_VERSION "firmware release, e.g. 108";
+CM_ SG_ 178 SERIAL_NUMBER "serial number";
+CM_ SG_ 179 HARDWARE_VERSION "PCB revision";
+CM_ SG_ 179 BATCH_DATE "production batch";
+CM_ SG_ 179 SOFTWARE_VERSION "firmware release, e.g. 108";
+CM_ SG_ 179 SERIAL_NUMBER "serial number";
+CM_ SG_ 180 error "any error is active";
+CM_ SG_ 180 temperature_error "motor over the temperature limit";
+CM_ SG_ 180 encoder_error "magnet not detected or misaligned";
+CM_ SG_ 180 vbus_error "supply voltage outside the limits";
+CM_ SG_ 180 driver_error "the MOSFET driver reports undervoltage, thermal shutdown or overcurrent";
+CM_ SG_ 180 velocity_error "speed over the limit";
+CM_ SG_ 180 current_error "reserved; never set by this firmware";
+CM_ SG_ 180 estop_error "Send_ESTOP was received";
+CM_ SG_ 180 calibrated "the motor is calibrated";
+CM_ SG_ 180 activated "the controller is activated";
+CM_ SG_ 180 watchdog_error "the watchdog ran out";
+CM_ SG_ 181 error "any error is active";
+CM_ SG_ 181 temperature_error "motor over the temperature limit";
+CM_ SG_ 181 encoder_error "magnet not detected or misaligned";
+CM_ SG_ 181 vbus_error "supply voltage outside the limits";
+CM_ SG_ 181 driver_error "the MOSFET driver reports undervoltage, thermal shutdown or overcurrent";
+CM_ SG_ 181 velocity_error "speed over the limit";
+CM_ SG_ 181 current_error "reserved; never set by this firmware";
+CM_ SG_ 181 estop_error "Send_ESTOP was received";
+CM_ SG_ 181 calibrated "the motor is calibrated";
+CM_ SG_ 181 activated "the controller is activated";
+CM_ SG_ 181 watchdog_error "the watchdog ran out";
+CM_ SG_ 378 Position "0 fully open, 255 fully closed";
+CM_ SG_ 378 Speed "0 slowest, 255 fastest";
+CM_ SG_ 378 Current "current limit of the move in mA, the grip force; not clamped by the firmware, keep it at or below the stepper's rated current (Force and speed)";
+CM_ SG_ 378 Activate "1 activate the gripper, 0 deactivate";
+CM_ SG_ 378 Action "1 go to the position, 0 idle";
+CM_ SG_ 378 E_stop "1 raises the gripper E-stop error";
+CM_ SG_ 378 Release_direction "read by the firmware but not used";
+CM_ SG_ 376 gripper_position "0 fully open, 255 fully closed";
+CM_ SG_ 376 gripper_current "measured current in mA";
+CM_ SG_ 376 gripper_activated "1 activated";
+CM_ SG_ 376 gripper_action_status "1 going to the position, 0 idle, auto-release or calibrating";
+CM_ SG_ 376 gripper_object_detection_raw "bit 5 is the low bit, bit 4 the high bit: 0 moving, 1 object detected while closing, 2 object detected while opening, 3 at the position; raw bit pair, see value labels (wire order differs from numeric status)";
+CM_ SG_ 376 gripper_temperature_error "";
+CM_ SG_ 376 gripper_timeout_error "";
+CM_ SG_ 376 gripper_estop_error "";
+CM_ SG_ 376 gripper_calibrated "1 calibrated";
+CM_ SG_ 377 gripper_position "0 fully open, 255 fully closed";
+CM_ SG_ 377 gripper_current "measured current in mA";
+CM_ SG_ 377 gripper_activated "1 activated";
+CM_ SG_ 377 gripper_action_status "1 going to the position, 0 idle, auto-release or calibrating";
+CM_ SG_ 377 gripper_object_detection_raw "bit 5 is the low bit, bit 4 the high bit: 0 moving, 1 object detected while closing, 2 object detected while opening, 3 at the position; raw bit pair, see value labels (wire order differs from numeric status)";
+CM_ SG_ 377 gripper_temperature_error "";
+CM_ SG_ 377 gripper_timeout_error "";
+CM_ SG_ 377 gripper_estop_error "";
+CM_ SG_ 377 gripper_calibrated "1 calibrated";
+CM_ SG_ 278 ID "0 to 15";
+CM_ SG_ 286 Time "ms; 0 = off";
+CM_ SG_ 286 Action "0 idle, 1 hold, 2 brake (stored only)";
+CM_ SG_ 316 Interval "ms; 0 = off";
+CM_ SG_ 302 temperature "\u00b0C";
+CM_ SG_ 303 temperature "\u00b0C";
+CM_ SG_ 304 voltage "mV";
+CM_ SG_ 305 voltage "mV";
+CM_ SG_ 306 HARDWARE_VERSION "PCB revision";
+CM_ SG_ 306 BATCH_DATE "production batch";
+CM_ SG_ 306 SOFTWARE_VERSION "firmware release, e.g. 108";
+CM_ SG_ 306 SERIAL_NUMBER "serial number";
+CM_ SG_ 307 HARDWARE_VERSION "PCB revision";
+CM_ SG_ 307 BATCH_DATE "production batch";
+CM_ SG_ 307 SOFTWARE_VERSION "firmware release, e.g. 108";
+CM_ SG_ 307 SERIAL_NUMBER "serial number";
+CM_ SG_ 308 error "any error is active";
+CM_ SG_ 308 temperature_error "motor over the temperature limit";
+CM_ SG_ 308 encoder_error "magnet not detected or misaligned";
+CM_ SG_ 308 vbus_error "supply voltage outside the limits";
+CM_ SG_ 308 driver_error "the MOSFET driver reports undervoltage, thermal shutdown or overcurrent";
+CM_ SG_ 308 velocity_error "speed over the limit";
+CM_ SG_ 308 current_error "reserved; never set by this firmware";
+CM_ SG_ 308 estop_error "Send_ESTOP was received";
+CM_ SG_ 308 calibrated "the motor is calibrated";
+CM_ SG_ 308 activated "the controller is activated";
+CM_ SG_ 308 watchdog_error "the watchdog ran out";
+CM_ SG_ 309 error "any error is active";
+CM_ SG_ 309 temperature_error "motor over the temperature limit";
+CM_ SG_ 309 encoder_error "magnet not detected or misaligned";
+CM_ SG_ 309 vbus_error "supply voltage outside the limits";
+CM_ SG_ 309 driver_error "the MOSFET driver reports undervoltage, thermal shutdown or overcurrent";
+CM_ SG_ 309 velocity_error "speed over the limit";
+CM_ SG_ 309 current_error "reserved; never set by this firmware";
+CM_ SG_ 309 estop_error "Send_ESTOP was received";
+CM_ SG_ 309 calibrated "the motor is calibrated";
+CM_ SG_ 309 activated "the controller is activated";
+CM_ SG_ 309 watchdog_error "the watchdog ran out";
+CM_ SG_ 506 Position "0 fully open, 255 fully closed";
+CM_ SG_ 506 Speed "0 slowest, 255 fastest";
+CM_ SG_ 506 Current "current limit of the move in mA, the grip force; not clamped by the firmware, keep it at or below the stepper's rated current (Force and speed)";
+CM_ SG_ 506 Activate "1 activate the gripper, 0 deactivate";
+CM_ SG_ 506 Action "1 go to the position, 0 idle";
+CM_ SG_ 506 E_stop "1 raises the gripper E-stop error";
+CM_ SG_ 506 Release_direction "read by the firmware but not used";
+CM_ SG_ 504 gripper_position "0 fully open, 255 fully closed";
+CM_ SG_ 504 gripper_current "measured current in mA";
+CM_ SG_ 504 gripper_activated "1 activated";
+CM_ SG_ 504 gripper_action_status "1 going to the position, 0 idle, auto-release or calibrating";
+CM_ SG_ 504 gripper_object_detection_raw "bit 5 is the low bit, bit 4 the high bit: 0 moving, 1 object detected while closing, 2 object detected while opening, 3 at the position; raw bit pair, see value labels (wire order differs from numeric status)";
+CM_ SG_ 504 gripper_temperature_error "";
+CM_ SG_ 504 gripper_timeout_error "";
+CM_ SG_ 504 gripper_estop_error "";
+CM_ SG_ 504 gripper_calibrated "1 calibrated";
+CM_ SG_ 505 gripper_position "0 fully open, 255 fully closed";
+CM_ SG_ 505 gripper_current "measured current in mA";
+CM_ SG_ 505 gripper_activated "1 activated";
+CM_ SG_ 505 gripper_action_status "1 going to the position, 0 idle, auto-release or calibrating";
+CM_ SG_ 505 gripper_object_detection_raw "bit 5 is the low bit, bit 4 the high bit: 0 moving, 1 object detected while closing, 2 object detected while opening, 3 at the position; raw bit pair, see value labels (wire order differs from numeric status)";
+CM_ SG_ 505 gripper_temperature_error "";
+CM_ SG_ 505 gripper_timeout_error "";
+CM_ SG_ 505 gripper_estop_error "";
+CM_ SG_ 505 gripper_calibrated "1 calibrated";
+CM_ SG_ 406 ID "0 to 15";
+CM_ SG_ 414 Time "ms; 0 = off";
+CM_ SG_ 414 Action "0 idle, 1 hold, 2 brake (stored only)";
+CM_ SG_ 444 Interval "ms; 0 = off";
+CM_ SG_ 430 temperature "\u00b0C";
+CM_ SG_ 431 temperature "\u00b0C";
+CM_ SG_ 432 voltage "mV";
+CM_ SG_ 433 voltage "mV";
+CM_ SG_ 434 HARDWARE_VERSION "PCB revision";
+CM_ SG_ 434 BATCH_DATE "production batch";
+CM_ SG_ 434 SOFTWARE_VERSION "firmware release, e.g. 108";
+CM_ SG_ 434 SERIAL_NUMBER "serial number";
+CM_ SG_ 435 HARDWARE_VERSION "PCB revision";
+CM_ SG_ 435 BATCH_DATE "production batch";
+CM_ SG_ 435 SOFTWARE_VERSION "firmware release, e.g. 108";
+CM_ SG_ 435 SERIAL_NUMBER "serial number";
+CM_ SG_ 436 error "any error is active";
+CM_ SG_ 436 temperature_error "motor over the temperature limit";
+CM_ SG_ 436 encoder_error "magnet not detected or misaligned";
+CM_ SG_ 436 vbus_error "supply voltage outside the limits";
+CM_ SG_ 436 driver_error "the MOSFET driver reports undervoltage, thermal shutdown or overcurrent";
+CM_ SG_ 436 velocity_error "speed over the limit";
+CM_ SG_ 436 current_error "reserved; never set by this firmware";
+CM_ SG_ 436 estop_error "Send_ESTOP was received";
+CM_ SG_ 436 calibrated "the motor is calibrated";
+CM_ SG_ 436 activated "the controller is activated";
+CM_ SG_ 436 watchdog_error "the watchdog ran out";
+CM_ SG_ 437 error "any error is active";
+CM_ SG_ 437 temperature_error "motor over the temperature limit";
+CM_ SG_ 437 encoder_error "magnet not detected or misaligned";
+CM_ SG_ 437 vbus_error "supply voltage outside the limits";
+CM_ SG_ 437 driver_error "the MOSFET driver reports undervoltage, thermal shutdown or overcurrent";
+CM_ SG_ 437 velocity_error "speed over the limit";
+CM_ SG_ 437 current_error "reserved; never set by this firmware";
+CM_ SG_ 437 estop_error "Send_ESTOP was received";
+CM_ SG_ 437 calibrated "the motor is calibrated";
+CM_ SG_ 437 activated "the controller is activated";
+CM_ SG_ 437 watchdog_error "the watchdog ran out";
+CM_ SG_ 634 Position "0 fully open, 255 fully closed";
+CM_ SG_ 634 Speed "0 slowest, 255 fastest";
+CM_ SG_ 634 Current "current limit of the move in mA, the grip force; not clamped by the firmware, keep it at or below the stepper's rated current (Force and speed)";
+CM_ SG_ 634 Activate "1 activate the gripper, 0 deactivate";
+CM_ SG_ 634 Action "1 go to the position, 0 idle";
+CM_ SG_ 634 E_stop "1 raises the gripper E-stop error";
+CM_ SG_ 634 Release_direction "read by the firmware but not used";
+CM_ SG_ 632 gripper_position "0 fully open, 255 fully closed";
+CM_ SG_ 632 gripper_current "measured current in mA";
+CM_ SG_ 632 gripper_activated "1 activated";
+CM_ SG_ 632 gripper_action_status "1 going to the position, 0 idle, auto-release or calibrating";
+CM_ SG_ 632 gripper_object_detection_raw "bit 5 is the low bit, bit 4 the high bit: 0 moving, 1 object detected while closing, 2 object detected while opening, 3 at the position; raw bit pair, see value labels (wire order differs from numeric status)";
+CM_ SG_ 632 gripper_temperature_error "";
+CM_ SG_ 632 gripper_timeout_error "";
+CM_ SG_ 632 gripper_estop_error "";
+CM_ SG_ 632 gripper_calibrated "1 calibrated";
+CM_ SG_ 633 gripper_position "0 fully open, 255 fully closed";
+CM_ SG_ 633 gripper_current "measured current in mA";
+CM_ SG_ 633 gripper_activated "1 activated";
+CM_ SG_ 633 gripper_action_status "1 going to the position, 0 idle, auto-release or calibrating";
+CM_ SG_ 633 gripper_object_detection_raw "bit 5 is the low bit, bit 4 the high bit: 0 moving, 1 object detected while closing, 2 object detected while opening, 3 at the position; raw bit pair, see value labels (wire order differs from numeric status)";
+CM_ SG_ 633 gripper_temperature_error "";
+CM_ SG_ 633 gripper_timeout_error "";
+CM_ SG_ 633 gripper_estop_error "";
+CM_ SG_ 633 gripper_calibrated "1 calibrated";
+CM_ SG_ 534 ID "0 to 15";
+CM_ SG_ 542 Time "ms; 0 = off";
+CM_ SG_ 542 Action "0 idle, 1 hold, 2 brake (stored only)";
+CM_ SG_ 572 Interval "ms; 0 = off";
+CM_ SG_ 558 temperature "\u00b0C";
+CM_ SG_ 559 temperature "\u00b0C";
+CM_ SG_ 560 voltage "mV";
+CM_ SG_ 561 voltage "mV";
+CM_ SG_ 562 HARDWARE_VERSION "PCB revision";
+CM_ SG_ 562 BATCH_DATE "production batch";
+CM_ SG_ 562 SOFTWARE_VERSION "firmware release, e.g. 108";
+CM_ SG_ 562 SERIAL_NUMBER "serial number";
+CM_ SG_ 563 HARDWARE_VERSION "PCB revision";
+CM_ SG_ 563 BATCH_DATE "production batch";
+CM_ SG_ 563 SOFTWARE_VERSION "firmware release, e.g. 108";
+CM_ SG_ 563 SERIAL_NUMBER "serial number";
+CM_ SG_ 564 error "any error is active";
+CM_ SG_ 564 temperature_error "motor over the temperature limit";
+CM_ SG_ 564 encoder_error "magnet not detected or misaligned";
+CM_ SG_ 564 vbus_error "supply voltage outside the limits";
+CM_ SG_ 564 driver_error "the MOSFET driver reports undervoltage, thermal shutdown or overcurrent";
+CM_ SG_ 564 velocity_error "speed over the limit";
+CM_ SG_ 564 current_error "reserved; never set by this firmware";
+CM_ SG_ 564 estop_error "Send_ESTOP was received";
+CM_ SG_ 564 calibrated "the motor is calibrated";
+CM_ SG_ 564 activated "the controller is activated";
+CM_ SG_ 564 watchdog_error "the watchdog ran out";
+CM_ SG_ 565 error "any error is active";
+CM_ SG_ 565 temperature_error "motor over the temperature limit";
+CM_ SG_ 565 encoder_error "magnet not detected or misaligned";
+CM_ SG_ 565 vbus_error "supply voltage outside the limits";
+CM_ SG_ 565 driver_error "the MOSFET driver reports undervoltage, thermal shutdown or overcurrent";
+CM_ SG_ 565 velocity_error "speed over the limit";
+CM_ SG_ 565 current_error "reserved; never set by this firmware";
+CM_ SG_ 565 estop_error "Send_ESTOP was received";
+CM_ SG_ 565 calibrated "the motor is calibrated";
+CM_ SG_ 565 activated "the controller is activated";
+CM_ SG_ 565 watchdog_error "the watchdog ran out";
+CM_ SG_ 762 Position "0 fully open, 255 fully closed";
+CM_ SG_ 762 Speed "0 slowest, 255 fastest";
+CM_ SG_ 762 Current "current limit of the move in mA, the grip force; not clamped by the firmware, keep it at or below the stepper's rated current (Force and speed)";
+CM_ SG_ 762 Activate "1 activate the gripper, 0 deactivate";
+CM_ SG_ 762 Action "1 go to the position, 0 idle";
+CM_ SG_ 762 E_stop "1 raises the gripper E-stop error";
+CM_ SG_ 762 Release_direction "read by the firmware but not used";
+CM_ SG_ 760 gripper_position "0 fully open, 255 fully closed";
+CM_ SG_ 760 gripper_current "measured current in mA";
+CM_ SG_ 760 gripper_activated "1 activated";
+CM_ SG_ 760 gripper_action_status "1 going to the position, 0 idle, auto-release or calibrating";
+CM_ SG_ 760 gripper_object_detection_raw "bit 5 is the low bit, bit 4 the high bit: 0 moving, 1 object detected while closing, 2 object detected while opening, 3 at the position; raw bit pair, see value labels (wire order differs from numeric status)";
+CM_ SG_ 760 gripper_temperature_error "";
+CM_ SG_ 760 gripper_timeout_error "";
+CM_ SG_ 760 gripper_estop_error "";
+CM_ SG_ 760 gripper_calibrated "1 calibrated";
+CM_ SG_ 761 gripper_position "0 fully open, 255 fully closed";
+CM_ SG_ 761 gripper_current "measured current in mA";
+CM_ SG_ 761 gripper_activated "1 activated";
+CM_ SG_ 761 gripper_action_status "1 going to the position, 0 idle, auto-release or calibrating";
+CM_ SG_ 761 gripper_object_detection_raw "bit 5 is the low bit, bit 4 the high bit: 0 moving, 1 object detected while closing, 2 object detected while opening, 3 at the position; raw bit pair, see value labels (wire order differs from numeric status)";
+CM_ SG_ 761 gripper_temperature_error "";
+CM_ SG_ 761 gripper_timeout_error "";
+CM_ SG_ 761 gripper_estop_error "";
+CM_ SG_ 761 gripper_calibrated "1 calibrated";
+CM_ SG_ 662 ID "0 to 15";
+CM_ SG_ 670 Time "ms; 0 = off";
+CM_ SG_ 670 Action "0 idle, 1 hold, 2 brake (stored only)";
+CM_ SG_ 700 Interval "ms; 0 = off";
+CM_ SG_ 686 temperature "\u00b0C";
+CM_ SG_ 687 temperature "\u00b0C";
+CM_ SG_ 688 voltage "mV";
+CM_ SG_ 689 voltage "mV";
+CM_ SG_ 690 HARDWARE_VERSION "PCB revision";
+CM_ SG_ 690 BATCH_DATE "production batch";
+CM_ SG_ 690 SOFTWARE_VERSION "firmware release, e.g. 108";
+CM_ SG_ 690 SERIAL_NUMBER "serial number";
+CM_ SG_ 691 HARDWARE_VERSION "PCB revision";
+CM_ SG_ 691 BATCH_DATE "production batch";
+CM_ SG_ 691 SOFTWARE_VERSION "firmware release, e.g. 108";
+CM_ SG_ 691 SERIAL_NUMBER "serial number";
+CM_ SG_ 692 error "any error is active";
+CM_ SG_ 692 temperature_error "motor over the temperature limit";
+CM_ SG_ 692 encoder_error "magnet not detected or misaligned";
+CM_ SG_ 692 vbus_error "supply voltage outside the limits";
+CM_ SG_ 692 driver_error "the MOSFET driver reports undervoltage, thermal shutdown or overcurrent";
+CM_ SG_ 692 velocity_error "speed over the limit";
+CM_ SG_ 692 current_error "reserved; never set by this firmware";
+CM_ SG_ 692 estop_error "Send_ESTOP was received";
+CM_ SG_ 692 calibrated "the motor is calibrated";
+CM_ SG_ 692 activated "the controller is activated";
+CM_ SG_ 692 watchdog_error "the watchdog ran out";
+CM_ SG_ 693 error "any error is active";
+CM_ SG_ 693 temperature_error "motor over the temperature limit";
+CM_ SG_ 693 encoder_error "magnet not detected or misaligned";
+CM_ SG_ 693 vbus_error "supply voltage outside the limits";
+CM_ SG_ 693 driver_error "the MOSFET driver reports undervoltage, thermal shutdown or overcurrent";
+CM_ SG_ 693 velocity_error "speed over the limit";
+CM_ SG_ 693 current_error "reserved; never set by this firmware";
+CM_ SG_ 693 estop_error "Send_ESTOP was received";
+CM_ SG_ 693 calibrated "the motor is calibrated";
+CM_ SG_ 693 activated "the controller is activated";
+CM_ SG_ 693 watchdog_error "the watchdog ran out";
+CM_ SG_ 890 Position "0 fully open, 255 fully closed";
+CM_ SG_ 890 Speed "0 slowest, 255 fastest";
+CM_ SG_ 890 Current "current limit of the move in mA, the grip force; not clamped by the firmware, keep it at or below the stepper's rated current (Force and speed)";
+CM_ SG_ 890 Activate "1 activate the gripper, 0 deactivate";
+CM_ SG_ 890 Action "1 go to the position, 0 idle";
+CM_ SG_ 890 E_stop "1 raises the gripper E-stop error";
+CM_ SG_ 890 Release_direction "read by the firmware but not used";
+CM_ SG_ 888 gripper_position "0 fully open, 255 fully closed";
+CM_ SG_ 888 gripper_current "measured current in mA";
+CM_ SG_ 888 gripper_activated "1 activated";
+CM_ SG_ 888 gripper_action_status "1 going to the position, 0 idle, auto-release or calibrating";
+CM_ SG_ 888 gripper_object_detection_raw "bit 5 is the low bit, bit 4 the high bit: 0 moving, 1 object detected while closing, 2 object detected while opening, 3 at the position; raw bit pair, see value labels (wire order differs from numeric status)";
+CM_ SG_ 888 gripper_temperature_error "";
+CM_ SG_ 888 gripper_timeout_error "";
+CM_ SG_ 888 gripper_estop_error "";
+CM_ SG_ 888 gripper_calibrated "1 calibrated";
+CM_ SG_ 889 gripper_position "0 fully open, 255 fully closed";
+CM_ SG_ 889 gripper_current "measured current in mA";
+CM_ SG_ 889 gripper_activated "1 activated";
+CM_ SG_ 889 gripper_action_status "1 going to the position, 0 idle, auto-release or calibrating";
+CM_ SG_ 889 gripper_object_detection_raw "bit 5 is the low bit, bit 4 the high bit: 0 moving, 1 object detected while closing, 2 object detected while opening, 3 at the position; raw bit pair, see value labels (wire order differs from numeric status)";
+CM_ SG_ 889 gripper_temperature_error "";
+CM_ SG_ 889 gripper_timeout_error "";
+CM_ SG_ 889 gripper_estop_error "";
+CM_ SG_ 889 gripper_calibrated "1 calibrated";
+CM_ SG_ 790 ID "0 to 15";
+CM_ SG_ 798 Time "ms; 0 = off";
+CM_ SG_ 798 Action "0 idle, 1 hold, 2 brake (stored only)";
+CM_ SG_ 828 Interval "ms; 0 = off";
+CM_ SG_ 814 temperature "\u00b0C";
+CM_ SG_ 815 temperature "\u00b0C";
+CM_ SG_ 816 voltage "mV";
+CM_ SG_ 817 voltage "mV";
+CM_ SG_ 818 HARDWARE_VERSION "PCB revision";
+CM_ SG_ 818 BATCH_DATE "production batch";
+CM_ SG_ 818 SOFTWARE_VERSION "firmware release, e.g. 108";
+CM_ SG_ 818 SERIAL_NUMBER "serial number";
+CM_ SG_ 819 HARDWARE_VERSION "PCB revision";
+CM_ SG_ 819 BATCH_DATE "production batch";
+CM_ SG_ 819 SOFTWARE_VERSION "firmware release, e.g. 108";
+CM_ SG_ 819 SERIAL_NUMBER "serial number";
+CM_ SG_ 820 error "any error is active";
+CM_ SG_ 820 temperature_error "motor over the temperature limit";
+CM_ SG_ 820 encoder_error "magnet not detected or misaligned";
+CM_ SG_ 820 vbus_error "supply voltage outside the limits";
+CM_ SG_ 820 driver_error "the MOSFET driver reports undervoltage, thermal shutdown or overcurrent";
+CM_ SG_ 820 velocity_error "speed over the limit";
+CM_ SG_ 820 current_error "reserved; never set by this firmware";
+CM_ SG_ 820 estop_error "Send_ESTOP was received";
+CM_ SG_ 820 calibrated "the motor is calibrated";
+CM_ SG_ 820 activated "the controller is activated";
+CM_ SG_ 820 watchdog_error "the watchdog ran out";
+CM_ SG_ 821 error "any error is active";
+CM_ SG_ 821 temperature_error "motor over the temperature limit";
+CM_ SG_ 821 encoder_error "magnet not detected or misaligned";
+CM_ SG_ 821 vbus_error "supply voltage outside the limits";
+CM_ SG_ 821 driver_error "the MOSFET driver reports undervoltage, thermal shutdown or overcurrent";
+CM_ SG_ 821 velocity_error "speed over the limit";
+CM_ SG_ 821 current_error "reserved; never set by this firmware";
+CM_ SG_ 821 estop_error "Send_ESTOP was received";
+CM_ SG_ 821 calibrated "the motor is calibrated";
+CM_ SG_ 821 activated "the controller is activated";
+CM_ SG_ 821 watchdog_error "the watchdog ran out";
+CM_ SG_ 1018 Position "0 fully open, 255 fully closed";
+CM_ SG_ 1018 Speed "0 slowest, 255 fastest";
+CM_ SG_ 1018 Current "current limit of the move in mA, the grip force; not clamped by the firmware, keep it at or below the stepper's rated current (Force and speed)";
+CM_ SG_ 1018 Activate "1 activate the gripper, 0 deactivate";
+CM_ SG_ 1018 Action "1 go to the position, 0 idle";
+CM_ SG_ 1018 E_stop "1 raises the gripper E-stop error";
+CM_ SG_ 1018 Release_direction "read by the firmware but not used";
+CM_ SG_ 1016 gripper_position "0 fully open, 255 fully closed";
+CM_ SG_ 1016 gripper_current "measured current in mA";
+CM_ SG_ 1016 gripper_activated "1 activated";
+CM_ SG_ 1016 gripper_action_status "1 going to the position, 0 idle, auto-release or calibrating";
+CM_ SG_ 1016 gripper_object_detection_raw "bit 5 is the low bit, bit 4 the high bit: 0 moving, 1 object detected while closing, 2 object detected while opening, 3 at the position; raw bit pair, see value labels (wire order differs from numeric status)";
+CM_ SG_ 1016 gripper_temperature_error "";
+CM_ SG_ 1016 gripper_timeout_error "";
+CM_ SG_ 1016 gripper_estop_error "";
+CM_ SG_ 1016 gripper_calibrated "1 calibrated";
+CM_ SG_ 1017 gripper_position "0 fully open, 255 fully closed";
+CM_ SG_ 1017 gripper_current "measured current in mA";
+CM_ SG_ 1017 gripper_activated "1 activated";
+CM_ SG_ 1017 gripper_action_status "1 going to the position, 0 idle, auto-release or calibrating";
+CM_ SG_ 1017 gripper_object_detection_raw "bit 5 is the low bit, bit 4 the high bit: 0 moving, 1 object detected while closing, 2 object detected while opening, 3 at the position; raw bit pair, see value labels (wire order differs from numeric status)";
+CM_ SG_ 1017 gripper_temperature_error "";
+CM_ SG_ 1017 gripper_timeout_error "";
+CM_ SG_ 1017 gripper_estop_error "";
+CM_ SG_ 1017 gripper_calibrated "1 calibrated";
+CM_ SG_ 918 ID "0 to 15";
+CM_ SG_ 926 Time "ms; 0 = off";
+CM_ SG_ 926 Action "0 idle, 1 hold, 2 brake (stored only)";
+CM_ SG_ 956 Interval "ms; 0 = off";
+CM_ SG_ 942 temperature "\u00b0C";
+CM_ SG_ 943 temperature "\u00b0C";
+CM_ SG_ 944 voltage "mV";
+CM_ SG_ 945 voltage "mV";
+CM_ SG_ 946 HARDWARE_VERSION "PCB revision";
+CM_ SG_ 946 BATCH_DATE "production batch";
+CM_ SG_ 946 SOFTWARE_VERSION "firmware release, e.g. 108";
+CM_ SG_ 946 SERIAL_NUMBER "serial number";
+CM_ SG_ 947 HARDWARE_VERSION "PCB revision";
+CM_ SG_ 947 BATCH_DATE "production batch";
+CM_ SG_ 947 SOFTWARE_VERSION "firmware release, e.g. 108";
+CM_ SG_ 947 SERIAL_NUMBER "serial number";
+CM_ SG_ 948 error "any error is active";
+CM_ SG_ 948 temperature_error "motor over the temperature limit";
+CM_ SG_ 948 encoder_error "magnet not detected or misaligned";
+CM_ SG_ 948 vbus_error "supply voltage outside the limits";
+CM_ SG_ 948 driver_error "the MOSFET driver reports undervoltage, thermal shutdown or overcurrent";
+CM_ SG_ 948 velocity_error "speed over the limit";
+CM_ SG_ 948 current_error "reserved; never set by this firmware";
+CM_ SG_ 948 estop_error "Send_ESTOP was received";
+CM_ SG_ 948 calibrated "the motor is calibrated";
+CM_ SG_ 948 activated "the controller is activated";
+CM_ SG_ 948 watchdog_error "the watchdog ran out";
+CM_ SG_ 949 error "any error is active";
+CM_ SG_ 949 temperature_error "motor over the temperature limit";
+CM_ SG_ 949 encoder_error "magnet not detected or misaligned";
+CM_ SG_ 949 vbus_error "supply voltage outside the limits";
+CM_ SG_ 949 driver_error "the MOSFET driver reports undervoltage, thermal shutdown or overcurrent";
+CM_ SG_ 949 velocity_error "speed over the limit";
+CM_ SG_ 949 current_error "reserved; never set by this firmware";
+CM_ SG_ 949 estop_error "Send_ESTOP was received";
+CM_ SG_ 949 calibrated "the motor is calibrated";
+CM_ SG_ 949 activated "the controller is activated";
+CM_ SG_ 949 watchdog_error "the watchdog ran out";
+CM_ SG_ 1146 Position "0 fully open, 255 fully closed";
+CM_ SG_ 1146 Speed "0 slowest, 255 fastest";
+CM_ SG_ 1146 Current "current limit of the move in mA, the grip force; not clamped by the firmware, keep it at or below the stepper's rated current (Force and speed)";
+CM_ SG_ 1146 Activate "1 activate the gripper, 0 deactivate";
+CM_ SG_ 1146 Action "1 go to the position, 0 idle";
+CM_ SG_ 1146 E_stop "1 raises the gripper E-stop error";
+CM_ SG_ 1146 Release_direction "read by the firmware but not used";
+CM_ SG_ 1144 gripper_position "0 fully open, 255 fully closed";
+CM_ SG_ 1144 gripper_current "measured current in mA";
+CM_ SG_ 1144 gripper_activated "1 activated";
+CM_ SG_ 1144 gripper_action_status "1 going to the position, 0 idle, auto-release or calibrating";
+CM_ SG_ 1144 gripper_object_detection_raw "bit 5 is the low bit, bit 4 the high bit: 0 moving, 1 object detected while closing, 2 object detected while opening, 3 at the position; raw bit pair, see value labels (wire order differs from numeric status)";
+CM_ SG_ 1144 gripper_temperature_error "";
+CM_ SG_ 1144 gripper_timeout_error "";
+CM_ SG_ 1144 gripper_estop_error "";
+CM_ SG_ 1144 gripper_calibrated "1 calibrated";
+CM_ SG_ 1145 gripper_position "0 fully open, 255 fully closed";
+CM_ SG_ 1145 gripper_current "measured current in mA";
+CM_ SG_ 1145 gripper_activated "1 activated";
+CM_ SG_ 1145 gripper_action_status "1 going to the position, 0 idle, auto-release or calibrating";
+CM_ SG_ 1145 gripper_object_detection_raw "bit 5 is the low bit, bit 4 the high bit: 0 moving, 1 object detected while closing, 2 object detected while opening, 3 at the position; raw bit pair, see value labels (wire order differs from numeric status)";
+CM_ SG_ 1145 gripper_temperature_error "";
+CM_ SG_ 1145 gripper_timeout_error "";
+CM_ SG_ 1145 gripper_estop_error "";
+CM_ SG_ 1145 gripper_calibrated "1 calibrated";
+CM_ SG_ 1046 ID "0 to 15";
+CM_ SG_ 1054 Time "ms; 0 = off";
+CM_ SG_ 1054 Action "0 idle, 1 hold, 2 brake (stored only)";
+CM_ SG_ 1084 Interval "ms; 0 = off";
+CM_ SG_ 1070 temperature "\u00b0C";
+CM_ SG_ 1071 temperature "\u00b0C";
+CM_ SG_ 1072 voltage "mV";
+CM_ SG_ 1073 voltage "mV";
+CM_ SG_ 1074 HARDWARE_VERSION "PCB revision";
+CM_ SG_ 1074 BATCH_DATE "production batch";
+CM_ SG_ 1074 SOFTWARE_VERSION "firmware release, e.g. 108";
+CM_ SG_ 1074 SERIAL_NUMBER "serial number";
+CM_ SG_ 1075 HARDWARE_VERSION "PCB revision";
+CM_ SG_ 1075 BATCH_DATE "production batch";
+CM_ SG_ 1075 SOFTWARE_VERSION "firmware release, e.g. 108";
+CM_ SG_ 1075 SERIAL_NUMBER "serial number";
+CM_ SG_ 1076 error "any error is active";
+CM_ SG_ 1076 temperature_error "motor over the temperature limit";
+CM_ SG_ 1076 encoder_error "magnet not detected or misaligned";
+CM_ SG_ 1076 vbus_error "supply voltage outside the limits";
+CM_ SG_ 1076 driver_error "the MOSFET driver reports undervoltage, thermal shutdown or overcurrent";
+CM_ SG_ 1076 velocity_error "speed over the limit";
+CM_ SG_ 1076 current_error "reserved; never set by this firmware";
+CM_ SG_ 1076 estop_error "Send_ESTOP was received";
+CM_ SG_ 1076 calibrated "the motor is calibrated";
+CM_ SG_ 1076 activated "the controller is activated";
+CM_ SG_ 1076 watchdog_error "the watchdog ran out";
+CM_ SG_ 1077 error "any error is active";
+CM_ SG_ 1077 temperature_error "motor over the temperature limit";
+CM_ SG_ 1077 encoder_error "magnet not detected or misaligned";
+CM_ SG_ 1077 vbus_error "supply voltage outside the limits";
+CM_ SG_ 1077 driver_error "the MOSFET driver reports undervoltage, thermal shutdown or overcurrent";
+CM_ SG_ 1077 velocity_error "speed over the limit";
+CM_ SG_ 1077 current_error "reserved; never set by this firmware";
+CM_ SG_ 1077 estop_error "Send_ESTOP was received";
+CM_ SG_ 1077 calibrated "the motor is calibrated";
+CM_ SG_ 1077 activated "the controller is activated";
+CM_ SG_ 1077 watchdog_error "the watchdog ran out";
+CM_ SG_ 1274 Position "0 fully open, 255 fully closed";
+CM_ SG_ 1274 Speed "0 slowest, 255 fastest";
+CM_ SG_ 1274 Current "current limit of the move in mA, the grip force; not clamped by the firmware, keep it at or below the stepper's rated current (Force and speed)";
+CM_ SG_ 1274 Activate "1 activate the gripper, 0 deactivate";
+CM_ SG_ 1274 Action "1 go to the position, 0 idle";
+CM_ SG_ 1274 E_stop "1 raises the gripper E-stop error";
+CM_ SG_ 1274 Release_direction "read by the firmware but not used";
+CM_ SG_ 1272 gripper_position "0 fully open, 255 fully closed";
+CM_ SG_ 1272 gripper_current "measured current in mA";
+CM_ SG_ 1272 gripper_activated "1 activated";
+CM_ SG_ 1272 gripper_action_status "1 going to the position, 0 idle, auto-release or calibrating";
+CM_ SG_ 1272 gripper_object_detection_raw "bit 5 is the low bit, bit 4 the high bit: 0 moving, 1 object detected while closing, 2 object detected while opening, 3 at the position; raw bit pair, see value labels (wire order differs from numeric status)";
+CM_ SG_ 1272 gripper_temperature_error "";
+CM_ SG_ 1272 gripper_timeout_error "";
+CM_ SG_ 1272 gripper_estop_error "";
+CM_ SG_ 1272 gripper_calibrated "1 calibrated";
+CM_ SG_ 1273 gripper_position "0 fully open, 255 fully closed";
+CM_ SG_ 1273 gripper_current "measured current in mA";
+CM_ SG_ 1273 gripper_activated "1 activated";
+CM_ SG_ 1273 gripper_action_status "1 going to the position, 0 idle, auto-release or calibrating";
+CM_ SG_ 1273 gripper_object_detection_raw "bit 5 is the low bit, bit 4 the high bit: 0 moving, 1 object detected while closing, 2 object detected while opening, 3 at the position; raw bit pair, see value labels (wire order differs from numeric status)";
+CM_ SG_ 1273 gripper_temperature_error "";
+CM_ SG_ 1273 gripper_timeout_error "";
+CM_ SG_ 1273 gripper_estop_error "";
+CM_ SG_ 1273 gripper_calibrated "1 calibrated";
+CM_ SG_ 1174 ID "0 to 15";
+CM_ SG_ 1182 Time "ms; 0 = off";
+CM_ SG_ 1182 Action "0 idle, 1 hold, 2 brake (stored only)";
+CM_ SG_ 1212 Interval "ms; 0 = off";
+CM_ SG_ 1198 temperature "\u00b0C";
+CM_ SG_ 1199 temperature "\u00b0C";
+CM_ SG_ 1200 voltage "mV";
+CM_ SG_ 1201 voltage "mV";
+CM_ SG_ 1202 HARDWARE_VERSION "PCB revision";
+CM_ SG_ 1202 BATCH_DATE "production batch";
+CM_ SG_ 1202 SOFTWARE_VERSION "firmware release, e.g. 108";
+CM_ SG_ 1202 SERIAL_NUMBER "serial number";
+CM_ SG_ 1203 HARDWARE_VERSION "PCB revision";
+CM_ SG_ 1203 BATCH_DATE "production batch";
+CM_ SG_ 1203 SOFTWARE_VERSION "firmware release, e.g. 108";
+CM_ SG_ 1203 SERIAL_NUMBER "serial number";
+CM_ SG_ 1204 error "any error is active";
+CM_ SG_ 1204 temperature_error "motor over the temperature limit";
+CM_ SG_ 1204 encoder_error "magnet not detected or misaligned";
+CM_ SG_ 1204 vbus_error "supply voltage outside the limits";
+CM_ SG_ 1204 driver_error "the MOSFET driver reports undervoltage, thermal shutdown or overcurrent";
+CM_ SG_ 1204 velocity_error "speed over the limit";
+CM_ SG_ 1204 current_error "reserved; never set by this firmware";
+CM_ SG_ 1204 estop_error "Send_ESTOP was received";
+CM_ SG_ 1204 calibrated "the motor is calibrated";
+CM_ SG_ 1204 activated "the controller is activated";
+CM_ SG_ 1204 watchdog_error "the watchdog ran out";
+CM_ SG_ 1205 error "any error is active";
+CM_ SG_ 1205 temperature_error "motor over the temperature limit";
+CM_ SG_ 1205 encoder_error "magnet not detected or misaligned";
+CM_ SG_ 1205 vbus_error "supply voltage outside the limits";
+CM_ SG_ 1205 driver_error "the MOSFET driver reports undervoltage, thermal shutdown or overcurrent";
+CM_ SG_ 1205 velocity_error "speed over the limit";
+CM_ SG_ 1205 current_error "reserved; never set by this firmware";
+CM_ SG_ 1205 estop_error "Send_ESTOP was received";
+CM_ SG_ 1205 calibrated "the motor is calibrated";
+CM_ SG_ 1205 activated "the controller is activated";
+CM_ SG_ 1205 watchdog_error "the watchdog ran out";
+CM_ SG_ 1402 Position "0 fully open, 255 fully closed";
+CM_ SG_ 1402 Speed "0 slowest, 255 fastest";
+CM_ SG_ 1402 Current "current limit of the move in mA, the grip force; not clamped by the firmware, keep it at or below the stepper's rated current (Force and speed)";
+CM_ SG_ 1402 Activate "1 activate the gripper, 0 deactivate";
+CM_ SG_ 1402 Action "1 go to the position, 0 idle";
+CM_ SG_ 1402 E_stop "1 raises the gripper E-stop error";
+CM_ SG_ 1402 Release_direction "read by the firmware but not used";
+CM_ SG_ 1400 gripper_position "0 fully open, 255 fully closed";
+CM_ SG_ 1400 gripper_current "measured current in mA";
+CM_ SG_ 1400 gripper_activated "1 activated";
+CM_ SG_ 1400 gripper_action_status "1 going to the position, 0 idle, auto-release or calibrating";
+CM_ SG_ 1400 gripper_object_detection_raw "bit 5 is the low bit, bit 4 the high bit: 0 moving, 1 object detected while closing, 2 object detected while opening, 3 at the position; raw bit pair, see value labels (wire order differs from numeric status)";
+CM_ SG_ 1400 gripper_temperature_error "";
+CM_ SG_ 1400 gripper_timeout_error "";
+CM_ SG_ 1400 gripper_estop_error "";
+CM_ SG_ 1400 gripper_calibrated "1 calibrated";
+CM_ SG_ 1401 gripper_position "0 fully open, 255 fully closed";
+CM_ SG_ 1401 gripper_current "measured current in mA";
+CM_ SG_ 1401 gripper_activated "1 activated";
+CM_ SG_ 1401 gripper_action_status "1 going to the position, 0 idle, auto-release or calibrating";
+CM_ SG_ 1401 gripper_object_detection_raw "bit 5 is the low bit, bit 4 the high bit: 0 moving, 1 object detected while closing, 2 object detected while opening, 3 at the position; raw bit pair, see value labels (wire order differs from numeric status)";
+CM_ SG_ 1401 gripper_temperature_error "";
+CM_ SG_ 1401 gripper_timeout_error "";
+CM_ SG_ 1401 gripper_estop_error "";
+CM_ SG_ 1401 gripper_calibrated "1 calibrated";
+CM_ SG_ 1302 ID "0 to 15";
+CM_ SG_ 1310 Time "ms; 0 = off";
+CM_ SG_ 1310 Action "0 idle, 1 hold, 2 brake (stored only)";
+CM_ SG_ 1340 Interval "ms; 0 = off";
+CM_ SG_ 1326 temperature "\u00b0C";
+CM_ SG_ 1327 temperature "\u00b0C";
+CM_ SG_ 1328 voltage "mV";
+CM_ SG_ 1329 voltage "mV";
+CM_ SG_ 1330 HARDWARE_VERSION "PCB revision";
+CM_ SG_ 1330 BATCH_DATE "production batch";
+CM_ SG_ 1330 SOFTWARE_VERSION "firmware release, e.g. 108";
+CM_ SG_ 1330 SERIAL_NUMBER "serial number";
+CM_ SG_ 1331 HARDWARE_VERSION "PCB revision";
+CM_ SG_ 1331 BATCH_DATE "production batch";
+CM_ SG_ 1331 SOFTWARE_VERSION "firmware release, e.g. 108";
+CM_ SG_ 1331 SERIAL_NUMBER "serial number";
+CM_ SG_ 1332 error "any error is active";
+CM_ SG_ 1332 temperature_error "motor over the temperature limit";
+CM_ SG_ 1332 encoder_error "magnet not detected or misaligned";
+CM_ SG_ 1332 vbus_error "supply voltage outside the limits";
+CM_ SG_ 1332 driver_error "the MOSFET driver reports undervoltage, thermal shutdown or overcurrent";
+CM_ SG_ 1332 velocity_error "speed over the limit";
+CM_ SG_ 1332 current_error "reserved; never set by this firmware";
+CM_ SG_ 1332 estop_error "Send_ESTOP was received";
+CM_ SG_ 1332 calibrated "the motor is calibrated";
+CM_ SG_ 1332 activated "the controller is activated";
+CM_ SG_ 1332 watchdog_error "the watchdog ran out";
+CM_ SG_ 1333 error "any error is active";
+CM_ SG_ 1333 temperature_error "motor over the temperature limit";
+CM_ SG_ 1333 encoder_error "magnet not detected or misaligned";
+CM_ SG_ 1333 vbus_error "supply voltage outside the limits";
+CM_ SG_ 1333 driver_error "the MOSFET driver reports undervoltage, thermal shutdown or overcurrent";
+CM_ SG_ 1333 velocity_error "speed over the limit";
+CM_ SG_ 1333 current_error "reserved; never set by this firmware";
+CM_ SG_ 1333 estop_error "Send_ESTOP was received";
+CM_ SG_ 1333 calibrated "the motor is calibrated";
+CM_ SG_ 1333 activated "the controller is activated";
+CM_ SG_ 1333 watchdog_error "the watchdog ran out";
+CM_ SG_ 1530 Position "0 fully open, 255 fully closed";
+CM_ SG_ 1530 Speed "0 slowest, 255 fastest";
+CM_ SG_ 1530 Current "current limit of the move in mA, the grip force; not clamped by the firmware, keep it at or below the stepper's rated current (Force and speed)";
+CM_ SG_ 1530 Activate "1 activate the gripper, 0 deactivate";
+CM_ SG_ 1530 Action "1 go to the position, 0 idle";
+CM_ SG_ 1530 E_stop "1 raises the gripper E-stop error";
+CM_ SG_ 1530 Release_direction "read by the firmware but not used";
+CM_ SG_ 1528 gripper_position "0 fully open, 255 fully closed";
+CM_ SG_ 1528 gripper_current "measured current in mA";
+CM_ SG_ 1528 gripper_activated "1 activated";
+CM_ SG_ 1528 gripper_action_status "1 going to the position, 0 idle, auto-release or calibrating";
+CM_ SG_ 1528 gripper_object_detection_raw "bit 5 is the low bit, bit 4 the high bit: 0 moving, 1 object detected while closing, 2 object detected while opening, 3 at the position; raw bit pair, see value labels (wire order differs from numeric status)";
+CM_ SG_ 1528 gripper_temperature_error "";
+CM_ SG_ 1528 gripper_timeout_error "";
+CM_ SG_ 1528 gripper_estop_error "";
+CM_ SG_ 1528 gripper_calibrated "1 calibrated";
+CM_ SG_ 1529 gripper_position "0 fully open, 255 fully closed";
+CM_ SG_ 1529 gripper_current "measured current in mA";
+CM_ SG_ 1529 gripper_activated "1 activated";
+CM_ SG_ 1529 gripper_action_status "1 going to the position, 0 idle, auto-release or calibrating";
+CM_ SG_ 1529 gripper_object_detection_raw "bit 5 is the low bit, bit 4 the high bit: 0 moving, 1 object detected while closing, 2 object detected while opening, 3 at the position; raw bit pair, see value labels (wire order differs from numeric status)";
+CM_ SG_ 1529 gripper_temperature_error "";
+CM_ SG_ 1529 gripper_timeout_error "";
+CM_ SG_ 1529 gripper_estop_error "";
+CM_ SG_ 1529 gripper_calibrated "1 calibrated";
+CM_ SG_ 1430 ID "0 to 15";
+CM_ SG_ 1438 Time "ms; 0 = off";
+CM_ SG_ 1438 Action "0 idle, 1 hold, 2 brake (stored only)";
+CM_ SG_ 1468 Interval "ms; 0 = off";
+CM_ SG_ 1454 temperature "\u00b0C";
+CM_ SG_ 1455 temperature "\u00b0C";
+CM_ SG_ 1456 voltage "mV";
+CM_ SG_ 1457 voltage "mV";
+CM_ SG_ 1458 HARDWARE_VERSION "PCB revision";
+CM_ SG_ 1458 BATCH_DATE "production batch";
+CM_ SG_ 1458 SOFTWARE_VERSION "firmware release, e.g. 108";
+CM_ SG_ 1458 SERIAL_NUMBER "serial number";
+CM_ SG_ 1459 HARDWARE_VERSION "PCB revision";
+CM_ SG_ 1459 BATCH_DATE "production batch";
+CM_ SG_ 1459 SOFTWARE_VERSION "firmware release, e.g. 108";
+CM_ SG_ 1459 SERIAL_NUMBER "serial number";
+CM_ SG_ 1460 error "any error is active";
+CM_ SG_ 1460 temperature_error "motor over the temperature limit";
+CM_ SG_ 1460 encoder_error "magnet not detected or misaligned";
+CM_ SG_ 1460 vbus_error "supply voltage outside the limits";
+CM_ SG_ 1460 driver_error "the MOSFET driver reports undervoltage, thermal shutdown or overcurrent";
+CM_ SG_ 1460 velocity_error "speed over the limit";
+CM_ SG_ 1460 current_error "reserved; never set by this firmware";
+CM_ SG_ 1460 estop_error "Send_ESTOP was received";
+CM_ SG_ 1460 calibrated "the motor is calibrated";
+CM_ SG_ 1460 activated "the controller is activated";
+CM_ SG_ 1460 watchdog_error "the watchdog ran out";
+CM_ SG_ 1461 error "any error is active";
+CM_ SG_ 1461 temperature_error "motor over the temperature limit";
+CM_ SG_ 1461 encoder_error "magnet not detected or misaligned";
+CM_ SG_ 1461 vbus_error "supply voltage outside the limits";
+CM_ SG_ 1461 driver_error "the MOSFET driver reports undervoltage, thermal shutdown or overcurrent";
+CM_ SG_ 1461 velocity_error "speed over the limit";
+CM_ SG_ 1461 current_error "reserved; never set by this firmware";
+CM_ SG_ 1461 estop_error "Send_ESTOP was received";
+CM_ SG_ 1461 calibrated "the motor is calibrated";
+CM_ SG_ 1461 activated "the controller is activated";
+CM_ SG_ 1461 watchdog_error "the watchdog ran out";
+CM_ SG_ 1658 Position "0 fully open, 255 fully closed";
+CM_ SG_ 1658 Speed "0 slowest, 255 fastest";
+CM_ SG_ 1658 Current "current limit of the move in mA, the grip force; not clamped by the firmware, keep it at or below the stepper's rated current (Force and speed)";
+CM_ SG_ 1658 Activate "1 activate the gripper, 0 deactivate";
+CM_ SG_ 1658 Action "1 go to the position, 0 idle";
+CM_ SG_ 1658 E_stop "1 raises the gripper E-stop error";
+CM_ SG_ 1658 Release_direction "read by the firmware but not used";
+CM_ SG_ 1656 gripper_position "0 fully open, 255 fully closed";
+CM_ SG_ 1656 gripper_current "measured current in mA";
+CM_ SG_ 1656 gripper_activated "1 activated";
+CM_ SG_ 1656 gripper_action_status "1 going to the position, 0 idle, auto-release or calibrating";
+CM_ SG_ 1656 gripper_object_detection_raw "bit 5 is the low bit, bit 4 the high bit: 0 moving, 1 object detected while closing, 2 object detected while opening, 3 at the position; raw bit pair, see value labels (wire order differs from numeric status)";
+CM_ SG_ 1656 gripper_temperature_error "";
+CM_ SG_ 1656 gripper_timeout_error "";
+CM_ SG_ 1656 gripper_estop_error "";
+CM_ SG_ 1656 gripper_calibrated "1 calibrated";
+CM_ SG_ 1657 gripper_position "0 fully open, 255 fully closed";
+CM_ SG_ 1657 gripper_current "measured current in mA";
+CM_ SG_ 1657 gripper_activated "1 activated";
+CM_ SG_ 1657 gripper_action_status "1 going to the position, 0 idle, auto-release or calibrating";
+CM_ SG_ 1657 gripper_object_detection_raw "bit 5 is the low bit, bit 4 the high bit: 0 moving, 1 object detected while closing, 2 object detected while opening, 3 at the position; raw bit pair, see value labels (wire order differs from numeric status)";
+CM_ SG_ 1657 gripper_temperature_error "";
+CM_ SG_ 1657 gripper_timeout_error "";
+CM_ SG_ 1657 gripper_estop_error "";
+CM_ SG_ 1657 gripper_calibrated "1 calibrated";
+CM_ SG_ 1558 ID "0 to 15";
+CM_ SG_ 1566 Time "ms; 0 = off";
+CM_ SG_ 1566 Action "0 idle, 1 hold, 2 brake (stored only)";
+CM_ SG_ 1596 Interval "ms; 0 = off";
+CM_ SG_ 1582 temperature "\u00b0C";
+CM_ SG_ 1583 temperature "\u00b0C";
+CM_ SG_ 1584 voltage "mV";
+CM_ SG_ 1585 voltage "mV";
+CM_ SG_ 1586 HARDWARE_VERSION "PCB revision";
+CM_ SG_ 1586 BATCH_DATE "production batch";
+CM_ SG_ 1586 SOFTWARE_VERSION "firmware release, e.g. 108";
+CM_ SG_ 1586 SERIAL_NUMBER "serial number";
+CM_ SG_ 1587 HARDWARE_VERSION "PCB revision";
+CM_ SG_ 1587 BATCH_DATE "production batch";
+CM_ SG_ 1587 SOFTWARE_VERSION "firmware release, e.g. 108";
+CM_ SG_ 1587 SERIAL_NUMBER "serial number";
+CM_ SG_ 1588 error "any error is active";
+CM_ SG_ 1588 temperature_error "motor over the temperature limit";
+CM_ SG_ 1588 encoder_error "magnet not detected or misaligned";
+CM_ SG_ 1588 vbus_error "supply voltage outside the limits";
+CM_ SG_ 1588 driver_error "the MOSFET driver reports undervoltage, thermal shutdown or overcurrent";
+CM_ SG_ 1588 velocity_error "speed over the limit";
+CM_ SG_ 1588 current_error "reserved; never set by this firmware";
+CM_ SG_ 1588 estop_error "Send_ESTOP was received";
+CM_ SG_ 1588 calibrated "the motor is calibrated";
+CM_ SG_ 1588 activated "the controller is activated";
+CM_ SG_ 1588 watchdog_error "the watchdog ran out";
+CM_ SG_ 1589 error "any error is active";
+CM_ SG_ 1589 temperature_error "motor over the temperature limit";
+CM_ SG_ 1589 encoder_error "magnet not detected or misaligned";
+CM_ SG_ 1589 vbus_error "supply voltage outside the limits";
+CM_ SG_ 1589 driver_error "the MOSFET driver reports undervoltage, thermal shutdown or overcurrent";
+CM_ SG_ 1589 velocity_error "speed over the limit";
+CM_ SG_ 1589 current_error "reserved; never set by this firmware";
+CM_ SG_ 1589 estop_error "Send_ESTOP was received";
+CM_ SG_ 1589 calibrated "the motor is calibrated";
+CM_ SG_ 1589 activated "the controller is activated";
+CM_ SG_ 1589 watchdog_error "the watchdog ran out";
+CM_ SG_ 1786 Position "0 fully open, 255 fully closed";
+CM_ SG_ 1786 Speed "0 slowest, 255 fastest";
+CM_ SG_ 1786 Current "current limit of the move in mA, the grip force; not clamped by the firmware, keep it at or below the stepper's rated current (Force and speed)";
+CM_ SG_ 1786 Activate "1 activate the gripper, 0 deactivate";
+CM_ SG_ 1786 Action "1 go to the position, 0 idle";
+CM_ SG_ 1786 E_stop "1 raises the gripper E-stop error";
+CM_ SG_ 1786 Release_direction "read by the firmware but not used";
+CM_ SG_ 1784 gripper_position "0 fully open, 255 fully closed";
+CM_ SG_ 1784 gripper_current "measured current in mA";
+CM_ SG_ 1784 gripper_activated "1 activated";
+CM_ SG_ 1784 gripper_action_status "1 going to the position, 0 idle, auto-release or calibrating";
+CM_ SG_ 1784 gripper_object_detection_raw "bit 5 is the low bit, bit 4 the high bit: 0 moving, 1 object detected while closing, 2 object detected while opening, 3 at the position; raw bit pair, see value labels (wire order differs from numeric status)";
+CM_ SG_ 1784 gripper_temperature_error "";
+CM_ SG_ 1784 gripper_timeout_error "";
+CM_ SG_ 1784 gripper_estop_error "";
+CM_ SG_ 1784 gripper_calibrated "1 calibrated";
+CM_ SG_ 1785 gripper_position "0 fully open, 255 fully closed";
+CM_ SG_ 1785 gripper_current "measured current in mA";
+CM_ SG_ 1785 gripper_activated "1 activated";
+CM_ SG_ 1785 gripper_action_status "1 going to the position, 0 idle, auto-release or calibrating";
+CM_ SG_ 1785 gripper_object_detection_raw "bit 5 is the low bit, bit 4 the high bit: 0 moving, 1 object detected while closing, 2 object detected while opening, 3 at the position; raw bit pair, see value labels (wire order differs from numeric status)";
+CM_ SG_ 1785 gripper_temperature_error "";
+CM_ SG_ 1785 gripper_timeout_error "";
+CM_ SG_ 1785 gripper_estop_error "";
+CM_ SG_ 1785 gripper_calibrated "1 calibrated";
+CM_ SG_ 1686 ID "0 to 15";
+CM_ SG_ 1694 Time "ms; 0 = off";
+CM_ SG_ 1694 Action "0 idle, 1 hold, 2 brake (stored only)";
+CM_ SG_ 1724 Interval "ms; 0 = off";
+CM_ SG_ 1710 temperature "\u00b0C";
+CM_ SG_ 1711 temperature "\u00b0C";
+CM_ SG_ 1712 voltage "mV";
+CM_ SG_ 1713 voltage "mV";
+CM_ SG_ 1714 HARDWARE_VERSION "PCB revision";
+CM_ SG_ 1714 BATCH_DATE "production batch";
+CM_ SG_ 1714 SOFTWARE_VERSION "firmware release, e.g. 108";
+CM_ SG_ 1714 SERIAL_NUMBER "serial number";
+CM_ SG_ 1715 HARDWARE_VERSION "PCB revision";
+CM_ SG_ 1715 BATCH_DATE "production batch";
+CM_ SG_ 1715 SOFTWARE_VERSION "firmware release, e.g. 108";
+CM_ SG_ 1715 SERIAL_NUMBER "serial number";
+CM_ SG_ 1716 error "any error is active";
+CM_ SG_ 1716 temperature_error "motor over the temperature limit";
+CM_ SG_ 1716 encoder_error "magnet not detected or misaligned";
+CM_ SG_ 1716 vbus_error "supply voltage outside the limits";
+CM_ SG_ 1716 driver_error "the MOSFET driver reports undervoltage, thermal shutdown or overcurrent";
+CM_ SG_ 1716 velocity_error "speed over the limit";
+CM_ SG_ 1716 current_error "reserved; never set by this firmware";
+CM_ SG_ 1716 estop_error "Send_ESTOP was received";
+CM_ SG_ 1716 calibrated "the motor is calibrated";
+CM_ SG_ 1716 activated "the controller is activated";
+CM_ SG_ 1716 watchdog_error "the watchdog ran out";
+CM_ SG_ 1717 error "any error is active";
+CM_ SG_ 1717 temperature_error "motor over the temperature limit";
+CM_ SG_ 1717 encoder_error "magnet not detected or misaligned";
+CM_ SG_ 1717 vbus_error "supply voltage outside the limits";
+CM_ SG_ 1717 driver_error "the MOSFET driver reports undervoltage, thermal shutdown or overcurrent";
+CM_ SG_ 1717 velocity_error "speed over the limit";
+CM_ SG_ 1717 current_error "reserved; never set by this firmware";
+CM_ SG_ 1717 estop_error "Send_ESTOP was received";
+CM_ SG_ 1717 calibrated "the motor is calibrated";
+CM_ SG_ 1717 activated "the controller is activated";
+CM_ SG_ 1717 watchdog_error "the watchdog ran out";
+VAL_ 120 gripper_object_detection_raw 0 "moving" 1 "object while opening" 2 "object while closing" 3 "at position";
+VAL_ 121 gripper_object_detection_raw 0 "moving" 1 "object while opening" 2 "object while closing" 3 "at position";
+VAL_ 248 gripper_object_detection_raw 0 "moving" 1 "object while opening" 2 "object while closing" 3 "at position";
+VAL_ 249 gripper_object_detection_raw 0 "moving" 1 "object while opening" 2 "object while closing" 3 "at position";
+VAL_ 376 gripper_object_detection_raw 0 "moving" 1 "object while opening" 2 "object while closing" 3 "at position";
+VAL_ 377 gripper_object_detection_raw 0 "moving" 1 "object while opening" 2 "object while closing" 3 "at position";
+VAL_ 504 gripper_object_detection_raw 0 "moving" 1 "object while opening" 2 "object while closing" 3 "at position";
+VAL_ 505 gripper_object_detection_raw 0 "moving" 1 "object while opening" 2 "object while closing" 3 "at position";
+VAL_ 632 gripper_object_detection_raw 0 "moving" 1 "object while opening" 2 "object while closing" 3 "at position";
+VAL_ 633 gripper_object_detection_raw 0 "moving" 1 "object while opening" 2 "object while closing" 3 "at position";
+VAL_ 760 gripper_object_detection_raw 0 "moving" 1 "object while opening" 2 "object while closing" 3 "at position";
+VAL_ 761 gripper_object_detection_raw 0 "moving" 1 "object while opening" 2 "object while closing" 3 "at position";
+VAL_ 888 gripper_object_detection_raw 0 "moving" 1 "object while opening" 2 "object while closing" 3 "at position";
+VAL_ 889 gripper_object_detection_raw 0 "moving" 1 "object while opening" 2 "object while closing" 3 "at position";
+VAL_ 1016 gripper_object_detection_raw 0 "moving" 1 "object while opening" 2 "object while closing" 3 "at position";
+VAL_ 1017 gripper_object_detection_raw 0 "moving" 1 "object while opening" 2 "object while closing" 3 "at position";
+VAL_ 1144 gripper_object_detection_raw 0 "moving" 1 "object while opening" 2 "object while closing" 3 "at position";
+VAL_ 1145 gripper_object_detection_raw 0 "moving" 1 "object while opening" 2 "object while closing" 3 "at position";
+VAL_ 1272 gripper_object_detection_raw 0 "moving" 1 "object while opening" 2 "object while closing" 3 "at position";
+VAL_ 1273 gripper_object_detection_raw 0 "moving" 1 "object while opening" 2 "object while closing" 3 "at position";
+VAL_ 1400 gripper_object_detection_raw 0 "moving" 1 "object while opening" 2 "object while closing" 3 "at position";
+VAL_ 1401 gripper_object_detection_raw 0 "moving" 1 "object while opening" 2 "object while closing" 3 "at position";
+VAL_ 1528 gripper_object_detection_raw 0 "moving" 1 "object while opening" 2 "object while closing" 3 "at position";
+VAL_ 1529 gripper_object_detection_raw 0 "moving" 1 "object while opening" 2 "object while closing" 3 "at position";
+VAL_ 1656 gripper_object_detection_raw 0 "moving" 1 "object while opening" 2 "object while closing" 3 "at position";
+VAL_ 1657 gripper_object_detection_raw 0 "moving" 1 "object while opening" 2 "object while closing" 3 "at position";
+VAL_ 1784 gripper_object_detection_raw 0 "moving" 1 "object while opening" 2 "object while closing" 3 "at position";
+VAL_ 1785 gripper_object_detection_raw 0 "moving" 1 "object while opening" 2 "object while closing" 3 "at position";
