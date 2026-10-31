@@ -9,7 +9,7 @@ Byte 3 of Respond_Gripper_data_pack, the answer to every gripper command, bits n
 | 7 | `activated` | the activate flag is set |
 | 6 | `action_status` | 1 while a move is in progress; 0 when idle, holding, auto-releasing or calibrating |
 | 5, 4 | `object_detection` | bit 5 is the low bit, bit 4 the high bit: 0 moving, 1 object found while closing, 2 object found while opening, 3 at the position |
-| 3 | `temperature_error` | the thermistor in the windings is above the limit |
+| 3 | `temperature_error` | the thermistor on the motor housing is above the limit |
 | 2 | `timeout_error` | the driver's CAN watchdog ran out |
 | 1 | `estop_error` | the E-stop bit of a command was received |
 | 0 | `calibrated` | the gripper calibration is done |

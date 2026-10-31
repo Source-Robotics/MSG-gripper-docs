@@ -9,7 +9,7 @@ it; change the jaws, the camera mount or the body for your application, or fit t
 designed for. This guide is the order to do it in.
 
 !!! warning
-    A self-built gripper is yours to make safe: the thermistor in the windings, the current within the stepper's
+    A self-built gripper is yours to make safe: the thermistor on the motor, the current within the stepper's
     maximum, and the [Safety](../02-safety.md) chapter apply to it as to a bought one. The gripper is in beta:
     expect rough edges in the hardware and the software.
 

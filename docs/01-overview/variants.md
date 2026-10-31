@@ -55,7 +55,9 @@ for the first and *while opening* for the second.
 ## The camera
 
 The camera mount on top of the body carries an OV9732 USB camera module (100° version in the BOM), looking down
-between the jaws. It is a plain USB camera with its own cable, independent of the gripper's electronics; the mount
+between the jaws. Its place and angle were chosen with care: the camera sees both jaws and the object between
+them, the view that teleoperation and VLA training need. It is a plain USB camera with its own cable,
+independent of the gripper's electronics; the mount
 and its lid are printed parts (`camera extension`, `camera_lid`), and a gripper without a camera simply leaves
 them off.
 

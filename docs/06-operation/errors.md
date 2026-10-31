@@ -14,7 +14,7 @@ every CAN frame it sends. The grip is released: an idle stepper holds nothing be
 
 | Error | Reported in | Cause | What to do |
 |---|---|---|---|
-| Temperature | the gripper's temperature bit | the thermistor in the windings reads more than 75 °C (`#Tlim`) | let the motor cool; hold with less current |
+| Temperature | the gripper's temperature bit | the thermistor on the motor housing reads more than 75 °C (`#Tlim`) | let the motor cool; hold with less current |
 | Timeout | the gripper's timeout bit | the driver's CAN watchdog ran out: no valid frame within the time set by Send_Watchdog | the host stopped sending; fix the host, then clear |
 | E-stop | the gripper's E-stop bit | a move command with the E-stop bit set, or `#Gripstop 1` | clear, then send a command with the bit at 0: a command with the bit still set raises it again |
 | Not calibrated (motor) | State_of_Errors, `#Error` | the driver's own motor calibration is missing: a self-built gripper before [Driver configuration](../build/first-run.md), or after `#Default` | calibrate the motor |

@@ -24,6 +24,11 @@ CAD and print files, the bill of materials, the assembly instructions, the drive
 drives it. Buy the gripper assembled, or build one yourself; change the jaws or the body for your application and
 fit it to any robot. The [build guide](build/index.md) is the order to do it in.
 
+**Made for teleoperation and robot learning.** We designed the MSG specifically for teleoperation, VLA
+(vision-language-action) training and physical intelligence. The camera on top of the body is placed with care:
+it looks down between the jaws at an angle that keeps both jaws, and the object between them, in view, the
+picture a teleoperator and a learning model need.
+
 <div class="gripper-viewer" data-base="assets/models/msg/" markdown="0">
   <canvas class="gripper-viewer__canvas" aria-label="The MSG gripper in 3D: drag to turn, scroll to zoom"></canvas>
   <div class="gripper-viewer__controls">

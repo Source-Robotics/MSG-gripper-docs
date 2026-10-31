@@ -1,10 +1,10 @@
 # Performance tests
 
-Thermal tests of the MSG gripper under different conditions. The thermal limit is 75 °C at the thermistor in the
-motor windings.
+Thermal tests of the MSG gripper under different conditions. The thermal limit is 75 °C at the thermistor on the
+motor housing.
 
 !!! warning
-    A gripper built without a thermistor in the windings has no temperature protection and can damage its motor
+    A gripper built without the thermistor on its motor has no temperature protection and can damage its motor
     in normal operation.
 
 ## Several days of cycling

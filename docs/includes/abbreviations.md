@@ -12,5 +12,6 @@
 *[URDF]: Unified Robot Description Format, the robot description used by ROS 2
 *[MJCF]: MuJoCo's robot description format
 *[LED]: Light-Emitting Diode
-*[NTC]: Negative Temperature Coefficient thermistor, the temperature sensor in the windings
+*[NTC]: Negative Temperature Coefficient thermistor, the temperature sensor on the motor housing
+*[VLA]: Vision-Language-Action model, a robot policy that maps camera images and an instruction to actions
 *[DP]: Diametral Pitch, the tooth size of the pinion and the racks

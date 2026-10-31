@@ -4,7 +4,9 @@ The MSG is a two-jaw parallel gripper driven by a NEMA 17 stepper under field-or
 [STEPFOC driver](https://docs.source-robotics.com/STEPFOC-docs/) on the back of the stepper regulates the motor's
 current, so a move sets not only where the jaws go and how fast, but how hard they press: the current limit is the
 grip force. The jaws stop on an object, hold it with that force, and the driver reports that an object was found.
-A camera mount looks between the jaws, for teleoperation and for training vision-language-action models.
+We designed the MSG specifically for teleoperation, VLA (vision-language-action) training and physical
+intelligence. A camera on top of the body looks down between the jaws, from a place chosen for a clear view of
+both jaws and the object between them.
 
 <figure markdown="span">
   ![The MSG gripper](../assets/MSG_banner.webp){ width="900" }
@@ -20,7 +22,7 @@ A camera mount looks between the jaws, for teleoperation and for training vision
 | Pinion on the motor shaft, two racks on a linear rail | the pinion turns, the two racks move in opposite directions: the jaws open and close symmetrically |
 | MGN7 linear rail, 100, 150 or 200 mm | carries the jaws; its length sets the stroke |
 | Jaws | printed, in several shapes, with a soft TPU pad or solid; yours to adapt |
-| Thermistor in the motor windings | temperature protection: the gripper stops at 75 °C |
+| Thermistor on the motor housing | temperature protection: the gripper stops at 75 °C |
 | M8 4-pin connector | 24 V and the CAN bus, one cable to the robot |
 | Camera mount | an OV9732 USB camera module looking between the jaws |
 | Coupler plate | mounts the gripper on an 8 mm shaft, or on the PAROL6 wrist with its own cover |

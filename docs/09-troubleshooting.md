@@ -54,7 +54,7 @@ flowchart TD
 
 A stepper under field-oriented control is quiet; a grinding noise is the rack and pinion without grease, or
 debris. The motor gets warm in use and hot under a long grip; the thermistor stops it at 75 °C. A self-built
-gripper without a thermistor in the windings has no such protection.
+gripper without the thermistor on its motor has no such protection.
 
 ## After a firmware update
 

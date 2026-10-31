@@ -37,10 +37,10 @@ hand or destroy the gripper when they are ignored.
 
 ## Temperature
 
-The motor has a thermistor in its windings. At 75 °C the driver raises a temperature error and the gripper goes
+A thermistor on the motor housing measures the motor's temperature. At 75 °C the driver raises a temperature error and the gripper goes
 idle; it clears when the motor has cooled and the error is cleared. A gripper holding an object at a high current
-for long heats up: for a long hold, use the lowest current that holds the object. A self-built gripper without a
-thermistor in the windings has no protection and can burn out its motor; see [Driver configuration](build/first-run.md).
+for long heats up: for a long hold, use the lowest current that holds the object. A self-built gripper without the
+thermistor on its motor has no protection and can burn out its motor; see [Driver configuration](build/first-run.md).
 
 ## Stopping the gripper
 

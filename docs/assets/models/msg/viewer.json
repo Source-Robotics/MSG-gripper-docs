@@ -11,12 +11,12 @@
  "dir": {
   "jaw1": [
    7e-06,
-   7e-06,
+   -7e-06,
    -1.0
   ],
   "jaw2": [
    -7e-06,
-   -7e-06,
+   7e-06,
    1.0
   ]
  },
@@ -39,8 +39,8 @@
   "jaws_color": "#1a1a1a"
  },
  "camera": {
-  "azimuth_deg": -35,
-  "polar_deg": 72,
-  "fill": 1.25
+  "azimuth_deg": 55,
+  "polar_deg": 68,
+  "fill": 1.0
  }
 }

@@ -12,7 +12,7 @@
 | CAN termination | 120 Ω, switchable, reachable through the stepper cover |
 | Service port | the driver's UART, 3.3 V, 256000 baud, inside the housing |
 | Driver | STEPFOC stepper controller, field-oriented control, 14-bit encoder on the motor shaft |
-| Temperature protection | thermistor in the motor windings, 75 °C limit (changeable with `#Tlim`) |
+| Temperature protection | thermistor on the motor housing, 75 °C limit (changeable with `#Tlim`) |
 
 ## Mechanical
 

@@ -14,7 +14,7 @@ and the [STEPFOC documentation](https://docs.source-robotics.com/STEPFOC-docs/) 
   UART connector, a terminal at 256000 baud with CR+LF line endings, and 24 V on the driver's power connector.
   [The serial terminal](https://docs.source-robotics.com/STEPFOC-docs/latest/05-setup/terminal/) on the STEPFOC
   site shows the terminal setup.
-- The thermistor from the BOM, soldered to the driver's thermistor connector and placed in the motor's windings
+- The thermistor from the BOM, soldered to the driver's thermistor connector and fixed to the motor housing
   with thermal cement.
 
 ## With Motor GUI

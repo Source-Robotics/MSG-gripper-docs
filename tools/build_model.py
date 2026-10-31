@@ -6,8 +6,9 @@
 Writes docs/assets/models/msg/: body.glb (the gripper body), jaws_printed.glb (the two printed jaws of the URDF,
 at the closed position with their joint transforms baked in) and viewer.json: the jaw options, the direction and
 travel of each jaw's opening, the colour swatches and the default opening. docs/javascripts/gripper-viewer.js
-reads them. The URDF models the 150 mm rail variant. The scene is turned so the jaws point up (glTF is Y-up) and
-centred; the body mesh is decimated for the web. Needs trimesh (with fast-simplification), numpy and pyyaml.
+reads them. The URDF models the 150 mm rail variant. The scene stands as the gripper does in its photos (glTF is
+Y-up): the stepper upright with the camera on top, the fingers pointing forward along +X; it is centred, and the
+body mesh is decimated for the web. Needs trimesh (with fast-simplification), numpy and pyyaml.
 """
 from __future__ import annotations
 
@@ -38,6 +39,9 @@ COLOURS = {
 }
 MAX_FACES = 30000          # the body mesh of the URDF has 64 000 faces: too many for a landing page
 Y_UP = trimesh.transformations.rotation_matrix(np.pi / 2, [1, 0, 0])
+# The URDF's fingers point along its Z (Y once turned Y-up) with the stepper lying along -X; a quarter turn about
+# the rail's axis stands the stepper up and points the fingers forward, as the gripper stands on a table.
+UPRIGHT = trimesh.transformations.rotation_matrix(-np.pi / 2, [0, 0, 1]) @ Y_UP
 
 
 def find_repo(arg: str | None) -> Path:
@@ -113,7 +117,7 @@ def main(argv=None) -> int:
         axis = np.array([float(v) for v in j.find("axis").get("xyz").split()])
         slide = np.eye(4)
         slide[:3, 3] = axis * q
-        return Y_UP @ origin_matrix(j.find("origin")) @ slide @ origin_matrix(links[jaw].find("visual/origin"))
+        return UPRIGHT @ origin_matrix(j.find("origin")) @ slide @ origin_matrix(links[jaw].find("visual/origin"))
 
     def far_end(jaw):                                # the limit away from 0; a mimic joint follows its source
         j = joints[jaw]
@@ -140,7 +144,7 @@ def main(argv=None) -> int:
         d = pose(jaw, q_open)[:3, 3] - jaw_world[jaw][:3, 3]
         travel = float(np.linalg.norm(d))
         jaw_dir[jaw] = (d / travel).round(6).tolist()
-    body_m = Y_UP @ origin_matrix(links["gripper"].find("visual/origin"))
+    body_m = UPRIGHT @ origin_matrix(links["gripper"].find("visual/origin"))
 
     body = load_mesh(repo / BODY)
     body.apply_transform(body_m)
@@ -166,7 +170,7 @@ def main(argv=None) -> int:
     config = {
         "body": "body.glb", "jaws": options, "travel_m": round(travel, 6), "dir": jaw_dir,
         "colors": COLOURS, "default": {"jaws": OPTIONS[0][0], "opening": 0.5, "body": "#d2d2cf", "jaws_color": "#1a1a1a"},
-        "camera": {"azimuth_deg": -35, "polar_deg": 72, "fill": 1.25},
+        "camera": {"azimuth_deg": 55, "polar_deg": 68, "fill": 1.0},     # in front of the fingers, to one side, a little above
     }
     packed = {f.name: compress(f) for f in sorted(OUT.glob("*.glb"))}
     sizes_after = {f.name: f.stat().st_size // 1024 for f in sorted(OUT.glob("*.glb"))}
