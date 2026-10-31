@@ -2,7 +2,7 @@
 
 !!! note "This is a copy"
     The original is [BOM.md](https://github.com/Source-Robotics/MSG-compliant-AI-stepper-gripper/blob/main/BOM.md) in the gripper's repository; this page is that file as of
-    2026-10-31 (commit `38fb76c`), with the reference images shown inline. If a link is broken or a part is wrong,
+    2026-10-31 (commit `9862f62`), with the reference images shown inline. If a link is broken or a part is wrong,
     [open an issue](https://github.com/Source-Robotics/MSG-compliant-AI-stepper-gripper/issues/new) there, and the fix lands here with the next sync. The shop's
     [starter kit](index.md#kits-and-the-shop) covers the driver and everything its setup needs.
 
@@ -52,8 +52,8 @@ This BOM lists all components required to build the MSG gripper. Quantities are 
 | Type | Quantity | Description | Link |
 |------|----------|-------------|------|
 | Shaft coupler | 1 | 8 mm bore, M4 screw holes<br>![shaft_coupler](../assets/bom/shaft_coupler.webp){ width="120" } | [Link](https://s.click.aliexpress.com/e/_c2xnQgI7) |
-| MGN7C slider | 2 | Linear guide carriage<br>![MGN7C_slider](../assets/bom/MGN7C_slider.webp){ width="120" } | [Link](https://s.click.aliexpress.com/e/_c4EMqbrV) |
-| Linear guide | 1 | 100 mm, 150 mm and 200 length works<br>![MGN7C_slider](../assets/bom/MGN7C_slider.webp){ width="120" } | [Link](https://s.click.aliexpress.com/e/_c4sRNxXV) |
+| MGN7C slider | 2 | Linear guide carriage<br>![MGN7C_carriage](../assets/bom/MGN7C_carriage.webp){ width="120" } | [Link](https://s.click.aliexpress.com/e/_c4EMqbrV) |
+| Linear guide | 1 | 100 mm, 150 mm and 200 length works<br>![MGN7_rail](../assets/bom/MGN7_rail.webp){ width="120" } | [Link](https://s.click.aliexpress.com/e/_c4sRNxXV) |
 | Diametrical Neodymium Magnet | 1 | 6 mm diameter, 2.5 mm thickness<br>![magnet_diametrically](../assets/bom/magnet_diametrically.webp){ width="120" } | [Link](https://source-robotics.com/products/6x2-5mm-diametrical-neodymium-magnet) |
 | Magnet 8 x 2.5mm or 8 x 3mm | 1 | ![Magnet](../assets/bom/Magnet.webp){ width="120" } | [Link](https://s.click.aliexpress.com/e/_c4tF3Rzf) |
 | Gear 32P 21T for 5mm shaft | 1 | ![gear_32P_21T](../assets/bom/gear_32P_21T.webp){ width="120" } | [Link](https://s.click.aliexpress.com/e/_c3oAnoc7) |
