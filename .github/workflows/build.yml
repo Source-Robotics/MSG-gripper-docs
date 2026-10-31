@@ -19,6 +19,9 @@ jobs:
         with:
           python-version: "3.11"
           cache: pip
-      - run: pip install -r requirements.txt
-      - run: python tools/test_tools.py
+      - run: pip install -r requirements.txt cantools==40.7.1
+      - run: |
+          python tools/test_tools.py
+          python tools/test_site_features.py
+          python tools/test_can_tools.py
       - run: mkdocs build --strict

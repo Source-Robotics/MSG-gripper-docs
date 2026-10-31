@@ -10,7 +10,9 @@ comments: false
 
 <!-- doc-meta: msg -->
 
-[First setup](05-setup/index.md){ .md-button .md-button--primary } [About this manual](about.md){ .md-button }
+[Quick start](quick-start.md){ .md-button .md-button--primary } [About this manual](about.md){ .md-button }
+
+[Try Motor GUI without hardware](05-setup/motor-gui.md#try-it-without-a-gripper){ .md-button }
 
 Source Robotics d.o.o. publishes this document for the MSG compliant AI stepper gripper. It is revised as the gripper and its
 firmware change; the document number, the gripper release, the firmware, the revision and the date above identify
@@ -43,12 +45,12 @@ repository's <a href="https://github.com/Source-Robotics/MSG-compliant-AI-steppe
 
 <div class="grid cards" markdown>
 
--   :material-play-circle:{ .lg .middle } **First setup**
+-   :material-play-circle:{ .lg .middle } **Quick start**
 
     ---
 
-    [Motor GUI](05-setup/motor-gui.md) in the browser, then [calibrate, activate, move](05-setup/first-moves.md):
-    from the box to a gripper that opens and closes on command.
+    [One-page quick start](quick-start.md): choose the cable, check the bus, connect Motor GUI, calibrate,
+    and make the first gentle open and close. Each step says what to check before continuing.
 
 -   :material-book-open-variant:{ .lg .middle } **The manual**
 

@@ -34,11 +34,28 @@ testing; everything it does is one CAN message, so what you learn here carries o
 The panel works with one gripper at a time; to work with another on the same bus, pick its node. The **Motor**
 side of the switch shows the same driver as a motor, which the gripper does not need.
 
-!!! tip "Try it without a gripper"
-    The connection kind **Mock CAN (demo)** runs a simulated gripper in the browser: the whole panel, without an
-    adapter or a gripper.
+## Try it without a gripper
+
+Open [Motor GUI](https://motorgui.com/), choose **Mock CAN (demo)** and **Connect**, then switch to **Gripper**.
+The whole panel runs in the browser without an adapter or a gripper. The mock device identifies itself as
+SSG-48; MSG uses the same controls.
 
 ## The gripper panel
+
+<figure class="gui-shot" markdown="1">
+<div class="gui-shot__image" markdown="1">
+
+![Calibrated and activated gripper demo with command controls and plots](../assets/motor-gui/gripper-ready-demo.jpg){ width="1000" }
+
+<span class="gui-shot__mark" style="left:1%;top:17%" aria-hidden="true">1</span>
+<span class="gui-shot__mark" style="left:1%;top:54%" aria-hidden="true">2</span>
+<span class="gui-shot__mark" style="left:88%;top:17%" aria-hidden="true">3</span>
+
+</div>
+<figcaption markdown="1">**1. State:** calibrated, activated, and no errors. **2. Commands:** position, speed and current, each applied with its Set button. **3. Plots:** position and current feedback. Captured from the **SSG-48 mock demo**; MSG uses the same controls.</figcaption>
+</figure>
+
+
 
 | Control | What it does |
 |---|---|
@@ -66,6 +83,21 @@ motor's parameters, the loop gains, gripper mode, the thermistor and the CAN ID 
 CAN ID is 6, the PAR6 gripper's, so change it before applying for another robot.
 [Driver configuration](../build/first-run.md) says when to apply it, and lists the same settings as commands
 for a terminal.
+
+## Calibration prompt
+
+<figure class="gui-shot" markdown="1">
+<div class="gui-shot__image" markdown="1">
+
+![Mock gripper calibration prompt warning that the jaws travel through their full range](../assets/motor-gui/gripper-calibration-demo.jpg){ width="1000" }
+
+<span class="gui-shot__mark" style="left:43%;top:7%" aria-hidden="true">1</span>
+<span class="gui-shot__mark" style="left:1%;top:37%" aria-hidden="true">2</span>
+<span class="gui-shot__mark" style="left:1%;top:17%" aria-hidden="true">3</span>
+
+</div>
+<figcaption markdown="1">**1. Gripper view:** select the intended node and Gripper panel. **2. Calibration prompt:** clear the stroke and confirm only when ready. **3. State:** wait for Calibrated before moving. This is the SSG-48 simulation; it is not a measurement of calibration time.</figcaption>
+</figure>
 
 ## What next
 

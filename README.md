@@ -88,8 +88,7 @@ through the import map in `overrides/main.html`, loaded only on those pages): tu
 choose the colours. Run the tool again when the meshes change.
 
 `hooks/llms.py` writes, at every build, a Markdown twin of every page next to its HTML (`…/index.md`), `llms.txt`
-(an index of the twins by tab) and `llms-full.txt` (every page in one file), with the links absolute to the
-published version (`extra.llms_base`). The "Copy this page as Markdown" button in the page header reads the twin.
+(an index of the twins by tab) and `llms-full.txt` (every page in one file), with links pinned to the documented release (including when publishing with mike). The "Copy this page as Markdown" button in the page header reads the twin.
 
 The "Last update" date under every page comes from the `git-revision-date-localized` plugin (the page's last
 commit; the CI checks out the whole history for it). The calculator on the Force and speed page is
@@ -184,3 +183,22 @@ By contributing you agree that your contribution is published under these licens
 A small fix can be made from the browser: every page ends with a link to edit it on GitHub. For anything larger,
 open an issue first, then a pull request. The *Contributing* page on the site has the house rules. Questions about
 the gripper itself go to the product repository's issue tracker.
+
+## Checking the page features
+
+`python tools/test_site_features.py` checks release-pinned Markdown asset links, the prefilled issue body,
+and the syntax of Python examples without running them or connecting to hardware. The CI build runs it.
+
+`hooks/can_tools.py` generates the firmware-specific JSON/DBC downloads and the CAN frame tool from the
+same `can_commands.yml` and tagged firmware facts as the reference. Keep the hook, browser codec and tests
+in step across the four driver/gripper sites. The gripper status pair marks `bit_order: lsb_first` explicitly;
+do not replace it with normal big-endian bit ordering.
+
+Run `python tools/test_can_tools.py` for the schema, DBC and known wire vectors (Node.js runs the browser codec
+without a browser). With `cantools==40.7.1` installed, it also loads and decodes the DBC independently; the
+CI build installs this test dependency. DBC cannot select a command layout from its DLC, so the driver sites
+ship separate position, velocity and current files. Never merge those into a single invented wire layout.
+
+Motor GUI screenshots under `docs/assets/motor-gui/` were captured from the live tool on 2026-10-31.
+The captions distinguish the real connection screen from simulated CAN hardware. Numbered annotations
+are HTML/CSS over the original capture; refresh the captures and captions when the controls change.

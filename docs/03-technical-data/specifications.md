@@ -22,7 +22,7 @@
 | Mass | about 320 g; a longer rail or stepper adds to it |
 | Position resolution | 1/255 of the stroke: 0.2 to 0.6 mm per step of the position byte |
 | Drive | NEMA 17 stepper, pinion (32 DP, 21 teeth, 8.3 mm pitch radius) on two racks, MGN7 linear rail |
-| Grip force | up to about 31 N (21.5 mm stepper), 50 N (40 mm) or 76 N (60 mm) at the stepper's maximum current; set per move by the current limit, see [Force and speed](force-and-speed.md) |
+| Grip force | ideal combined force up to about 31 N (21.5 mm stepper), 50 N (40 mm) or 76 N (60 mm) at the stepper's maximum current; see the model assumptions in [Force and speed](force-and-speed.md) |
 | Jaw speed | up to about 190 mm/s per jaw at speed 255; see [Force and speed](force-and-speed.md) |
 | Grasps | external (closing on the object) and internal (opening inside a hollow object) |
 | Mounting | coupler plate for an 8 mm shaft (shaft coupler with M4 clamp screws); a ring cover for the PAROL6 wrist |
@@ -39,7 +39,7 @@
 
 ## Variants
 
-| Rail | Stroke | | Stepper | Motor | Maximum current | Torque constant | Grip force at the maximum current |
+| Rail | Stroke | | Stepper | Motor | Maximum current | Assumed torque constant | Ideal combined force at the maximum current |
 |---|---|---|---|---|---|---|---|
 | 100 mm | 55 mm | | 21.5 mm | 17HS08-1004S | 1.5 A | 0.17 Nm/A | about 31 N |
 | 150 mm | 105 mm | | 40 mm | 17HS16-2004S1 | 2.0 A | 0.21 Nm/A | about 50 N |

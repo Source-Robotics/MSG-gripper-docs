@@ -25,7 +25,8 @@
       function update() {
         constants();
         var amps = I.value / 1000, F = kNA * amps;
-        var W = 2 * parseFloat(mu.value || 0) * F / parseFloat(S.value || 1);
+        /* F is the sum of the two jaw forces, so friction is mu * F. */
+        var W = parseFloat(mu.value || 0) * F / parseFloat(S.value || 1);
         out("current", I.value + " mA");
         out("force", F.toFixed(F < 10 ? 1 : 0) + " N");
         out("payload", (W / 9.81).toFixed(2) + " kg");

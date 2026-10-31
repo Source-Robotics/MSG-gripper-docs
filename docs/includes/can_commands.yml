@@ -51,7 +51,7 @@ commands:
       - {bytes: "1-2", name: gripper_current, type: signed 16-bit, meaning: measured current in mA}
       - {bytes: "3", bit: 7, name: gripper_activated, type: bit, meaning: 1 activated}
       - {bytes: "3", bit: 6, name: gripper_action_status, type: bit, meaning: "1 going to the position, 0 idle, auto-release or calibrating", _shared: true}
-      - {bytes: "3", bit: "5-4", name: gripper_object_detection, type: 2 bits, meaning: "bit 5 is the low bit, bit 4 the high bit: 0 moving, 1 object detected while closing, 2 object detected while opening, 3 at the position", _shared: true}
+      - {bytes: "3", bit: "5-4", name: gripper_object_detection, type: 2 bits, bit_order: lsb_first, meaning: "bit 5 is the low bit, bit 4 the high bit: 0 moving, 1 object detected while closing, 2 object detected while opening, 3 at the position", _shared: true}
       - {bytes: "3", bit: 3, name: gripper_temperature_error, type: bit, meaning: "", _shared: true}
       - {bytes: "3", bit: 2, name: gripper_timeout_error, type: bit, meaning: "", _shared: true}
       - {bytes: "3", bit: 1, name: gripper_estop_error, type: bit, meaning: "", _shared: true}

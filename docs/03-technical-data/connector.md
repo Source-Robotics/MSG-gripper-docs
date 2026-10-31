@@ -7,14 +7,26 @@ The gripper has one connector, an M8 4-pin male on the side of the body, and one
   <figcaption>Figure 6: The M8 connector on the gripper body and its four signals: 24V, GND, CANH, CANL.</figcaption>
 </figure>
 
-| Signal | What it is |
-|---|---|
-| 24V | the supply, 24 V DC |
-| GND | the supply's return and the CAN bus reference |
-| CANH, CANL | the CAN bus, 1 Mbit/s |
+## Pin numbers
 
-Which pin of the M8 carries which signal is shown in Figure 6. The cables for PAROL6 and PAR6 are wired
-differently at the robot end; [The cable](../04-installation/cable.md) has the wiring diagram of each.
+![M8 male on the gripper: front mating face and numbered signals](../assets/m8-gripper-pinout.svg){ width="650" }
+
+The drawing shows the connector's staggered contact layout. Look **into the male connector on
+the gripper**, with its pins visible. The female cable connector has the
+mirrored contact view. The solder side is also mirrored: use the numbers moulded into the connector, rather
+than matching wire colours or the installed housing's rotation.
+
+| Gripper pin | Signal | Connection |
+|---|---|---|
+| **1** | **CANL** | CAN low |
+| **2** | **CANH** | CAN high, 1 Mbit/s with CANL |
+| **3** | **+24 V** | positive motor supply |
+| **4** | **GND** | power-supply return |
+
+These pin numbers combine the gripper's signal drawing above with the male contact numbering in the
+repository's [cable drawing](https://github.com/Source-Robotics/MSG-compliant-AI-stepper-gripper/blob/main/Photos/Gripper_cable_contact%20layout.png).
+They describe the **gripper end**. PAROL6 and PAR6 use different connections at the robot end:
+[The cable](../04-installation/cable.md) gives both diagrams. Check continuity with the supply disconnected.
 
 !!! danger "The wrong cable destroys the driver"
     A cable with 24 V on a CAN pin destroys the driver inside the gripper the moment it is powered. Use the cable

@@ -295,6 +295,28 @@
   .md-typeset img { max-height: 24cm; }
 }
 
+/* Numbered annotations sit over original screenshots; the captured UI is unmodified. */
+.gui-shot { margin: 1.3rem 0; }
+.gui-shot__image { position: relative; }
+.gui-shot__image p { margin: 0; }
+.gui-shot__image img { display: block; width: 100%; border: 1px solid var(--md-default-fg-color--lightest); border-radius: .3rem; }
+.gui-shot__mark { position: absolute; display: grid; place-items: center; width: 1.3rem; height: 1.3rem; border-radius: 50%; background: #166534; color: #fff; border: 2px solid #fff; font: bold .8rem/1 sans-serif; box-shadow: 0 1px 5px #0005; pointer-events: none; }
+.gui-shot figcaption { margin-top: .6rem; text-align: left; font-style: normal; }
+.can-tool { margin: 1rem 0; }
+.can-tool fieldset { min-width: 0; margin: 1rem 0; padding: 1rem; border: 1px solid var(--md-default-fg-color--lightest); border-radius: .4rem; }
+.can-tool legend { padding: 0 .4rem; font-weight: 700; }
+.can-tool label, .can-tool small { display: block; margin-top: .6rem; }
+.can-tool small { margin-top: .15rem; color: var(--md-default-fg-color--light); }
+.can-tool input[type=number], .can-tool input[type=text], .can-tool select { display: block; box-sizing: border-box; width: 100%; max-width: 100%; padding: .5rem; border: 1px solid var(--md-default-fg-color--light); border-radius: .2rem; background: var(--md-default-bg-color); color: var(--md-default-fg-color); font: inherit; }
+.can-tool select { white-space: normal; }
+.can-tool input:focus, .can-tool select:focus { outline: 2px solid var(--md-accent-fg-color); outline-offset: 2px; }
+.can-tool button { margin: .8rem .4rem 0 0; }
+.can-tool button:disabled { opacity: .5; cursor: default; }
+.can-tool pre { white-space: pre-wrap; overflow-wrap: anywhere; }
+.can-tool__decoded { overflow-x: auto; margin-top: 1rem; }
+.can-tool__status { font-size: .8rem; }
+@media print { .can-tool { display: none; } }
+
 /* Two repositories in the header: the product's (with the theme's stars, forks and release) over this documentation's */
 @media screen and (min-width: 60em) {
   .md-header__source { display: flex; flex-direction: column; justify-content: center; gap: 0.15rem; height: 2.4rem; width: 12.5rem; max-width: 12.5rem; }

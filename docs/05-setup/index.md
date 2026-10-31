@@ -1,5 +1,7 @@
 # First setup
 
+For the complete bench procedure, use the [one-page quick start](../quick-start.md).
+
 From a mounted and cabled gripper to one that opens and closes on command. Motor GUI in the browser is the usual
 tool for it; every step also gives the Python call and the UART command.
 

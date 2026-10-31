@@ -35,7 +35,7 @@ and a little heavier and does not change the force.
 
 ## Stepper length and force
 
-| Stepper | Motor | Maximum current | Torque constant | Grip force at the maximum current | Printed parts |
+| Stepper | Motor | Maximum current | Assumed torque constant | Ideal combined force at the maximum current | Printed parts |
 |---|---|---|---|---|---|
 | 21.5 mm | 17HS08-1004S | 1.5 A | 0.17 Nm/A | about 31 N | `Stepper_cover_21_5mm`, `Stepper_spacer_21_5` |
 | 40 mm | 17HS16-2004S1 | 2.0 A | 0.21 Nm/A | about 50 N | `Stepper_cover_40mm` |

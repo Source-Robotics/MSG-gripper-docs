@@ -100,6 +100,7 @@ plugins:
 hooks:
   - hooks/versions.py
   - hooks/firmware_pages.py
+  - hooks/can_tools.py     # versioned CAN downloads and the offline frame tool
   - hooks/llms.py          # last: the Markdown twins, llms.txt and llms-full.txt from the other hooks' output
   - hooks/pdf.py           # the PDF of the manual, from the print-site page, when DOCS_PDF is set
 
@@ -184,7 +185,7 @@ extra:
     category: Documentation
     category_id: "DIC_kwDOVTvtKc4DKAXd"
   # The published version the Markdown twins and llms.txt link to (mike publishes each build under its version).
-  llms_base: latest/
+  # Markdown exports use the release from versions.yml, including on archived versions.
   # The PDF of the manual (hooks/pdf.py): the file under site/, written when DOCS_PDF is set.
   pdf:
     file: assets/MSG-gripper-manual.pdf
@@ -230,6 +231,7 @@ extra_css:
 
 extra_javascript:
   - javascripts/mathjax.js
+  - javascripts/can-tools.js
   - javascripts/copy-markdown.js                       # the "Copy this page as Markdown" button
   - javascripts/gripper-calculator.js                  # the force and speed calculator
   - javascripts/gripper-viewer-loader.js               # the 3D configurator, only on pages that have one
@@ -249,6 +251,7 @@ nav:
   - MSG Gripper Manual:
       - index.md
       - Before you start:
+          - Quick start: quick-start.md
           - About this manual: about.md
       - Chapters:
           - 1. Overview:
@@ -301,6 +304,7 @@ nav:
 
   - API reference:
       - reference/index.md
+      - CAN frame tool and downloads: reference/can-tools.md
       - CAN messages:
           - reference/can/index.md
           - Gripper: reference/can/gripper.md
