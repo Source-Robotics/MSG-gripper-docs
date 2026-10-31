@@ -9,7 +9,7 @@ it, moves it and reads its state, so a program for the robot does not talk CAN i
 2. Connect it with the [PAROL6 gripper cable](https://source-robotics.com/products/gripper-cable) to the
    robot's gripper port. Only this cable: the PAR6 cable is wired differently and destroys the gripper
    ([The cable](../04-installation/cable.md)).
-3. Leave the gripper's node ID at 0 and its termination switch ON; it is the last node on the robot's bus.
+3. Keep the gripper's node ID at 0 and set its termination switch ON; it is the last node on the robot's bus.
 
 The PAROL6 commander software has the electric gripper's controls: calibrate, then a position, a speed and a
 current for a move, and the gripper's status. The PAROL6 Python API drives it as a tool, from a program:

@@ -56,7 +56,9 @@ with the library.
 - **PAROL6 and PAR6**: the robots' own software drives the gripper; see [On PAROL6 and PAR6](../06-operation/robots.md).
 - **For a self-built gripper**: a 3.3 V USB-to-serial adapter ([serial adapter](https://source-robotics.com/products/usb-to-serial-adapter))
   for the driver's UART port, to configure the driver with Motor GUI or a terminal; see
-  [Driver configuration](../build/first-run.md).
+  [Driver configuration](../build/first-run.md). For a self-build we recommend the
+  [STEPFOC starter kit](https://source-robotics.com/products/stepfoc-starter-kit): it has this adapter and the rest of what the driver's setup needs
+  ([Kits and the shop](../build/index.md#kits-and-the-shop)).
 
 ## Optional
 

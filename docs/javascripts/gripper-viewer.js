@@ -27,7 +27,11 @@ async function mount(el) {
   controls.enableDamping = true;
   controls.autoRotate = true;
   controls.autoRotateSpeed = 1.2;
-  controls.addEventListener("start", () => { controls.autoRotate = false; });
+  // the model turns slowly by itself; a drag or a zoom stops it, and it turns again a few seconds after the reader
+  // lets go (a trackpad scroll over the canvas counts as a zoom)
+  let resume = 0;
+  controls.addEventListener("start", () => { controls.autoRotate = false; clearTimeout(resume); });
+  controls.addEventListener("end", () => { clearTimeout(resume); resume = setTimeout(() => { controls.autoRotate = true; }, 4000); });
   const root = new THREE.Group();
   scene.add(root);
   const loader = new GLTFLoader().setMeshoptDecoder(MeshoptDecoder);

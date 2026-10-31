@@ -9,7 +9,8 @@ docs/build/bill-of-materials.md and docs/assets/bom/. The page is the repository
 
   - a header that names the original and the commit it was copied from
   - GitHub's `> [!NOTE]` / `> [!TIP]` blocks and `> **Note:**` quotes become admonitions
-  - links to images in the repository become small inline pictures (click to enlarge), scaled to 400 px
+  - links to images in the repository become small inline pictures (click to enlarge), scaled to 400 px and
+    stored as WebP
   - links to other files of the repository become absolute, PCrnjak/ paths become Source-Robotics/, and an
     empty link ("coming soon") becomes plain text
 
@@ -60,8 +61,8 @@ def find_repo(arg: str | None, name: str, bom: str) -> Path:
 
 
 def safe_name(name: str) -> str:
-    stem, ext = os.path.splitext(name)
-    return re.sub(r"[^A-Za-z0-9]+", "_", stem).strip("_") + ext.lower()
+    stem = os.path.splitext(name)[0]
+    return re.sub(r"[^A-Za-z0-9]+", "_", stem).strip("_") + ".webp"
 
 
 def convert(text: str, repo: Path, bom: str, url: str, write_images: bool) -> str:
@@ -108,9 +109,9 @@ def convert(text: str, repo: Path, bom: str, url: str, write_images: bool) -> st
                 old.unlink()
         for src, safe in img_src_used.items():
             im = Image.open(src)
-            im = im.convert("RGB") if safe.endswith(".jpg") else im.convert("RGBA")
+            im = im.convert("RGBA") if im.mode in ("RGBA", "LA", "P") else im.convert("RGB")
             im.thumbnail((STORED, STORED))
-            im.save(IMG_DIR / safe, optimize=True)
+            im.save(IMG_DIR / safe, "WEBP", quality=82, method=6)
     return text.strip() + "\n"
 
 

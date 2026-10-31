@@ -45,7 +45,12 @@ A calibrated gripper carries out a move only while it is activated.
     **Activate**. The panel shows *Activated*.
 
 === "Python"
-    The activate bit is part of every move command (the fourth argument below); send it as 1.
+    The activate bit is part of every move command, its fourth argument; send it as 1. To activate without
+    moving, send a command with the action bit, the fifth argument, at 0:
+
+    ```python
+    gripper.Send_gripper_data_pack(0, 30, 300, 1, 0, 0, 0)   # position, speed, current, activate = 1, action = 0, E-stop, release direction
+    ```
 
 === "UART"
     `#Grippos` activates by itself; `#Gripact 1` activates without moving.
@@ -73,8 +78,9 @@ what each needs.
 
 ## 5. Move
 
-A move is three numbers: the position (0 open, 255 closed), the speed (0 to 255) and the current limit in mA, which
-is the grip force ([Force and speed](../03-technical-data/force-and-speed.md)). Start with speed 30 and 300 mA.
+A move is three numbers: the position (0 open, 255 closed), the speed (0 to 255: linear from 1.6 to 190 mm/s at
+each jaw) and the current limit in mA, which is the grip force ([Force and speed](../03-technical-data/force-and-speed.md)).
+Start with speed 30, about 24 mm/s at each jaw, and 300 mA.
 
 === "Motor GUI"
     Set *Speed* 30 and *Current* 300 with their **Set** buttons, then **Close** and **Open**, or set a *Position*:

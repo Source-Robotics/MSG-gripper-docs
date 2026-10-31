@@ -2,7 +2,7 @@
 
 !!! note "This is a copy"
     The original is [BOM.md](https://github.com/Source-Robotics/MSG-compliant-AI-stepper-gripper/blob/main/BOM.md) in the gripper's repository; this page is that file as of
-    2026-07-09 (commit `f836181`), with the reference images shown inline. If a link is broken or a part is wrong,
+    2026-10-31 (commit `c45ac2c`), with the reference images shown inline. If a link is broken or a part is wrong,
     [open an issue](https://github.com/Source-Robotics/MSG-compliant-AI-stepper-gripper/issues/new) there, and the fix lands here with the next sync. The shop's
     [starter kit](index.md#kits-and-the-shop) covers the driver and everything its setup needs.
 
@@ -33,31 +33,31 @@ This BOM lists all components required to build the MSG gripper. Quantities are 
 
 ## Brass Inserts
 
-| Thread | Length | Outer Diameter | Quantity | Link |
-|-------|--------|----------------|----------|------|
-| M3 | 5 mm | 4.5 mm | 8 | [Link](https://s.click.aliexpress.com/e/_c2RX6lzp) |
+| Thread | Length | Outer Diameter | Quantity | Description | Link |
+|-------|--------|----------------|----------|-------------|------|
+| M3 | 5 mm | 4.5 mm | 8 | ![brass_insert](../assets/bom/brass_insert.webp){ width="120" } | [Link](https://s.click.aliexpress.com/e/_c2RX6lzp) |
 
 
 ## Motors (You need one of these per gripper!)
 
 | Type | Quantity | Description | Link |
 |------|----------|-------------|------|
-| 17HS08-1004S | 1 | 21.5mm stepper | [Link](https://www.omc-stepperonline.com/nema-17-bipolar-1-8deg-16ncm-22-6oz-in-1a-3-7v-42x42x20mm-4-wires-17hs08-1004s?tracking=6543849d6ff69) |
-| 17HS16-2004S1 | 1 | 40mm stepper  | [Link](https://www.omc-stepperonline.com/nema-17-bipolar-45ncm-64oz-in-2a-42x42x40mm-4-wires-w-1m-cable-connector-17hs16-2004s1?tracking=6543849d6ff69)  |
-| 17HS24-2104S | 1 | 60mm stepper | [Link](https://www.omc-stepperonline.com/nema-17-bipolar-1-8deg-65ncm-92oz-in-2-1a-3-36v-42x42x60mm-4-wires-17hs24-2104s?tracking=6543849d6ff69)  |
+| 17HS08-1004S | 1 | 21.5mm stepper<br>![stepper_21_5mm](../assets/bom/stepper_21_5mm.webp){ width="120" } | [Link](https://www.omc-stepperonline.com/nema-17-bipolar-1-8deg-16ncm-22-6oz-in-1a-3-7v-42x42x20mm-4-wires-17hs08-1004s?tracking=6543849d6ff69) |
+| 17HS16-2004S1 | 1 | 40mm stepper<br>![stepper_40mm](../assets/bom/stepper_40mm.webp){ width="120" } | [Link](https://www.omc-stepperonline.com/nema-17-bipolar-45ncm-64oz-in-2a-42x42x40mm-4-wires-w-1m-cable-connector-17hs16-2004s1?tracking=6543849d6ff69)  |
+| 17HS24-2104S | 1 | 60mm stepper<br>![stepper_60mm](../assets/bom/stepper_60mm.webp){ width="120" } | [Link](https://www.omc-stepperonline.com/nema-17-bipolar-1-8deg-65ncm-92oz-in-2-1a-3-36v-42x42x60mm-4-wires-17hs24-2104s?tracking=6543849d6ff69)  |
 
 
 ## Mechanical Components
 
 | Type | Quantity | Description | Link |
 |------|----------|-------------|------|
-| Shaft coupler | 1 | 8 mm bore, M4 screw holes | [Link](https://s.click.aliexpress.com/e/_c2xnQgI7) |
+| Shaft coupler | 1 | 8 mm bore, M4 screw holes<br>![shaft_coupler](../assets/bom/shaft_coupler.webp){ width="120" } | [Link](https://s.click.aliexpress.com/e/_c2xnQgI7) |
 | MGN7C slider | 2 | Linear guide carriage | [Link](https://s.click.aliexpress.com/e/_c4EMqbrV) |
 | Linear guide | 1 | 100 mm, 150 mm and 200 length works | [Link](https://s.click.aliexpress.com/e/_c4sRNxXV) |
-| Diametrical Neodymium Magnet | 1 | 6 mm diameter, 2.5 mm thickness | [Link](https://source-robotics.com/products/6x2-5mm-diametrical-neodymium-magnet) |
+| Diametrical Neodymium Magnet | 1 | 6 mm diameter, 2.5 mm thickness<br>![Magnet](../assets/bom/Magnet.webp){ width="120" } | [Link](https://source-robotics.com/products/6x2-5mm-diametrical-neodymium-magnet) |
 | Magnet 8 x 2.5mm or 8 x 3mm | 1 | | [Link](https://s.click.aliexpress.com/e/_c4tF3Rzf) |
 | Gear 32P 21T for 5mm shaft | 1 | | [Link](https://s.click.aliexpress.com/e/_c3oAnoc7) |
-| Thermal cement | 1 |   | [Link](https://s.click.aliexpress.com/e/_c3dBOwTD) |
+| Thermal cement | 1 | ![Thermal_cement](../assets/bom/Thermal_cement.webp){ width="120" } | [Link](https://s.click.aliexpress.com/e/_c3dBOwTD) |
 | Sponge tape — 30 mm width, 1 mm thickness | 1 |   | [Link](https://s.click.aliexpress.com/e/_c2zNJUaR) |
 
 
@@ -65,11 +65,11 @@ This BOM lists all components required to build the MSG gripper. Quantities are 
 
 | Type | Quantity | Description | Link |
 |------|----------|-------------|------|
-| STEPFOC motor controller | 1 | Motor controller | [Link](https://source-robotics.com/products/stepfoc-stepper-controller) |
-| 100K Thermistor | 1 | NTC temperature sensor | [Link](https://source-robotics.com/products/100k-ntc-thermistor) |
-| XH 2.54 mm cable | 1 | 300 mm, 2P, double-ended (24 V power) | [Link](https://s.click.aliexpress.com/e/_c3f1efET) |
-| ZH 1.5 mm cable | 1 | 300 mm, 2P, double-ended (CAN bus) | [Link](https://s.click.aliexpress.com/e/_c3f1efET)  |
-| M8 Male 4-pin connector | 1 | ![M8connectormale4pin](../assets/bom/M8connectormale4pin.png){ width="120" } | [Link](https://s.click.aliexpress.com/e/_c4OWHPKF) |
+| STEPFOC motor controller | 1 | Motor controller<br>![STEPFOC](../assets/bom/STEPFOC.webp){ width="120" } | [Link](https://source-robotics.com/products/stepfoc-stepper-controller) |
+| 100K Thermistor | 1 | NTC temperature sensor<br>![Thermistor](../assets/bom/Thermistor.webp){ width="120" } | [Link](https://source-robotics.com/products/100k-ntc-thermistor) |
+| XH 2.54 mm cable | 1 | 300 mm, 2P, double-ended (24 V power)<br>![XH_cable](../assets/bom/XH_cable.webp){ width="120" } | [Link](https://s.click.aliexpress.com/e/_c3f1efET) |
+| ZH 1.5 mm cable | 1 | 300 mm, 2P, double-ended (CAN bus)<br>![ZH_cable](../assets/bom/ZH_cable.webp){ width="120" } | [Link](https://s.click.aliexpress.com/e/_c3f1efET)  |
+| M8 Male 4-pin connector | 1 | ![M8connectormale4pin](../assets/bom/M8connectormale4pin.webp){ width="120" } | [Link](https://s.click.aliexpress.com/e/_c4OWHPKF) |
 | OV9732 Camera | 1 | 100 Degree version | [Link](https://s.click.aliexpress.com/e/_c3WWVLjl) |
 
 
@@ -90,9 +90,9 @@ If you want to build your own cable, use the parts below and follow the wiring g
 
 | Type | Length / Spec | Quantity | Description | Link |
 |------|---------------|----------|-------------|------|
-| 26 AWG cable | 0.15 mm², 4-wire twisted pair | 0.4 m | ~40 cm usually sufficient | [Link](https://s.click.aliexpress.com/e/_c4m3ggwn) |
-| M8 4-pin male wire connector | — | 1 | ![M8_male](../assets/bom/M8_male.png){ width="120" } |[Link](https://s.click.aliexpress.com/e/_c4OWHPKF) |
-| M8 4-pin female wire connector | — | 1 | ![M8_female](../assets/bom/M8_female.png){ width="120" } | [Link](https://s.click.aliexpress.com/e/_c4OWHPKF) |
+| 26 AWG cable | 0.15 mm², 4-wire twisted pair | 0.4 m | ~40 cm usually sufficient<br>![Twisted_pair_cable](../assets/bom/Twisted_pair_cable.webp){ width="120" } | [Link](https://s.click.aliexpress.com/e/_c4m3ggwn) |
+| M8 4-pin male wire connector | — | 1 | ![M8_male](../assets/bom/M8_male.webp){ width="120" } |[Link](https://s.click.aliexpress.com/e/_c4OWHPKF) |
+| M8 4-pin female wire connector | — | 1 | ![M8_female](../assets/bom/M8_female.webp){ width="120" } | [Link](https://s.click.aliexpress.com/e/_c4OWHPKF) |
 
 
 !!! note

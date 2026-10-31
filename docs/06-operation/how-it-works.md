@@ -19,27 +19,41 @@ stateDiagram-v2
     Idle --> Moving: command, errors cleared
 ```
 
-**Not calibrated.** After power-up the gripper does not know where its jaws are. It answers status requests and
-refuses moves. The gripper calibration is not kept over a power cycle.
+**Not calibrated**
 
-**Calibrating.** The jaws open at speed 40 and 500 mA until they have stood still against the end stop for half a
-second, pause briefly, then close the same way. The two positions become 0 and 255. If an end stop is not found
-within 24 seconds, the routine gives up and the gripper stays uncalibrated. Nothing else is accepted while it
-runs; the action bit of the status reads 0.
+- After power-up the gripper does not know where its jaws are.
+- It answers status requests and refuses moves.
+- The gripper calibration is not kept over a power cycle.
 
-**Moving.** A command with the activate and action bits set starts a move towards the position, at the speed,
-with the current limited to the commanded value. The driver runs its velocity loop towards the target and watches
-two things: the speed of the jaws and the motor current.
+**Calibrating**
 
-**Holding.** The move ends in one of two ways. The jaws reach the target (within 5 encoder ticks) and the driver
-switches to position control and holds it there: object detection reads 3. Or the jaws stop before the target
-with the current at its limit: an object is in the way, and the driver keeps pushing with the limited current,
-which is the grip. Object detection reads 1 if the jaws were closing, 2 if they were opening. Nothing moves until
-a different command arrives.
+- The jaws open at speed 40 and 500 mA until they have stood still against the end stop for half a second.
+- They pause briefly, then close the same way.
+- The two end positions become 0 (open) and 255 (closed).
+- If an end stop is not found within 24 seconds, the routine gives up and the gripper stays uncalibrated.
+- Nothing else is accepted while it runs; the action bit of the status reads 0.
 
-**Idle.** An error, the E-stop bit, or a command with the action bit at 0 takes the gripper to idle: the motor is
-no longer driven and holds nothing beyond the mechanism's friction, so an object can slip. Clearing the error, or
-the next command with the action bit set, moves it again.
+**Moving**
+
+- A command with the activate and action bits set starts a move towards the position, at the speed.
+- The current is limited to the commanded value.
+- The driver runs its velocity loop towards the target and watches two things: the speed of the jaws and the
+  motor current.
+
+**Holding**: the move ends in one of two ways.
+
+- **Position reached** (within 5 encoder ticks): the driver switches to position control and holds the jaws
+  there. Object detection reads 3.
+- **Object in the way**: the jaws stop before the target with the current at its limit. The driver keeps pushing
+  with the limited current, which is the grip. Object detection reads 1 if the jaws were closing, 2 if they were
+  opening.
+- Either way, nothing moves until a different command arrives.
+
+**Idle**
+
+- An error, the E-stop bit, or a command with the action bit at 0 takes the gripper to idle.
+- The motor is no longer driven and holds nothing beyond the mechanism's friction, so an object can slip.
+- Clearing the error, or the next command with the action bit set, moves it again.
 
 ## The command
 
@@ -48,7 +62,7 @@ Send_gripper_data_pack carries, in 5 bytes:
 | Field | Range | Meaning |
 |---|---|---|
 | Position | 0 to 255 | 0 fully open, 255 fully closed, linear over the stroke |
-| Speed | 0 to 255 | 500 to 60000 encoder ticks per second, see [Force and speed](../03-technical-data/force-and-speed.md) |
+| Speed | 0 to 255 | 1.6 to 190 mm/s at each jaw, linear (500 to 60000 encoder ticks per second); see [Force and speed](../03-technical-data/force-and-speed.md) |
 | Current | mA | the current limit of the move, so the grip force; not clamped by the firmware |
 | Activate | bit | 1 activates the gripper; 0 deactivates it, and it stops |
 | Action | bit | 1 carries out the move; 0 stores the command and leaves the gripper idle |
