@@ -2005,7 +2005,8 @@
 
 <dl>
 <dt><strong>Action bit</strong></dt>
-<dd>A bit of the move command: 1 carries out the move, 0 leaves the gripper idle with the command stored.</dd>
+<dd>A bit of the move command: 1 carries out the move, 0 stops the move and holds the jaws still, with the
+command stored. The action status of the answer repeats this bit.</dd>
 <dt><strong>Activated</strong></dt>
 <dd>A flag the gripper keeps, set by the activate bit of the move command or by <code>#Gripact</code>. A move is carried out
 only while the gripper is activated and calibrated.</dd>
@@ -2022,8 +2023,8 @@ torque constant, so the current limit sets the force with which the jaws press o
 <dd>The STEPFOC board on the back of the gripper's stepper: field-oriented control of the motor, the gripper state
 machine and the <abbr title="Controller Area Network, the bus between the robot or the PC and the gripper">CAN</abbr> and <abbr title="the serial port of the driver inside the gripper, 3.3 V, 256000 baud">UART</abbr> interfaces. The gripper's firmware is the driver's firmware.</dd>
 <dt><strong>E-stop bit</strong></dt>
-<dd>A bit of the move command. 1 stops the gripper and raises the gripper E-stop error, which stays until it is
-cleared and a command with the bit at 0 arrives.</dd>
+<dd>A bit of the move command. 1 stops the gripper and raises the gripper E-stop error, which comes back at every
+cycle while the last command's bit is 1: send a command with the bit at 0, then clear the error.</dd>
 <dt><strong>Error bit</strong></dt>
 <dd>Bit 0 of every <abbr title="Controller Area Network, the bus between the robot or the PC and the gripper">CAN</abbr> frame identifier the driver sends: 1 while any error is active.</dd>
 <dt><strong>Field-oriented control</strong> (<abbr title="Field-Oriented Control: the motor's current is controlled as a vector relative to the rotor position">FOC</abbr>)</dt>
@@ -2055,13 +2056,14 @@ opposite directions, so one motor moves both jaws symmetrically.</dd>
 <dt><strong>Speed</strong></dt>
 <dd>The speed of a move, 0 to 255, mapped by the firmware to 500 to 60000 encoder ticks per second of the motor.</dd>
 <dt><strong>Stroke</strong></dt>
-<dd>How far each jaw carrier travels from fully open to fully closed: 55, 105 or 155 mm, set by the rail length.</dd>
+<dd>How much the distance between the jaw carriers changes from fully open to fully closed: 55, 105 or 155 mm,
+set by the rail length. Each jaw travels half of it.</dd>
 <dt><strong>Timeout error</strong> (watchdog)</dt>
-<dd>The driver's <abbr title="Controller Area Network, the bus between the robot or the PC and the gripper">CAN</abbr> watchdog, as the gripper reports it: when the watchdog is set (<code>Send_Watchdog</code>) and no valid
-frame arrives in time, the gripper stops and raises it.</dd>
+<dd>The driver's <abbr title="Controller Area Network, the bus between the robot or the PC and the gripper">CAN</abbr> watchdog, as the gripper reports it: when the watchdog is set (<code>Send_Watchdog</code>) and no
+gripper command or status request arrives in time, the gripper stops and raises it.</dd>
 <dt><strong>Watchdog</strong></dt>
-<dd>A timer the driver resets with every valid <abbr title="Controller Area Network, the bus between the robot or the PC and the gripper">CAN</abbr> frame it receives. When it is set and runs out, the gripper
-reports a timeout error and stops.</dd>
+<dd>A timer the driver resets with every gripper command (full or empty) and every status request it receives.
+When it is set and runs out, the gripper reports a timeout error and stops.</dd>
 </dl>
 
 

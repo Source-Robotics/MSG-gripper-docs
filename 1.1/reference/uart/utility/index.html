@@ -1313,8 +1313,8 @@
 <td><code>#Mode</code></td>
 <td>Get</td>
 <td></td>
-<td>Prints the control mode.</td>
-<td><code>Idle mode</code>, <code>Position control</code>, <code>Speed control</code>, <code>Current control</code>, <code>PD control</code>, <code>Open loop</code>, <code>Gripper mode</code></td>
+<td>Prints the control mode. In gripper mode (mode 11) it prints nothing; <code>#Gripinfo</code> shows the gripper's state.</td>
+<td><code>Idle mode</code>, <code>Position control</code>, <code>Speed control</code>, <code>Current control</code>, <code>PD control</code>, <code>Open loop</code>, <code>Gripper calib mode</code> during the gripper calibration; <code>Gripper mode</code> is what it prints for mode 6, voltage torque</td>
 </tr>
 <tr>
 <td><code>#Vbus</code></td>
@@ -1334,21 +1334,21 @@
 <td><code>#Clear</code></td>
 <td>Action</td>
 <td></td>
-<td>Clears the errors and goes to idle. An error whose cause is still present comes straight back; a calibration error is cleared only by calibrating (or <code>#Calibrated 1</code>). Enters <strong>idle</strong> mode.</td>
+<td>Clears the errors and goes to idle, and ends a running gripper calibration. An error whose cause is still present comes straight back, the gripper's E-stop too while <code>#Gripstop</code> is 1; a calibration error is cleared only by calibrating (or <code>#Calibrated 1</code>). Enters <strong>idle</strong> mode.</td>
 <td><code>Clear errors</code></td>
 </tr>
 <tr>
 <td><code>#Help</code></td>
 <td>Action</td>
 <td></td>
-<td>Prints a short command reference. Added in firmware 108.</td>
+<td>Prints a short command reference. Added in firmware 106.</td>
 <td>the reference</td>
 </tr>
 <tr>
 <td><code>#Info</code></td>
 <td>Get</td>
 <td></td>
-<td>Prints the driver's identity and state: hardware and firmware version, serial number, motor parameters, calibration, errors.</td>
+<td>Prints the driver's identity and state: hardware version, batch date and firmware version, the ISR time, the <abbr title="Controller Area Network, the bus between the robot or the PC and the gripper">CAN</abbr> ID, the motor calibration, the thermistor and temperature, the supply voltage and the motor parameters (phase direction and order, pole pairs, R, L, Kt, KV). The serial number is printed by <code>#SERNUM</code>, the errors by <code>#Error</code>, gripper mode by <code>#Gripper</code>.</td>
 <td>the report</td>
 </tr>
 <tr>

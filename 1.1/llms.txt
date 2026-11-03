@@ -27,7 +27,7 @@ Every page of this site is also available as Markdown at its address followed by
 - [CAN termination](https://docs.source-robotics.com/MSG-gripper-docs/1.1/04-installation/can-termination/index.md): A CAN bus needs a 120 Ω resistor at each of its two ends.
 - [First setup](https://docs.source-robotics.com/MSG-gripper-docs/1.1/05-setup/index.md): For the complete bench procedure, use the one-page quick start.
 - [Motor GUI](https://docs.source-robotics.com/MSG-gripper-docs/1.1/05-setup/motor-gui/index.md): 1. Open motorgui.com.
-- [Calibrate, activate, move](https://docs.source-robotics.com/MSG-gripper-docs/1.1/05-setup/first-moves/index.md): Every session with the gripper starts the same way: calibrate, activate, clear what errors there are.
+- [Calibrate, activate, move](https://docs.source-robotics.com/MSG-gripper-docs/1.1/05-setup/first-moves/index.md): Every session with the gripper starts the same way: clear what errors there are, calibrate, activate.
 - [Operation](https://docs.source-robotics.com/MSG-gripper-docs/1.1/06-operation/index.md): How a working gripper is used: what happens inside when it calibrates and moves, the interfaces it is driven through, and what to do when it reports an error.
 - [How the gripper works](https://docs.source-robotics.com/MSG-gripper-docs/1.1/06-operation/how-it-works/index.md): The gripper is a state machine in the driver's firmware, fed by one command and answering with one status.
 - [Over CAN](https://docs.source-robotics.com/MSG-gripper-docs/1.1/06-operation/can/index.md): CAN is the gripper's interface: the one cable carries it next to the power, and a robot's control board, a PC with the CANvas adapter or any microcontroller with a CAN transceiver drives the gripper with it.
@@ -44,7 +44,7 @@ Every page of this site is also available as Markdown at its address followed by
 - [Printing the parts](https://docs.source-robotics.com/MSG-gripper-docs/1.1/build/printing/index.md): PETG for every part but the TPU jaw pads.
 - [Mechanical assembly](https://docs.source-robotics.com/MSG-gripper-docs/1.1/build/mechanical-assembly/index.md): The assembly is shown in the repository's video; a PDF manual is in preparation.
 - [Driver setup and first run](https://docs.source-robotics.com/MSG-gripper-docs/1.1/build/first-run/index.md): A gripper from the shop arrives with its driver configured: the stepper calibrated, gripper mode on, the thermistor on, the gains set, everything saved.
-- [Performance tests](https://docs.source-robotics.com/MSG-gripper-docs/1.1/appendix/performance/index.md): Thermal tests of the MSG gripper under different conditions.
+- [Performance tests](https://docs.source-robotics.com/MSG-gripper-docs/1.1/appendix/performance/index.md): A thermal test of the MSG gripper.
 - [Firmware release notes](https://docs.source-robotics.com/MSG-gripper-docs/1.1/appendix/firmware-release-notes/index.md): What changed in each release of the STEPFOC firmware the gripper runs, from the release notes in the driver's repository, up to the release this site describes.
 - [Versions and compatibility](https://docs.source-robotics.com/MSG-gripper-docs/1.1/appendix/compatibility/index.md): Which STEPFOC firmware release works with which bootloader, gripper hardware, Python library and ROS 2 driver.
 - [Glossary](https://docs.source-robotics.com/MSG-gripper-docs/1.1/terminology/index.md)

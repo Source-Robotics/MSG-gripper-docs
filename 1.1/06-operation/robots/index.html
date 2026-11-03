@@ -1337,6 +1337,45 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="PAROL6">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mounting-and-connecting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mounting and connecting
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-joint-5-homing-offset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The joint 5 homing offset
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#driving-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Driving it
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -2219,6 +2258,45 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="PAROL6">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mounting-and-connecting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mounting and connecting
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-joint-5-homing-offset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The joint 5 homing offset
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#driving-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Driving it
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -2356,22 +2434,83 @@
 <p>The gripper is made for the Source Robotics arms. Both drive it over their own <abbr title="Controller Area Network, the bus between the robot or the PC and the gripper">CAN</abbr> bus; their software calibrates
 it, moves it and reads its state, so a program for the robot does not talk <abbr title="Controller Area Network, the bus between the robot or the PC and the gripper">CAN</abbr> itself.</p>
 <h2 id="parol6">PAROL6<a class="headerlink" href="#parol6" title="Permanent link">&para;</a></h2>
+<h3 id="mounting-and-connecting">Mounting and connecting<a class="headerlink" href="#mounting-and-connecting" title="Permanent link">&para;</a></h3>
 <ol>
-<li>Mount the gripper with the <code>ring_cover-PAROL6</code> part (<a href="../../04-installation/mounting/">Mounting on a robot</a>).</li>
-<li>Connect it with the <a href="https://source-robotics.com/products/gripper-cable">PAROL6 gripper cable</a> to the
-   robot's gripper port. Only this cable: the PAR6 cable is wired differently and destroys the gripper
+<li>Replace the gripper's <code>ring_cover</code> with <code>ring_cover-PAROL6</code> from the <abbr title="the CAD exchange format the gripper's parts are published in">STEP</abbr> files' <code>Common parts</code>
+   (<a href="../../04-installation/mounting/">Mounting on a robot</a>). It bolts to the robot's last joint, and the coupler
+   plate's shaft coupler (8 mm bore, two M4 clamp screws) takes the joint 6 shaft.</li>
+<li>Slide the gripper onto the shaft with the camera looking down between the jaws, and tighten the two clamp
+   screws with blue threadlocker.</li>
+<li>Connect the <a href="https://source-robotics.com/products/gripper-cable">PAROL6 gripper cable</a> between the gripper and
+   the M8 connector at the forearm. Only this cable: the PAR6 cable is wired differently and destroys the gripper
    (<a href="../../04-installation/cable/">The cable</a>).</li>
+<li>Route the camera's USB cable outside the arm, with slack for joints 4, 5 and 6, and fix it so that the arm
+   cannot catch it.</li>
 <li>Keep the gripper's node ID at 0 and set its termination switch ON; it is the last node on the robot's bus.</li>
 </ol>
-<p>The PAROL6 commander software has the electric gripper's controls: calibrate, then a position, a speed and a
-current for a move, and the gripper's status. The PAROL6 Python API drives it as a tool, from a program:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">rbt</span><span class="o">.</span><span class="n">select_tool</span><span class="p">(</span><span class="s2">"MSG"</span><span class="p">,</span> <span class="n">variant_key</span><span class="o">=</span><span class="s2">"150mm"</span><span class="p">)</span>           <span class="c1"># the parol6 package; 100mm, 150mm or 200mm, the rail</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="n">rbt</span><span class="o">.</span><span class="n">tool</span><span class="o">.</span><span class="n">calibrate</span><span class="p">()</span>                                   <span class="c1"># queued with the motion; lasts a few seconds</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">rbt</span><span class="o">.</span><span class="n">tool</span><span class="o">.</span><span class="n">set_position</span><span class="p">(</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">speed</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">current</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>     <span class="c1"># fractions of the ranges</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="nb">print</span><span class="p">(</span><span class="n">rbt</span><span class="o">.</span><span class="n">tool</span><span class="o">.</span><span class="n">status</span><span class="p">())</span>
+<h3 id="the-joint-5-homing-offset">The joint 5 homing offset<a class="headerlink" href="#the-joint-5-homing-offset" title="Permanent link">&para;</a></h3>
+<p>Joint 5 homes against the tool, and the control board firmware's default offset (8900) is for the pneumatic
+gripper holder, not for the MSG's ring cover. After the first homing, check joint 5 with the pin through its
+witness marks. If it is off, measure the offset and set <code>j5_homing_offset</code> in <code>main.cpp</code> of the control board
+firmware, as the PAROL6 documentation's mastering page describes.</p>
+<h3 id="driving-it">Driving it<a class="headerlink" href="#driving-it" title="Permanent link">&para;</a></h3>
+<p>The gripper calibrates after every power-up and does not move before that. Clear the gripper's errors first, then
+calibrate, then wait until the calibration is done, up to about ten seconds: a gripper move or a clear sent while
+it runs ends the calibration.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Commander software</label><label for="__tabbed_1_2">Python API</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>The <strong>Gripper</strong> tab: after homing the robot, press <strong>Clear gripper error</strong>, then <strong>Calibrate gripper</strong>, and
+wait until the status says calibrated. Then set the position, speed and current with the sliders and press
+<strong>Move GoTo</strong>. In RBTscript: <code>Gripper_cal()</code>, <code>Delay(10)</code>, then <code>Gripper(position, speed, current)</code>, with the
+current in mA.</p>
+</div>
+<div class="tabbed-block">
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">rbt</span><span class="o">.</span><span class="n">select_tool</span><span class="p">(</span><span class="s2">"MSG"</span><span class="p">,</span> <span class="n">variant_key</span><span class="o">=</span><span class="s2">"150mm"</span><span class="p">)</span>           <span class="c1"># the parol6 package; 100mm, 150mm or 200mm: the rail</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">rbt</span><span class="o">.</span><span class="n">tool</span><span class="o">.</span><span class="n">calibrate</span><span class="p">()</span>                                   <span class="c1"># with the robot at rest</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>                                         <span class="c1"># the calibration takes up to about ten seconds</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="n">rbt</span><span class="o">.</span><span class="n">tool</span><span class="o">.</span><span class="n">set_position</span><span class="p">(</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">speed</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">current</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>     <span class="c1"># fractions; current 0.4 is 1180 mA</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="nb">print</span><span class="p">(</span><span class="n">rbt</span><span class="o">.</span><span class="n">tool</span><span class="o">.</span><span class="n">status</span><span class="p">())</span>
 </span></code></pre></div>
+<p>The API allows the calibration 2 s before it sends the next gripper action, which is too short for the MSG;
+the pause above waits for the calibration to finish.</p>
+</div>
+</div>
+</div>
+<p>The Python API's <code>current</code> is a fraction of the range 100 to 2800 mA: the gripper gets 100 + 2700 × <code>current</code> mA,
+so 1.0 is 2800 mA, more than any of the steppers takes. Keep it within the stepper's maximum
+(<a href="../../03-technical-data/force-and-speed/">Force and speed</a>):</p>
+<table>
+<thead>
+<tr>
+<th>Stepper</th>
+<th>Maximum current</th>
+<th>Largest <code>current</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>21.5 mm</td>
+<td>1.5 A</td>
+<td>0.51</td>
+</tr>
+<tr>
+<td>40 mm</td>
+<td>2.0 A</td>
+<td>0.70</td>
+</tr>
+<tr>
+<td>60 mm</td>
+<td>2.1 A</td>
+<td>0.74</td>
+</tr>
+</tbody>
+</table>
+<p><code>position</code> and <code>speed</code> are fractions of the position and speed bytes: 0.8 is position 204, 0.5 is speed 128.</p>
 <p>The <a href="https://docs.source-robotics.com/PAROL-docs/">PAROL6 documentation</a> covers the robot's side: the gripper
-port, the commander software and the API.</p>
+port, the commander software, the API and the tool centre point.</p>
 <h2 id="par6">PAR6<a class="headerlink" href="#par6" title="Permanent link">&para;</a></h2>
 <p>The PAR6 arm's control box runs the gripper on its <abbr title="Controller Area Network, the bus between the robot or the PC and the gripper">CAN</abbr> bus as a tool, with the PAR6 gripper cable (different from
 the PAROL6 one). The <a href="https://docs.source-robotics.com/par6/">PAR6 documentation</a> covers the tool configuration,
@@ -2400,7 +2539,7 @@ the runtime's gripper commands and the firmware updates the box can do for the g
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 31, 2026 19:17:57 UTC">October 31, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 3, 2026 14:50:04 UTC">November 3, 2026</span>
   </span>
 
     

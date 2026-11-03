@@ -52,4 +52,4 @@ by any of these.
 
 | Revision | Date | Changes |
 |---|---|---|
-| 2026.A (draft) | — | First version in this form: the manual chapters, the generated CAN and UART reference; gripper release 1.1, firmware 108 |
+| 2026.A | 2026-11-03 | First version in this form: the manual chapters, the generated CAN and UART reference; gripper release 1.1, firmware 108 |

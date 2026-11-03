@@ -7,7 +7,7 @@ messages a gripper host uses.
 
 <div class="cmd-facts" markdown><span class="fact">ID 11</span><span class="fact">host → driver</span><span class="fact">1 bytes</span><span class="fact">Python: `Send_CAN_ID()`</span></div>
 
-Gives the driver a new node ID, 0 to 13 (the firmware accepts up to 15, but the bootloader reserves 14 and 15: a driver on one of those cannot be updated over CAN). Setting the ID also sets the bootloader's board ID. The driver answers to the new ID at once; the ID is kept over a power cycle only after Send_Save_config.
+Gives the driver a new node ID, 0 to 13 (the firmware accepts up to 15, but the bootloader reserves 14 and 15: a driver on one of those cannot be updated over CAN). The driver answers to the new ID at once; Send_Save_config keeps it over a power cycle and also writes it into the bootloader's board ID.
 
 **1 bytes**
 
@@ -63,7 +63,7 @@ The driver does not answer this command.
 
 <div class="cmd-facts" markdown><span class="fact">ID 1</span><span class="fact">host → driver</span><span class="fact">0 bytes</span><span class="fact">Python: `Send_Clear_Error()`</span></div>
 
-Clears the error flags and goes to idle. An error whose cause is still present comes straight back. A calibration error is cleared only by calibrating.
+Clears the error flags and goes to idle. An error whose cause is still present comes straight back; the gripper's E-stop error comes back while the last gripper command's E-stop bit is 1, so send a command with the bit at 0 first. A clear also ends a running gripper calibration. A calibration error is cleared only by calibrating.
 
 The driver does not answer this command.
 
@@ -73,7 +73,7 @@ The driver does not answer this command.
 
 <div class="cmd-facts" markdown><span class="fact">ID 15</span><span class="fact">host → driver</span><span class="fact">5 bytes</span><span class="fact">Python: `Send_Watchdog()`</span></div>
 
-Sets the watchdog: every valid CAN frame the driver receives resets it; when the time runs out the driver reports a watchdog error and stops. 0 turns it off (the default). The action byte is stored but not acted on by this firmware: the driver always stops into its idle behaviour.
+Sets the watchdog: the gripper command (full or empty) and the status requests reset it, Send_Clear_Error, Send_gripper_calibrate and the setup messages do not; when the time runs out the driver reports a watchdog error and stops. 0 turns it off (the default). The action byte is stored but not acted on by this firmware: the driver always stops into its idle behaviour.
 
 **5 bytes**
 

@@ -2448,13 +2448,16 @@ page is what it does with them.</p>
     [*] --&gt; NotCalibrated: power-up
     NotCalibrated --&gt; Calibrating: Send_gripper_calibrate / #Gripcal
     Calibrating --&gt; Calibrated: both end stops found
-    Calibrating --&gt; NotCalibrated: 24 s without an end stop
+    Calibrating --&gt; NotCalibrated: not done in 24 s, or a full command or a clear
     Calibrated --&gt; Moving: command with activate = 1, action = 1
     Moving --&gt; Holding: object found, or position reached
     Holding --&gt; Moving: a different command
-    Moving --&gt; Idle: error, E-stop, action = 0
-    Holding --&gt; Idle: error, E-stop, action = 0
-    Idle --&gt; Moving: command, errors cleared</code></pre>
+    Moving --&gt; Stopped: action = 0 or activate = 0
+    Holding --&gt; Stopped: action = 0 or activate = 0
+    Stopped --&gt; Moving: command with action = 1
+    Moving --&gt; Idle: error, E-stop, clear
+    Holding --&gt; Idle: error, E-stop, clear
+    Idle --&gt; Moving: errors cleared, then a command</code></pre>
 <p><strong>Not calibrated</strong></p>
 <ul>
 <li>After power-up the gripper does not know where its jaws are.</li>
@@ -2466,8 +2469,11 @@ page is what it does with them.</p>
 <li>The jaws open at speed 40 and 500 mA until they have stood still against the end stop for half a second.</li>
 <li>They pause briefly, then close the same way.</li>
 <li>The two end positions become 0 (open) and 255 (closed).</li>
-<li>If an end stop is not found within 24 seconds, the routine gives up and the gripper stays uncalibrated.</li>
-<li>Nothing else is accepted while it runs; the action bit of the status reads 0.</li>
+<li>If the whole routine has not found both end stops within 24 seconds of its start, it gives up and the
+  gripper stays uncalibrated.</li>
+<li>While it runs, send only empty Send_gripper_data_pack frames, the status poll. A full gripper command or
+  Send_Clear_Error ends the calibration where it is, and the gripper stays uncalibrated.</li>
+<li>Send_gripper_calibrate has no answer; the calibrated bit of the status turns 1 when the routine is done.</li>
 </ul>
 <p><strong>Moving</strong></p>
 <ul>
@@ -2485,11 +2491,18 @@ page is what it does with them.</p>
   opening.</li>
 <li>Either way, nothing moves until a different command arrives.</li>
 </ul>
+<p><strong>Stopped</strong></p>
+<ul>
+<li>A command with the action bit at 0, or with the activate bit at 0, stops the move.</li>
+<li>The driver keeps the jaws still: it runs its velocity loop at zero speed with the command's current limit, so
+  the jaws resist being moved, and the object detection keeps reporting.</li>
+<li>The next command with the activate and action bits set moves the jaws again.</li>
+</ul>
 <p><strong>Idle</strong></p>
 <ul>
-<li>An error, the E-stop bit, or a command with the action bit at 0 takes the gripper to idle.</li>
+<li>An error, the E-stop bit, Send_Clear_Error, Send_Idle or <code>#Idle</code> takes the gripper to idle.</li>
 <li>The motor is no longer driven and holds nothing beyond the mechanism's friction, so an object can slip.</li>
-<li>Clearing the error, or the next command with the action bit set, moves it again.</li>
+<li>After an error, clear it; then the next command with the action bit set moves the gripper again.</li>
 </ul>
 <h2 id="the-command">The command<a class="headerlink" href="#the-command" title="Permanent link">&para;</a></h2>
 <p>Send_gripper_data_pack carries, in 5 bytes:</p>
@@ -2520,17 +2533,17 @@ page is what it does with them.</p>
 <tr>
 <td>Activate</td>
 <td>bit</td>
-<td>1 activates the gripper; 0 deactivates it, and it stops</td>
+<td>1 activates the gripper; 0 deactivates it: the move stops and the jaws are held still</td>
 </tr>
 <tr>
 <td>Action</td>
 <td>bit</td>
-<td>1 carries out the move; 0 stores the command and leaves the gripper idle</td>
+<td>1 carries out the move; 0 stores the command and holds the jaws still where they are</td>
 </tr>
 <tr>
 <td>E-stop</td>
 <td>bit</td>
-<td>1 stops the gripper and raises the E-stop error</td>
+<td>1 stops the gripper and raises the E-stop error, again at every cycle while the bit stays 1</td>
 </tr>
 <tr>
 <td>Release direction</td>
@@ -2571,7 +2584,7 @@ starts the move, with the speed and current last set by <code>#Gripvel</code> an
 </tr>
 <tr>
 <td>Action status</td>
-<td>1 while a move is in progress, 0 when idle, holding, or calibrating</td>
+<td>the action bit of the last command, as received; it stays 1 while the gripper holds, and the calibration does not change it</td>
 </tr>
 <tr>
 <td>Object detection</td>
@@ -2595,6 +2608,9 @@ starts the move, with the speed and current last set by <code>#Gripvel</code> an
 </tr>
 </tbody>
 </table>
+<p>The answer to a full command is sent before the gripper acts on that command, so it still carries the state from
+before it; the answers to the polls that follow show the move. To follow a move, use the object detection: the
+action status only repeats the bit you sent.</p>
 <p>The bits are listed in <a href="../../reference/errors/">Errors and status bits</a>, with the byte layout in the
 <a href="../../reference/can/gripper/"><abbr title="Controller Area Network, the bus between the robot or the PC and the gripper">CAN</abbr> reference</a>.</p>
 <h2 id="a-grip-message-by-message">A grip, message by message<a class="headerlink" href="#a-grip-message-by-message" title="Permanent link">&para;</a></h2>
@@ -2604,11 +2620,13 @@ starts the move, with the speed and current last set by <code>#Gripvel</code> an
     participant G as Gripper
     H-&gt;&gt;G: Send_Clear_Error
     H-&gt;&gt;G: Send_gripper_calibrate
-    G--&gt;&gt;H: status: calibrating (action status 0)
     Note over G: the jaws open, pause, close: 0 and 255 are found
-    G--&gt;&gt;H: status: calibrated
+    loop only empty Send_gripper_data_pack frames, until calibrated
+        H-&gt;&gt;G: (0 bytes)
+        G--&gt;&gt;H: answer: calibrated 0, at the end 1
+    end
     H-&gt;&gt;G: Send_gripper_data_pack(200, 30, 400, activate 1, action 1)
-    G--&gt;&gt;H: answer: moving (object detection 0)
+    G--&gt;&gt;H: answer: still the state from before the move
     loop every 20 ms, an empty Send_gripper_data_pack
         H-&gt;&gt;G: (0 bytes)
         G--&gt;&gt;H: answer: position, current, state
@@ -2619,8 +2637,10 @@ starts the move, with the speed and current last set by <code>#Gripvel</code> an
 <p>While a move is in progress and the jaws are not yet at the target, the driver reads <em>moving</em> (0) as long as the
 jaws move faster than 500 encoder ticks per second, about 1.6 mm/s. When they are slower than that and the motor
 current is above 80 % of the commanded limit, something stops them: <em>object found</em>, 1 or 2 by the sign of the
-current. Below 80 % with the jaws slow, it still reads <em>moving</em>: the jaws are accelerating or the object is soft
-and still being squeezed. Once the target is reached, 3, and it stays 3 until a different command arrives.</p>
+current. Below 80 % with the jaws slow, it still reads <em>moving</em>: the object is soft and still being squeezed.
+At the very start of a move the jaws are slow too, and with the current already near its limit the state can
+briefly read 1 or 2; a host gives a move about 100 ms before it trusts the state. Once the target is reached, 3,
+and it stays 3 until a different command arrives.</p>
 <p>The state is therefore a snapshot of each answer. A host that wants to know "did the grip succeed" sends the move,
 then polls until the state is 1, 2 or 3, with a timeout of its own; the ROS 2 driver and the PAROL6 software do
 exactly that.</p>
@@ -2654,7 +2674,7 @@ state.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 31, 2026 19:17:57 UTC">October 31, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 3, 2026 14:50:04 UTC">November 3, 2026</span>
   </span>
 
     

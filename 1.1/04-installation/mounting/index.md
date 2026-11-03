@@ -17,11 +17,12 @@ offers an 8 mm shaft takes the gripper this way.
 ## PAROL6
 
 For the PAROL6 wrist, replace `ring_cover` with `ring_cover-PAROL6` from the STEP files (`Common parts`): it bolts
-to the robot's last joint. The PAROL6 gripper cable then runs from the gripper to the robot's gripper port; see
-[The cable](https://docs.source-robotics.com/MSG-gripper-docs/1.1/04-installation/cable/) and [On PAROL6 and PAR6](https://docs.source-robotics.com/MSG-gripper-docs/1.1/06-operation/robots/).
+to the robot's last joint. Tighten the shaft coupler's two clamp screws with blue threadlocker. The PAROL6
+gripper cable then runs from the gripper to the robot's gripper port; see [The cable](https://docs.source-robotics.com/MSG-gripper-docs/1.1/04-installation/cable/) and
+[On PAROL6 and PAR6](https://docs.source-robotics.com/MSG-gripper-docs/1.1/06-operation/robots/), which also has the joint 5 homing offset.
 
 <figure markdown="span">
-  ![The PAROL6 ring cover](../assets/MSG with parol cover.webp){ width="600" }
+  ![The PAROL6 ring cover](https://docs.source-robotics.com/MSG-gripper-docs/1.1/assets/MSG_with_parol_cover.webp){ width="600" }
   <figcaption>Figure 9: The gripper with the PAROL6 ring cover (red).</figcaption>
 </figure>
 

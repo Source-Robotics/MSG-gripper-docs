@@ -1394,7 +1394,7 @@ explains what the gripper does with them.</p>
 <div class="cmd-facts">
 <p><span class="fact">ID 61</span><span class="fact">host → driver</span><span class="fact">0 or 5 bytes</span><span class="fact">Python: <code>Send_gripper_data_pack()</code></span></p>
 </div>
-<p>The gripper command, for a driver set up as a gripper (<code>#Gripper 1</code>, saved). Position, speed and the current limit of the move, plus the activate, action and E-stop bits. A move is carried out only while the gripper is calibrated, activated and the action bit is 1. An empty frame (0 bytes) only asks for the state.</p>
+<p>The gripper command, for a driver set up as a gripper (<code>#Gripper 1</code>, saved). Position, speed and the current limit of the move, plus the activate, action and E-stop bits. A move is carried out only while the gripper is calibrated, activated and the action bit is 1. An empty frame (0 bytes) only asks for the state. The answer is sent before the driver acts on the frame, so it carries the state from before it. While the gripper calibration runs, send only the empty frame: a full one ends the calibration.</p>
 <p><strong>5 bytes</strong></p>
 <table>
 <thead>
@@ -1440,14 +1440,14 @@ explains what the gripper does with them.</p>
 <td>6</td>
 <td>Action</td>
 <td>bit</td>
-<td>1 go to the position, 0 idle</td>
+<td>1 go to the position, 0 stop and hold the jaws still</td>
 </tr>
 <tr>
 <td>4</td>
 <td>5</td>
 <td>E-stop</td>
 <td>bit</td>
-<td>1 raises the gripper E-stop error</td>
+<td>1 raises the gripper E-stop error, again at every cycle while the last command's bit is 1</td>
 </tr>
 <tr>
 <td>4</td>
@@ -1503,7 +1503,7 @@ explains what the gripper does with them.</p>
 <td>6</td>
 <td>gripper_action_status</td>
 <td>bit</td>
-<td>1 going to the position, 0 idle, auto-release or calibrating</td>
+<td>the action bit of the last command, as received; stays 1 while holding, not changed by the calibration</td>
 </tr>
 <tr>
 <td>3</td>
@@ -1547,7 +1547,7 @@ explains what the gripper does with them.</p>
 <div class="cmd-facts">
 <p><span class="fact">ID 62</span><span class="fact">host → driver</span><span class="fact">0 bytes</span><span class="fact">Python: <code>Send_gripper_calibrate()</code></span></p>
 </div>
-<p>Starts the gripper calibration (the jaws find their end stops). Needed after every power-up.</p>
+<p>Starts the gripper calibration (the jaws find their end stops). Needed after every power-up. It has no answer: poll with empty Send_gripper_data_pack frames until the calibrated bit is 1, and send nothing else meanwhile, since a full gripper command or Send_Clear_Error ends the calibration. With an error active the request is dropped: clear first.</p>
 <p>The driver does not answer this command.</p>
 <hr />
 

@@ -1250,6 +1250,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#host-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Host checklist
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#from-a-pc" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2266,6 +2277,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#host-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Host checklist
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#from-a-pc" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2476,14 +2498,36 @@ gripper does not need, are on the <a href="https://docs.source-robotics.com/STEP
 <h2 id="a-control-loop">A control loop<a class="headerlink" href="#a-control-loop" title="Permanent link">&para;</a></h2>
 <ol>
 <li>At power-up: Send_Clear_Error, then Send_gripper_calibrate; poll with empty Send_gripper_data_pack frames
-   until the calibrated bit is 1 (about ten seconds).</li>
+   until the calibrated bit is 1 (up to about ten seconds; the routine gives up after 24 s). Send nothing else
+   meanwhile.</li>
 <li>For each grip: one Send_gripper_data_pack with the position, speed and current and the activate and action
-   bits set; then poll with empty frames until the object-detection field reads 1, 2 or 3, or your own timeout
-   passes.</li>
+   bits set. Its answer still carries the state from before it; ignore it. Then poll with empty frames until
+   the object-detection field reads 1, 2 or 3, or your own timeout passes.</li>
 <li>Keep polling at a steady rate (50 Hz is plenty) if you set the watchdog: every frame resets it, and the gripper
    stops by itself when your program stops.</li>
 </ol>
 <p>The answer to every frame tells the whole state, so a host never has to ask twice.</p>
+<h2 id="host-checklist">Host checklist<a class="headerlink" href="#host-checklist" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Clear, then calibrate.</strong> With an error active, the driver drops the calibration request; a clear sent during
+  the calibration ends it.</li>
+<li><strong>During the calibration, only empty frames.</strong> A full Send_gripper_data_pack ends the calibration as well, and
+  the gripper stays uncalibrated. Wait for the calibrated bit; the routine gives up after 24 s.</li>
+<li><strong>The first answer is old.</strong> The answer to a full command is sent before the gripper acts on it. Ignore it,
+  and give the move about 100 ms before you trust the object detection: at the start of a move the jaws are
+  slow, which can briefly read as an object found.</li>
+<li><strong>The action status repeats your bit.</strong> It is the action bit you last sent and stays 1 while the gripper
+  holds. Follow a move by its object detection.</li>
+<li><strong>An identical command does nothing.</strong> To repeat a move to the position the gripper holds, change the speed
+  or the current by one.</li>
+<li><strong>E-stop recovery:</strong> first a command with the E-stop bit at 0 (and the action bit at 0), then
+  Send_Clear_Error. While the last command carries the E-stop bit, a clear does not hold.</li>
+<li><strong>Watchdog:</strong> with Send_Watchdog set, keep the polls coming. The gripper commands and the status requests
+  reset it; Send_Clear_Error and Send_gripper_calibrate do not. After a timeout, fix the host, clear, and
+  resume.</li>
+<li><strong>Current:</strong> keep the commanded current within the stepper's maximum, 1.5, 2.0 or 2.1 A; the firmware does
+  not clamp it (<a href="../../03-technical-data/force-and-speed/">Force and speed</a>).</li>
+</ul>
 <h2 id="from-a-pc">From a PC<a class="headerlink" href="#from-a-pc" title="Permanent link">&para;</a></h2>
 <p>The <a href="https://source-robotics.com/products/canvas-usb-to-can-adapter">CANvas adapter</a> shows up as a serial port and
 speaks slcan; <code>python-can</code> opens it with <code>bustype='slcan'</code>, and the <a href="../python/">Python library</a> wraps the messages.
@@ -2513,7 +2557,7 @@ arbitration.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 29, 2026 22:07:18 UTC">October 29, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 3, 2026 14:50:04 UTC">November 3, 2026</span>
   </span>
 
     

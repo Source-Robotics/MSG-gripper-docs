@@ -21,13 +21,22 @@ import time
 bus = Spectral.CanCommunication(bustype='slcan', channel='COM20', bitrate=1000000)
 gripper = Spectral.SpectralCAN(node_id=0, communication=bus)
 
-gripper.Send_Clear_Error()
-gripper.Send_gripper_calibrate()
-time.sleep(10)                                  # the jaws open fully, then close fully
+gripper.Send_Clear_Error()                      # clear first: with an error active, the calibration does not run
+gripper.Send_gripper_calibrate()                # the jaws open fully, then close fully
+for _ in range(120):                            # wait for the calibrated bit, up to 24 s
+    time.sleep(0.2)
+    gripper.Send_gripper_data_pack()            # only empty frames now: a move or a clear ends the calibration
+    message, ids = bus.receive_can_messages(timeout=0.05)
+    if message is not None:
+        gripper.UnpackData(message, ids)
+        if gripper.gripper_calibrated:
+            break
 
 for position in (200, 20, 200, 20):
     # position 0..255, speed 0..255, current mA, activate, action, E-stop, release direction
     gripper.Send_gripper_data_pack(position, 30, 300, 1, 1, 0, 0)
+    bus.receive_can_messages(timeout=0.05)      # its answer still carries the state from before the move
+    time.sleep(0.1)                             # give the move time to start
     for _ in range(40):                         # poll the state for up to 2 s
         gripper.Send_gripper_data_pack()        # an empty frame: status only
         message, ids = bus.receive_can_messages(timeout=0.05)
@@ -38,6 +47,12 @@ for position in (200, 20, 200, 20):
                 break
 ```
 
+The answer to a move command is sent before the gripper acts on it, so it still carries the state from before:
+after a finished move, object detection 3. The example reads that answer and drops it. At the very start of a
+move the jaws are still slow, and with the current near its limit the object detection can briefly read 1 or 2;
+the pause of 0.1 s covers that. While the gripper calibration runs, send only empty frames: a full command or
+Send_Clear_Error ends the calibration, and the gripper stays uncalibrated.
+
 `Send_gripper_data_pack` with all seven arguments sends the move; without arguments it sends the empty status
 poll. `receive_can_messages` returns the raw `python-can` message and the node ID, command ID and error bit from
 the identifier; `UnpackData` fills the gripper attributes:
@@ -46,7 +61,7 @@ the identifier; `UnpackData` fills the gripper attributes:
 |---|---|
 | `gripper_position` | 0 open to 255 closed |
 | `gripper_current` | the motor current in mA |
-| `gripper_activated`, `gripper_action_status` | the activate flag; 1 while a move is in progress |
+| `gripper_activated`, `gripper_action_status` | the activate flag; the action bit of the last command, which stays 1 while the gripper holds |
 | `gripper_object_detection` | 0 moving, 1 object found while closing, 2 object found while opening, 3 at the position |
 | `gripper_temperature_error`, `gripper_timeout_error`, `gripper_estop_error` | the three error bits |
 | `gripper_calibrated` | the gripper calibration is done |
@@ -61,7 +76,8 @@ the identifier; `UnpackData` fills the gripper attributes:
 
 ```python
 gripper.Send_gripper_data_pack(20, 30, 300, 1, 1, 1, 0)   # the E-stop bit: stops, raises the E-stop error
-gripper.Send_Clear_Error()                                 # clears it; the next command must have the bit at 0
+gripper.Send_gripper_data_pack(20, 30, 300, 1, 0, 0, 0)   # to recover: first the bit back at 0, action 0
+gripper.Send_Clear_Error()                                 # then clear; while the bit is 1, the error comes back
 gripper.Send_Watchdog(500)                                 # from now on the gripper stops 500 ms after the last frame
 ```
 

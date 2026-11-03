@@ -40,5 +40,9 @@ Only `#Grippos` starts a move. A session:
 #Grippos 20
 ```
 
+Wait until `#Gripinfo` reports the gripper calibrated before the first `#Grippos`: a `#Grippos` or a `#Clear`
+during the calibration ends it. After `#Gripstop 1`, send `#Gripstop 0` before `#Clear`, or the E-stop error
+comes straight back.
+
 The [UART reference](https://docs.source-robotics.com/MSG-gripper-docs/1.1/reference/uart/) has these and the driver commands a gripper needs; the driver's
 whole command set is on the [STEPFOC site](https://docs.source-robotics.com/STEPFOC-docs/latest/reference/uart/).

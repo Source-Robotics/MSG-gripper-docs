@@ -16,9 +16,9 @@ every CAN frame it sends. The grip is released: an idle stepper holds nothing be
 |---|---|---|---|
 | Temperature | the gripper's temperature bit | the thermistor on the motor housing reads more than 75 °C (`#Tlim`) | let the motor cool; hold with less current |
 | Timeout | the gripper's timeout bit | the driver's CAN watchdog ran out: no valid frame within the time set by Send_Watchdog | the host stopped sending; fix the host, then clear |
-| E-stop | the gripper's E-stop bit | a move command with the E-stop bit set, or `#Gripstop 1` | clear, then send a command with the bit at 0: a command with the bit still set raises it again |
+| E-stop | the gripper's E-stop bit | a move command with the E-stop bit set, or `#Gripstop 1` | send a command with the bit at 0 (or `#Gripstop 0`), then clear: while the last command's bit is 1, a clear does not hold |
 | Not calibrated (motor) | State_of_Errors, `#Error` | the driver's own motor calibration is missing: a self-built gripper before [Driver configuration](https://docs.source-robotics.com/MSG-gripper-docs/1.1/build/first-run/), or after `#Default` | calibrate the motor |
-| Vbus | State_of_Errors | the supply is below 9 V or above 29.5 V | the supply, the cable |
+| Vbus | State_of_Errors | the supply is below 9 V or above the driver's `#Vmax` limit, 29 V after `#Default` | the supply, the cable |
 | Encoder | State_of_Errors | the driver's encoder does not see its magnet | the magnet on the stepper shaft (a self-built gripper) |
 | Driver | State_of_Errors | the driver stage's own protection tripped: overcurrent, overtemperature | lower the current; check the motor leads |
 | Velocity | State_of_Errors | the motor exceeded the driver's speed limit | unlikely in a gripper; clear |
@@ -30,10 +30,15 @@ has found the end stops.
 ## Clearing
 
 Send_Clear_Error, **Clear** in the GUI or `#Clear` clears every flag, the gripper's E-stop included, and goes to
-idle. An error whose cause is still present comes straight back: a hot motor, a supply that is still low. After
-an E-stop, the next move command must carry the E-stop bit at 0, or the error is raised again at once.
+idle. An error whose cause is still present comes straight back: a hot motor, a supply that is still low.
 
-After clearing, the gripper is idle and still calibrated and activated; the next move command moves it.
+The gripper's E-stop counts as such a cause while the E-stop bit of the last gripper command is 1: the driver
+raises the error again at every cycle. So after an E-stop, first send a gripper command with the E-stop bit at 0
+and the action bit at 0 (or `#Gripstop 0` over UART), then clear. The next command with the action bit set moves
+the gripper again.
+
+After clearing, the gripper is idle and still calibrated and activated; the next move command moves it. A clear
+sent while the gripper calibration runs ends the calibration, and the gripper stays uncalibrated.
 
 ## When the gripper does not answer
 

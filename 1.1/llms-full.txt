@@ -23,9 +23,9 @@ Full text of every page, in the order of the site's navigation. Source: https://
 
 **Firmware:** STEPFOC 108
 
-**Revision:** 2026.A (draft)
+**Revision:** 2026.A
 
-**Published:** —
+**Published:** 2026-11-03
 
 **Applies to:** MSG gripper release 1.1 with the STEPFOC driver PCB v1, STEPFOC firmware 108
 
@@ -61,7 +61,7 @@ picture a teleoperator and a learning model need.
     <button type="button" name="reset" class="md-button">Reset view</button>
   </div>
   <p class="gripper-viewer__hint">Drag to turn the gripper, scroll to zoom, open and close the jaws, try the colours. The model is the
-repository's <a href="https://github.com/Source-Robotics/MSG-compliant-AI-stepper-gripper/tree/main/MSG_gripper_description">URDF</a> of the 150 mm rail variant; the shop sells the body in black and grey.</p>
+gripper's URDF, the 150 mm rail variant; the current URDF and MuJoCo models are linked from the repository's <a href="https://github.com/Source-Robotics/MSG-compliant-AI-stepper-gripper/tree/main/msg_description">msg_description</a> guide. The shop sells the body in black and grey.</p>
 </div>
 
 <div class="grid cards" markdown>
@@ -168,9 +168,11 @@ The [illustrated Motor GUI guide](https://docs.source-robotics.com/MSG-gripper-d
 
 ## 5. Calibrate and activate
 
-With the stroke empty and the gripper deactivated, press **Calibrate**, read the prompt, and press
-**Start calibration**. Let the jaws find both end stops. Follow [Calibrate, activate, move](https://docs.source-robotics.com/MSG-gripper-docs/1.1/05-setup/first-moves/)
-for the full procedure, then **Activate** and check for faults.
+If the panel shows an error, press **Clear errors** first. With the stroke empty and the gripper deactivated,
+press **Calibrate**, read the prompt, and press **Start calibration**. Let the jaws find both end stops, and
+press nothing else until the panel says **Calibrated**: a move or a clear during the calibration ends it. Follow
+[Calibrate, activate, move](https://docs.source-robotics.com/MSG-gripper-docs/1.1/05-setup/first-moves/) for the full procedure, then **Activate** and check for
+faults.
 
 **Check:** the panel says **Calibrated**, **Activated**, and **No errors** before you command a move.
 A calibration that times out after 24 seconds has not found its end stops; do not continue as if it passed.
@@ -257,7 +259,7 @@ by any of these.
 
 | Revision | Date | Changes |
 |---|---|---|
-| 2026.A (draft) | — | First version in this form: the manual chapters, the generated CAN and UART reference; gripper release 1.1, firmware 108 |
+| 2026.A | 2026-11-03 | First version in this form: the manual chapters, the generated CAN and UART reference; gripper release 1.1, firmware 108 |
 
 
 ---
@@ -535,7 +537,8 @@ thermistor on its motor has no protection and can burn out its motor; see [Drive
 ## Stopping the gripper
 
 - The E-stop bit of the move command (`Send_gripper_data_pack`) stops the gripper and raises the gripper E-stop
-  error, which stays until it is cleared.
+  error. The error stays as long as the last command carries the bit: send a command with the bit at 0, then
+  clear it ([Errors and recovery](https://docs.source-robotics.com/MSG-gripper-docs/1.1/06-operation/errors/)).
 - `Send_ESTOP` to the driver, or `#Idle` over UART, stops it as well.
 - The CAN watchdog ([Send_Watchdog](https://docs.source-robotics.com/MSG-gripper-docs/1.1/reference/can/system/)) stops the gripper by itself when the host stops
   talking, which is the right protection for a program that may crash mid-grip.
@@ -602,7 +605,7 @@ newtons and millimetres per second, the connector and its pinout, and where the 
 | | Value |
 |---|---|
 | Stroke | 55 mm (100 mm rail), 105 mm (150 mm rail), 155 mm (200 mm rail) |
-| Mass | about 320 g; a longer rail or stepper adds to it |
+| Mass | about 380 g; a longer rail or stepper adds to it |
 | Position resolution | 1/255 of the stroke: 0.2 to 0.6 mm per step of the position byte |
 | Drive | NEMA 17 stepper, pinion (32 DP, 21 teeth, 8.3 mm pitch radius) on two racks, MGN7 linear rail |
 | Grip force | ideal combined force up to about 31 N (21.5 mm stepper), 50 N (40 mm) or 76 N (60 mm) at the stepper's maximum current; see the model assumptions in [Force and speed](https://docs.source-robotics.com/MSG-gripper-docs/1.1/03-technical-data/force-and-speed/) |
@@ -765,8 +768,8 @@ $$
 | 128 | 30400 ticks/s, 1.9 rev/s | 97 mm/s | 190 mm/s |
 | 255 | 60000 ticks/s, 3.7 rev/s | 190 mm/s | 380 mm/s |
 
-Both jaws move, so the gap closes at twice the speed of one jaw. At speed 255 a 105 mm stroke takes about half a
-second. The gripper calibration runs at speed 40 and 500 mA.
+Both jaws move, so the gap closes at twice the speed of one jaw. At speed 255 a 105 mm stroke takes about
+0.3 s. The gripper calibration runs at speed 40 and 500 mA.
 
 ## Position
 
@@ -838,7 +841,7 @@ driver's pinout is in the [STEPFOC documentation](https://docs.source-robotics.c
     <button type="button" name="reset" class="md-button">Reset view</button>
   </div>
   <p class="gripper-viewer__hint">Drag to turn the gripper, scroll to zoom, open and close the jaws, try the colours. The model is the
-repository's <a href="https://github.com/Source-Robotics/MSG-compliant-AI-stepper-gripper/tree/main/MSG_gripper_description">URDF</a> of the 150 mm rail variant; the shop sells the body in black and grey.</p>
+gripper's URDF, the 150 mm rail variant; the current URDF and MuJoCo models are linked from the repository's <a href="https://github.com/Source-Robotics/MSG-compliant-AI-stepper-gripper/tree/main/msg_description">msg_description</a> guide. The shop sells the body in black and grey.</p>
 </div>
 
 The gripper's dimensions depend on the rail and the stepper: the rail length sets the width (100, 150 or 200 mm
@@ -860,8 +863,10 @@ has to fit:
 
 ## For simulation
 
-The [MSG_gripper_description](https://github.com/Source-Robotics/MSG-compliant-AI-stepper-gripper/tree/main/MSG_gripper_description)
-folder has a URDF of the gripper for ROS 2 and Gazebo and an MJCF for MuJoCo 3.1.3 and newer, with a scene file.
+The product repository's [msg_description](https://github.com/Source-Robotics/MSG-compliant-AI-stepper-gripper/tree/main/msg_description)
+guide links the gripper's models, which are kept in [robot_descriptions](https://github.com/Source-Robotics/robot_descriptions):
+standalone URDF and MJCF (MuJoCo) packages of the gripper with solid or soft TPU jaws, with their meshes, collision
+shapes and mass properties, and the PAROL6 and PAR6 models with the gripper mounted.
 
 [CAD and downloads](https://docs.source-robotics.com/MSG-gripper-docs/1.1/cad-files/) lists everything that can be downloaded.
 
@@ -908,11 +913,12 @@ offers an 8 mm shaft takes the gripper this way.
 ## PAROL6
 
 For the PAROL6 wrist, replace `ring_cover` with `ring_cover-PAROL6` from the STEP files (`Common parts`): it bolts
-to the robot's last joint. The PAROL6 gripper cable then runs from the gripper to the robot's gripper port; see
-[The cable](https://docs.source-robotics.com/MSG-gripper-docs/1.1/04-installation/cable/) and [On PAROL6 and PAR6](https://docs.source-robotics.com/MSG-gripper-docs/1.1/06-operation/robots/).
+to the robot's last joint. Tighten the shaft coupler's two clamp screws with blue threadlocker. The PAROL6
+gripper cable then runs from the gripper to the robot's gripper port; see [The cable](https://docs.source-robotics.com/MSG-gripper-docs/1.1/04-installation/cable/) and
+[On PAROL6 and PAR6](https://docs.source-robotics.com/MSG-gripper-docs/1.1/06-operation/robots/), which also has the joint 5 homing offset.
 
 <figure markdown="span">
-  ![The PAROL6 ring cover](../assets/MSG with parol cover.webp){ width="600" }
+  ![The PAROL6 ring cover](https://docs.source-robotics.com/MSG-gripper-docs/1.1/assets/MSG_with_parol_cover.webp){ width="600" }
   <figcaption>Figure 9: The gripper with the PAROL6 ring cover (red).</figcaption>
 </figure>
 
@@ -1005,7 +1011,7 @@ motion, and keep it away from the jaws' travel.
 
 The jaws bolt to the two carriers on the rail and are yours to adapt. The product repository has three designs,
 all in [Gripper jaws attachment](https://github.com/Source-Robotics/MSG-compliant-AI-stepper-gripper/tree/main/STEP%20files/Gripper%20jaws%20attachment);
-each file is one jaw, mirrored in the slicer for the other side.
+each file is one jaw, mirrored in the slicer for the other side, except the solid jaw, which has a mirrored file.
 
 | Design | File | Use |
 |---|---|---|
@@ -1064,7 +1070,8 @@ ones change where 255 is. Calibrate again after a change, which happens at the n
 # CAN termination
 
 A CAN bus needs a 120 Ω resistor at each of its two ends. The gripper's driver has one, on a switch that is
-reachable through an opening in the stepper cover: **ON** connects the resistor, **1** disconnects it.
+reachable through an opening in the stepper cover: slide it to the **ON** mark to connect the resistor, away from
+it to disconnect it.
 
 <figure markdown="span">
   ![The termination switch through the stepper cover](https://docs.source-robotics.com/MSG-gripper-docs/1.1/assets/Gripper_termination.jpg){ width="700" }
@@ -1075,7 +1082,7 @@ reachable through an opening in the stepper cover: **ON** connects the resistor,
 |---|---|
 | the last node on a robot's bus, at the end of the arm | ON |
 | alone on a bench bus with the CANvas adapter (which has its own termination) | ON |
-| in the middle of a bus, with other nodes after it | 1 (off) |
+| in the middle of a bus, with other nodes after it | off |
 
 A bus with the right termination measures about 60 Ω between CANH and CANL with everything unpowered. A missing
 or doubled termination shows up as lost frames and a gripper that answers only sometimes.
@@ -1164,12 +1171,12 @@ SSG-48; MSG uses the same controls.
 
 | Control | What it does |
 |---|---|
-| **Calibrate** | runs the gripper calibration: the jaws travel the whole stroke to find the end stops. The panel asks you to confirm; deactivate the gripper and take everything out of the jaws first |
+| **Calibrate** | runs the gripper calibration: the jaws travel the whole stroke to find the end stops. The panel asks you to confirm; clear any error, deactivate the gripper and take everything out of the jaws first. Press nothing else until the panel says *Calibrated*: a move or **Clear errors** during the calibration ends it |
 | **Activate**, **Deactivate** | the activate bit: a calibrated gripper carries out moves only while it is activated |
 | *Position*, *Speed*, *Current*, each with **Set** | the move: position 0 (open) to 255 (closed), speed 0 to 255, current limit 0 to 1500 mA, which is the force. Each **Set** sends its value together with the other two as last sent |
 | **Open**, **Close** | a move to position 0 or 255 with the set speed and current |
 | **Stop** | ends the move where the jaws are |
-| **E-stop**, or ++esc++ | stops the gripper at once: the move command with the E-stop bit, after which the gripper reports the E-stop error until it is cleared |
+| **E-stop**, or ++esc++ | stops the gripper at once: the move command with the E-stop bit, after which the gripper reports the E-stop error until a command with the bit at 0 has been sent and the error cleared |
 | **Clear errors** | clears the errors; an error whose cause remains comes straight back |
 | Plots | position and current, live, with the requested position drawn in; the window and the scale are adjustable, and **Export CSV** saves a recorded run |
 | Events | the feedback rate and the recent gripper events, with **Export events** for diagnostics |
@@ -1215,7 +1222,7 @@ for a terminal.
 
 # Calibrate, activate, move
 
-Every session with the gripper starts the same way: calibrate, activate, clear what errors there are. Then it
+Every session with the gripper starts the same way: clear what errors there are, calibrate, activate. Then it
 moves. This page does it once with Motor GUI, with Python and over UART; [How the gripper works](https://docs.source-robotics.com/MSG-gripper-docs/1.1/06-operation/how-it-works/)
 explains what happens inside.
 
@@ -1228,19 +1235,41 @@ explains what happens inside.
 At power-up the gripper reports *Not calibrated* and does not move. Its stepper must be calibrated too, which a
 bought gripper is from the factory; a self-built gripper gets that in [Driver configuration](https://docs.source-robotics.com/MSG-gripper-docs/1.1/build/first-run/).
 
-## 2. Calibrate
+## 2. Clear errors
+
+The driver powers up in an error state until its motor is calibrated and it has run through its checks; an
+E-stop, an over-temperature or a supply fault leave an error too. A gripper with an error does not move, and
+does not calibrate either: clear first.
+
+=== "Motor GUI"
+    **Clear errors**, when the panel shows an error.
+
+=== "Python"
+    ```python
+    gripper.Send_Clear_Error()
+    ```
+
+=== "UART"
+    ```
+    #Clear
+    ```
+
+An error whose cause is still present comes straight back; after an E-stop, send a command with the E-stop bit
+at 0 before you clear. [Errors and recovery](https://docs.source-robotics.com/MSG-gripper-docs/1.1/06-operation/errors/) says what each needs.
+
+## 3. Calibrate
 
 The gripper calibration finds the two end stops: the jaws open fully, pause, then close fully, at low force
 (500 mA) and low speed. Each end is recognised when the jaws have stood still against it for half a second. It
 takes about ten seconds; the result is not kept over a power cycle, so this runs at every power-up.
 
 === "Motor GUI"
-    **Calibrate**, and confirm. When the jaws stop, the panel shows *Calibrated*.
+    **Calibrate**, and confirm. When the jaws stop, the panel shows *Calibrated*; press nothing else until then.
 
 === "Python"
     ```python
     gripper.Send_gripper_calibrate()
-    time.sleep(10)
+    time.sleep(10)       # send nothing meanwhile; With Python waits for the calibrated bit instead
     ```
 
 === "UART"
@@ -1249,10 +1278,13 @@ takes about ten seconds; the result is not kept over a power cycle, so this runs
     ```
 
 If the jaws do not move at all, or move to one end and stop: the gripper is in an error state (clear it first, see
-step 4), or the stepper is not calibrated. If the routine runs for 24 seconds and gives up, an end stop was not
+step 2), or the stepper is not calibrated. If the routine runs for 24 seconds and gives up, an end stop was not
 found: something blocks the jaws short of the end, or the mechanism is too stiff for 500 mA.
 
-## 3. Activate
+Until the gripper reports *Calibrated*, send nothing but status polls: a move command or a clear during the
+calibration ends it, and the gripper stays uncalibrated.
+
+## 4. Activate
 
 A calibrated gripper carries out a move only while it is activated.
 
@@ -1269,27 +1301,6 @@ A calibrated gripper carries out a move only while it is activated.
 
 === "UART"
     `#Grippos` activates by itself; `#Gripact 1` activates without moving.
-
-## 4. Clear errors
-
-The driver powers up in an error state until its motor is calibrated and it has run through its checks; an
-E-stop, an over-temperature or a supply fault leave an error too. A gripper with an error does not move.
-
-=== "Motor GUI"
-    **Clear errors**, when the panel shows an error.
-
-=== "Python"
-    ```python
-    gripper.Send_Clear_Error()
-    ```
-
-=== "UART"
-    ```
-    #Clear
-    ```
-
-An error whose cause is still present comes straight back; [Errors and recovery](https://docs.source-robotics.com/MSG-gripper-docs/1.1/06-operation/errors/) says
-what each needs.
 
 ## 5. Move
 
@@ -1367,13 +1378,16 @@ stateDiagram-v2
     [*] --> NotCalibrated: power-up
     NotCalibrated --> Calibrating: Send_gripper_calibrate / #Gripcal
     Calibrating --> Calibrated: both end stops found
-    Calibrating --> NotCalibrated: 24 s without an end stop
+    Calibrating --> NotCalibrated: not done in 24 s, or a full command or a clear
     Calibrated --> Moving: command with activate = 1, action = 1
     Moving --> Holding: object found, or position reached
     Holding --> Moving: a different command
-    Moving --> Idle: error, E-stop, action = 0
-    Holding --> Idle: error, E-stop, action = 0
-    Idle --> Moving: command, errors cleared
+    Moving --> Stopped: action = 0 or activate = 0
+    Holding --> Stopped: action = 0 or activate = 0
+    Stopped --> Moving: command with action = 1
+    Moving --> Idle: error, E-stop, clear
+    Holding --> Idle: error, E-stop, clear
+    Idle --> Moving: errors cleared, then a command
 ```
 
 **Not calibrated**
@@ -1387,8 +1401,11 @@ stateDiagram-v2
 - The jaws open at speed 40 and 500 mA until they have stood still against the end stop for half a second.
 - They pause briefly, then close the same way.
 - The two end positions become 0 (open) and 255 (closed).
-- If an end stop is not found within 24 seconds, the routine gives up and the gripper stays uncalibrated.
-- Nothing else is accepted while it runs; the action bit of the status reads 0.
+- If the whole routine has not found both end stops within 24 seconds of its start, it gives up and the
+  gripper stays uncalibrated.
+- While it runs, send only empty Send_gripper_data_pack frames, the status poll. A full gripper command or
+  Send_Clear_Error ends the calibration where it is, and the gripper stays uncalibrated.
+- Send_gripper_calibrate has no answer; the calibrated bit of the status turns 1 when the routine is done.
 
 **Moving**
 
@@ -1406,11 +1423,18 @@ stateDiagram-v2
   opening.
 - Either way, nothing moves until a different command arrives.
 
+**Stopped**
+
+- A command with the action bit at 0, or with the activate bit at 0, stops the move.
+- The driver keeps the jaws still: it runs its velocity loop at zero speed with the command's current limit, so
+  the jaws resist being moved, and the object detection keeps reporting.
+- The next command with the activate and action bits set moves the jaws again.
+
 **Idle**
 
-- An error, the E-stop bit, or a command with the action bit at 0 takes the gripper to idle.
+- An error, the E-stop bit, Send_Clear_Error, Send_Idle or `#Idle` takes the gripper to idle.
 - The motor is no longer driven and holds nothing beyond the mechanism's friction, so an object can slip.
-- Clearing the error, or the next command with the action bit set, moves it again.
+- After an error, clear it; then the next command with the action bit set moves the gripper again.
 
 ## The command
 
@@ -1421,9 +1445,9 @@ Send_gripper_data_pack carries, in 5 bytes:
 | Position | 0 to 255 | 0 fully open, 255 fully closed, linear over the stroke |
 | Speed | 0 to 255 | 1.6 to 190 mm/s at each jaw, linear (500 to 60000 encoder ticks per second); see [Force and speed](https://docs.source-robotics.com/MSG-gripper-docs/1.1/03-technical-data/force-and-speed/) |
 | Current | mA | the current limit of the move, so the grip force; not clamped by the firmware |
-| Activate | bit | 1 activates the gripper; 0 deactivates it, and it stops |
-| Action | bit | 1 carries out the move; 0 stores the command and leaves the gripper idle |
-| E-stop | bit | 1 stops the gripper and raises the E-stop error |
+| Activate | bit | 1 activates the gripper; 0 deactivates it: the move stops and the jaws are held still |
+| Action | bit | 1 carries out the move; 0 stores the command and holds the jaws still where they are |
+| E-stop | bit | 1 stops the gripper and raises the E-stop error, again at every cycle while the bit stays 1 |
 | Release direction | bit | read by the firmware but not used |
 
 The same command sent twice does nothing new: the driver compares every command with the previous one, and only
@@ -1446,12 +1470,16 @@ Every Send_gripper_data_pack is answered with Respond_Gripper_data_pack, 4 bytes
 | Position | where the jaws are, 0 to 255 |
 | Current | the motor current, mA; positive while opening, negative while closing |
 | Activated | the activate flag |
-| Action status | 1 while a move is in progress, 0 when idle, holding, or calibrating |
+| Action status | the action bit of the last command, as received; it stays 1 while the gripper holds, and the calibration does not change it |
 | Object detection | 0 moving, 1 object found while closing, 2 object found while opening, 3 at the position |
 | Temperature error | the motor's thermistor is above the limit |
 | Timeout error | the driver's CAN watchdog ran out |
 | E-stop error | the E-stop bit was received |
 | Calibrated | the gripper calibration is done |
+
+The answer to a full command is sent before the gripper acts on that command, so it still carries the state from
+before it; the answers to the polls that follow show the move. To follow a move, use the object detection: the
+action status only repeats the bit you sent.
 
 The bits are listed in [Errors and status bits](https://docs.source-robotics.com/MSG-gripper-docs/1.1/reference/errors/), with the byte layout in the
 [CAN reference](https://docs.source-robotics.com/MSG-gripper-docs/1.1/reference/can/gripper/).
@@ -1466,11 +1494,13 @@ sequenceDiagram
     participant G as Gripper
     H->>G: Send_Clear_Error
     H->>G: Send_gripper_calibrate
-    G-->>H: status: calibrating (action status 0)
     Note over G: the jaws open, pause, close: 0 and 255 are found
-    G-->>H: status: calibrated
+    loop only empty Send_gripper_data_pack frames, until calibrated
+        H->>G: (0 bytes)
+        G-->>H: answer: calibrated 0, at the end 1
+    end
     H->>G: Send_gripper_data_pack(200, 30, 400, activate 1, action 1)
-    G-->>H: answer: moving (object detection 0)
+    G-->>H: answer: still the state from before the move
     loop every 20 ms, an empty Send_gripper_data_pack
         H->>G: (0 bytes)
         G-->>H: answer: position, current, state
@@ -1484,8 +1514,10 @@ sequenceDiagram
 While a move is in progress and the jaws are not yet at the target, the driver reads *moving* (0) as long as the
 jaws move faster than 500 encoder ticks per second, about 1.6 mm/s. When they are slower than that and the motor
 current is above 80 % of the commanded limit, something stops them: *object found*, 1 or 2 by the sign of the
-current. Below 80 % with the jaws slow, it still reads *moving*: the jaws are accelerating or the object is soft
-and still being squeezed. Once the target is reached, 3, and it stays 3 until a different command arrives.
+current. Below 80 % with the jaws slow, it still reads *moving*: the object is soft and still being squeezed.
+At the very start of a move the jaws are slow too, and with the current already near its limit the state can
+briefly read 1 or 2; a host gives a move about 100 ms before it trusts the state. Once the target is reached, 3,
+and it stays 3 until a different command arrives.
 
 The state is therefore a snapshot of each answer. A host that wants to know "did the grip succeed" sends the move,
 then polls until the state is 1, 2 or 3, with a timeout of its own; the ROS 2 driver and the PAROL6 software do
@@ -1556,14 +1588,36 @@ gripper does not need, are on the [STEPFOC site](https://docs.source-robotics.co
 ## A control loop
 
 1. At power-up: Send_Clear_Error, then Send_gripper_calibrate; poll with empty Send_gripper_data_pack frames
-   until the calibrated bit is 1 (about ten seconds).
+   until the calibrated bit is 1 (up to about ten seconds; the routine gives up after 24 s). Send nothing else
+   meanwhile.
 2. For each grip: one Send_gripper_data_pack with the position, speed and current and the activate and action
-   bits set; then poll with empty frames until the object-detection field reads 1, 2 or 3, or your own timeout
-   passes.
+   bits set. Its answer still carries the state from before it; ignore it. Then poll with empty frames until
+   the object-detection field reads 1, 2 or 3, or your own timeout passes.
 3. Keep polling at a steady rate (50 Hz is plenty) if you set the watchdog: every frame resets it, and the gripper
    stops by itself when your program stops.
 
 The answer to every frame tells the whole state, so a host never has to ask twice.
+
+## Host checklist
+
+- **Clear, then calibrate.** With an error active, the driver drops the calibration request; a clear sent during
+  the calibration ends it.
+- **During the calibration, only empty frames.** A full Send_gripper_data_pack ends the calibration as well, and
+  the gripper stays uncalibrated. Wait for the calibrated bit; the routine gives up after 24 s.
+- **The first answer is old.** The answer to a full command is sent before the gripper acts on it. Ignore it,
+  and give the move about 100 ms before you trust the object detection: at the start of a move the jaws are
+  slow, which can briefly read as an object found.
+- **The action status repeats your bit.** It is the action bit you last sent and stays 1 while the gripper
+  holds. Follow a move by its object detection.
+- **An identical command does nothing.** To repeat a move to the position the gripper holds, change the speed
+  or the current by one.
+- **E-stop recovery:** first a command with the E-stop bit at 0 (and the action bit at 0), then
+  Send_Clear_Error. While the last command carries the E-stop bit, a clear does not hold.
+- **Watchdog:** with Send_Watchdog set, keep the polls coming. The gripper commands and the status requests
+  reset it; Send_Clear_Error and Send_gripper_calibrate do not. After a timeout, fix the host, clear, and
+  resume.
+- **Current:** keep the commanded current within the stepper's maximum, 1.5, 2.0 or 2.1 A; the firmware does
+  not clamp it ([Force and speed](https://docs.source-robotics.com/MSG-gripper-docs/1.1/03-technical-data/force-and-speed/)).
 
 ## From a PC
 
@@ -1625,6 +1679,10 @@ Only `#Grippos` starts a move. A session:
 #Grippos 20
 ```
 
+Wait until `#Gripinfo` reports the gripper calibrated before the first `#Grippos`: a `#Grippos` or a `#Clear`
+during the calibration ends it. After `#Gripstop 1`, send `#Gripstop 0` before `#Clear`, or the E-stop error
+comes straight back.
+
 The [UART reference](https://docs.source-robotics.com/MSG-gripper-docs/1.1/reference/uart/) has these and the driver commands a gripper needs; the driver's
 whole command set is on the [STEPFOC site](https://docs.source-robotics.com/STEPFOC-docs/latest/reference/uart/).
 
@@ -1656,13 +1714,22 @@ import time
 bus = Spectral.CanCommunication(bustype='slcan', channel='COM20', bitrate=1000000)
 gripper = Spectral.SpectralCAN(node_id=0, communication=bus)
 
-gripper.Send_Clear_Error()
-gripper.Send_gripper_calibrate()
-time.sleep(10)                                  # the jaws open fully, then close fully
+gripper.Send_Clear_Error()                      # clear first: with an error active, the calibration does not run
+gripper.Send_gripper_calibrate()                # the jaws open fully, then close fully
+for _ in range(120):                            # wait for the calibrated bit, up to 24 s
+    time.sleep(0.2)
+    gripper.Send_gripper_data_pack()            # only empty frames now: a move or a clear ends the calibration
+    message, ids = bus.receive_can_messages(timeout=0.05)
+    if message is not None:
+        gripper.UnpackData(message, ids)
+        if gripper.gripper_calibrated:
+            break
 
 for position in (200, 20, 200, 20):
     # position 0..255, speed 0..255, current mA, activate, action, E-stop, release direction
     gripper.Send_gripper_data_pack(position, 30, 300, 1, 1, 0, 0)
+    bus.receive_can_messages(timeout=0.05)      # its answer still carries the state from before the move
+    time.sleep(0.1)                             # give the move time to start
     for _ in range(40):                         # poll the state for up to 2 s
         gripper.Send_gripper_data_pack()        # an empty frame: status only
         message, ids = bus.receive_can_messages(timeout=0.05)
@@ -1673,6 +1740,12 @@ for position in (200, 20, 200, 20):
                 break
 ```
 
+The answer to a move command is sent before the gripper acts on it, so it still carries the state from before:
+after a finished move, object detection 3. The example reads that answer and drops it. At the very start of a
+move the jaws are still slow, and with the current near its limit the object detection can briefly read 1 or 2;
+the pause of 0.1 s covers that. While the gripper calibration runs, send only empty frames: a full command or
+Send_Clear_Error ends the calibration, and the gripper stays uncalibrated.
+
 `Send_gripper_data_pack` with all seven arguments sends the move; without arguments it sends the empty status
 poll. `receive_can_messages` returns the raw `python-can` message and the node ID, command ID and error bit from
 the identifier; `UnpackData` fills the gripper attributes:
@@ -1681,7 +1754,7 @@ the identifier; `UnpackData` fills the gripper attributes:
 |---|---|
 | `gripper_position` | 0 open to 255 closed |
 | `gripper_current` | the motor current in mA |
-| `gripper_activated`, `gripper_action_status` | the activate flag; 1 while a move is in progress |
+| `gripper_activated`, `gripper_action_status` | the activate flag; the action bit of the last command, which stays 1 while the gripper holds |
 | `gripper_object_detection` | 0 moving, 1 object found while closing, 2 object found while opening, 3 at the position |
 | `gripper_temperature_error`, `gripper_timeout_error`, `gripper_estop_error` | the three error bits |
 | `gripper_calibrated` | the gripper calibration is done |
@@ -1696,7 +1769,8 @@ the identifier; `UnpackData` fills the gripper attributes:
 
 ```python
 gripper.Send_gripper_data_pack(20, 30, 300, 1, 1, 1, 0)   # the E-stop bit: stops, raises the E-stop error
-gripper.Send_Clear_Error()                                 # clears it; the next command must have the bit at 0
+gripper.Send_gripper_data_pack(20, 30, 300, 1, 0, 0, 0)   # to recover: first the bit back at 0, action 0
+gripper.Send_Clear_Error()                                 # then clear; while the bit is 1, the error comes back
 gripper.Send_Watchdog(500)                                 # from now on the gripper stops 500 ms after the last frame
 ```
 
@@ -1769,8 +1843,11 @@ package, written for the SSG-48 gripper, speaks the same protocol and should wor
 
 ## The description files
 
-The URDF and the MJCF of the gripper for ROS 2, Gazebo and MuJoCo are in the product repository's
-[MSG_gripper_description](https://github.com/Source-Robotics/MSG-compliant-AI-stepper-gripper/tree/main/MSG_gripper_description).
+The gripper's standalone URDF and MJCF (MuJoCo) packages, with solid or soft TPU jaws, come from
+[robot_descriptions](https://github.com/Source-Robotics/robot_descriptions); the product repository's
+[msg_description](https://github.com/Source-Robotics/MSG-compliant-AI-stepper-gripper/tree/main/msg_description) guide links the
+downloads and says how to open them. Its display launch file is for ROS 1; in ROS 2, load the URDF with a launch
+file of your own.
 
 
 ---
@@ -1784,24 +1861,67 @@ it, moves it and reads its state, so a program for the robot does not talk CAN i
 
 ## PAROL6
 
-1. Mount the gripper with the `ring_cover-PAROL6` part ([Mounting on a robot](https://docs.source-robotics.com/MSG-gripper-docs/1.1/04-installation/mounting/)).
-2. Connect it with the [PAROL6 gripper cable](https://source-robotics.com/products/gripper-cable) to the
-   robot's gripper port. Only this cable: the PAR6 cable is wired differently and destroys the gripper
+### Mounting and connecting
+
+1. Replace the gripper's `ring_cover` with `ring_cover-PAROL6` from the STEP files' `Common parts`
+   ([Mounting on a robot](https://docs.source-robotics.com/MSG-gripper-docs/1.1/04-installation/mounting/)). It bolts to the robot's last joint, and the coupler
+   plate's shaft coupler (8 mm bore, two M4 clamp screws) takes the joint 6 shaft.
+2. Slide the gripper onto the shaft with the camera looking down between the jaws, and tighten the two clamp
+   screws with blue threadlocker.
+3. Connect the [PAROL6 gripper cable](https://source-robotics.com/products/gripper-cable) between the gripper and
+   the M8 connector at the forearm. Only this cable: the PAR6 cable is wired differently and destroys the gripper
    ([The cable](https://docs.source-robotics.com/MSG-gripper-docs/1.1/04-installation/cable/)).
-3. Keep the gripper's node ID at 0 and set its termination switch ON; it is the last node on the robot's bus.
+4. Route the camera's USB cable outside the arm, with slack for joints 4, 5 and 6, and fix it so that the arm
+   cannot catch it.
+5. Keep the gripper's node ID at 0 and set its termination switch ON; it is the last node on the robot's bus.
 
-The PAROL6 commander software has the electric gripper's controls: calibrate, then a position, a speed and a
-current for a move, and the gripper's status. The PAROL6 Python API drives it as a tool, from a program:
+### The joint 5 homing offset
 
-```python
-rbt.select_tool("MSG", variant_key="150mm")           # the parol6 package; 100mm, 150mm or 200mm, the rail
-rbt.tool.calibrate()                                   # queued with the motion; lasts a few seconds
-rbt.tool.set_position(0.8, speed=0.5, current=0.4)     # fractions of the ranges
-print(rbt.tool.status())
-```
+Joint 5 homes against the tool, and the control board firmware's default offset (8900) is for the pneumatic
+gripper holder, not for the MSG's ring cover. After the first homing, check joint 5 with the pin through its
+witness marks. If it is off, measure the offset and set `j5_homing_offset` in `main.cpp` of the control board
+firmware, as the PAROL6 documentation's mastering page describes.
+
+### Driving it
+
+The gripper calibrates after every power-up and does not move before that. Clear the gripper's errors first, then
+calibrate, then wait until the calibration is done, up to about ten seconds: a gripper move or a clear sent while
+it runs ends the calibration.
+
+=== "Commander software"
+    The **Gripper** tab: after homing the robot, press **Clear gripper error**, then **Calibrate gripper**, and
+    wait until the status says calibrated. Then set the position, speed and current with the sliders and press
+    **Move GoTo**. In RBTscript: `Gripper_cal()`, `Delay(10)`, then `Gripper(position, speed, current)`, with the
+    current in mA.
+
+=== "Python API"
+    ```python
+    import time
+
+    rbt.select_tool("MSG", variant_key="150mm")           # the parol6 package; 100mm, 150mm or 200mm: the rail
+    rbt.tool.calibrate()                                   # with the robot at rest
+    time.sleep(10)                                         # the calibration takes up to about ten seconds
+    rbt.tool.set_position(0.8, speed=0.5, current=0.4)     # fractions; current 0.4 is 1180 mA
+    print(rbt.tool.status())
+    ```
+
+    The API allows the calibration 2 s before it sends the next gripper action, which is too short for the MSG;
+    the pause above waits for the calibration to finish.
+
+The Python API's `current` is a fraction of the range 100 to 2800 mA: the gripper gets 100 + 2700 × `current` mA,
+so 1.0 is 2800 mA, more than any of the steppers takes. Keep it within the stepper's maximum
+([Force and speed](https://docs.source-robotics.com/MSG-gripper-docs/1.1/03-technical-data/force-and-speed/)):
+
+| Stepper | Maximum current | Largest `current` |
+|---|---|---|
+| 21.5 mm | 1.5 A | 0.51 |
+| 40 mm | 2.0 A | 0.70 |
+| 60 mm | 2.1 A | 0.74 |
+
+`position` and `speed` are fractions of the position and speed bytes: 0.8 is position 204, 0.5 is speed 128.
 
 The [PAROL6 documentation](https://docs.source-robotics.com/PAROL-docs/) covers the robot's side: the gripper
-port, the commander software and the API.
+port, the commander software, the API and the tool centre point.
 
 ## PAR6
 
@@ -1838,9 +1958,9 @@ every CAN frame it sends. The grip is released: an idle stepper holds nothing be
 |---|---|---|---|
 | Temperature | the gripper's temperature bit | the thermistor on the motor housing reads more than 75 °C (`#Tlim`) | let the motor cool; hold with less current |
 | Timeout | the gripper's timeout bit | the driver's CAN watchdog ran out: no valid frame within the time set by Send_Watchdog | the host stopped sending; fix the host, then clear |
-| E-stop | the gripper's E-stop bit | a move command with the E-stop bit set, or `#Gripstop 1` | clear, then send a command with the bit at 0: a command with the bit still set raises it again |
+| E-stop | the gripper's E-stop bit | a move command with the E-stop bit set, or `#Gripstop 1` | send a command with the bit at 0 (or `#Gripstop 0`), then clear: while the last command's bit is 1, a clear does not hold |
 | Not calibrated (motor) | State_of_Errors, `#Error` | the driver's own motor calibration is missing: a self-built gripper before [Driver configuration](https://docs.source-robotics.com/MSG-gripper-docs/1.1/build/first-run/), or after `#Default` | calibrate the motor |
-| Vbus | State_of_Errors | the supply is below 9 V or above 29.5 V | the supply, the cable |
+| Vbus | State_of_Errors | the supply is below 9 V or above the driver's `#Vmax` limit, 29 V after `#Default` | the supply, the cable |
 | Encoder | State_of_Errors | the driver's encoder does not see its magnet | the magnet on the stepper shaft (a self-built gripper) |
 | Driver | State_of_Errors | the driver stage's own protection tripped: overcurrent, overtemperature | lower the current; check the motor leads |
 | Velocity | State_of_Errors | the motor exceeded the driver's speed limit | unlikely in a gripper; clear |
@@ -1852,10 +1972,15 @@ has found the end stops.
 ## Clearing
 
 Send_Clear_Error, **Clear** in the GUI or `#Clear` clears every flag, the gripper's E-stop included, and goes to
-idle. An error whose cause is still present comes straight back: a hot motor, a supply that is still low. After
-an E-stop, the next move command must carry the E-stop bit at 0, or the error is raised again at once.
+idle. An error whose cause is still present comes straight back: a hot motor, a supply that is still low.
 
-After clearing, the gripper is idle and still calibrated and activated; the next move command moves it.
+The gripper's E-stop counts as such a cause while the E-stop bit of the last gripper command is 1: the driver
+raises the error again at every cycle. So after an E-stop, first send a gripper command with the E-stop bit at 0
+and the action bit at 0 (or `#Gripstop 0` over UART), then clear. The next command with the action bit set moves
+the gripper again.
+
+After clearing, the gripper is idle and still calibrated and activated; the next move command moves it. A clear
+sent while the gripper calibration runs ends the calibration, and the gripper stays uncalibrated.
 
 ## When the gripper does not answer
 
@@ -2026,9 +2151,9 @@ gripper without the thermistor on its motor has no such protection.
 
 ## After a firmware update
 
-If the gripper does not calibrate or behaves oddly after an update, check the driver's configuration with
-`#Info` over UART: gripper mode (`#Gripper 1`), the thermistor (`#Term 1`), the motor calibration. A release note
-says when an update clears the configuration; [Driver configuration](https://docs.source-robotics.com/MSG-gripper-docs/1.1/build/first-run/) restores
+If the gripper does not calibrate or behaves oddly after an update, check the driver's configuration over UART:
+`#Gripper` (gripper mode, 1), `#Term` (the thermistor, 1) and `#Info` (the motor calibration and parameters). A
+release note says when an update clears the configuration; [Driver configuration](https://docs.source-robotics.com/MSG-gripper-docs/1.1/build/first-run/) restores
 it.
 
 ## Getting help
@@ -2159,6 +2284,7 @@ This BOM lists all components required to build the MSG gripper. Quantities are 
     **PAROL6 and PAR6 robots use different cables for SSG48 and MSG grippers. Using incorrect one can damage your robot**
 
 Official cables from Source Robotics: 
+
 - [PAROL6 cable](https://source-robotics.com/products/gripper-cable)
 - PAR6 cable - Coming soon
 
@@ -2203,13 +2329,14 @@ folder has the same parts as 3MF, ready to slice.
 
 ## The jaws
 
-Two kinds, both in `Gripper jaws attachment`; mirror the file in the slicer for the other side:
+Two kinds, both in `Gripper jaws attachment`; mirror the file in the slicer for the other side, except the solid
+jaw, which has a mirrored file:
 
 - **TPU jaws** (recommended): a PETG body, `MSG_JAW_TPU_GLUE`, and a soft TPU pad printed separately and glued
   on. The pad deforms around the object for a gentler, surer grip. Print the pad with **16 % infill, no top or
   bottom layers and 2 walls** for the softest grip; the body with the normal settings.
-- **Solid jaws**: `MSG_SOLID_JAW` in one piece, or `MSG_JAW_HOLLOW` for a two-colour print; `MSG_JAW_TPU_GLUE`
-  prints solid too.
+- **Solid jaws**: `MSG_solid_jaw` and `MSG_solid_jaw_mirror` in one piece, or `MSG_JAW_HOLLOW` for a two-colour
+  print; `MSG_JAW_TPU_GLUE` prints solid too.
 
 <figure markdown="span">
   ![The TPU jaw in the slicer](https://docs.source-robotics.com/MSG-gripper-docs/1.1/assets/jaw_slicer1.webp){ width="520" }
@@ -2232,9 +2359,9 @@ is the original.
 The assembly is shown in the repository's video; a PDF manual is in preparation. Watch the video once before you
 start, with the parts in front of you.
 
-<iframe width="100%" height="460" src="https://www.youtube-nocookie.com/embed/oAUhDKYgLso" title="MSG gripper assembly" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="100%" height="460" src="https://www.youtube-nocookie.com/embed/EosuDy-heqM" title="MSG gripper assembly" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-[Open the video on YouTube](https://youtu.be/oAUhDKYgLso)
+[Open the video on YouTube](https://youtu.be/EosuDy-heqM)
 
 ## The order
 
@@ -2314,8 +2441,8 @@ then enter the stepper's parameters and calibrate:
 
 The motor turns, the driver prints each step and ends with `Calibration success!`. The whole routine and its
 messages are in [Calibration](https://docs.source-robotics.com/STEPFOC-docs/latest/05-setup/calibration/) on
-the STEPFOC site. `#Default` also resets the serial number the driver reports; note what `#Info` printed if you
-need it.
+the STEPFOC site. `#Default` also resets the serial number the driver reports; note what `#SERNUM` prints before
+you start if you need it.
 
 ## 2. The gripper settings
 
@@ -2357,8 +2484,7 @@ firmware does not clamp it.
 
 # Performance tests
 
-Thermal tests of the MSG gripper under different conditions. The thermal limit is 75 °C at the thermistor on the
-motor housing.
+A thermal test of the MSG gripper. The thermal limit is 75 °C at the thermistor on the motor housing.
 
 !!! warning
     A gripper built without the thermistor on its motor has no temperature protection and can damage its motor
@@ -2370,22 +2496,6 @@ motor housing.
 - 7 days without interruption
 - Motor temperature: 42 °C
 - Ambient temperature: 33 °C
-
-## Holding at a constant current
-
-- Hold an object at a constant current for 24 hours
-- Current setpoint: to be published
-- Stable motor temperature: to be published
-- Ambient temperature: to be published
-
-## The current that trips the thermal limit
-
-- Hold an object at a high current until the temperature error trips
-- Current setpoint and the time to the error: to be published
-- Ambient temperature: to be published
-
-The results of the two open tests, and the measured force-against-current curves for the three steppers, will be
-added here as they are made.
 
 
 ---
@@ -2538,7 +2648,8 @@ Send_Respond_Device_Info returns the firmware release a gripper runs; `#Info` pr
 # Glossary
 
 **Action bit**
-:   A bit of the move command: 1 carries out the move, 0 leaves the gripper idle with the command stored.
+:   A bit of the move command: 1 carries out the move, 0 stops the move and holds the jaws still, with the
+    command stored. The action status of the answer repeats this bit.
 
 **Activated**
 :   A flag the gripper keeps, set by the activate bit of the move command or by `#Gripact`. A move is carried out
@@ -2561,8 +2672,8 @@ Send_Respond_Device_Info returns the firmware release a gripper runs; `#Info` pr
     machine and the CAN and UART interfaces. The gripper's firmware is the driver's firmware.
 
 **E-stop bit**
-:   A bit of the move command. 1 stops the gripper and raises the gripper E-stop error, which stays until it is
-    cleared and a command with the bit at 0 arrives.
+:   A bit of the move command. 1 stops the gripper and raises the gripper E-stop error, which comes back at every
+    cycle while the last command's bit is 1: send a command with the bit at 0, then clear the error.
 
 **Error bit**
 :   Bit 0 of every CAN frame identifier the driver sends: 1 while any error is active.
@@ -2605,15 +2716,16 @@ Send_Respond_Device_Info returns the firmware release a gripper runs; `#Info` pr
 :   The speed of a move, 0 to 255, mapped by the firmware to 500 to 60000 encoder ticks per second of the motor.
 
 **Stroke**
-:   How far each jaw carrier travels from fully open to fully closed: 55, 105 or 155 mm, set by the rail length.
+:   How much the distance between the jaw carriers changes from fully open to fully closed: 55, 105 or 155 mm,
+    set by the rail length. Each jaw travels half of it.
 
 **Timeout error** (watchdog)
-:   The driver's CAN watchdog, as the gripper reports it: when the watchdog is set (`Send_Watchdog`) and no valid
-    frame arrives in time, the gripper stops and raises it.
+:   The driver's CAN watchdog, as the gripper reports it: when the watchdog is set (`Send_Watchdog`) and no
+    gripper command or status request arrives in time, the gripper stops and raises it.
 
 **Watchdog**
-:   A timer the driver resets with every valid CAN frame it receives. When it is set and runs out, the gripper
-    reports a timeout error and stops.
+:   A timer the driver resets with every gripper command (full or empty) and every status request it receives.
+    When it is set and runs out, the gripper reports a timeout error and stops.
 
 
 ---
@@ -2628,9 +2740,9 @@ Send_Respond_Device_Info returns the firmware release a gripper runs; `#Info` pr
 | Print files (3MF) for the body, the covers and the jaws | [Print files](https://github.com/Source-Robotics/MSG-compliant-AI-stepper-gripper/tree/main/Print%20files) |
 | Jaw designs: solid, hollow, with a TPU pad | [Gripper jaws attachment](https://github.com/Source-Robotics/MSG-compliant-AI-stepper-gripper/tree/main/STEP%20files/Gripper%20jaws%20attachment) |
 | Bill of materials | [BOM.md](https://github.com/Source-Robotics/MSG-compliant-AI-stepper-gripper/blob/main/BOM.md) |
-| Assembly video | [YouTube](https://youtu.be/oAUhDKYgLso) |
+| Assembly video | [YouTube](https://youtu.be/EosuDy-heqM) |
 | Cable wiring diagrams | [Building_cables.md](https://github.com/Source-Robotics/MSG-compliant-AI-stepper-gripper/blob/main/Assembly%20manual/Building_cables.md) |
-| URDF and MJCF description for ROS 2, Gazebo and MuJoCo | [MSG_gripper_description](https://github.com/Source-Robotics/MSG-compliant-AI-stepper-gripper/tree/main/MSG_gripper_description) |
+| URDF and MJCF (MuJoCo) models, standalone and on PAROL6 and PAR6 | the [msg_description](https://github.com/Source-Robotics/MSG-compliant-AI-stepper-gripper/tree/main/msg_description) guide; the files are in [robot_descriptions](https://github.com/Source-Robotics/robot_descriptions) |
 | The driver's firmware (the gripper's firmware) and its releases | [STEPFOC-stepper-controller](https://github.com/Source-Robotics/STEPFOC-stepper-controller), [Releases](https://github.com/Source-Robotics/STEPFOC-stepper-controller/releases) |
 | The driver's documentation | [docs.source-robotics.com/STEPFOC-docs](https://docs.source-robotics.com/STEPFOC-docs/) |
 | Python library | [Spectral-BLDC-Python](https://github.com/Source-Robotics/Spectral-BLDC-Python), `pip install Spectral-BLDC` |
@@ -2802,7 +2914,7 @@ explains what the gripper does with them.
 
 <div class="cmd-facts" markdown><span class="fact">ID 61</span><span class="fact">host → driver</span><span class="fact">0 or 5 bytes</span><span class="fact">Python: `Send_gripper_data_pack()`</span></div>
 
-The gripper command, for a driver set up as a gripper (`#Gripper 1`, saved). Position, speed and the current limit of the move, plus the activate, action and E-stop bits. A move is carried out only while the gripper is calibrated, activated and the action bit is 1. An empty frame (0 bytes) only asks for the state.
+The gripper command, for a driver set up as a gripper (`#Gripper 1`, saved). Position, speed and the current limit of the move, plus the activate, action and E-stop bits. A move is carried out only while the gripper is calibrated, activated and the action bit is 1. An empty frame (0 bytes) only asks for the state. The answer is sent before the driver acts on the frame, so it carries the state from before it. While the gripper calibration runs, send only the empty frame: a full one ends the calibration.
 
 **5 bytes**
 
@@ -2812,8 +2924,8 @@ The gripper command, for a driver set up as a gripper (`#Gripper 1`, saved). Pos
 | 1 |  | Speed | unsigned 8-bit | 0 slowest, 255 fastest |
 | 2-3 |  | Current | signed 16-bit | current limit of the move in mA, the grip force; not clamped by the firmware, keep it at or below the stepper's rated current (Force and speed) |
 | 4 | 7 | Activate | bit | 1 activate the gripper, 0 deactivate |
-| 4 | 6 | Action | bit | 1 go to the position, 0 idle |
-| 4 | 5 | E-stop | bit | 1 raises the gripper E-stop error |
+| 4 | 6 | Action | bit | 1 go to the position, 0 stop and hold the jaws still |
+| 4 | 5 | E-stop | bit | 1 raises the gripper E-stop error, again at every cycle while the last command's bit is 1 |
 | 4 | 4 | Release direction | bit | read by the firmware but not used |
 
 The driver answers with **Respond_Gripper_data_pack**.
@@ -2833,7 +2945,7 @@ The driver's answer to Send_gripper_data_pack: position, measured current, and t
 | 0 |  | gripper_position | unsigned 8-bit | 0 fully open, 255 fully closed |
 | 1-2 |  | gripper_current | signed 16-bit | measured current in mA |
 | 3 | 7 | gripper_activated | bit | 1 activated |
-| 3 | 6 | gripper_action_status | bit | 1 going to the position, 0 idle, auto-release or calibrating |
+| 3 | 6 | gripper_action_status | bit | the action bit of the last command, as received; stays 1 while holding, not changed by the calibration |
 | 3 | 5-4 | gripper_object_detection | 2 bits | bit 5 is the low bit, bit 4 the high bit: 0 moving, 1 object detected while closing, 2 object detected while opening, 3 at the position |
 | 3 | 3 | gripper_temperature_error | bit |  |
 | 3 | 2 | gripper_timeout_error | bit |  |
@@ -2846,7 +2958,7 @@ The driver's answer to Send_gripper_data_pack: position, measured current, and t
 
 <div class="cmd-facts" markdown><span class="fact">ID 62</span><span class="fact">host → driver</span><span class="fact">0 bytes</span><span class="fact">Python: `Send_gripper_calibrate()`</span></div>
 
-Starts the gripper calibration (the jaws find their end stops). Needed after every power-up.
+Starts the gripper calibration (the jaws find their end stops). Needed after every power-up. It has no answer: poll with empty Send_gripper_data_pack frames until the calibrated bit is 1, and send nothing else meanwhile, since a full gripper command or Send_Clear_Error ends the calibration. With an error active the request is dropped: clear first.
 
 The driver does not answer this command.
 
@@ -2866,7 +2978,7 @@ messages a gripper host uses.
 
 <div class="cmd-facts" markdown><span class="fact">ID 11</span><span class="fact">host → driver</span><span class="fact">1 bytes</span><span class="fact">Python: `Send_CAN_ID()`</span></div>
 
-Gives the driver a new node ID, 0 to 13 (the firmware accepts up to 15, but the bootloader reserves 14 and 15: a driver on one of those cannot be updated over CAN). Setting the ID also sets the bootloader's board ID. The driver answers to the new ID at once; the ID is kept over a power cycle only after Send_Save_config.
+Gives the driver a new node ID, 0 to 13 (the firmware accepts up to 15, but the bootloader reserves 14 and 15: a driver on one of those cannot be updated over CAN). The driver answers to the new ID at once; Send_Save_config keeps it over a power cycle and also writes it into the bootloader's board ID.
 
 **1 bytes**
 
@@ -2922,7 +3034,7 @@ The driver does not answer this command.
 
 <div class="cmd-facts" markdown><span class="fact">ID 1</span><span class="fact">host → driver</span><span class="fact">0 bytes</span><span class="fact">Python: `Send_Clear_Error()`</span></div>
 
-Clears the error flags and goes to idle. An error whose cause is still present comes straight back. A calibration error is cleared only by calibrating.
+Clears the error flags and goes to idle. An error whose cause is still present comes straight back; the gripper's E-stop error comes back while the last gripper command's E-stop bit is 1, so send a command with the bit at 0 first. A clear also ends a running gripper calibration. A calibration error is cleared only by calibrating.
 
 The driver does not answer this command.
 
@@ -2932,7 +3044,7 @@ The driver does not answer this command.
 
 <div class="cmd-facts" markdown><span class="fact">ID 15</span><span class="fact">host → driver</span><span class="fact">5 bytes</span><span class="fact">Python: `Send_Watchdog()`</span></div>
 
-Sets the watchdog: every valid CAN frame the driver receives resets it; when the time runs out the driver reports a watchdog error and stops. 0 turns it off (the default). The action byte is stored but not acted on by this firmware: the driver always stops into its idle behaviour.
+Sets the watchdog: the gripper command (full or empty) and the status requests reset it, Send_Clear_Error, Send_gripper_calibrate and the setup messages do not; when the time runs out the driver reports a watchdog error and stops. 0 turns it off (the default). The action byte is stored but not acted on by this firmware: the driver always stops into its idle behaviour.
 
 **5 bytes**
 
@@ -3156,9 +3268,9 @@ The driver's other commands (motion, gains, the calibration settings) are in the
 | Command | Kind | Argument | What it does | Response |
 |---|---|---|---|---|
 | `#Gripper` | Set/Get | int: 0 or 1 | Whether this driver is a gripper. A gripper has it set and saved; `#Default` clears it, so set it again after restoring the defaults. | the flag |
-| `#Gripcal` | Action |  | Starts the gripper calibration (the jaws find their end stops). Enters **gripper calibration** mode. | `Gripper calibration!` |
-| `#Gripinfo` | Get |  | Prints the gripper state: calibrated, activated, end stops, position, current. | the report |
-| `#Gripstop` | Set/Get | int: 0 or 1 | The gripper E-stop bit. | the bit |
+| `#Gripcal` | Action |  | Starts the gripper calibration (the jaws find their end stops). Clear any error first; until `#Gripinfo` reports it calibrated, send no `#Grippos` or `#Clear`, which end it. Enters **gripper calibration** mode. | `Gripper calibration!` |
+| `#Gripinfo` | Get |  | Prints the gripper state: gripper mode, calibrated, activated, the position, speed and current setpoints, the E-stop and action bits, the object detection, and the end stops in encoder ticks. | the report |
+| `#Gripstop` | Set/Get | int: 0 or 1 | The gripper E-stop bit. While it is 1, the E-stop error is raised again at every cycle: set it to 0 before `#Clear`. | the bit |
 | `#Gripact` | Set/Get | int: 0 or 1 | The activate bit. | the bit |
 | `#Gripcur` | Set/Get | int: current in mA | The current limit of gripper moves, the grip force. The firmware does not clamp it; keep it at or below the stepper's rated current (see Force and speed). | the setpoint |
 | `#Gripvel` | Set/Get | int: 0 to 255 | The speed setpoint of gripper moves. | the setpoint |
@@ -3188,7 +3300,7 @@ is the procedure.
 | `#Default` | Action |  | Writes the factory defaults to the EEPROM, including the serial number, hardware version and batch date, and clears the gripper flag, heartbeat and watchdog. Back those up first. | `Loaded default config!` |
 | `#Term` | Set/Get | int: 0 or 1 | Enables the thermistor measurement and the temperature error (off by default). | the setting |
 | `#Cbw` | Set/Get | float: bandwidth in Hz | The current loop bandwidth calibration uses to compute Kpiq and Kiiq. | the bandwidth |
-| `#CANID` | Set/Get | int: 0 to 13 | The CAN node ID. Use 0 to 13: the firmware accepts 14 and 15, but the bootloader reserves them and a driver on one of those cannot be updated over CAN. Setting the ID also sets the bootloader's board ID. Kept over a power cycle after Save. | the ID, or `Invalid CAN ID` |
+| `#CANID` | Set/Get | int: 0 to 13 | The CAN node ID. Use 0 to 13: the firmware accepts 14 and 15, but the bootloader reserves them and a driver on one of those cannot be updated over CAN. Save keeps it over a power cycle and also writes it into the bootloader's board ID. | the ID, or `Invalid CAN ID` |
 | `#PP` | Set/Get | int: pole pairs | The motor's pole pairs: 50 for a 1.8° stepper, 75 for 1.2°, 100 for 0.9°, 125 for 0.72°. Calibration accepts only these values. | the current value |
 
 
@@ -3203,12 +3315,12 @@ is the procedure.
 | `#Magnet` | Get |  | Reads the encoder's magnet status. | `Magnet Good` or `Magnet Bad` |
 | `#Reset` | Action |  | Resets the driver. From firmware 105 the reset lands in the bootloader, which waits 2 s for a flashing host and then starts the firmware again. | nothing |
 | `#Temp` | Get |  | Prints the thermistor temperature. | °C, or `Temp Off` while the thermistor is disabled |
-| `#Mode` | Get |  | Prints the control mode. | `Idle mode`, `Position control`, `Speed control`, `Current control`, `PD control`, `Open loop`, `Gripper mode` |
+| `#Mode` | Get |  | Prints the control mode. In gripper mode (mode 11) it prints nothing; `#Gripinfo` shows the gripper's state. | `Idle mode`, `Position control`, `Speed control`, `Current control`, `PD control`, `Open loop`, `Gripper calib mode` during the gripper calibration; `Gripper mode` is what it prints for mode 6, voltage torque |
 | `#Vbus` | Get |  | Prints the supply voltage. | mV |
 | `#Error` | Get |  | Prints which errors are active. | `No errors!` or `In error state!` followed by one line per active error |
-| `#Clear` | Action |  | Clears the errors and goes to idle. An error whose cause is still present comes straight back; a calibration error is cleared only by calibrating (or `#Calibrated 1`). Enters **idle** mode. | `Clear errors` |
-| `#Help` | Action |  | Prints a short command reference. Added in firmware 108. | the reference |
-| `#Info` | Get |  | Prints the driver's identity and state: hardware and firmware version, serial number, motor parameters, calibration, errors. | the report |
+| `#Clear` | Action |  | Clears the errors and goes to idle, and ends a running gripper calibration. An error whose cause is still present comes straight back, the gripper's E-stop too while `#Gripstop` is 1; a calibration error is cleared only by calibrating (or `#Calibrated 1`). Enters **idle** mode. | `Clear errors` |
+| `#Help` | Action |  | Prints a short command reference. Added in firmware 106. | the reference |
+| `#Info` | Get |  | Prints the driver's identity and state: hardware version, batch date and firmware version, the ISR time, the CAN ID, the motor calibration, the thermistor and temperature, the supply voltage and the motor parameters (phase direction and order, pole pairs, R, L, Kt, KV). The serial number is printed by `#SERNUM`, the errors by `#Error`, gripper mode by `#Gripper`. | the report |
 | `#Calibrated` | Set/Get | int: 0 or 1 | The calibrated flag. `#Calibrated 1` clears a calibration error without calibrating; the motor may still be uncalibrated. | the flag |
 | `#LED` | Set/Get | int: 0 or 1 | Turns the status LED on or off. | the LED state |
 
@@ -3226,7 +3338,7 @@ Byte 3 of Respond_Gripper_data_pack, the answer to every gripper command, bits n
 | Bit | Flag | Meaning |
 |---|---|---|
 | 7 | `activated` | the activate flag is set |
-| 6 | `action_status` | 1 while a move is in progress; 0 when idle, holding, auto-releasing or calibrating |
+| 6 | `action_status` | the action bit of the last gripper command, as received (`#Grippos` sets it to 1); it stays 1 while the gripper holds, and the calibration does not change it. The state of a move is in `object_detection` |
 | 5, 4 | `object_detection` | bit 5 is the low bit, bit 4 the high bit: 0 moving, 1 object found while closing, 2 object found while opening, 3 at the position |
 | 3 | `temperature_error` | the thermistor on the motor housing is above the limit |
 | 2 | `timeout_error` | the driver's CAN watchdog ran out |
@@ -3247,7 +3359,7 @@ Send_Respond_State_of_Errors (bits numbered from the most significant).
 | `Error` | `In error state!` | 0, 7 | any of the flags below is set (also the error bit of every CAN identifier) |
 | `temperature_error` | `Temp error` | 0, 6 | the thermistor reads above `#Tlim` (75 °C) |
 | `encoder_error` | `Encoder error` | 0, 5 | the driver's encoder does not see its magnet |
-| `Vbus_error` | `Vbus error` | 0, 4 | the supply is below 9 V or above 29.5 V |
+| `Vbus_error` | `Vbus error` | 0, 4 | the supply is below 9 V or above `#Vmax` (29 V after `#Default`) |
 | `Driver_error` | `Driver error (undervoltage, thermal shutdown, or overcurrent)` | 0, 3 | the driver stage's fault output is active |
 | `Velocity_error` | `Velocity error` | 0, 2 | the motor speed exceeds the driver's limit |
 | `Current_error` | `Current error` | 0, 1 | never in this firmware; reserved |
@@ -3263,7 +3375,8 @@ driver's `ESTOP_error` raised by Send_ESTOP.
 ## Clearing
 
 Send_Clear_Error and `#Clear` clear every flag, the gripper's E-stop included, and go to idle; a flag whose cause
-persists is set again at once. After an E-stop, the next gripper command must carry the E-stop bit at 0. The
+persists is set again at once. The gripper's `estop_error` is raised again at every cycle while the E-stop bit of
+the last gripper command (or `#Gripstop`) is 1: send a gripper command with the bit at 0 first, then clear. The
 driver's `Calibrated` flag is set only by the motor calibration (`#Cal`).
 
 ## The LED
@@ -3356,8 +3469,10 @@ the [STEPFOC guides](https://docs.source-robotics.com/STEPFOC-docs/latest/guides
 
 The shortest program that drives the gripper: it connects through the CANvas adapter, clears the errors,
 calibrates, then closes and opens every three seconds and prints what the gripper answers. It is the example from
-the product repository's README; `pip install Spectral-BLDC` is the only requirement. Change `COM20` to your
-adapter's port (`/dev/ttyACM0` on Linux) and `node_id` to the gripper's CAN ID if you changed it from 0.
+the product repository's README, with a longer wait for the calibration: the README's 4 s is too short for the
+150 and 200 mm rails, and a move command sent while the calibration still runs ends it. `pip install
+Spectral-BLDC` is the only requirement. Change `COM20` to your adapter's port (`/dev/ttyACM0` on Linux) and
+`node_id` to the gripper's CAN ID if you changed it from 0.
 
 !!! danger
     700 mA closes the jaws with real force, about 14 N with the 21.5 mm stepper and 25 N with the 60 mm. Keep fingers out of the jaws, and start with a lower current
@@ -3372,7 +3487,7 @@ Motor1 = Spectral.SpectralCAN(node_id=0, communication=Communication1)
 
 Motor1.Send_Clear_Error()
 Motor1.Send_gripper_calibrate()
-time.sleep(4)
+time.sleep(10)                 # the calibration: up to about ten seconds; send nothing meanwhile
 
 temp_var = 0
 while True:
@@ -3395,6 +3510,7 @@ while True:
    time.sleep(3)
 ```
 
+Each answer printed is the one to the command just sent, so it still shows the state from before that move.
 The arguments of `Send_gripper_data_pack`, in order: the position (0 open, 255 closed), the speed (0 to 255), the
 current limit in mA (the force), then the activate bit, the action bit, the E-stop bit and the release direction.
 [With Python](https://docs.source-robotics.com/MSG-gripper-docs/1.1/06-operation/python/) explains the library's calls, [How the gripper works](https://docs.source-robotics.com/MSG-gripper-docs/1.1/06-operation/how-it-works/)
@@ -3491,8 +3607,8 @@ while True:
 ```
 
 The reference readings: with both grippers powered and their jaws set by hand to the same opening, read each
-driver's position (`#Info` over UART, or `Send_Respond_Encoder_data` from Python) and put the two numbers in
-`REFERENCE`.
+driver's position as the loop receives it (print `motors[i].position` with both currents at 0) and put the two
+numbers in `REFERENCE`.
 
 ## Tuning
 
@@ -3540,8 +3656,8 @@ for the firmware, or in [Spectral-BLDC-Python](https://github.com/Source-Robotic
 for the Python library. Include:
 
 1. **The gripper**: bought or self-built, the rail and the stepper, the jaws.
-2. **The firmware release** the gripper runs: Send_Respond_Device_Info, or `#Info` over UART, which also carries
-   the driver's configuration and errors.
+2. **The firmware release** the gripper runs: Send_Respond_Device_Info, or `#Info` over UART, which also prints
+   the driver's configuration; add what `#Error` prints.
 3. **The gripper's status** when the problem happens: the state and error bits of Respond_Gripper_data_pack, or
    `#Gripinfo`.
 4. **What you did and what happened**: the commands, in order, with their position, speed and current, and the
@@ -3573,7 +3689,8 @@ source, and GitHub turns your change into a pull request. For anything larger, o
   commands are in `docs/includes/can_commands.yml` and `uart_commands.yml`, which list only the commands a
   gripper needs.
 - Every push runs a strict build (a broken link fails it) and the tool tests. A push to `main` publishes the
-  site under its firmware version with [mike](https://github.com/jimporter/mike).
+  site with [mike](https://github.com/jimporter/mike), under the gripper release named by `docs_version` in
+  `versions.yml`.
 
 ## House rules
 

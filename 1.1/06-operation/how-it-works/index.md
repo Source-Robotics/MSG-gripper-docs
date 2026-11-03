@@ -10,13 +10,16 @@ stateDiagram-v2
     [*] --> NotCalibrated: power-up
     NotCalibrated --> Calibrating: Send_gripper_calibrate / #Gripcal
     Calibrating --> Calibrated: both end stops found
-    Calibrating --> NotCalibrated: 24 s without an end stop
+    Calibrating --> NotCalibrated: not done in 24 s, or a full command or a clear
     Calibrated --> Moving: command with activate = 1, action = 1
     Moving --> Holding: object found, or position reached
     Holding --> Moving: a different command
-    Moving --> Idle: error, E-stop, action = 0
-    Holding --> Idle: error, E-stop, action = 0
-    Idle --> Moving: command, errors cleared
+    Moving --> Stopped: action = 0 or activate = 0
+    Holding --> Stopped: action = 0 or activate = 0
+    Stopped --> Moving: command with action = 1
+    Moving --> Idle: error, E-stop, clear
+    Holding --> Idle: error, E-stop, clear
+    Idle --> Moving: errors cleared, then a command
 ```
 
 **Not calibrated**
@@ -30,8 +33,11 @@ stateDiagram-v2
 - The jaws open at speed 40 and 500 mA until they have stood still against the end stop for half a second.
 - They pause briefly, then close the same way.
 - The two end positions become 0 (open) and 255 (closed).
-- If an end stop is not found within 24 seconds, the routine gives up and the gripper stays uncalibrated.
-- Nothing else is accepted while it runs; the action bit of the status reads 0.
+- If the whole routine has not found both end stops within 24 seconds of its start, it gives up and the
+  gripper stays uncalibrated.
+- While it runs, send only empty Send_gripper_data_pack frames, the status poll. A full gripper command or
+  Send_Clear_Error ends the calibration where it is, and the gripper stays uncalibrated.
+- Send_gripper_calibrate has no answer; the calibrated bit of the status turns 1 when the routine is done.
 
 **Moving**
 
@@ -49,11 +55,18 @@ stateDiagram-v2
   opening.
 - Either way, nothing moves until a different command arrives.
 
+**Stopped**
+
+- A command with the action bit at 0, or with the activate bit at 0, stops the move.
+- The driver keeps the jaws still: it runs its velocity loop at zero speed with the command's current limit, so
+  the jaws resist being moved, and the object detection keeps reporting.
+- The next command with the activate and action bits set moves the jaws again.
+
 **Idle**
 
-- An error, the E-stop bit, or a command with the action bit at 0 takes the gripper to idle.
+- An error, the E-stop bit, Send_Clear_Error, Send_Idle or `#Idle` takes the gripper to idle.
 - The motor is no longer driven and holds nothing beyond the mechanism's friction, so an object can slip.
-- Clearing the error, or the next command with the action bit set, moves it again.
+- After an error, clear it; then the next command with the action bit set moves the gripper again.
 
 ## The command
 
@@ -64,9 +77,9 @@ Send_gripper_data_pack carries, in 5 bytes:
 | Position | 0 to 255 | 0 fully open, 255 fully closed, linear over the stroke |
 | Speed | 0 to 255 | 1.6 to 190 mm/s at each jaw, linear (500 to 60000 encoder ticks per second); see [Force and speed](https://docs.source-robotics.com/MSG-gripper-docs/1.1/03-technical-data/force-and-speed/) |
 | Current | mA | the current limit of the move, so the grip force; not clamped by the firmware |
-| Activate | bit | 1 activates the gripper; 0 deactivates it, and it stops |
-| Action | bit | 1 carries out the move; 0 stores the command and leaves the gripper idle |
-| E-stop | bit | 1 stops the gripper and raises the E-stop error |
+| Activate | bit | 1 activates the gripper; 0 deactivates it: the move stops and the jaws are held still |
+| Action | bit | 1 carries out the move; 0 stores the command and holds the jaws still where they are |
+| E-stop | bit | 1 stops the gripper and raises the E-stop error, again at every cycle while the bit stays 1 |
 | Release direction | bit | read by the firmware but not used |
 
 The same command sent twice does nothing new: the driver compares every command with the previous one, and only
@@ -89,12 +102,16 @@ Every Send_gripper_data_pack is answered with Respond_Gripper_data_pack, 4 bytes
 | Position | where the jaws are, 0 to 255 |
 | Current | the motor current, mA; positive while opening, negative while closing |
 | Activated | the activate flag |
-| Action status | 1 while a move is in progress, 0 when idle, holding, or calibrating |
+| Action status | the action bit of the last command, as received; it stays 1 while the gripper holds, and the calibration does not change it |
 | Object detection | 0 moving, 1 object found while closing, 2 object found while opening, 3 at the position |
 | Temperature error | the motor's thermistor is above the limit |
 | Timeout error | the driver's CAN watchdog ran out |
 | E-stop error | the E-stop bit was received |
 | Calibrated | the gripper calibration is done |
+
+The answer to a full command is sent before the gripper acts on that command, so it still carries the state from
+before it; the answers to the polls that follow show the move. To follow a move, use the object detection: the
+action status only repeats the bit you sent.
 
 The bits are listed in [Errors and status bits](https://docs.source-robotics.com/MSG-gripper-docs/1.1/reference/errors/), with the byte layout in the
 [CAN reference](https://docs.source-robotics.com/MSG-gripper-docs/1.1/reference/can/gripper/).
@@ -109,11 +126,13 @@ sequenceDiagram
     participant G as Gripper
     H->>G: Send_Clear_Error
     H->>G: Send_gripper_calibrate
-    G-->>H: status: calibrating (action status 0)
     Note over G: the jaws open, pause, close: 0 and 255 are found
-    G-->>H: status: calibrated
+    loop only empty Send_gripper_data_pack frames, until calibrated
+        H->>G: (0 bytes)
+        G-->>H: answer: calibrated 0, at the end 1
+    end
     H->>G: Send_gripper_data_pack(200, 30, 400, activate 1, action 1)
-    G-->>H: answer: moving (object detection 0)
+    G-->>H: answer: still the state from before the move
     loop every 20 ms, an empty Send_gripper_data_pack
         H->>G: (0 bytes)
         G-->>H: answer: position, current, state
@@ -127,8 +146,10 @@ sequenceDiagram
 While a move is in progress and the jaws are not yet at the target, the driver reads *moving* (0) as long as the
 jaws move faster than 500 encoder ticks per second, about 1.6 mm/s. When they are slower than that and the motor
 current is above 80 % of the commanded limit, something stops them: *object found*, 1 or 2 by the sign of the
-current. Below 80 % with the jaws slow, it still reads *moving*: the jaws are accelerating or the object is soft
-and still being squeezed. Once the target is reached, 3, and it stays 3 until a different command arrives.
+current. Below 80 % with the jaws slow, it still reads *moving*: the object is soft and still being squeezed.
+At the very start of a move the jaws are slow too, and with the current already near its limit the state can
+briefly read 1 or 2; a host gives a move about 100 ms before it trusts the state. Once the target is reached, 3,
+and it stays 3 until a different command arrives.
 
 The state is therefore a snapshot of each answer. A host that wants to know "did the grip succeed" sends the move,
 then polls until the state is 1, 2 or 3, with a timeout of its own; the ROS 2 driver and the PAROL6 software do

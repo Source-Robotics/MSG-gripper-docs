@@ -2411,7 +2411,7 @@ every <abbr title="Controller Area Network, the bus between the robot or the PC 
 <td>E-stop</td>
 <td>the gripper's E-stop bit</td>
 <td>a move command with the E-stop bit set, or <code>#Gripstop 1</code></td>
-<td>clear, then send a command with the bit at 0: a command with the bit still set raises it again</td>
+<td>send a command with the bit at 0 (or <code>#Gripstop 0</code>), then clear: while the last command's bit is 1, a clear does not hold</td>
 </tr>
 <tr>
 <td>Not calibrated (motor)</td>
@@ -2422,7 +2422,7 @@ every <abbr title="Controller Area Network, the bus between the robot or the PC 
 <tr>
 <td>Vbus</td>
 <td>State_of_Errors</td>
-<td>the supply is below 9 V or above 29.5 V</td>
+<td>the supply is below 9 V or above the driver's <code>#Vmax</code> limit, 29 V after <code>#Default</code></td>
 <td>the supply, the cable</td>
 </tr>
 <tr>
@@ -2455,9 +2455,13 @@ every <abbr title="Controller Area Network, the bus between the robot or the PC 
 has found the end stops.</p>
 <h2 id="clearing">Clearing<a class="headerlink" href="#clearing" title="Permanent link">&para;</a></h2>
 <p>Send_Clear_Error, <strong>Clear</strong> in the GUI or <code>#Clear</code> clears every flag, the gripper's E-stop included, and goes to
-idle. An error whose cause is still present comes straight back: a hot motor, a supply that is still low. After
-an E-stop, the next move command must carry the E-stop bit at 0, or the error is raised again at once.</p>
-<p>After clearing, the gripper is idle and still calibrated and activated; the next move command moves it.</p>
+idle. An error whose cause is still present comes straight back: a hot motor, a supply that is still low.</p>
+<p>The gripper's E-stop counts as such a cause while the E-stop bit of the last gripper command is 1: the driver
+raises the error again at every cycle. So after an E-stop, first send a gripper command with the E-stop bit at 0
+and the action bit at 0 (or <code>#Gripstop 0</code> over <abbr title="the serial port of the driver inside the gripper, 3.3 V, 256000 baud">UART</abbr>), then clear. The next command with the action bit set moves
+the gripper again.</p>
+<p>After clearing, the gripper is idle and still calibrated and activated; the next move command moves it. A clear
+sent while the gripper calibration runs ends the calibration, and the gripper stays uncalibrated.</p>
 <h2 id="when-the-gripper-does-not-answer">When the gripper does not answer<a class="headerlink" href="#when-the-gripper-does-not-answer" title="Permanent link">&para;</a></h2>
 <ul>
 <li>No answer at all: the supply, the cable (and its pinout), the bus termination (about 60 Ω across CANH and CANL
@@ -2487,7 +2491,7 @@ an E-stop, the next move command must carry the E-stop bit at 0, or the error is
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 31, 2026 19:30:37 UTC">October 31, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 3, 2026 14:50:04 UTC">November 3, 2026</span>
   </span>
 
     

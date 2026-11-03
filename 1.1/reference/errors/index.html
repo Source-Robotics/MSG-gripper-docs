@@ -1384,7 +1384,7 @@
 <tr>
 <td>6</td>
 <td><code>action_status</code></td>
-<td>1 while a move is in progress; 0 when idle, holding, auto-releasing or calibrating</td>
+<td>the action bit of the last gripper command, as received (<code>#Grippos</code> sets it to 1); it stays 1 while the gripper holds, and the calibration does not change it. The state of a move is in <code>object_detection</code></td>
 </tr>
 <tr>
 <td>5, 4</td>
@@ -1451,7 +1451,7 @@ Send_Respond_State_of_Errors (bits numbered from the most significant).</p>
 <td><code>Vbus_error</code></td>
 <td><code>Vbus error</code></td>
 <td>0, 4</td>
-<td>the supply is below 9 V or above 29.5 V</td>
+<td>the supply is below 9 V or above <code>#Vmax</code> (29 V after <code>#Default</code>)</td>
 </tr>
 <tr>
 <td><code>Driver_error</code></td>
@@ -1502,7 +1502,8 @@ The gripper's <code>estop_error</code> is its own, raised by the E-stop bit of t
 driver's <code>ESTOP_error</code> raised by Send_ESTOP.</p>
 <h2 id="clearing">Clearing<a class="headerlink" href="#clearing" title="Permanent link">&para;</a></h2>
 <p>Send_Clear_Error and <code>#Clear</code> clear every flag, the gripper's E-stop included, and go to idle; a flag whose cause
-persists is set again at once. After an E-stop, the next gripper command must carry the E-stop bit at 0. The
+persists is set again at once. The gripper's <code>estop_error</code> is raised again at every cycle while the E-stop bit of
+the last gripper command (or <code>#Gripstop</code>) is 1: send a gripper command with the bit at 0 first, then clear. The
 driver's <code>Calibrated</code> flag is set only by the motor calibration (<code>#Cal</code>).</p>
 <h2 id="the-led">The <abbr title="Light-Emitting Diode">LED</abbr><a class="headerlink" href="#the-led" title="Permanent link">&para;</a></h2>
 <p>The driver's status <abbr title="Light-Emitting Diode">LED</abbr> is inside the housing: three short flashes and a pause in normal operation, flashing
@@ -1527,7 +1528,7 @@ every 0.5 s during the motor calibration, on steadily in error mode or while the
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 31, 2026 19:30:37 UTC">October 31, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 3, 2026 14:50:04 UTC">November 3, 2026</span>
   </span>
 
     

@@ -1378,7 +1378,7 @@ is the procedure.</p>
 <td><code>#CANID</code></td>
 <td>Set/Get</td>
 <td>int: 0 to 13</td>
-<td>The <abbr title="Controller Area Network, the bus between the robot or the PC and the gripper">CAN</abbr> node ID. Use 0 to 13: the firmware accepts 14 and 15, but the bootloader reserves them and a driver on one of those cannot be updated over <abbr title="Controller Area Network, the bus between the robot or the PC and the gripper">CAN</abbr>. Setting the ID also sets the bootloader's board ID. Kept over a power cycle after Save.</td>
+<td>The <abbr title="Controller Area Network, the bus between the robot or the PC and the gripper">CAN</abbr> node ID. Use 0 to 13: the firmware accepts 14 and 15, but the bootloader reserves them and a driver on one of those cannot be updated over <abbr title="Controller Area Network, the bus between the robot or the PC and the gripper">CAN</abbr>. Save keeps it over a power cycle and also writes it into the bootloader's board ID.</td>
 <td>the ID, or <code>Invalid CAN ID</code></td>
 </tr>
 <tr>

@@ -1299,21 +1299,21 @@
 <td><code>#Gripcal</code></td>
 <td>Action</td>
 <td></td>
-<td>Starts the gripper calibration (the jaws find their end stops). Enters <strong>gripper calibration</strong> mode.</td>
+<td>Starts the gripper calibration (the jaws find their end stops). Clear any error first; until <code>#Gripinfo</code> reports it calibrated, send no <code>#Grippos</code> or <code>#Clear</code>, which end it. Enters <strong>gripper calibration</strong> mode.</td>
 <td><code>Gripper calibration!</code></td>
 </tr>
 <tr>
 <td><code>#Gripinfo</code></td>
 <td>Get</td>
 <td></td>
-<td>Prints the gripper state: calibrated, activated, end stops, position, current.</td>
+<td>Prints the gripper state: gripper mode, calibrated, activated, the position, speed and current setpoints, the E-stop and action bits, the object detection, and the end stops in encoder ticks.</td>
 <td>the report</td>
 </tr>
 <tr>
 <td><code>#Gripstop</code></td>
 <td>Set/Get</td>
 <td>int: 0 or 1</td>
-<td>The gripper E-stop bit.</td>
+<td>The gripper E-stop bit. While it is 1, the E-stop error is raised again at every cycle: set it to 0 before <code>#Clear</code>.</td>
 <td>the bit</td>
 </tr>
 <tr>

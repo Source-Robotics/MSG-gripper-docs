@@ -1071,8 +1071,8 @@ does that bookkeeping and unwraps the encoder over its 16384-tick turns.</p>
 </span><span id="__span-0-38"><a id="__codelineno-0-38" name="__codelineno-0-38" href="#__codelineno-0-38"></a>    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">INTERVAL_S</span> <span class="o">-</span> <span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span> <span class="o">-</span> <span class="n">t0</span><span class="p">)))</span>
 </span></code></pre></div>
 <p>The reference readings: with both grippers powered and their jaws set by hand to the same opening, read each
-driver's position (<code>#Info</code> over <abbr title="the serial port of the driver inside the gripper, 3.3 V, 256000 baud">UART</abbr>, or <code>Send_Respond_Encoder_data</code> from Python) and put the two numbers in
-<code>REFERENCE</code>.</p>
+driver's position as the loop receives it (print <code>motors[i].position</code> with both currents at 0) and put the two
+numbers in <code>REFERENCE</code>.</p>
 <h2 id="tuning">Tuning<a class="headerlink" href="#tuning" title="Permanent link">&para;</a></h2>
 <p>Start with <code>Kp</code> at a tenth of the value above and raise it until the follower tracks the leader without lagging;
 raise <code>Kd</code> if the pair oscillates. The current the formula produces is in mA and is clamped by each driver's
@@ -1102,7 +1102,7 @@ on the STEPFOC site explains the control law with a joint instead of a gripper.<
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 29, 2026 15:30:49 UTC">October 29, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 3, 2026 14:50:04 UTC">November 3, 2026</span>
   </span>
 
     

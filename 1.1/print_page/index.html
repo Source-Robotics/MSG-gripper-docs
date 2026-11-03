@@ -1740,8 +1740,8 @@ Code examples <a href="https://github.com/Source-Robotics/MSG-gripper-docs/blob/
 <p><strong>Document number:</strong> SR-5003</p>
 <p><strong>MSG gripper release:</strong> 1.1</p>
 <p><strong>Firmware:</strong> STEPFOC 108</p>
-<p><strong>Revision:</strong> 2026.A (draft)</p>
-<p><strong>Published:</strong> —</p>
+<p><strong>Revision:</strong> 2026.A</p>
+<p><strong>Published:</strong> 2026-11-03</p>
 <p><strong>Applies to:</strong> MSG gripper release 1.1 with the STEPFOC driver PCB v1, STEPFOC firmware 108</p>
 <p><em>Original instructions</em></p>
 </div>
@@ -1769,7 +1769,7 @@ picture a teleoperator and a learning model need.</p>
     <button type="button" name="reset" class="md-button">Reset view</button>
   </div>
   <p class="gripper-viewer__hint">Drag to turn the gripper, scroll to zoom, open and close the jaws, try the colours. The model is the
-repository's <a href="https://github.com/Source-Robotics/MSG-compliant-AI-stepper-gripper/tree/main/MSG_gripper_description">URDF</a> of the 150 mm rail variant; the shop sells the body in black and grey.</p>
+gripper's URDF, the 150 mm rail variant; the current URDF and MuJoCo models are linked from the repository's <a href="https://github.com/Source-Robotics/MSG-compliant-AI-stepper-gripper/tree/main/msg_description">msg_description</a> guide. The shop sells the body in black and grey.</p>
 </div>
 
 <div class="grid cards">
@@ -1872,9 +1872,11 @@ missing, check the power, port, node ID and termination: <a href="#09-troublesho
 If a fault disables the controls, resolve it using <a href="#06-operation-errors">Errors and recovery</a>.
 The <a href="#05-setup-motor-gui">illustrated Motor GUI guide</a> shows the panel.</p>
 <h2 id="quick-start-5-calibrate-and-activate">5. Calibrate and activate<a class="headerlink" href="#quick-start-5-calibrate-and-activate" title="Permanent link">&para;</a></h2>
-<p>With the stroke empty and the gripper deactivated, press <strong>Calibrate</strong>, read the prompt, and press
-<strong>Start calibration</strong>. Let the jaws find both end stops. Follow <a href="#05-setup-first-moves">Calibrate, activate, move</a>
-for the full procedure, then <strong>Activate</strong> and check for faults.</p>
+<p>If the panel shows an error, press <strong>Clear errors</strong> first. With the stroke empty and the gripper deactivated,
+press <strong>Calibrate</strong>, read the prompt, and press <strong>Start calibration</strong>. Let the jaws find both end stops, and
+press nothing else until the panel says <strong>Calibrated</strong>: a move or a clear during the calibration ends it. Follow
+<a href="#05-setup-first-moves">Calibrate, activate, move</a> for the full procedure, then <strong>Activate</strong> and check for
+faults.</p>
 <p><strong>Check:</strong> the panel says <strong>Calibrated</strong>, <strong>Activated</strong>, and <strong>No errors</strong> before you command a move.
 A calibration that times out after 24 seconds has not found its end stops; do not continue as if it passed.
 Use <a href="#09-troubleshooting-calibration">Calibration troubleshooting</a>.</p>
@@ -1980,8 +1982,8 @@ by any of these.</p>
 </thead>
 <tbody>
 <tr>
-<td>2026.A (draft)</td>
-<td>—</td>
+<td>2026.A</td>
+<td>2026-11-03</td>
 <td>First version in this form: the manual chapters, the generated <abbr title="Controller Area Network, the bus between the robot or the PC and the gripper">CAN</abbr> and <abbr title="the serial port of the driver inside the gripper, 3.3 V, 256000 baud">UART</abbr> reference; gripper release 1.1, firmware 108</td>
 </tr>
 </tbody>
@@ -2317,7 +2319,8 @@ thermistor on its motor has no protection and can burn out its motor; see <a hre
 <h2 id="02-safety-stopping-the-gripper">Stopping the gripper<a class="headerlink" href="#02-safety-stopping-the-gripper" title="Permanent link">&para;</a></h2>
 <ul>
 <li>The E-stop bit of the move command (<code>Send_gripper_data_pack</code>) stops the gripper and raises the gripper E-stop
-  error, which stays until it is cleared.</li>
+  error. The error stays as long as the last command carries the bit: send a command with the bit at 0, then
+  clear it (<a href="#06-operation-errors">Errors and recovery</a>).</li>
 <li><code>Send_ESTOP</code> to the driver, or <code>#Idle</code> over <abbr title="the serial port of the driver inside the gripper, 3.3 V, 256000 baud">UART</abbr>, stops it as well.</li>
 <li>The <abbr title="Controller Area Network, the bus between the robot or the PC and the gripper">CAN</abbr> watchdog (<a href="#reference-can-system">Send_Watchdog</a>) stops the gripper by itself when the host stops
   talking, which is the right protection for a program that may crash mid-grip.</li>
@@ -2411,7 +2414,7 @@ newtons and millimetres per second, the connector and its pinout, and where the 
 </tr>
 <tr>
 <td>Mass</td>
-<td>about 320 g; a longer rail or stepper adds to it</td>
+<td>about 380 g; a longer rail or stepper adds to it</td>
 </tr>
 <tr>
 <td>Position resolution</td>
@@ -2689,8 +2692,8 @@ v = \omega \, r
 </tr>
 </tbody>
 </table>
-<p>Both jaws move, so the gap closes at twice the speed of one jaw. At speed 255 a 105 mm stroke takes about half a
-second. The gripper calibration runs at speed 40 and 500 mA.</p>
+<p>Both jaws move, so the gap closes at twice the speed of one jaw. At speed 255 a 105 mm stroke takes about
+0.3 s. The gripper calibration runs at speed 40 and 500 mA.</p>
 <h2 id="03-technical-data-force-and-speed-position">Position<a class="headerlink" href="#03-technical-data-force-and-speed-position" title="Permanent link">&para;</a></h2>
 <p>The position byte is linear over the stroke: 0 is the fully open end stop found by the gripper calibration, 255
 the fully closed one. One step of the byte is the stroke divided by 255: 0.22 mm on the 100 mm rail, 0.41 mm on
@@ -2763,7 +2766,7 @@ driver's pinout is in the <a href="https://docs.source-robotics.com/STEPFOC-docs
     <button type="button" name="reset" class="md-button">Reset view</button>
   </div>
   <p class="gripper-viewer__hint">Drag to turn the gripper, scroll to zoom, open and close the jaws, try the colours. The model is the
-repository's <a href="https://github.com/Source-Robotics/MSG-compliant-AI-stepper-gripper/tree/main/MSG_gripper_description">URDF</a> of the 150 mm rail variant; the shop sells the body in black and grey.</p>
+gripper's URDF, the 150 mm rail variant; the current URDF and MuJoCo models are linked from the repository's <a href="https://github.com/Source-Robotics/MSG-compliant-AI-stepper-gripper/tree/main/msg_description">msg_description</a> guide. The shop sells the body in black and grey.</p>
 </div>
 
 <p>The gripper's dimensions depend on the rail and the stepper: the rail length sets the width (100, 150 or 200 mm
@@ -2784,8 +2787,10 @@ has to fit:</p>
 <figcaption>Figure 7: The STEP model of the gripper, seen from the coupler plate.</figcaption>
 </figure>
 <h2 id="03-technical-data-dimensions-for-simulation">For simulation<a class="headerlink" href="#03-technical-data-dimensions-for-simulation" title="Permanent link">&para;</a></h2>
-<p>The <a href="https://github.com/Source-Robotics/MSG-compliant-AI-stepper-gripper/tree/main/MSG_gripper_description">MSG_gripper_description</a>
-folder has a <abbr title="Unified Robot Description Format, the robot description used by ROS 2">URDF</abbr> of the gripper for ROS 2 and Gazebo and an <abbr title="MuJoCo's robot description format">MJCF</abbr> for MuJoCo 3.1.3 and newer, with a scene file.</p>
+<p>The product repository's <a href="https://github.com/Source-Robotics/MSG-compliant-AI-stepper-gripper/tree/main/msg_description">msg_description</a>
+guide links the gripper's models, which are kept in <a href="https://github.com/Source-Robotics/robot_descriptions">robot_descriptions</a>:
+standalone <abbr title="Unified Robot Description Format, the robot description used by ROS 2">URDF</abbr> and <abbr title="MuJoCo's robot description format">MJCF</abbr> (MuJoCo) packages of the gripper with solid or soft <abbr title="thermoplastic polyurethane, the soft filament of the jaw pads">TPU</abbr> jaws, with their meshes, collision
+shapes and mass properties, and the PAROL6 and PAR6 models with the gripper mounted.</p>
 <p><a href="#cad-files">CAD and downloads</a> lists everything that can be downloaded.</p></section></section>
                     <section class='print-page md-section' id='section-1-3-4' heading-number='1.3.4'>
                         <h1>4. Installation<a class='headerlink' href='#section-1-3-4' title='Permanent link'></a>
@@ -2814,10 +2819,11 @@ offers an 8 mm shaft takes the gripper this way.</p>
 </figure>
 <h2 id="04-installation-mounting-parol6">PAROL6<a class="headerlink" href="#04-installation-mounting-parol6" title="Permanent link">&para;</a></h2>
 <p>For the PAROL6 wrist, replace <code>ring_cover</code> with <code>ring_cover-PAROL6</code> from the <abbr title="the CAD exchange format the gripper's parts are published in">STEP</abbr> files (<code>Common parts</code>): it bolts
-to the robot's last joint. The PAROL6 gripper cable then runs from the gripper to the robot's gripper port; see
-<a href="#04-installation-cable">The cable</a> and <a href="#06-operation-robots">On PAROL6 and PAR6</a>.</p>
+to the robot's last joint. Tighten the shaft coupler's two clamp screws with blue threadlocker. The PAROL6
+gripper cable then runs from the gripper to the robot's gripper port; see <a href="#04-installation-cable">The cable</a> and
+<a href="#06-operation-robots">On PAROL6 and PAR6</a>, which also has the joint 5 homing offset.</p>
 <figure>
-  <a class="glightbox" href="../assets/MSG%20with%20parol%20cover.webp" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="The PAROL6 ring cover" src="../assets/MSG%20with%20parol%20cover.webp" width="600" /></a>
+  <a class="glightbox" href="../assets/MSG_with_parol_cover.webp" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="The PAROL6 ring cover" src="../assets/MSG_with_parol_cover.webp" width="600" /></a>
 <br />
 <figcaption>Figure 9: The gripper with the PAROL6 ring cover (red).</figcaption>
 </figure>
@@ -2920,7 +2926,7 @@ first power-up.</p>
 motion, and keep it away from the jaws' travel.</p></section><section class="print-page" id="04-installation-jaws" heading-number="1.3.4.4"><h1 id="04-installation-jaws-jaws">Jaws<a class="headerlink" href="#04-installation-jaws-jaws" title="Permanent link">&para;</a></h1>
 <p>The jaws bolt to the two carriers on the rail and are yours to adapt. The product repository has three designs,
 all in <a href="https://github.com/Source-Robotics/MSG-compliant-AI-stepper-gripper/tree/main/STEP%20files/Gripper%20jaws%20attachment">Gripper jaws attachment</a>;
-each file is one jaw, mirrored in the slicer for the other side.</p>
+each file is one jaw, mirrored in the slicer for the other side, except the solid jaw, which has a mirrored file.</p>
 <table>
 <thead>
 <tr>
@@ -2983,7 +2989,8 @@ centre point), so a larger jaw reaches where the robot does not expect it.</p>
 <p>The gripper calibration finds the end stops with the jaws fitted; jaws that meet earlier or later than the old
 ones change where 255 is. Calibrate again after a change, which happens at the next power-up anyway.</p></section><section class="print-page" id="04-installation-can-termination" heading-number="1.3.4.5"><h1 id="04-installation-can-termination-can-termination"><abbr title="Controller Area Network, the bus between the robot or the PC and the gripper">CAN</abbr> termination<a class="headerlink" href="#04-installation-can-termination-can-termination" title="Permanent link">&para;</a></h1>
 <p>A <abbr title="Controller Area Network, the bus between the robot or the PC and the gripper">CAN</abbr> bus needs a 120 Ω resistor at each of its two ends. The gripper's driver has one, on a switch that is
-reachable through an opening in the stepper cover: <strong>ON</strong> connects the resistor, <strong>1</strong> disconnects it.</p>
+reachable through an opening in the stepper cover: slide it to the <strong>ON</strong> mark to connect the resistor, away from
+it to disconnect it.</p>
 <figure>
   <a class="glightbox" href="../assets/Gripper_termination.jpg" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="The termination switch through the stepper cover" src="../assets/Gripper_termination.jpg" width="700" /></a>
 <br />
@@ -3007,7 +3014,7 @@ reachable through an opening in the stepper cover: <strong>ON</strong> connects 
 </tr>
 <tr>
 <td>in the middle of a bus, with other nodes after it</td>
-<td>1 (off)</td>
+<td>off</td>
 </tr>
 </tbody>
 </table>
@@ -3086,7 +3093,7 @@ SSG-48; MSG uses the same controls.</p>
 <tbody>
 <tr>
 <td><strong>Calibrate</strong></td>
-<td>runs the gripper calibration: the jaws travel the whole stroke to find the end stops. The panel asks you to confirm; deactivate the gripper and take everything out of the jaws first</td>
+<td>runs the gripper calibration: the jaws travel the whole stroke to find the end stops. The panel asks you to confirm; clear any error, deactivate the gripper and take everything out of the jaws first. Press nothing else until the panel says <em>Calibrated</em>: a move or <strong>Clear errors</strong> during the calibration ends it</td>
 </tr>
 <tr>
 <td><strong>Activate</strong>, <strong>Deactivate</strong></td>
@@ -3106,7 +3113,7 @@ SSG-48; MSG uses the same controls.</p>
 </tr>
 <tr>
 <td><strong>E-stop</strong>, or <span class="keys"><kbd class="key-escape">Esc</kbd></span></td>
-<td>stops the gripper at once: the move command with the E-stop bit, after which the gripper reports the E-stop error until it is cleared</td>
+<td>stops the gripper at once: the move command with the E-stop bit, after which the gripper reports the E-stop error until a command with the bit at 0 has been sent and the error cleared</td>
 </tr>
 <tr>
 <td><strong>Clear errors</strong></td>
@@ -3151,7 +3158,7 @@ for a terminal.</p>
 </figure>
 <h2 id="05-setup-motor-gui-what-next">What next<a class="headerlink" href="#05-setup-motor-gui-what-next" title="Permanent link">&para;</a></h2>
 <p><a href="#05-setup-first-moves">Calibrate, activate, move</a> is the first session with a connected gripper.</p></section><section class="print-page" id="05-setup-first-moves" heading-number="1.3.5.3"><h1 id="05-setup-first-moves-calibrate-activate-move">Calibrate, activate, move<a class="headerlink" href="#05-setup-first-moves-calibrate-activate-move" title="Permanent link">&para;</a></h1>
-<p>Every session with the gripper starts the same way: calibrate, activate, clear what errors there are. Then it
+<p>Every session with the gripper starts the same way: clear what errors there are, calibrate, activate. Then it
 moves. This page does it once with Motor GUI, with Python and over <abbr title="the serial port of the driver inside the gripper, 3.3 V, 256000 baud">UART</abbr>; <a href="#06-operation-how-it-works">How the gripper works</a>
 explains what happens inside.</p>
 <div class="admonition danger">
@@ -3162,32 +3169,55 @@ reach of them, fingers included.</p>
 <h2 id="05-setup-first-moves-1-power-up">1. Power up<a class="headerlink" href="#05-setup-first-moves-1-power-up" title="Permanent link">&para;</a></h2>
 <p>At power-up the gripper reports <em>Not calibrated</em> and does not move. Its stepper must be calibrated too, which a
 bought gripper is from the factory; a self-built gripper gets that in <a href="#build-first-run">Driver configuration</a>.</p>
-<h2 id="05-setup-first-moves-2-calibrate">2. Calibrate<a class="headerlink" href="#05-setup-first-moves-2-calibrate" title="Permanent link">&para;</a></h2>
-<p>The gripper calibration finds the two end stops: the jaws open fully, pause, then close fully, at low force
-(500 mA) and low speed. Each end is recognised when the jaws have stood still against it for half a second. It
-takes about ten seconds; the result is not kept over a power cycle, so this runs at every power-up.</p>
+<h2 id="05-setup-first-moves-2-clear-errors">2. Clear errors<a class="headerlink" href="#05-setup-first-moves-2-clear-errors" title="Permanent link">&para;</a></h2>
+<p>The driver powers up in an error state until its motor is calibrated and it has run through its checks; an
+E-stop, an over-temperature or a supply fault leave an error too. A gripper with an error does not move, and
+does not calibrate either: clear first.</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="05-setup-first-moves-__tabbed_1_1" name="05-setup-first-moves-__tabbed_1" type="radio" /><input id="05-setup-first-moves-__tabbed_1_2" name="05-setup-first-moves-__tabbed_1" type="radio" /><input id="05-setup-first-moves-__tabbed_1_3" name="05-setup-first-moves-__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="05-setup-first-moves-__tabbed_1_1">Motor GUI</label><label for="05-setup-first-moves-__tabbed_1_2">Python</label><label for="05-setup-first-moves-__tabbed_1_3"><abbr title="the serial port of the driver inside the gripper, 3.3 V, 256000 baud">UART</abbr></label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<p><strong>Calibrate</strong>, and confirm. When the jaws stop, the panel shows <em>Calibrated</em>.</p>
+<p><strong>Clear errors</strong>, when the panel shows an error.</p>
 </div>
 <div class="tabbed-block">
-<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#05-setup-first-moves-__codelineno-0-1"></a><span class="n">gripper</span><span class="o">.</span><span class="n">Send_gripper_calibrate</span><span class="p">()</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#05-setup-first-moves-__codelineno-0-2"></a><span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#05-setup-first-moves-__codelineno-0-1"></a><span class="n">gripper</span><span class="o">.</span><span class="n">Send_Clear_Error</span><span class="p">()</span>
 </span></code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#05-setup-first-moves-__codelineno-1-1"></a>#Gripcal
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#05-setup-first-moves-__codelineno-1-1"></a>#Clear
+</span></code></pre></div>
+</div>
+</div>
+</div>
+<p>An error whose cause is still present comes straight back; after an E-stop, send a command with the E-stop bit
+at 0 before you clear. <a href="#06-operation-errors">Errors and recovery</a> says what each needs.</p>
+<h2 id="05-setup-first-moves-3-calibrate">3. Calibrate<a class="headerlink" href="#05-setup-first-moves-3-calibrate" title="Permanent link">&para;</a></h2>
+<p>The gripper calibration finds the two end stops: the jaws open fully, pause, then close fully, at low force
+(500 mA) and low speed. Each end is recognised when the jaws have stood still against it for half a second. It
+takes about ten seconds; the result is not kept over a power cycle, so this runs at every power-up.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:3"><input checked="checked" id="05-setup-first-moves-__tabbed_2_1" name="05-setup-first-moves-__tabbed_2" type="radio" /><input id="05-setup-first-moves-__tabbed_2_2" name="05-setup-first-moves-__tabbed_2" type="radio" /><input id="05-setup-first-moves-__tabbed_2_3" name="05-setup-first-moves-__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="05-setup-first-moves-__tabbed_2_1">Motor GUI</label><label for="05-setup-first-moves-__tabbed_2_2">Python</label><label for="05-setup-first-moves-__tabbed_2_3"><abbr title="the serial port of the driver inside the gripper, 3.3 V, 256000 baud">UART</abbr></label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><strong>Calibrate</strong>, and confirm. When the jaws stop, the panel shows <em>Calibrated</em>; press nothing else until then.</p>
+</div>
+<div class="tabbed-block">
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#05-setup-first-moves-__codelineno-2-1"></a><span class="n">gripper</span><span class="o">.</span><span class="n">Send_gripper_calibrate</span><span class="p">()</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#05-setup-first-moves-__codelineno-2-2"></a><span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>       <span class="c1"># send nothing meanwhile; With Python waits for the calibrated bit instead</span>
+</span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#05-setup-first-moves-__codelineno-3-1"></a>#Gripcal
 </span></code></pre></div>
 </div>
 </div>
 </div>
 <p>If the jaws do not move at all, or move to one end and stop: the gripper is in an error state (clear it first, see
-step 4), or the stepper is not calibrated. If the routine runs for 24 seconds and gives up, an end stop was not
+step 2), or the stepper is not calibrated. If the routine runs for 24 seconds and gives up, an end stop was not
 found: something blocks the jaws short of the end, or the mechanism is too stiff for 500 mA.</p>
-<h2 id="05-setup-first-moves-3-activate">3. Activate<a class="headerlink" href="#05-setup-first-moves-3-activate" title="Permanent link">&para;</a></h2>
+<p>Until the gripper reports <em>Calibrated</em>, send nothing but status polls: a move command or a clear during the
+calibration ends it, and the gripper stays uncalibrated.</p>
+<h2 id="05-setup-first-moves-4-activate">4. Activate<a class="headerlink" href="#05-setup-first-moves-4-activate" title="Permanent link">&para;</a></h2>
 <p>A calibrated gripper carries out a move only while it is activated.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="2:3"><input checked="checked" id="05-setup-first-moves-__tabbed_2_1" name="05-setup-first-moves-__tabbed_2" type="radio" /><input id="05-setup-first-moves-__tabbed_2_2" name="05-setup-first-moves-__tabbed_2" type="radio" /><input id="05-setup-first-moves-__tabbed_2_3" name="05-setup-first-moves-__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="05-setup-first-moves-__tabbed_2_1">Motor GUI</label><label for="05-setup-first-moves-__tabbed_2_2">Python</label><label for="05-setup-first-moves-__tabbed_2_3"><abbr title="the serial port of the driver inside the gripper, 3.3 V, 256000 baud">UART</abbr></label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:3"><input checked="checked" id="05-setup-first-moves-__tabbed_3_1" name="05-setup-first-moves-__tabbed_3" type="radio" /><input id="05-setup-first-moves-__tabbed_3_2" name="05-setup-first-moves-__tabbed_3" type="radio" /><input id="05-setup-first-moves-__tabbed_3_3" name="05-setup-first-moves-__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="05-setup-first-moves-__tabbed_3_1">Motor GUI</label><label for="05-setup-first-moves-__tabbed_3_2">Python</label><label for="05-setup-first-moves-__tabbed_3_3"><abbr title="the serial port of the driver inside the gripper, 3.3 V, 256000 baud">UART</abbr></label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p><strong>Activate</strong>. The panel shows <em>Activated</em>.</p>
@@ -3195,7 +3225,7 @@ found: something blocks the jaws short of the end, or the mechanism is too stiff
 <div class="tabbed-block">
 <p>The activate bit is part of every move command, its fourth argument; send it as 1. To activate without
 moving, send a command with the action bit, the fifth argument, at 0:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#05-setup-first-moves-__codelineno-2-1"></a><span class="n">gripper</span><span class="o">.</span><span class="n">Send_gripper_data_pack</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>   <span class="c1"># position, speed, current, activate = 1, action = 0, E-stop, release direction</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#05-setup-first-moves-__codelineno-4-1"></a><span class="n">gripper</span><span class="o">.</span><span class="n">Send_gripper_data_pack</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>   <span class="c1"># position, speed, current, activate = 1, action = 0, E-stop, release direction</span>
 </span></code></pre></div>
 </div>
 <div class="tabbed-block">
@@ -3203,26 +3233,6 @@ moving, send a command with the action bit, the fifth argument, at 0:</p>
 </div>
 </div>
 </div>
-<h2 id="05-setup-first-moves-4-clear-errors">4. Clear errors<a class="headerlink" href="#05-setup-first-moves-4-clear-errors" title="Permanent link">&para;</a></h2>
-<p>The driver powers up in an error state until its motor is calibrated and it has run through its checks; an
-E-stop, an over-temperature or a supply fault leave an error too. A gripper with an error does not move.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="3:3"><input checked="checked" id="05-setup-first-moves-__tabbed_3_1" name="05-setup-first-moves-__tabbed_3" type="radio" /><input id="05-setup-first-moves-__tabbed_3_2" name="05-setup-first-moves-__tabbed_3" type="radio" /><input id="05-setup-first-moves-__tabbed_3_3" name="05-setup-first-moves-__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="05-setup-first-moves-__tabbed_3_1">Motor GUI</label><label for="05-setup-first-moves-__tabbed_3_2">Python</label><label for="05-setup-first-moves-__tabbed_3_3"><abbr title="the serial port of the driver inside the gripper, 3.3 V, 256000 baud">UART</abbr></label></div>
-<div class="tabbed-content">
-<div class="tabbed-block">
-<p><strong>Clear errors</strong>, when the panel shows an error.</p>
-</div>
-<div class="tabbed-block">
-<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#05-setup-first-moves-__codelineno-3-1"></a><span class="n">gripper</span><span class="o">.</span><span class="n">Send_Clear_Error</span><span class="p">()</span>
-</span></code></pre></div>
-</div>
-<div class="tabbed-block">
-<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#05-setup-first-moves-__codelineno-4-1"></a>#Clear
-</span></code></pre></div>
-</div>
-</div>
-</div>
-<p>An error whose cause is still present comes straight back; <a href="#06-operation-errors">Errors and recovery</a> says
-what each needs.</p>
 <h2 id="05-setup-first-moves-5-move">5. Move<a class="headerlink" href="#05-setup-first-moves-5-move" title="Permanent link">&para;</a></h2>
 <p>A move is three numbers: the position (0 open, 255 closed), the speed (0 to 255: linear from 1.6 to 190 mm/s at
 each jaw) and the current limit in mA, which is the grip force (<a href="#03-technical-data-force-and-speed">Force and speed</a>).
@@ -3281,13 +3291,16 @@ page is what it does with them.</p>
     [*] --&gt; NotCalibrated: power-up
     NotCalibrated --&gt; Calibrating: Send_gripper_calibrate / #Gripcal
     Calibrating --&gt; Calibrated: both end stops found
-    Calibrating --&gt; NotCalibrated: 24 s without an end stop
+    Calibrating --&gt; NotCalibrated: not done in 24 s, or a full command or a clear
     Calibrated --&gt; Moving: command with activate = 1, action = 1
     Moving --&gt; Holding: object found, or position reached
     Holding --&gt; Moving: a different command
-    Moving --&gt; Idle: error, E-stop, action = 0
-    Holding --&gt; Idle: error, E-stop, action = 0
-    Idle --&gt; Moving: command, errors cleared</code></pre>
+    Moving --&gt; Stopped: action = 0 or activate = 0
+    Holding --&gt; Stopped: action = 0 or activate = 0
+    Stopped --&gt; Moving: command with action = 1
+    Moving --&gt; Idle: error, E-stop, clear
+    Holding --&gt; Idle: error, E-stop, clear
+    Idle --&gt; Moving: errors cleared, then a command</code></pre>
 <p><strong>Not calibrated</strong></p>
 <ul>
 <li>After power-up the gripper does not know where its jaws are.</li>
@@ -3299,8 +3312,11 @@ page is what it does with them.</p>
 <li>The jaws open at speed 40 and 500 mA until they have stood still against the end stop for half a second.</li>
 <li>They pause briefly, then close the same way.</li>
 <li>The two end positions become 0 (open) and 255 (closed).</li>
-<li>If an end stop is not found within 24 seconds, the routine gives up and the gripper stays uncalibrated.</li>
-<li>Nothing else is accepted while it runs; the action bit of the status reads 0.</li>
+<li>If the whole routine has not found both end stops within 24 seconds of its start, it gives up and the
+  gripper stays uncalibrated.</li>
+<li>While it runs, send only empty Send_gripper_data_pack frames, the status poll. A full gripper command or
+  Send_Clear_Error ends the calibration where it is, and the gripper stays uncalibrated.</li>
+<li>Send_gripper_calibrate has no answer; the calibrated bit of the status turns 1 when the routine is done.</li>
 </ul>
 <p><strong>Moving</strong></p>
 <ul>
@@ -3318,11 +3334,18 @@ page is what it does with them.</p>
   opening.</li>
 <li>Either way, nothing moves until a different command arrives.</li>
 </ul>
+<p><strong>Stopped</strong></p>
+<ul>
+<li>A command with the action bit at 0, or with the activate bit at 0, stops the move.</li>
+<li>The driver keeps the jaws still: it runs its velocity loop at zero speed with the command's current limit, so
+  the jaws resist being moved, and the object detection keeps reporting.</li>
+<li>The next command with the activate and action bits set moves the jaws again.</li>
+</ul>
 <p><strong>Idle</strong></p>
 <ul>
-<li>An error, the E-stop bit, or a command with the action bit at 0 takes the gripper to idle.</li>
+<li>An error, the E-stop bit, Send_Clear_Error, Send_Idle or <code>#Idle</code> takes the gripper to idle.</li>
 <li>The motor is no longer driven and holds nothing beyond the mechanism's friction, so an object can slip.</li>
-<li>Clearing the error, or the next command with the action bit set, moves it again.</li>
+<li>After an error, clear it; then the next command with the action bit set moves the gripper again.</li>
 </ul>
 <h2 id="06-operation-how-it-works-the-command">The command<a class="headerlink" href="#06-operation-how-it-works-the-command" title="Permanent link">&para;</a></h2>
 <p>Send_gripper_data_pack carries, in 5 bytes:</p>
@@ -3353,17 +3376,17 @@ page is what it does with them.</p>
 <tr>
 <td>Activate</td>
 <td>bit</td>
-<td>1 activates the gripper; 0 deactivates it, and it stops</td>
+<td>1 activates the gripper; 0 deactivates it: the move stops and the jaws are held still</td>
 </tr>
 <tr>
 <td>Action</td>
 <td>bit</td>
-<td>1 carries out the move; 0 stores the command and leaves the gripper idle</td>
+<td>1 carries out the move; 0 stores the command and holds the jaws still where they are</td>
 </tr>
 <tr>
 <td>E-stop</td>
 <td>bit</td>
-<td>1 stops the gripper and raises the E-stop error</td>
+<td>1 stops the gripper and raises the E-stop error, again at every cycle while the bit stays 1</td>
 </tr>
 <tr>
 <td>Release direction</td>
@@ -3404,7 +3427,7 @@ starts the move, with the speed and current last set by <code>#Gripvel</code> an
 </tr>
 <tr>
 <td>Action status</td>
-<td>1 while a move is in progress, 0 when idle, holding, or calibrating</td>
+<td>the action bit of the last command, as received; it stays 1 while the gripper holds, and the calibration does not change it</td>
 </tr>
 <tr>
 <td>Object detection</td>
@@ -3428,6 +3451,9 @@ starts the move, with the speed and current last set by <code>#Gripvel</code> an
 </tr>
 </tbody>
 </table>
+<p>The answer to a full command is sent before the gripper acts on that command, so it still carries the state from
+before it; the answers to the polls that follow show the move. To follow a move, use the object detection: the
+action status only repeats the bit you sent.</p>
 <p>The bits are listed in <a href="#reference-errors">Errors and status bits</a>, with the byte layout in the
 <a href="#reference-can-gripper"><abbr title="Controller Area Network, the bus between the robot or the PC and the gripper">CAN</abbr> reference</a>.</p>
 <h2 id="06-operation-how-it-works-a-grip-message-by-message">A grip, message by message<a class="headerlink" href="#06-operation-how-it-works-a-grip-message-by-message" title="Permanent link">&para;</a></h2>
@@ -3437,11 +3463,13 @@ starts the move, with the speed and current last set by <code>#Gripvel</code> an
     participant G as Gripper
     H-&gt;&gt;G: Send_Clear_Error
     H-&gt;&gt;G: Send_gripper_calibrate
-    G--&gt;&gt;H: status: calibrating (action status 0)
     Note over G: the jaws open, pause, close: 0 and 255 are found
-    G--&gt;&gt;H: status: calibrated
+    loop only empty Send_gripper_data_pack frames, until calibrated
+        H-&gt;&gt;G: (0 bytes)
+        G--&gt;&gt;H: answer: calibrated 0, at the end 1
+    end
     H-&gt;&gt;G: Send_gripper_data_pack(200, 30, 400, activate 1, action 1)
-    G--&gt;&gt;H: answer: moving (object detection 0)
+    G--&gt;&gt;H: answer: still the state from before the move
     loop every 20 ms, an empty Send_gripper_data_pack
         H-&gt;&gt;G: (0 bytes)
         G--&gt;&gt;H: answer: position, current, state
@@ -3452,8 +3480,10 @@ starts the move, with the speed and current last set by <code>#Gripvel</code> an
 <p>While a move is in progress and the jaws are not yet at the target, the driver reads <em>moving</em> (0) as long as the
 jaws move faster than 500 encoder ticks per second, about 1.6 mm/s. When they are slower than that and the motor
 current is above 80 % of the commanded limit, something stops them: <em>object found</em>, 1 or 2 by the sign of the
-current. Below 80 % with the jaws slow, it still reads <em>moving</em>: the jaws are accelerating or the object is soft
-and still being squeezed. Once the target is reached, 3, and it stays 3 until a different command arrives.</p>
+current. Below 80 % with the jaws slow, it still reads <em>moving</em>: the object is soft and still being squeezed.
+At the very start of a move the jaws are slow too, and with the current already near its limit the state can
+briefly read 1 or 2; a host gives a move about 100 ms before it trusts the state. Once the target is reached, 3,
+and it stays 3 until a different command arrives.</p>
 <p>The state is therefore a snapshot of each answer. A host that wants to know "did the grip succeed" sends the move,
 then polls until the state is 1, 2 or 3, with a timeout of its own; the ROS 2 driver and the PAROL6 software do
 exactly that.</p>
@@ -3546,14 +3576,36 @@ gripper does not need, are on the <a href="https://docs.source-robotics.com/STEP
 <h2 id="06-operation-can-a-control-loop">A control loop<a class="headerlink" href="#06-operation-can-a-control-loop" title="Permanent link">&para;</a></h2>
 <ol>
 <li>At power-up: Send_Clear_Error, then Send_gripper_calibrate; poll with empty Send_gripper_data_pack frames
-   until the calibrated bit is 1 (about ten seconds).</li>
+   until the calibrated bit is 1 (up to about ten seconds; the routine gives up after 24 s). Send nothing else
+   meanwhile.</li>
 <li>For each grip: one Send_gripper_data_pack with the position, speed and current and the activate and action
-   bits set; then poll with empty frames until the object-detection field reads 1, 2 or 3, or your own timeout
-   passes.</li>
+   bits set. Its answer still carries the state from before it; ignore it. Then poll with empty frames until
+   the object-detection field reads 1, 2 or 3, or your own timeout passes.</li>
 <li>Keep polling at a steady rate (50 Hz is plenty) if you set the watchdog: every frame resets it, and the gripper
    stops by itself when your program stops.</li>
 </ol>
 <p>The answer to every frame tells the whole state, so a host never has to ask twice.</p>
+<h2 id="06-operation-can-host-checklist">Host checklist<a class="headerlink" href="#06-operation-can-host-checklist" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Clear, then calibrate.</strong> With an error active, the driver drops the calibration request; a clear sent during
+  the calibration ends it.</li>
+<li><strong>During the calibration, only empty frames.</strong> A full Send_gripper_data_pack ends the calibration as well, and
+  the gripper stays uncalibrated. Wait for the calibrated bit; the routine gives up after 24 s.</li>
+<li><strong>The first answer is old.</strong> The answer to a full command is sent before the gripper acts on it. Ignore it,
+  and give the move about 100 ms before you trust the object detection: at the start of a move the jaws are
+  slow, which can briefly read as an object found.</li>
+<li><strong>The action status repeats your bit.</strong> It is the action bit you last sent and stays 1 while the gripper
+  holds. Follow a move by its object detection.</li>
+<li><strong>An identical command does nothing.</strong> To repeat a move to the position the gripper holds, change the speed
+  or the current by one.</li>
+<li><strong>E-stop recovery:</strong> first a command with the E-stop bit at 0 (and the action bit at 0), then
+  Send_Clear_Error. While the last command carries the E-stop bit, a clear does not hold.</li>
+<li><strong>Watchdog:</strong> with Send_Watchdog set, keep the polls coming. The gripper commands and the status requests
+  reset it; Send_Clear_Error and Send_gripper_calibrate do not. After a timeout, fix the host, clear, and
+  resume.</li>
+<li><strong>Current:</strong> keep the commanded current within the stepper's maximum, 1.5, 2.0 or 2.1 A; the firmware does
+  not clamp it (<a href="#03-technical-data-force-and-speed">Force and speed</a>).</li>
+</ul>
 <h2 id="06-operation-can-from-a-pc">From a PC<a class="headerlink" href="#06-operation-can-from-a-pc" title="Permanent link">&para;</a></h2>
 <p>The <a href="https://source-robotics.com/products/canvas-usb-to-can-adapter">CANvas adapter</a> shows up as a serial port and
 speaks slcan; <code>python-can</code> opens it with <code>bustype='slcan'</code>, and the <a href="#06-operation-python">Python library</a> wraps the messages.
@@ -3628,6 +3680,9 @@ on the STEPFOC site walks through the terminal setup.</p>
 </span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#06-operation-uart-__codelineno-0-6"></a>#Grippos 200
 </span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#06-operation-uart-__codelineno-0-7"></a>#Grippos 20
 </span></code></pre></div>
+<p>Wait until <code>#Gripinfo</code> reports the gripper calibrated before the first <code>#Grippos</code>: a <code>#Grippos</code> or a <code>#Clear</code>
+during the calibration ends it. After <code>#Gripstop 1</code>, send <code>#Gripstop 0</code> before <code>#Clear</code>, or the E-stop error
+comes straight back.</p>
 <p>The <a href="#reference-uart"><abbr title="the serial port of the driver inside the gripper, 3.3 V, 256000 baud">UART</abbr> reference</a> has these and the driver commands a gripper needs; the driver's
 whole command set is on the <a href="https://docs.source-robotics.com/STEPFOC-docs/latest/reference/uart/">STEPFOC site</a>.</p></section><section class="print-page" id="06-operation-python" heading-number="1.3.6.5"><h1 id="06-operation-python-with-python">With Python<a class="headerlink" href="#06-operation-python-with-python" title="Permanent link">&para;</a></h1>
 <p>The <code>Spectral-BLDC</code> library wraps the driver's <abbr title="Controller Area Network, the bus between the robot or the PC and the gripper">CAN</abbr> protocol, gripper messages included: one method per message,
@@ -3644,22 +3699,36 @@ and the gripper's answers unpacked into attributes. The ROS 2 driver and the leg
 </span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#06-operation-python-__codelineno-1-5"></a><span class="n">bus</span> <span class="o">=</span> <span class="n">Spectral</span><span class="o">.</span><span class="n">CanCommunication</span><span class="p">(</span><span class="n">bustype</span><span class="o">=</span><span class="s1">'slcan'</span><span class="p">,</span> <span class="n">channel</span><span class="o">=</span><span class="s1">'COM20'</span><span class="p">,</span> <span class="n">bitrate</span><span class="o">=</span><span class="mi">1000000</span><span class="p">)</span>
 </span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#06-operation-python-__codelineno-1-6"></a><span class="n">gripper</span> <span class="o">=</span> <span class="n">Spectral</span><span class="o">.</span><span class="n">SpectralCAN</span><span class="p">(</span><span class="n">node_id</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">communication</span><span class="o">=</span><span class="n">bus</span><span class="p">)</span>
 </span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#06-operation-python-__codelineno-1-7"></a>
-</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#06-operation-python-__codelineno-1-8"></a><span class="n">gripper</span><span class="o">.</span><span class="n">Send_Clear_Error</span><span class="p">()</span>
-</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#06-operation-python-__codelineno-1-9"></a><span class="n">gripper</span><span class="o">.</span><span class="n">Send_gripper_calibrate</span><span class="p">()</span>
-</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#06-operation-python-__codelineno-1-10"></a><span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>                                  <span class="c1"># the jaws open fully, then close fully</span>
-</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#06-operation-python-__codelineno-1-11"></a>
-</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#06-operation-python-__codelineno-1-12"></a><span class="k">for</span> <span class="n">position</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">20</span><span class="p">):</span>
-</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#06-operation-python-__codelineno-1-13"></a>    <span class="c1"># position 0..255, speed 0..255, current mA, activate, action, E-stop, release direction</span>
-</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#06-operation-python-__codelineno-1-14"></a>    <span class="n">gripper</span><span class="o">.</span><span class="n">Send_gripper_data_pack</span><span class="p">(</span><span class="n">position</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#06-operation-python-__codelineno-1-15"></a>    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">40</span><span class="p">):</span>                         <span class="c1"># poll the state for up to 2 s</span>
-</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#06-operation-python-__codelineno-1-16"></a>        <span class="n">gripper</span><span class="o">.</span><span class="n">Send_gripper_data_pack</span><span class="p">()</span>        <span class="c1"># an empty frame: status only</span>
-</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#06-operation-python-__codelineno-1-17"></a>        <span class="n">message</span><span class="p">,</span> <span class="n">ids</span> <span class="o">=</span> <span class="n">bus</span><span class="o">.</span><span class="n">receive_can_messages</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
-</span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18" href="#06-operation-python-__codelineno-1-18"></a>        <span class="k">if</span> <span class="n">message</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="__span-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19" href="#06-operation-python-__codelineno-1-19"></a>            <span class="n">gripper</span><span class="o">.</span><span class="n">UnpackData</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">ids</span><span class="p">)</span>
-</span><span id="__span-1-20"><a id="__codelineno-1-20" name="__codelineno-1-20" href="#06-operation-python-__codelineno-1-20"></a>            <span class="nb">print</span><span class="p">(</span><span class="n">gripper</span><span class="o">.</span><span class="n">gripper_position</span><span class="p">,</span> <span class="n">gripper</span><span class="o">.</span><span class="n">gripper_current</span><span class="p">,</span> <span class="n">gripper</span><span class="o">.</span><span class="n">gripper_object_detection</span><span class="p">)</span>
-</span><span id="__span-1-21"><a id="__codelineno-1-21" name="__codelineno-1-21" href="#06-operation-python-__codelineno-1-21"></a>            <span class="k">if</span> <span class="n">gripper</span><span class="o">.</span><span class="n">gripper_object_detection</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">):</span>   <span class="c1"># object found, or at the position</span>
-</span><span id="__span-1-22"><a id="__codelineno-1-22" name="__codelineno-1-22" href="#06-operation-python-__codelineno-1-22"></a>                <span class="k">break</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#06-operation-python-__codelineno-1-8"></a><span class="n">gripper</span><span class="o">.</span><span class="n">Send_Clear_Error</span><span class="p">()</span>                      <span class="c1"># clear first: with an error active, the calibration does not run</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#06-operation-python-__codelineno-1-9"></a><span class="n">gripper</span><span class="o">.</span><span class="n">Send_gripper_calibrate</span><span class="p">()</span>                <span class="c1"># the jaws open fully, then close fully</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#06-operation-python-__codelineno-1-10"></a><span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">120</span><span class="p">):</span>                            <span class="c1"># wait for the calibrated bit, up to 24 s</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#06-operation-python-__codelineno-1-11"></a>    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.2</span><span class="p">)</span>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#06-operation-python-__codelineno-1-12"></a>    <span class="n">gripper</span><span class="o">.</span><span class="n">Send_gripper_data_pack</span><span class="p">()</span>            <span class="c1"># only empty frames now: a move or a clear ends the calibration</span>
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#06-operation-python-__codelineno-1-13"></a>    <span class="n">message</span><span class="p">,</span> <span class="n">ids</span> <span class="o">=</span> <span class="n">bus</span><span class="o">.</span><span class="n">receive_can_messages</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#06-operation-python-__codelineno-1-14"></a>    <span class="k">if</span> <span class="n">message</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#06-operation-python-__codelineno-1-15"></a>        <span class="n">gripper</span><span class="o">.</span><span class="n">UnpackData</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">ids</span><span class="p">)</span>
+</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#06-operation-python-__codelineno-1-16"></a>        <span class="k">if</span> <span class="n">gripper</span><span class="o">.</span><span class="n">gripper_calibrated</span><span class="p">:</span>
+</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#06-operation-python-__codelineno-1-17"></a>            <span class="k">break</span>
+</span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18" href="#06-operation-python-__codelineno-1-18"></a>
+</span><span id="__span-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19" href="#06-operation-python-__codelineno-1-19"></a><span class="k">for</span> <span class="n">position</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">20</span><span class="p">):</span>
+</span><span id="__span-1-20"><a id="__codelineno-1-20" name="__codelineno-1-20" href="#06-operation-python-__codelineno-1-20"></a>    <span class="c1"># position 0..255, speed 0..255, current mA, activate, action, E-stop, release direction</span>
+</span><span id="__span-1-21"><a id="__codelineno-1-21" name="__codelineno-1-21" href="#06-operation-python-__codelineno-1-21"></a>    <span class="n">gripper</span><span class="o">.</span><span class="n">Send_gripper_data_pack</span><span class="p">(</span><span class="n">position</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span><span id="__span-1-22"><a id="__codelineno-1-22" name="__codelineno-1-22" href="#06-operation-python-__codelineno-1-22"></a>    <span class="n">bus</span><span class="o">.</span><span class="n">receive_can_messages</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>      <span class="c1"># its answer still carries the state from before the move</span>
+</span><span id="__span-1-23"><a id="__codelineno-1-23" name="__codelineno-1-23" href="#06-operation-python-__codelineno-1-23"></a>    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>                             <span class="c1"># give the move time to start</span>
+</span><span id="__span-1-24"><a id="__codelineno-1-24" name="__codelineno-1-24" href="#06-operation-python-__codelineno-1-24"></a>    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">40</span><span class="p">):</span>                         <span class="c1"># poll the state for up to 2 s</span>
+</span><span id="__span-1-25"><a id="__codelineno-1-25" name="__codelineno-1-25" href="#06-operation-python-__codelineno-1-25"></a>        <span class="n">gripper</span><span class="o">.</span><span class="n">Send_gripper_data_pack</span><span class="p">()</span>        <span class="c1"># an empty frame: status only</span>
+</span><span id="__span-1-26"><a id="__codelineno-1-26" name="__codelineno-1-26" href="#06-operation-python-__codelineno-1-26"></a>        <span class="n">message</span><span class="p">,</span> <span class="n">ids</span> <span class="o">=</span> <span class="n">bus</span><span class="o">.</span><span class="n">receive_can_messages</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
+</span><span id="__span-1-27"><a id="__codelineno-1-27" name="__codelineno-1-27" href="#06-operation-python-__codelineno-1-27"></a>        <span class="k">if</span> <span class="n">message</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="__span-1-28"><a id="__codelineno-1-28" name="__codelineno-1-28" href="#06-operation-python-__codelineno-1-28"></a>            <span class="n">gripper</span><span class="o">.</span><span class="n">UnpackData</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">ids</span><span class="p">)</span>
+</span><span id="__span-1-29"><a id="__codelineno-1-29" name="__codelineno-1-29" href="#06-operation-python-__codelineno-1-29"></a>            <span class="nb">print</span><span class="p">(</span><span class="n">gripper</span><span class="o">.</span><span class="n">gripper_position</span><span class="p">,</span> <span class="n">gripper</span><span class="o">.</span><span class="n">gripper_current</span><span class="p">,</span> <span class="n">gripper</span><span class="o">.</span><span class="n">gripper_object_detection</span><span class="p">)</span>
+</span><span id="__span-1-30"><a id="__codelineno-1-30" name="__codelineno-1-30" href="#06-operation-python-__codelineno-1-30"></a>            <span class="k">if</span> <span class="n">gripper</span><span class="o">.</span><span class="n">gripper_object_detection</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">):</span>   <span class="c1"># object found, or at the position</span>
+</span><span id="__span-1-31"><a id="__codelineno-1-31" name="__codelineno-1-31" href="#06-operation-python-__codelineno-1-31"></a>                <span class="k">break</span>
 </span></code></pre></div>
+<p>The answer to a move command is sent before the gripper acts on it, so it still carries the state from before:
+after a finished move, object detection 3. The example reads that answer and drops it. At the very start of a
+move the jaws are still slow, and with the current near its limit the object detection can briefly read 1 or 2;
+the pause of 0.1 s covers that. While the gripper calibration runs, send only empty frames: a full command or
+Send_Clear_Error ends the calibration, and the gripper stays uncalibrated.</p>
 <p><code>Send_gripper_data_pack</code> with all seven arguments sends the move; without arguments it sends the empty status
 poll. <code>receive_can_messages</code> returns the raw <code>python-can</code> message and the node ID, command ID and error bit from
 the identifier; <code>UnpackData</code> fills the gripper attributes:</p>
@@ -3681,7 +3750,7 @@ the identifier; <code>UnpackData</code> fills the gripper attributes:</p>
 </tr>
 <tr>
 <td><code>gripper_activated</code>, <code>gripper_action_status</code></td>
-<td>the activate flag; 1 while a move is in progress</td>
+<td>the activate flag; the action bit of the last command, which stays 1 while the gripper holds</td>
 </tr>
 <tr>
 <td><code>gripper_object_detection</code></td>
@@ -3706,8 +3775,9 @@ test for "1 or 2" as this example does.</p>
 </div>
 <h2 id="06-operation-python-stopping">Stopping<a class="headerlink" href="#06-operation-python-stopping" title="Permanent link">&para;</a></h2>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#06-operation-python-__codelineno-2-1"></a><span class="n">gripper</span><span class="o">.</span><span class="n">Send_gripper_data_pack</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>   <span class="c1"># the E-stop bit: stops, raises the E-stop error</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#06-operation-python-__codelineno-2-2"></a><span class="n">gripper</span><span class="o">.</span><span class="n">Send_Clear_Error</span><span class="p">()</span>                                 <span class="c1"># clears it; the next command must have the bit at 0</span>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#06-operation-python-__codelineno-2-3"></a><span class="n">gripper</span><span class="o">.</span><span class="n">Send_Watchdog</span><span class="p">(</span><span class="mi">500</span><span class="p">)</span>                                 <span class="c1"># from now on the gripper stops 500 ms after the last frame</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#06-operation-python-__codelineno-2-2"></a><span class="n">gripper</span><span class="o">.</span><span class="n">Send_gripper_data_pack</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>   <span class="c1"># to recover: first the bit back at 0, action 0</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#06-operation-python-__codelineno-2-3"></a><span class="n">gripper</span><span class="o">.</span><span class="n">Send_Clear_Error</span><span class="p">()</span>                                 <span class="c1"># then clear; while the bit is 1, the error comes back</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#06-operation-python-__codelineno-2-4"></a><span class="n">gripper</span><span class="o">.</span><span class="n">Send_Watchdog</span><span class="p">(</span><span class="mi">500</span><span class="p">)</span>                                 <span class="c1"># from now on the gripper stops 500 ms after the last frame</span>
 </span></code></pre></div>
 <p>With the watchdog set, keep the status poll running at a steady rate; a program that crashes releases the grip
 within the watchdog time.</p>
@@ -3770,27 +3840,91 @@ change it, and pass it at launch:</p>
 <p>The <a href="https://github.com/Lass6230/ssg48_adaptive_electric_gripper_ros2">ssg48_adaptive_electric_gripper_ros2</a>
 package, written for the SSG-48 gripper, speaks the same protocol and should work with the MSG as well.</p>
 <h2 id="06-operation-ros2-the-description-files">The description files<a class="headerlink" href="#06-operation-ros2-the-description-files" title="Permanent link">&para;</a></h2>
-<p>The <abbr title="Unified Robot Description Format, the robot description used by ROS 2">URDF</abbr> and the <abbr title="MuJoCo's robot description format">MJCF</abbr> of the gripper for ROS 2, Gazebo and MuJoCo are in the product repository's
-<a href="https://github.com/Source-Robotics/MSG-compliant-AI-stepper-gripper/tree/main/MSG_gripper_description">MSG_gripper_description</a>.</p></section><section class="print-page" id="06-operation-robots" heading-number="1.3.6.7"><h1 id="06-operation-robots-on-parol6-and-par6">On PAROL6 and PAR6<a class="headerlink" href="#06-operation-robots-on-parol6-and-par6" title="Permanent link">&para;</a></h1>
+<p>The gripper's standalone <abbr title="Unified Robot Description Format, the robot description used by ROS 2">URDF</abbr> and <abbr title="MuJoCo's robot description format">MJCF</abbr> (MuJoCo) packages, with solid or soft <abbr title="thermoplastic polyurethane, the soft filament of the jaw pads">TPU</abbr> jaws, come from
+<a href="https://github.com/Source-Robotics/robot_descriptions">robot_descriptions</a>; the product repository's
+<a href="https://github.com/Source-Robotics/MSG-compliant-AI-stepper-gripper/tree/main/msg_description">msg_description</a> guide links the
+downloads and says how to open them. Its display launch file is for ROS 1; in ROS 2, load the <abbr title="Unified Robot Description Format, the robot description used by ROS 2">URDF</abbr> with a launch
+file of your own.</p></section><section class="print-page" id="06-operation-robots" heading-number="1.3.6.7"><h1 id="06-operation-robots-on-parol6-and-par6">On PAROL6 and PAR6<a class="headerlink" href="#06-operation-robots-on-parol6-and-par6" title="Permanent link">&para;</a></h1>
 <p>The gripper is made for the Source Robotics arms. Both drive it over their own <abbr title="Controller Area Network, the bus between the robot or the PC and the gripper">CAN</abbr> bus; their software calibrates
 it, moves it and reads its state, so a program for the robot does not talk <abbr title="Controller Area Network, the bus between the robot or the PC and the gripper">CAN</abbr> itself.</p>
 <h2 id="06-operation-robots-parol6">PAROL6<a class="headerlink" href="#06-operation-robots-parol6" title="Permanent link">&para;</a></h2>
+<h3 id="06-operation-robots-mounting-and-connecting">Mounting and connecting<a class="headerlink" href="#06-operation-robots-mounting-and-connecting" title="Permanent link">&para;</a></h3>
 <ol>
-<li>Mount the gripper with the <code>ring_cover-PAROL6</code> part (<a href="#04-installation-mounting">Mounting on a robot</a>).</li>
-<li>Connect it with the <a href="https://source-robotics.com/products/gripper-cable">PAROL6 gripper cable</a> to the
-   robot's gripper port. Only this cable: the PAR6 cable is wired differently and destroys the gripper
+<li>Replace the gripper's <code>ring_cover</code> with <code>ring_cover-PAROL6</code> from the <abbr title="the CAD exchange format the gripper's parts are published in">STEP</abbr> files' <code>Common parts</code>
+   (<a href="#04-installation-mounting">Mounting on a robot</a>). It bolts to the robot's last joint, and the coupler
+   plate's shaft coupler (8 mm bore, two M4 clamp screws) takes the joint 6 shaft.</li>
+<li>Slide the gripper onto the shaft with the camera looking down between the jaws, and tighten the two clamp
+   screws with blue threadlocker.</li>
+<li>Connect the <a href="https://source-robotics.com/products/gripper-cable">PAROL6 gripper cable</a> between the gripper and
+   the M8 connector at the forearm. Only this cable: the PAR6 cable is wired differently and destroys the gripper
    (<a href="#04-installation-cable">The cable</a>).</li>
+<li>Route the camera's USB cable outside the arm, with slack for joints 4, 5 and 6, and fix it so that the arm
+   cannot catch it.</li>
 <li>Keep the gripper's node ID at 0 and set its termination switch ON; it is the last node on the robot's bus.</li>
 </ol>
-<p>The PAROL6 commander software has the electric gripper's controls: calibrate, then a position, a speed and a
-current for a move, and the gripper's status. The PAROL6 Python API drives it as a tool, from a program:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#06-operation-robots-__codelineno-0-1"></a><span class="n">rbt</span><span class="o">.</span><span class="n">select_tool</span><span class="p">(</span><span class="s2">"MSG"</span><span class="p">,</span> <span class="n">variant_key</span><span class="o">=</span><span class="s2">"150mm"</span><span class="p">)</span>           <span class="c1"># the parol6 package; 100mm, 150mm or 200mm, the rail</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#06-operation-robots-__codelineno-0-2"></a><span class="n">rbt</span><span class="o">.</span><span class="n">tool</span><span class="o">.</span><span class="n">calibrate</span><span class="p">()</span>                                   <span class="c1"># queued with the motion; lasts a few seconds</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#06-operation-robots-__codelineno-0-3"></a><span class="n">rbt</span><span class="o">.</span><span class="n">tool</span><span class="o">.</span><span class="n">set_position</span><span class="p">(</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">speed</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">current</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>     <span class="c1"># fractions of the ranges</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#06-operation-robots-__codelineno-0-4"></a><span class="nb">print</span><span class="p">(</span><span class="n">rbt</span><span class="o">.</span><span class="n">tool</span><span class="o">.</span><span class="n">status</span><span class="p">())</span>
+<h3 id="06-operation-robots-the-joint-5-homing-offset">The joint 5 homing offset<a class="headerlink" href="#06-operation-robots-the-joint-5-homing-offset" title="Permanent link">&para;</a></h3>
+<p>Joint 5 homes against the tool, and the control board firmware's default offset (8900) is for the pneumatic
+gripper holder, not for the MSG's ring cover. After the first homing, check joint 5 with the pin through its
+witness marks. If it is off, measure the offset and set <code>j5_homing_offset</code> in <code>main.cpp</code> of the control board
+firmware, as the PAROL6 documentation's mastering page describes.</p>
+<h3 id="06-operation-robots-driving-it">Driving it<a class="headerlink" href="#06-operation-robots-driving-it" title="Permanent link">&para;</a></h3>
+<p>The gripper calibrates after every power-up and does not move before that. Clear the gripper's errors first, then
+calibrate, then wait until the calibration is done, up to about ten seconds: a gripper move or a clear sent while
+it runs ends the calibration.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="06-operation-robots-__tabbed_1_1" name="06-operation-robots-__tabbed_1" type="radio" /><input id="06-operation-robots-__tabbed_1_2" name="06-operation-robots-__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="06-operation-robots-__tabbed_1_1">Commander software</label><label for="06-operation-robots-__tabbed_1_2">Python API</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>The <strong>Gripper</strong> tab: after homing the robot, press <strong>Clear gripper error</strong>, then <strong>Calibrate gripper</strong>, and
+wait until the status says calibrated. Then set the position, speed and current with the sliders and press
+<strong>Move GoTo</strong>. In RBTscript: <code>Gripper_cal()</code>, <code>Delay(10)</code>, then <code>Gripper(position, speed, current)</code>, with the
+current in mA.</p>
+</div>
+<div class="tabbed-block">
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#06-operation-robots-__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#06-operation-robots-__codelineno-0-2"></a>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#06-operation-robots-__codelineno-0-3"></a><span class="n">rbt</span><span class="o">.</span><span class="n">select_tool</span><span class="p">(</span><span class="s2">"MSG"</span><span class="p">,</span> <span class="n">variant_key</span><span class="o">=</span><span class="s2">"150mm"</span><span class="p">)</span>           <span class="c1"># the parol6 package; 100mm, 150mm or 200mm: the rail</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#06-operation-robots-__codelineno-0-4"></a><span class="n">rbt</span><span class="o">.</span><span class="n">tool</span><span class="o">.</span><span class="n">calibrate</span><span class="p">()</span>                                   <span class="c1"># with the robot at rest</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#06-operation-robots-__codelineno-0-5"></a><span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>                                         <span class="c1"># the calibration takes up to about ten seconds</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#06-operation-robots-__codelineno-0-6"></a><span class="n">rbt</span><span class="o">.</span><span class="n">tool</span><span class="o">.</span><span class="n">set_position</span><span class="p">(</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">speed</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">current</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>     <span class="c1"># fractions; current 0.4 is 1180 mA</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#06-operation-robots-__codelineno-0-7"></a><span class="nb">print</span><span class="p">(</span><span class="n">rbt</span><span class="o">.</span><span class="n">tool</span><span class="o">.</span><span class="n">status</span><span class="p">())</span>
 </span></code></pre></div>
+<p>The API allows the calibration 2 s before it sends the next gripper action, which is too short for the MSG;
+the pause above waits for the calibration to finish.</p>
+</div>
+</div>
+</div>
+<p>The Python API's <code>current</code> is a fraction of the range 100 to 2800 mA: the gripper gets 100 + 2700 × <code>current</code> mA,
+so 1.0 is 2800 mA, more than any of the steppers takes. Keep it within the stepper's maximum
+(<a href="#03-technical-data-force-and-speed">Force and speed</a>):</p>
+<table>
+<thead>
+<tr>
+<th>Stepper</th>
+<th>Maximum current</th>
+<th>Largest <code>current</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>21.5 mm</td>
+<td>1.5 A</td>
+<td>0.51</td>
+</tr>
+<tr>
+<td>40 mm</td>
+<td>2.0 A</td>
+<td>0.70</td>
+</tr>
+<tr>
+<td>60 mm</td>
+<td>2.1 A</td>
+<td>0.74</td>
+</tr>
+</tbody>
+</table>
+<p><code>position</code> and <code>speed</code> are fractions of the position and speed bytes: 0.8 is position 204, 0.5 is speed 128.</p>
 <p>The <a href="https://docs.source-robotics.com/PAROL-docs/">PAROL6 documentation</a> covers the robot's side: the gripper
-port, the commander software and the API.</p>
+port, the commander software, the API and the tool centre point.</p>
 <h2 id="06-operation-robots-par6">PAR6<a class="headerlink" href="#06-operation-robots-par6" title="Permanent link">&para;</a></h2>
 <p>The PAR6 arm's control box runs the gripper on its <abbr title="Controller Area Network, the bus between the robot or the PC and the gripper">CAN</abbr> bus as a tool, with the PAR6 gripper cable (different from
 the PAROL6 one). The <a href="https://docs.source-robotics.com/par6/">PAR6 documentation</a> covers the tool configuration,
@@ -3835,7 +3969,7 @@ every <abbr title="Controller Area Network, the bus between the robot or the PC 
 <td>E-stop</td>
 <td>the gripper's E-stop bit</td>
 <td>a move command with the E-stop bit set, or <code>#Gripstop 1</code></td>
-<td>clear, then send a command with the bit at 0: a command with the bit still set raises it again</td>
+<td>send a command with the bit at 0 (or <code>#Gripstop 0</code>), then clear: while the last command's bit is 1, a clear does not hold</td>
 </tr>
 <tr>
 <td>Not calibrated (motor)</td>
@@ -3846,7 +3980,7 @@ every <abbr title="Controller Area Network, the bus between the robot or the PC 
 <tr>
 <td>Vbus</td>
 <td>State_of_Errors</td>
-<td>the supply is below 9 V or above 29.5 V</td>
+<td>the supply is below 9 V or above the driver's <code>#Vmax</code> limit, 29 V after <code>#Default</code></td>
 <td>the supply, the cable</td>
 </tr>
 <tr>
@@ -3879,9 +4013,13 @@ every <abbr title="Controller Area Network, the bus between the robot or the PC 
 has found the end stops.</p>
 <h2 id="06-operation-errors-clearing">Clearing<a class="headerlink" href="#06-operation-errors-clearing" title="Permanent link">&para;</a></h2>
 <p>Send_Clear_Error, <strong>Clear</strong> in the GUI or <code>#Clear</code> clears every flag, the gripper's E-stop included, and goes to
-idle. An error whose cause is still present comes straight back: a hot motor, a supply that is still low. After
-an E-stop, the next move command must carry the E-stop bit at 0, or the error is raised again at once.</p>
-<p>After clearing, the gripper is idle and still calibrated and activated; the next move command moves it.</p>
+idle. An error whose cause is still present comes straight back: a hot motor, a supply that is still low.</p>
+<p>The gripper's E-stop counts as such a cause while the E-stop bit of the last gripper command is 1: the driver
+raises the error again at every cycle. So after an E-stop, first send a gripper command with the E-stop bit at 0
+and the action bit at 0 (or <code>#Gripstop 0</code> over <abbr title="the serial port of the driver inside the gripper, 3.3 V, 256000 baud">UART</abbr>), then clear. The next command with the action bit set moves
+the gripper again.</p>
+<p>After clearing, the gripper is idle and still calibrated and activated; the next move command moves it. A clear
+sent while the gripper calibration runs ends the calibration, and the gripper stays uncalibrated.</p>
 <h2 id="06-operation-errors-when-the-gripper-does-not-answer">When the gripper does not answer<a class="headerlink" href="#06-operation-errors-when-the-gripper-does-not-answer" title="Permanent link">&para;</a></h2>
 <ul>
 <li>No answer at all: the supply, the cable (and its pinout), the bus termination (about 60 Ω across CANH and CANL
@@ -4097,9 +4235,9 @@ From then on it updates over <abbr title="Controller Area Network, the bus betwe
 debris. The motor gets warm in use and hot under a long grip; the thermistor stops it at 75 °C. A self-built
 gripper without the thermistor on its motor has no such protection.</p>
 <h2 id="09-troubleshooting-after-a-firmware-update">After a firmware update<a class="headerlink" href="#09-troubleshooting-after-a-firmware-update" title="Permanent link">&para;</a></h2>
-<p>If the gripper does not calibrate or behaves oddly after an update, check the driver's configuration with
-<code>#Info</code> over <abbr title="the serial port of the driver inside the gripper, 3.3 V, 256000 baud">UART</abbr>: gripper mode (<code>#Gripper 1</code>), the thermistor (<code>#Term 1</code>), the motor calibration. A release note
-says when an update clears the configuration; <a href="#build-first-run">Driver configuration</a> restores
+<p>If the gripper does not calibrate or behaves oddly after an update, check the driver's configuration over <abbr title="the serial port of the driver inside the gripper, 3.3 V, 256000 baud">UART</abbr>:
+<code>#Gripper</code> (gripper mode, 1), <code>#Term</code> (the thermistor, 1) and <code>#Info</code> (the motor calibration and parameters). A
+release note says when an update clears the configuration; <a href="#build-first-run">Driver configuration</a> restores
 it.</p>
 <h2 id="09-troubleshooting-getting-help">Getting help<a class="headerlink" href="#09-troubleshooting-getting-help" title="Permanent link">&para;</a></h2>
 <p><a href="#support">Support</a> says where to ask and what to include; the gripper's status and <code>#Info</code>'s output are
@@ -4441,9 +4579,11 @@ is in the shop too.</p></section><section class="print-page" id="build-bill-of-m
 <p class="admonition-title">Note</p>
 <p><strong>PAROL6 and PAR6 robots use different cables for SSG48 and MSG grippers. Using incorrect one can damage your robot</strong></p>
 </div>
-<p>Official cables from Source Robotics: 
-- <a href="https://source-robotics.com/products/gripper-cable">PAROL6 cable</a>
-- PAR6 cable - Coming soon</p>
+<p>Official cables from Source Robotics: </p>
+<ul>
+<li><a href="https://source-robotics.com/products/gripper-cable">PAROL6 cable</a></li>
+<li>PAR6 cable - Coming soon</li>
+</ul>
 <p>If you want to build your own cable, use the parts below and follow the wiring guide.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
@@ -4521,13 +4661,14 @@ Supports where your slicer asks for them; the body prints on its back.</p>
 <p>The <a href="https://github.com/Source-Robotics/MSG-compliant-AI-stepper-gripper/tree/main/Print%20files">Print files</a>
 folder has the same parts as <abbr title="the print file format of the ready-to-slice parts">3MF</abbr>, ready to slice.</p>
 <h2 id="build-printing-the-jaws">The jaws<a class="headerlink" href="#build-printing-the-jaws" title="Permanent link">&para;</a></h2>
-<p>Two kinds, both in <code>Gripper jaws attachment</code>; mirror the file in the slicer for the other side:</p>
+<p>Two kinds, both in <code>Gripper jaws attachment</code>; mirror the file in the slicer for the other side, except the solid
+jaw, which has a mirrored file:</p>
 <ul>
 <li><strong><abbr title="thermoplastic polyurethane, the soft filament of the jaw pads">TPU</abbr> jaws</strong> (recommended): a <abbr title="the filament the body is printed in">PETG</abbr> body, <code>MSG_JAW_TPU_GLUE</code>, and a soft <abbr title="thermoplastic polyurethane, the soft filament of the jaw pads">TPU</abbr> pad printed separately and glued
   on. The pad deforms around the object for a gentler, surer grip. Print the pad with <strong>16 % infill, no top or
   bottom layers and 2 walls</strong> for the softest grip; the body with the normal settings.</li>
-<li><strong>Solid jaws</strong>: <code>MSG_SOLID_JAW</code> in one piece, or <code>MSG_JAW_HOLLOW</code> for a two-colour print; <code>MSG_JAW_TPU_GLUE</code>
-  prints solid too.</li>
+<li><strong>Solid jaws</strong>: <code>MSG_solid_jaw</code> and <code>MSG_solid_jaw_mirror</code> in one piece, or <code>MSG_JAW_HOLLOW</code> for a two-colour
+  print; <code>MSG_JAW_TPU_GLUE</code> prints solid too.</li>
 </ul>
 <figure>
   <a class="glightbox" href="../assets/jaw_slicer1.webp" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="The TPU jaw in the slicer" src="../assets/jaw_slicer1.webp" width="520" /></a>
@@ -4541,9 +4682,9 @@ folder has the same parts as <abbr title="the print file format of the ready-to-
 is the original.</p></section><section class="print-page" id="build-mechanical-assembly" heading-number="1.4.4"><h1 id="build-mechanical-assembly-mechanical-assembly">Mechanical assembly<a class="headerlink" href="#build-mechanical-assembly-mechanical-assembly" title="Permanent link">&para;</a></h1>
 <p>The assembly is shown in the repository's video; a PDF manual is in preparation. Watch the video once before you
 start, with the parts in front of you.</p>
-<iframe width="100%" height="460" src="https://www.youtube-nocookie.com/embed/oAUhDKYgLso" title="MSG gripper assembly" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="100%" height="460" src="https://www.youtube-nocookie.com/embed/EosuDy-heqM" title="MSG gripper assembly" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-<p><a class="md-button" href="https://youtu.be/oAUhDKYgLso">Open the video on YouTube</a></p>
+<p><a class="md-button" href="https://youtu.be/EosuDy-heqM">Open the video on YouTube</a></p>
 <h2 id="build-mechanical-assembly-the-order">The order<a class="headerlink" href="#build-mechanical-assembly-the-order" title="Permanent link">&para;</a></h2>
 <ol>
 <li>The driver first: calibrated, in gripper mode, with the thermistor, as <a href="#build-first-run">Driver setup and first run</a>
@@ -4628,8 +4769,8 @@ then enter the stepper's parameters and calibrate:</p>
 </span></code></pre></div>
 <p>The motor turns, the driver prints each step and ends with <code>Calibration success!</code>. The whole routine and its
 messages are in <a href="https://docs.source-robotics.com/STEPFOC-docs/latest/05-setup/calibration/">Calibration</a> on
-the STEPFOC site. <code>#Default</code> also resets the serial number the driver reports; note what <code>#Info</code> printed if you
-need it.</p>
+the STEPFOC site. <code>#Default</code> also resets the serial number the driver reports; note what <code>#SERNUM</code> prints before
+you start if you need it.</p>
 <h2 id="build-first-run-2-the-gripper-settings">2. The gripper settings<a class="headerlink" href="#build-first-run-2-the-gripper-settings" title="Permanent link">&para;</a></h2>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#build-first-run-__codelineno-1-1"></a>#Gripper 1
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#build-first-run-__codelineno-1-2"></a>#Term 1
@@ -4682,8 +4823,7 @@ firmware does not clamp it.</p></section></section>
                         <h1>Appendix<a class='headerlink' href='#section-1-5' title='Permanent link'></a>
                         </h1>
                     <section class="print-page" id="appendix-performance" heading-number="1.5.1"><h1 id="appendix-performance-performance-tests">Performance tests<a class="headerlink" href="#appendix-performance-performance-tests" title="Permanent link">&para;</a></h1>
-<p>Thermal tests of the MSG gripper under different conditions. The thermal limit is 75 °C at the thermistor on the
-motor housing.</p>
+<p>A thermal test of the MSG gripper. The thermal limit is 75 °C at the thermistor on the motor housing.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>A gripper built without the thermistor on its motor has no temperature protection and can damage its motor
@@ -4695,22 +4835,7 @@ in normal operation.</p>
 <li>7 days without interruption</li>
 <li>Motor temperature: 42 °C</li>
 <li>Ambient temperature: 33 °C</li>
-</ul>
-<h2 id="appendix-performance-holding-at-a-constant-current">Holding at a constant current<a class="headerlink" href="#appendix-performance-holding-at-a-constant-current" title="Permanent link">&para;</a></h2>
-<ul>
-<li>Hold an object at a constant current for 24 hours</li>
-<li>Current setpoint: to be published</li>
-<li>Stable motor temperature: to be published</li>
-<li>Ambient temperature: to be published</li>
-</ul>
-<h2 id="appendix-performance-the-current-that-trips-the-thermal-limit">The current that trips the thermal limit<a class="headerlink" href="#appendix-performance-the-current-that-trips-the-thermal-limit" title="Permanent link">&para;</a></h2>
-<ul>
-<li>Hold an object at a high current until the temperature error trips</li>
-<li>Current setpoint and the time to the error: to be published</li>
-<li>Ambient temperature: to be published</li>
-</ul>
-<p>The results of the two open tests, and the measured force-against-current curves for the three steppers, will be
-added here as they are made.</p></section><section class="print-page" id="appendix-firmware-release-notes" heading-number="1.5.2"><h1 id="appendix-firmware-release-notes-firmware-release-notes">Firmware release notes<a class="headerlink" href="#appendix-firmware-release-notes-firmware-release-notes" title="Permanent link">&para;</a></h1>
+</ul></section><section class="print-page" id="appendix-firmware-release-notes" heading-number="1.5.2"><h1 id="appendix-firmware-release-notes-firmware-release-notes">Firmware release notes<a class="headerlink" href="#appendix-firmware-release-notes-firmware-release-notes" title="Permanent link">&para;</a></h1>
 <p>What changed in each release of the STEPFOC firmware the gripper runs, from the release notes in the driver's
 repository, up to the release this site describes. Entries about the driver's motion modes do not concern a
 gripper; the gripper mode, the <abbr title="Controller Area Network, the bus between the robot or the PC and the gripper">CAN</abbr> protocol and the bootloader do.</p>
@@ -4898,7 +5023,8 @@ describes it.</p>
 
 <dl>
 <dt><strong>Action bit</strong></dt>
-<dd>A bit of the move command: 1 carries out the move, 0 leaves the gripper idle with the command stored.</dd>
+<dd>A bit of the move command: 1 carries out the move, 0 stops the move and holds the jaws still, with the
+command stored. The action status of the answer repeats this bit.</dd>
 <dt><strong>Activated</strong></dt>
 <dd>A flag the gripper keeps, set by the activate bit of the move command or by <code>#Gripact</code>. A move is carried out
 only while the gripper is activated and calibrated.</dd>
@@ -4915,8 +5041,8 @@ torque constant, so the current limit sets the force with which the jaws press o
 <dd>The STEPFOC board on the back of the gripper's stepper: field-oriented control of the motor, the gripper state
 machine and the <abbr title="Controller Area Network, the bus between the robot or the PC and the gripper">CAN</abbr> and <abbr title="the serial port of the driver inside the gripper, 3.3 V, 256000 baud">UART</abbr> interfaces. The gripper's firmware is the driver's firmware.</dd>
 <dt><strong>E-stop bit</strong></dt>
-<dd>A bit of the move command. 1 stops the gripper and raises the gripper E-stop error, which stays until it is
-cleared and a command with the bit at 0 arrives.</dd>
+<dd>A bit of the move command. 1 stops the gripper and raises the gripper E-stop error, which comes back at every
+cycle while the last command's bit is 1: send a command with the bit at 0, then clear the error.</dd>
 <dt><strong>Error bit</strong></dt>
 <dd>Bit 0 of every <abbr title="Controller Area Network, the bus between the robot or the PC and the gripper">CAN</abbr> frame identifier the driver sends: 1 while any error is active.</dd>
 <dt><strong>Field-oriented control</strong> (<abbr title="Field-Oriented Control: the motor's current is controlled as a vector relative to the rotor position">FOC</abbr>)</dt>
@@ -4948,13 +5074,14 @@ opposite directions, so one motor moves both jaws symmetrically.</dd>
 <dt><strong>Speed</strong></dt>
 <dd>The speed of a move, 0 to 255, mapped by the firmware to 500 to 60000 encoder ticks per second of the motor.</dd>
 <dt><strong>Stroke</strong></dt>
-<dd>How far each jaw carrier travels from fully open to fully closed: 55, 105 or 155 mm, set by the rail length.</dd>
+<dd>How much the distance between the jaw carriers changes from fully open to fully closed: 55, 105 or 155 mm,
+set by the rail length. Each jaw travels half of it.</dd>
 <dt><strong>Timeout error</strong> (watchdog)</dt>
-<dd>The driver's <abbr title="Controller Area Network, the bus between the robot or the PC and the gripper">CAN</abbr> watchdog, as the gripper reports it: when the watchdog is set (<code>Send_Watchdog</code>) and no valid
-frame arrives in time, the gripper stops and raises it.</dd>
+<dd>The driver's <abbr title="Controller Area Network, the bus between the robot or the PC and the gripper">CAN</abbr> watchdog, as the gripper reports it: when the watchdog is set (<code>Send_Watchdog</code>) and no
+gripper command or status request arrives in time, the gripper stops and raises it.</dd>
 <dt><strong>Watchdog</strong></dt>
-<dd>A timer the driver resets with every valid <abbr title="Controller Area Network, the bus between the robot or the PC and the gripper">CAN</abbr> frame it receives. When it is set and runs out, the gripper
-reports a timeout error and stops.</dd>
+<dd>A timer the driver resets with every gripper command (full or empty) and every status request it receives.
+When it is set and runs out, the gripper reports a timeout error and stops.</dd>
 </dl></section><section class="print-page" id="cad-files" heading-number="1.6.2"><h1 id="cad-files-cad-and-downloads">CAD and downloads<a class="headerlink" href="#cad-files-cad-and-downloads" title="Permanent link">&para;</a></h1>
 <table>
 <thead>
@@ -4982,15 +5109,15 @@ reports a timeout error and stops.</dd>
 </tr>
 <tr>
 <td>Assembly video</td>
-<td><a href="https://youtu.be/oAUhDKYgLso">YouTube</a></td>
+<td><a href="https://youtu.be/EosuDy-heqM">YouTube</a></td>
 </tr>
 <tr>
 <td>Cable wiring diagrams</td>
 <td><a href="https://github.com/Source-Robotics/MSG-compliant-AI-stepper-gripper/blob/main/Assembly%20manual/Building_cables.md">Building_cables.md</a></td>
 </tr>
 <tr>
-<td><abbr title="Unified Robot Description Format, the robot description used by ROS 2">URDF</abbr> and <abbr title="MuJoCo's robot description format">MJCF</abbr> description for ROS 2, Gazebo and MuJoCo</td>
-<td><a href="https://github.com/Source-Robotics/MSG-compliant-AI-stepper-gripper/tree/main/MSG_gripper_description">MSG_gripper_description</a></td>
+<td><abbr title="Unified Robot Description Format, the robot description used by ROS 2">URDF</abbr> and <abbr title="MuJoCo's robot description format">MJCF</abbr> (MuJoCo) models, standalone and on PAROL6 and PAR6</td>
+<td>the <a href="https://github.com/Source-Robotics/MSG-compliant-AI-stepper-gripper/tree/main/msg_description">msg_description</a> guide; the files are in <a href="https://github.com/Source-Robotics/robot_descriptions">robot_descriptions</a></td>
 </tr>
 <tr>
 <td>The driver's firmware (the gripper's firmware) and its releases</td>
@@ -5262,7 +5389,7 @@ explains what the gripper does with them.</p>
 <div class="cmd-facts">
 <p><span class="fact">ID 61</span><span class="fact">host → driver</span><span class="fact">0 or 5 bytes</span><span class="fact">Python: <code>Send_gripper_data_pack()</code></span></p>
 </div>
-<p>The gripper command, for a driver set up as a gripper (<code>#Gripper 1</code>, saved). Position, speed and the current limit of the move, plus the activate, action and E-stop bits. A move is carried out only while the gripper is calibrated, activated and the action bit is 1. An empty frame (0 bytes) only asks for the state.</p>
+<p>The gripper command, for a driver set up as a gripper (<code>#Gripper 1</code>, saved). Position, speed and the current limit of the move, plus the activate, action and E-stop bits. A move is carried out only while the gripper is calibrated, activated and the action bit is 1. An empty frame (0 bytes) only asks for the state. The answer is sent before the driver acts on the frame, so it carries the state from before it. While the gripper calibration runs, send only the empty frame: a full one ends the calibration.</p>
 <p><strong>5 bytes</strong></p>
 <table>
 <thead>
@@ -5308,14 +5435,14 @@ explains what the gripper does with them.</p>
 <td>6</td>
 <td>Action</td>
 <td>bit</td>
-<td>1 go to the position, 0 idle</td>
+<td>1 go to the position, 0 stop and hold the jaws still</td>
 </tr>
 <tr>
 <td>4</td>
 <td>5</td>
 <td>E-stop</td>
 <td>bit</td>
-<td>1 raises the gripper E-stop error</td>
+<td>1 raises the gripper E-stop error, again at every cycle while the last command's bit is 1</td>
 </tr>
 <tr>
 <td>4</td>
@@ -5371,7 +5498,7 @@ explains what the gripper does with them.</p>
 <td>6</td>
 <td>gripper_action_status</td>
 <td>bit</td>
-<td>1 going to the position, 0 idle, auto-release or calibrating</td>
+<td>the action bit of the last command, as received; stays 1 while holding, not changed by the calibration</td>
 </tr>
 <tr>
 <td>3</td>
@@ -5415,7 +5542,7 @@ explains what the gripper does with them.</p>
 <div class="cmd-facts">
 <p><span class="fact">ID 62</span><span class="fact">host → driver</span><span class="fact">0 bytes</span><span class="fact">Python: <code>Send_gripper_calibrate()</code></span></p>
 </div>
-<p>Starts the gripper calibration (the jaws find their end stops). Needed after every power-up.</p>
+<p>Starts the gripper calibration (the jaws find their end stops). Needed after every power-up. It has no answer: poll with empty Send_gripper_data_pack frames until the calibrated bit is 1, and send nothing else meanwhile, since a full gripper command or Send_Clear_Error ends the calibration. With an error active the request is dropped: clear first.</p>
 <p>The driver does not answer this command.</p>
 <hr /></section><section class="print-page" id="reference-can-system" heading-number="2.3.3"><h1 id="reference-can-system-system">System<a class="headerlink" href="#reference-can-system-system" title="Permanent link">&para;</a></h1>
 <p>Node ID, stopping, saving, resetting, clearing errors, the watchdog and the heartbeat setup: the driver's system
@@ -5424,7 +5551,7 @@ messages a gripper host uses.</p>
 <div class="cmd-facts">
 <p><span class="fact">ID 11</span><span class="fact">host → driver</span><span class="fact">1 bytes</span><span class="fact">Python: <code>Send_CAN_ID()</code></span></p>
 </div>
-<p>Gives the driver a new node ID, 0 to 13 (the firmware accepts up to 15, but the bootloader reserves 14 and 15: a driver on one of those cannot be updated over <abbr title="Controller Area Network, the bus between the robot or the PC and the gripper">CAN</abbr>). Setting the ID also sets the bootloader's board ID. The driver answers to the new ID at once; the ID is kept over a power cycle only after Send_Save_config.</p>
+<p>Gives the driver a new node ID, 0 to 13 (the firmware accepts up to 15, but the bootloader reserves 14 and 15: a driver on one of those cannot be updated over <abbr title="Controller Area Network, the bus between the robot or the PC and the gripper">CAN</abbr>). The driver answers to the new ID at once; Send_Save_config keeps it over a power cycle and also writes it into the bootloader's board ID.</p>
 <p><strong>1 bytes</strong></p>
 <table>
 <thead>
@@ -5480,14 +5607,14 @@ messages a gripper host uses.</p>
 <div class="cmd-facts">
 <p><span class="fact">ID 1</span><span class="fact">host → driver</span><span class="fact">0 bytes</span><span class="fact">Python: <code>Send_Clear_Error()</code></span></p>
 </div>
-<p>Clears the error flags and goes to idle. An error whose cause is still present comes straight back. A calibration error is cleared only by calibrating.</p>
+<p>Clears the error flags and goes to idle. An error whose cause is still present comes straight back; the gripper's E-stop error comes back while the last gripper command's E-stop bit is 1, so send a command with the bit at 0 first. A clear also ends a running gripper calibration. A calibration error is cleared only by calibrating.</p>
 <p>The driver does not answer this command.</p>
 <hr />
 <h3 id="reference-can-system-send_watchdog">Send_Watchdog<a class="headerlink" href="#reference-can-system-send_watchdog" title="Permanent link">&para;</a></h3>
 <div class="cmd-facts">
 <p><span class="fact">ID 15</span><span class="fact">host → driver</span><span class="fact">5 bytes</span><span class="fact">Python: <code>Send_Watchdog()</code></span></p>
 </div>
-<p>Sets the watchdog: every valid <abbr title="Controller Area Network, the bus between the robot or the PC and the gripper">CAN</abbr> frame the driver receives resets it; when the time runs out the driver reports a watchdog error and stops. 0 turns it off (the default). The action byte is stored but not acted on by this firmware: the driver always stops into its idle behaviour.</p>
+<p>Sets the watchdog: the gripper command (full or empty) and the status requests reset it, Send_Clear_Error, Send_gripper_calibrate and the setup messages do not; when the time runs out the driver reports a watchdog error and stops. 0 turns it off (the default). The action byte is stored but not acted on by this firmware: the driver always stops into its idle behaviour.</p>
 <p><strong>5 bytes</strong></p>
 <table>
 <thead>
@@ -6065,21 +6192,21 @@ used.</p>
 <td><code>#Gripcal</code></td>
 <td>Action</td>
 <td></td>
-<td>Starts the gripper calibration (the jaws find their end stops). Enters <strong>gripper calibration</strong> mode.</td>
+<td>Starts the gripper calibration (the jaws find their end stops). Clear any error first; until <code>#Gripinfo</code> reports it calibrated, send no <code>#Grippos</code> or <code>#Clear</code>, which end it. Enters <strong>gripper calibration</strong> mode.</td>
 <td><code>Gripper calibration!</code></td>
 </tr>
 <tr>
 <td><code>#Gripinfo</code></td>
 <td>Get</td>
 <td></td>
-<td>Prints the gripper state: calibrated, activated, end stops, position, current.</td>
+<td>Prints the gripper state: gripper mode, calibrated, activated, the position, speed and current setpoints, the E-stop and action bits, the object detection, and the end stops in encoder ticks.</td>
 <td>the report</td>
 </tr>
 <tr>
 <td><code>#Gripstop</code></td>
 <td>Set/Get</td>
 <td>int: 0 or 1</td>
-<td>The gripper E-stop bit.</td>
+<td>The gripper E-stop bit. While it is 1, the E-stop error is raised again at every cycle: set it to 0 before <code>#Clear</code>.</td>
 <td>the bit</td>
 </tr>
 <tr>
@@ -6213,7 +6340,7 @@ is the procedure.</p>
 <td><code>#CANID</code></td>
 <td>Set/Get</td>
 <td>int: 0 to 13</td>
-<td>The <abbr title="Controller Area Network, the bus between the robot or the PC and the gripper">CAN</abbr> node ID. Use 0 to 13: the firmware accepts 14 and 15, but the bootloader reserves them and a driver on one of those cannot be updated over <abbr title="Controller Area Network, the bus between the robot or the PC and the gripper">CAN</abbr>. Setting the ID also sets the bootloader's board ID. Kept over a power cycle after Save.</td>
+<td>The <abbr title="Controller Area Network, the bus between the robot or the PC and the gripper">CAN</abbr> node ID. Use 0 to 13: the firmware accepts 14 and 15, but the bootloader reserves them and a driver on one of those cannot be updated over <abbr title="Controller Area Network, the bus between the robot or the PC and the gripper">CAN</abbr>. Save keeps it over a power cycle and also writes it into the bootloader's board ID.</td>
 <td>the ID, or <code>Invalid CAN ID</code></td>
 </tr>
 <tr>
@@ -6261,8 +6388,8 @@ is the procedure.</p>
 <td><code>#Mode</code></td>
 <td>Get</td>
 <td></td>
-<td>Prints the control mode.</td>
-<td><code>Idle mode</code>, <code>Position control</code>, <code>Speed control</code>, <code>Current control</code>, <code>PD control</code>, <code>Open loop</code>, <code>Gripper mode</code></td>
+<td>Prints the control mode. In gripper mode (mode 11) it prints nothing; <code>#Gripinfo</code> shows the gripper's state.</td>
+<td><code>Idle mode</code>, <code>Position control</code>, <code>Speed control</code>, <code>Current control</code>, <code>PD control</code>, <code>Open loop</code>, <code>Gripper calib mode</code> during the gripper calibration; <code>Gripper mode</code> is what it prints for mode 6, voltage torque</td>
 </tr>
 <tr>
 <td><code>#Vbus</code></td>
@@ -6282,21 +6409,21 @@ is the procedure.</p>
 <td><code>#Clear</code></td>
 <td>Action</td>
 <td></td>
-<td>Clears the errors and goes to idle. An error whose cause is still present comes straight back; a calibration error is cleared only by calibrating (or <code>#Calibrated 1</code>). Enters <strong>idle</strong> mode.</td>
+<td>Clears the errors and goes to idle, and ends a running gripper calibration. An error whose cause is still present comes straight back, the gripper's E-stop too while <code>#Gripstop</code> is 1; a calibration error is cleared only by calibrating (or <code>#Calibrated 1</code>). Enters <strong>idle</strong> mode.</td>
 <td><code>Clear errors</code></td>
 </tr>
 <tr>
 <td><code>#Help</code></td>
 <td>Action</td>
 <td></td>
-<td>Prints a short command reference. Added in firmware 108.</td>
+<td>Prints a short command reference. Added in firmware 106.</td>
 <td>the reference</td>
 </tr>
 <tr>
 <td><code>#Info</code></td>
 <td>Get</td>
 <td></td>
-<td>Prints the driver's identity and state: hardware and firmware version, serial number, motor parameters, calibration, errors.</td>
+<td>Prints the driver's identity and state: hardware version, batch date and firmware version, the ISR time, the <abbr title="Controller Area Network, the bus between the robot or the PC and the gripper">CAN</abbr> ID, the motor calibration, the thermistor and temperature, the supply voltage and the motor parameters (phase direction and order, pole pairs, R, L, Kt, KV). The serial number is printed by <code>#SERNUM</code>, the errors by <code>#Error</code>, gripper mode by <code>#Gripper</code>.</td>
 <td>the report</td>
 </tr>
 <tr>
@@ -6334,7 +6461,7 @@ is the procedure.</p>
 <tr>
 <td>6</td>
 <td><code>action_status</code></td>
-<td>1 while a move is in progress; 0 when idle, holding, auto-releasing or calibrating</td>
+<td>the action bit of the last gripper command, as received (<code>#Grippos</code> sets it to 1); it stays 1 while the gripper holds, and the calibration does not change it. The state of a move is in <code>object_detection</code></td>
 </tr>
 <tr>
 <td>5, 4</td>
@@ -6401,7 +6528,7 @@ Send_Respond_State_of_Errors (bits numbered from the most significant).</p>
 <td><code>Vbus_error</code></td>
 <td><code>Vbus error</code></td>
 <td>0, 4</td>
-<td>the supply is below 9 V or above 29.5 V</td>
+<td>the supply is below 9 V or above <code>#Vmax</code> (29 V after <code>#Default</code>)</td>
 </tr>
 <tr>
 <td><code>Driver_error</code></td>
@@ -6452,7 +6579,8 @@ The gripper's <code>estop_error</code> is its own, raised by the E-stop bit of t
 driver's <code>ESTOP_error</code> raised by Send_ESTOP.</p>
 <h2 id="reference-errors-clearing">Clearing<a class="headerlink" href="#reference-errors-clearing" title="Permanent link">&para;</a></h2>
 <p>Send_Clear_Error and <code>#Clear</code> clear every flag, the gripper's E-stop included, and go to idle; a flag whose cause
-persists is set again at once. After an E-stop, the next gripper command must carry the E-stop bit at 0. The
+persists is set again at once. The gripper's <code>estop_error</code> is raised again at every cycle while the E-stop bit of
+the last gripper command (or <code>#Gripstop</code>) is 1: send a gripper command with the bit at 0 first, then clear. The
 driver's <code>Calibrated</code> flag is set only by the motor calibration (<code>#Cal</code>).</p>
 <h2 id="reference-errors-the-led">The <abbr title="Light-Emitting Diode">LED</abbr><a class="headerlink" href="#reference-errors-the-led" title="Permanent link">&para;</a></h2>
 <p>The driver's status <abbr title="Light-Emitting Diode">LED</abbr> is inside the housing: three short flashes and a pause in normal operation, flashing
@@ -6625,8 +6753,10 @@ for the driver as much as for the gripper, are in the
 the <a href="https://docs.source-robotics.com/STEPFOC-docs/latest/guides/">STEPFOC guides</a>.</p></section><section class="print-page" id="guides-basic-control" heading-number="3.2"><h1 id="guides-basic-control-basic-control-in-python">Basic control in Python<a class="headerlink" href="#guides-basic-control-basic-control-in-python" title="Permanent link">&para;</a></h1>
 <p>The shortest program that drives the gripper: it connects through the CANvas adapter, clears the errors,
 calibrates, then closes and opens every three seconds and prints what the gripper answers. It is the example from
-the product repository's README; <code>pip install Spectral-BLDC</code> is the only requirement. Change <code>COM20</code> to your
-adapter's port (<code>/dev/ttyACM0</code> on Linux) and <code>node_id</code> to the gripper's <abbr title="Controller Area Network, the bus between the robot or the PC and the gripper">CAN</abbr> ID if you changed it from 0.</p>
+the product repository's README, with a longer wait for the calibration: the README's 4 s is too short for the
+150 and 200 mm rails, and a move command sent while the calibration still runs ends it. <code>pip install
+Spectral-BLDC</code> is the only requirement. Change <code>COM20</code> to your adapter's port (<code>/dev/ttyACM0</code> on Linux) and
+<code>node_id</code> to the gripper's <abbr title="Controller Area Network, the bus between the robot or the PC and the gripper">CAN</abbr> ID if you changed it from 0.</p>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
 <p>700 mA closes the jaws with real force, about 14 N with the 21.5 mm stepper and 25 N with the 60 mm. Keep fingers out of the jaws, and start with a lower current
@@ -6640,7 +6770,7 @@ if the gripper is new to you.</p>
 </span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#guides-basic-control-__codelineno-0-6"></a>
 </span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#guides-basic-control-__codelineno-0-7"></a><span class="n">Motor1</span><span class="o">.</span><span class="n">Send_Clear_Error</span><span class="p">()</span>
 </span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#guides-basic-control-__codelineno-0-8"></a><span class="n">Motor1</span><span class="o">.</span><span class="n">Send_gripper_calibrate</span><span class="p">()</span>
-</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#guides-basic-control-__codelineno-0-9"></a><span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#guides-basic-control-__codelineno-0-9"></a><span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>                 <span class="c1"># the calibration: up to about ten seconds; send nothing meanwhile</span>
 </span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#guides-basic-control-__codelineno-0-10"></a>
 </span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#guides-basic-control-__codelineno-0-11"></a><span class="n">temp_var</span> <span class="o">=</span> <span class="mi">0</span>
 </span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#guides-basic-control-__codelineno-0-12"></a><span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
@@ -6662,7 +6792,8 @@ if the gripper is new to you.</p>
 </span><span id="__span-0-28"><a id="__codelineno-0-28" name="__codelineno-0-28" href="#guides-basic-control-__codelineno-0-28"></a>
 </span><span id="__span-0-29"><a id="__codelineno-0-29" name="__codelineno-0-29" href="#guides-basic-control-__codelineno-0-29"></a>   <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 </span></code></pre></div>
-<p>The arguments of <code>Send_gripper_data_pack</code>, in order: the position (0 open, 255 closed), the speed (0 to 255), the
+<p>Each answer printed is the one to the command just sent, so it still shows the state from before that move.
+The arguments of <code>Send_gripper_data_pack</code>, in order: the position (0 open, 255 closed), the speed (0 to 255), the
 current limit in mA (the force), then the activate bit, the action bit, the E-stop bit and the release direction.
 <a href="#06-operation-python">With Python</a> explains the library's calls, <a href="#06-operation-how-it-works">How the gripper works</a>
 the state the gripper answers with, and <a href="#03-technical-data-force-and-speed">Force and speed</a> what the
@@ -6741,8 +6872,8 @@ does that bookkeeping and unwraps the encoder over its 16384-tick turns.</p>
 </span><span id="__span-0-38"><a id="__codelineno-0-38" name="__codelineno-0-38" href="#guides-teleoperation-__codelineno-0-38"></a>    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">INTERVAL_S</span> <span class="o">-</span> <span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span> <span class="o">-</span> <span class="n">t0</span><span class="p">)))</span>
 </span></code></pre></div>
 <p>The reference readings: with both grippers powered and their jaws set by hand to the same opening, read each
-driver's position (<code>#Info</code> over <abbr title="the serial port of the driver inside the gripper, 3.3 V, 256000 baud">UART</abbr>, or <code>Send_Respond_Encoder_data</code> from Python) and put the two numbers in
-<code>REFERENCE</code>.</p>
+driver's position as the loop receives it (print <code>motors[i].position</code> with both currents at 0) and put the two
+numbers in <code>REFERENCE</code>.</p>
 <h2 id="guides-teleoperation-tuning">Tuning<a class="headerlink" href="#guides-teleoperation-tuning" title="Permanent link">&para;</a></h2>
 <p>Start with <code>Kp</code> at a tenth of the value above and raise it until the follower tracks the leader without lagging;
 raise <code>Kd</code> if the pair oscillates. The current the formula produces is in mA and is clamped by each driver's
@@ -6776,8 +6907,8 @@ for the firmware, or in <a href="https://github.com/Source-Robotics/Spectral-BLD
 for the Python library. Include:</p>
 <ol>
 <li><strong>The gripper</strong>: bought or self-built, the rail and the stepper, the jaws.</li>
-<li><strong>The firmware release</strong> the gripper runs: Send_Respond_Device_Info, or <code>#Info</code> over <abbr title="the serial port of the driver inside the gripper, 3.3 V, 256000 baud">UART</abbr>, which also carries
-   the driver's configuration and errors.</li>
+<li><strong>The firmware release</strong> the gripper runs: Send_Respond_Device_Info, or <code>#Info</code> over <abbr title="the serial port of the driver inside the gripper, 3.3 V, 256000 baud">UART</abbr>, which also prints
+   the driver's configuration; add what <code>#Error</code> prints.</li>
 <li><strong>The gripper's status</strong> when the problem happens: the state and error bits of Respond_Gripper_data_pack, or
    <code>#Gripinfo</code>.</li>
 <li><strong>What you did and what happened</strong>: the commands, in order, with their position, speed and current, and the
@@ -6800,7 +6931,8 @@ source, and GitHub turns your change into a pull request. For anything larger, o
   commands are in <code>docs/includes/can_commands.yml</code> and <code>uart_commands.yml</code>, which list only the commands a
   gripper needs.</li>
 <li>Every push runs a strict build (a broken link fails it) and the tool tests. A push to <code>main</code> publishes the
-  site under its firmware version with <a href="https://github.com/jimporter/mike">mike</a>.</li>
+  site with <a href="https://github.com/jimporter/mike">mike</a>, under the gripper release named by <code>docs_version</code> in
+  <code>versions.yml</code>.</li>
 </ul>
 <h2 id="support-contributing-house-rules">House rules<a class="headerlink" href="#support-contributing-house-rules" title="Permanent link">&para;</a></h2>
 <ul>

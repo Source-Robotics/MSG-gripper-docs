@@ -58,9 +58,9 @@ gripper without the thermistor on its motor has no such protection.
 
 ## After a firmware update
 
-If the gripper does not calibrate or behaves oddly after an update, check the driver's configuration with
-`#Info` over UART: gripper mode (`#Gripper 1`), the thermistor (`#Term 1`), the motor calibration. A release note
-says when an update clears the configuration; [Driver configuration](https://docs.source-robotics.com/MSG-gripper-docs/1.1/build/first-run/) restores
+If the gripper does not calibrate or behaves oddly after an update, check the driver's configuration over UART:
+`#Gripper` (gripper mode, 1), `#Term` (the thermistor, 1) and `#Info` (the motor calibration and parameters). A
+release note says when an update clears the configuration; [Driver configuration](https://docs.source-robotics.com/MSG-gripper-docs/1.1/build/first-run/) restores
 it.
 
 ## Getting help
