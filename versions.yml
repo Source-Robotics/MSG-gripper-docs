@@ -39,8 +39,8 @@ manuals:
     number: SR-5003
     title: MSG Gripper Manual
     revision: 2026.A
-    status: draft
-    published: null
+    status: published
+    published: 2026-11-03
     firmware: true
     applies_to: with the STEPFOC driver PCB v1
     covers: "the MSG compliant AI stepper gripper: safety, technical data, installation, setup, operation over CAN, UART, Python and ROS 2, firmware, the build guide; the gripper's API reference; guides"
