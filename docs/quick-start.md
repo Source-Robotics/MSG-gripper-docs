@@ -57,9 +57,11 @@ The [illustrated Motor GUI guide](05-setup/motor-gui.md) shows the panel.
 
 ## 5. Calibrate and activate
 
-With the stroke empty and the gripper deactivated, press **Calibrate**, read the prompt, and press
-**Start calibration**. Let the jaws find both end stops. Follow [Calibrate, activate, move](05-setup/first-moves.md)
-for the full procedure, then **Activate** and check for faults.
+If the panel shows an error, press **Clear errors** first. With the stroke empty and the gripper deactivated,
+press **Calibrate**, read the prompt, and press **Start calibration**. Let the jaws find both end stops, and
+press nothing else until the panel says **Calibrated**: a move or a clear during the calibration ends it. Follow
+[Calibrate, activate, move](05-setup/first-moves.md) for the full procedure, then **Activate** and check for
+faults.
 
 **Check:** the panel says **Calibrated**, **Activated**, and **No errors** before you command a move.
 A calibration that times out after 24 seconds has not found its end stops; do not continue as if it passed.

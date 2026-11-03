@@ -1,7 +1,6 @@
 # Performance tests
 
-Thermal tests of the MSG gripper under different conditions. The thermal limit is 75 °C at the thermistor on the
-motor housing.
+A thermal test of the MSG gripper. The thermal limit is 75 °C at the thermistor on the motor housing.
 
 !!! warning
     A gripper built without the thermistor on its motor has no temperature protection and can damage its motor
@@ -13,19 +12,3 @@ motor housing.
 - 7 days without interruption
 - Motor temperature: 42 °C
 - Ambient temperature: 33 °C
-
-## Holding at a constant current
-
-- Hold an object at a constant current for 24 hours
-- Current setpoint: to be published
-- Stable motor temperature: to be published
-- Ambient temperature: to be published
-
-## The current that trips the thermal limit
-
-- Hold an object at a high current until the temperature error trips
-- Current setpoint and the time to the error: to be published
-- Ambient temperature: to be published
-
-The results of the two open tests, and the measured force-against-current curves for the three steppers, will be
-added here as they are made.

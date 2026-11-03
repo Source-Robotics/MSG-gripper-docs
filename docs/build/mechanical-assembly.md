@@ -3,9 +3,9 @@
 The assembly is shown in the repository's video; a PDF manual is in preparation. Watch the video once before you
 start, with the parts in front of you.
 
-<iframe width="100%" height="460" src="https://www.youtube-nocookie.com/embed/oAUhDKYgLso" title="MSG gripper assembly" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="100%" height="460" src="https://www.youtube-nocookie.com/embed/EosuDy-heqM" title="MSG gripper assembly" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-[Open the video on YouTube](https://youtu.be/oAUhDKYgLso){ .md-button }
+[Open the video on YouTube](https://youtu.be/EosuDy-heqM){ .md-button }
 
 ## The order
 

@@ -1,6 +1,6 @@
 # Calibrate, activate, move
 
-Every session with the gripper starts the same way: calibrate, activate, clear what errors there are. Then it
+Every session with the gripper starts the same way: clear what errors there are, calibrate, activate. Then it
 moves. This page does it once with Motor GUI, with Python and over UART; [How the gripper works](../06-operation/how-it-works.md)
 explains what happens inside.
 
@@ -13,19 +13,41 @@ explains what happens inside.
 At power-up the gripper reports *Not calibrated* and does not move. Its stepper must be calibrated too, which a
 bought gripper is from the factory; a self-built gripper gets that in [Driver configuration](../build/first-run.md).
 
-## 2. Calibrate
+## 2. Clear errors
+
+The driver powers up in an error state until its motor is calibrated and it has run through its checks; an
+E-stop, an over-temperature or a supply fault leave an error too. A gripper with an error does not move, and
+does not calibrate either: clear first.
+
+=== "Motor GUI"
+    **Clear errors**, when the panel shows an error.
+
+=== "Python"
+    ```python
+    gripper.Send_Clear_Error()
+    ```
+
+=== "UART"
+    ```
+    #Clear
+    ```
+
+An error whose cause is still present comes straight back; after an E-stop, send a command with the E-stop bit
+at 0 before you clear. [Errors and recovery](../06-operation/errors.md) says what each needs.
+
+## 3. Calibrate
 
 The gripper calibration finds the two end stops: the jaws open fully, pause, then close fully, at low force
 (500 mA) and low speed. Each end is recognised when the jaws have stood still against it for half a second. It
 takes about ten seconds; the result is not kept over a power cycle, so this runs at every power-up.
 
 === "Motor GUI"
-    **Calibrate**, and confirm. When the jaws stop, the panel shows *Calibrated*.
+    **Calibrate**, and confirm. When the jaws stop, the panel shows *Calibrated*; press nothing else until then.
 
 === "Python"
     ```python
     gripper.Send_gripper_calibrate()
-    time.sleep(10)
+    time.sleep(10)       # send nothing meanwhile; With Python waits for the calibrated bit instead
     ```
 
 === "UART"
@@ -34,10 +56,13 @@ takes about ten seconds; the result is not kept over a power cycle, so this runs
     ```
 
 If the jaws do not move at all, or move to one end and stop: the gripper is in an error state (clear it first, see
-step 4), or the stepper is not calibrated. If the routine runs for 24 seconds and gives up, an end stop was not
+step 2), or the stepper is not calibrated. If the routine runs for 24 seconds and gives up, an end stop was not
 found: something blocks the jaws short of the end, or the mechanism is too stiff for 500 mA.
 
-## 3. Activate
+Until the gripper reports *Calibrated*, send nothing but status polls: a move command or a clear during the
+calibration ends it, and the gripper stays uncalibrated.
+
+## 4. Activate
 
 A calibrated gripper carries out a move only while it is activated.
 
@@ -54,27 +79,6 @@ A calibrated gripper carries out a move only while it is activated.
 
 === "UART"
     `#Grippos` activates by itself; `#Gripact 1` activates without moving.
-
-## 4. Clear errors
-
-The driver powers up in an error state until its motor is calibrated and it has run through its checks; an
-E-stop, an over-temperature or a supply fault leave an error too. A gripper with an error does not move.
-
-=== "Motor GUI"
-    **Clear errors**, when the panel shows an error.
-
-=== "Python"
-    ```python
-    gripper.Send_Clear_Error()
-    ```
-
-=== "UART"
-    ```
-    #Clear
-    ```
-
-An error whose cause is still present comes straight back; [Errors and recovery](../06-operation/errors.md) says
-what each needs.
 
 ## 5. Move
 

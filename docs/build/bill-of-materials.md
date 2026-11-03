@@ -80,6 +80,7 @@ This BOM lists all components required to build the MSG gripper. Quantities are 
     **PAROL6 and PAR6 robots use different cables for SSG48 and MSG grippers. Using incorrect one can damage your robot**
 
 Official cables from Source Robotics: 
+
 - [PAROL6 cable](https://source-robotics.com/products/gripper-cable)
 - PAR6 cable - Coming soon
 

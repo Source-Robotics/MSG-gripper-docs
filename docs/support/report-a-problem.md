@@ -6,8 +6,8 @@ for the firmware, or in [Spectral-BLDC-Python](https://github.com/Source-Robotic
 for the Python library. Include:
 
 1. **The gripper**: bought or self-built, the rail and the stepper, the jaws.
-2. **The firmware release** the gripper runs: Send_Respond_Device_Info, or `#Info` over UART, which also carries
-   the driver's configuration and errors.
+2. **The firmware release** the gripper runs: Send_Respond_Device_Info, or `#Info` over UART, which also prints
+   the driver's configuration; add what `#Error` prints.
 3. **The gripper's status** when the problem happens: the state and error bits of Respond_Gripper_data_pack, or
    `#Gripinfo`.
 4. **What you did and what happened**: the commands, in order, with their position, speed and current, and the

@@ -45,7 +45,8 @@ thermistor on its motor has no protection and can burn out its motor; see [Drive
 ## Stopping the gripper
 
 - The E-stop bit of the move command (`Send_gripper_data_pack`) stops the gripper and raises the gripper E-stop
-  error, which stays until it is cleared.
+  error. The error stays as long as the last command carries the bit: send a command with the bit at 0, then
+  clear it ([Errors and recovery](06-operation/errors.md)).
 - `Send_ESTOP` to the driver, or `#Idle` over UART, stops it as well.
 - The CAN watchdog ([Send_Watchdog](reference/can/system.md)) stops the gripper by itself when the host stops
   talking, which is the right protection for a program that may crash mid-grip.

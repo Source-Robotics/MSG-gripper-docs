@@ -20,13 +20,14 @@ folder has the same parts as 3MF, ready to slice.
 
 ## The jaws
 
-Two kinds, both in `Gripper jaws attachment`; mirror the file in the slicer for the other side:
+Two kinds, both in `Gripper jaws attachment`; mirror the file in the slicer for the other side, except the solid
+jaw, which has a mirrored file:
 
 - **TPU jaws** (recommended): a PETG body, `MSG_JAW_TPU_GLUE`, and a soft TPU pad printed separately and glued
   on. The pad deforms around the object for a gentler, surer grip. Print the pad with **16 % infill, no top or
   bottom layers and 2 walls** for the softest grip; the body with the normal settings.
-- **Solid jaws**: `MSG_SOLID_JAW` in one piece, or `MSG_JAW_HOLLOW` for a two-colour print; `MSG_JAW_TPU_GLUE`
-  prints solid too.
+- **Solid jaws**: `MSG_solid_jaw` and `MSG_solid_jaw_mirror` in one piece, or `MSG_JAW_HOLLOW` for a two-colour
+  print; `MSG_JAW_TPU_GLUE` prints solid too.
 
 <figure markdown="span">
   ![The TPU jaw in the slicer](../assets/jaw_slicer1.webp){ width="520" }

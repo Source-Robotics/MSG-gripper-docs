@@ -59,12 +59,12 @@ SSG-48; MSG uses the same controls.
 
 | Control | What it does |
 |---|---|
-| **Calibrate** | runs the gripper calibration: the jaws travel the whole stroke to find the end stops. The panel asks you to confirm; deactivate the gripper and take everything out of the jaws first |
+| **Calibrate** | runs the gripper calibration: the jaws travel the whole stroke to find the end stops. The panel asks you to confirm; clear any error, deactivate the gripper and take everything out of the jaws first. Press nothing else until the panel says *Calibrated*: a move or **Clear errors** during the calibration ends it |
 | **Activate**, **Deactivate** | the activate bit: a calibrated gripper carries out moves only while it is activated |
 | *Position*, *Speed*, *Current*, each with **Set** | the move: position 0 (open) to 255 (closed), speed 0 to 255, current limit 0 to 1500 mA, which is the force. Each **Set** sends its value together with the other two as last sent |
 | **Open**, **Close** | a move to position 0 or 255 with the set speed and current |
 | **Stop** | ends the move where the jaws are |
-| **E-stop**, or ++esc++ | stops the gripper at once: the move command with the E-stop bit, after which the gripper reports the E-stop error until it is cleared |
+| **E-stop**, or ++esc++ | stops the gripper at once: the move command with the E-stop bit, after which the gripper reports the E-stop error until a command with the bit at 0 has been sent and the error cleared |
 | **Clear errors** | clears the errors; an error whose cause remains comes straight back |
 | Plots | position and current, live, with the requested position drawn in; the window and the scale are adjustable, and **Export CSV** saves a recorded run |
 | Events | the feedback rate and the recent gripper events, with **Export events** for diagnostics |

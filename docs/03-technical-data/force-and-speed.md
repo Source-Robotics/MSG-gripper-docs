@@ -128,8 +128,8 @@ $$
 | 128 | 30400 ticks/s, 1.9 rev/s | 97 mm/s | 190 mm/s |
 | 255 | 60000 ticks/s, 3.7 rev/s | 190 mm/s | 380 mm/s |
 
-Both jaws move, so the gap closes at twice the speed of one jaw. At speed 255 a 105 mm stroke takes about half a
-second. The gripper calibration runs at speed 40 and 500 mA.
+Both jaws move, so the gap closes at twice the speed of one jaw. At speed 255 a 105 mm stroke takes about
+0.3 s. The gripper calibration runs at speed 40 and 500 mA.
 
 ## Position
 

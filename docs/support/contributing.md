@@ -14,7 +14,8 @@ source, and GitHub turns your change into a pull request. For anything larger, o
   commands are in `docs/includes/can_commands.yml` and `uart_commands.yml`, which list only the commands a
   gripper needs.
 - Every push runs a strict build (a broken link fails it) and the tool tests. A push to `main` publishes the
-  site under its firmware version with [mike](https://github.com/jimporter/mike).
+  site with [mike](https://github.com/jimporter/mike), under the gripper release named by `docs_version` in
+  `versions.yml`.
 
 ## House rules
 

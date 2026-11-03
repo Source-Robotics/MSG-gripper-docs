@@ -27,7 +27,9 @@ commands:
     description: >
       The gripper command, for a driver set up as a gripper (`#Gripper 1`, saved). Position, speed and the current
       limit of the move, plus the activate, action and E-stop bits. A move is carried out only while the gripper is
-      calibrated, activated and the action bit is 1. An empty frame (0 bytes) only asks for the state.
+      calibrated, activated and the action bit is 1. An empty frame (0 bytes) only asks for the state. The answer
+      is sent before the driver acts on the frame, so it carries the state from before it. While the gripper
+      calibration runs, send only the empty frame: a full one ends the calibration.
     forms:
       - length: 5
         fields:
@@ -35,8 +37,8 @@ commands:
           - {bytes: "1", name: Speed, type: unsigned 8-bit, meaning: "0 slowest, 255 fastest"}
           - {bytes: "2-3", name: Current, type: signed 16-bit, meaning: "current limit of the move in mA, the grip force; not clamped by the firmware, keep it at or below the stepper's rated current (Force and speed)"}
           - {bytes: "4", bit: 7, name: Activate, type: bit, meaning: "1 activate the gripper, 0 deactivate"}
-          - {bytes: "4", bit: 6, name: Action, type: bit, meaning: "1 go to the position, 0 idle", _shared: true}
-          - {bytes: "4", bit: 5, name: E-stop, type: bit, meaning: 1 raises the gripper E-stop error, _shared: true}
+          - {bytes: "4", bit: 6, name: Action, type: bit, meaning: "1 go to the position, 0 stop and hold the jaws still", _shared: true}
+          - {bytes: "4", bit: 5, name: E-stop, type: bit, meaning: "1 raises the gripper E-stop error, again at every cycle while the last command's bit is 1", _shared: true}
           - {bytes: "4", bit: 4, name: Release direction, type: bit, meaning: read by the firmware but not used, _shared: true}
   OUT_GRIPPER_DATA_PACK:
     name: Respond_Gripper_data_pack
@@ -50,7 +52,7 @@ commands:
       - {bytes: "0", name: gripper_position, type: unsigned 8-bit, meaning: "0 fully open, 255 fully closed"}
       - {bytes: "1-2", name: gripper_current, type: signed 16-bit, meaning: measured current in mA}
       - {bytes: "3", bit: 7, name: gripper_activated, type: bit, meaning: 1 activated}
-      - {bytes: "3", bit: 6, name: gripper_action_status, type: bit, meaning: "1 going to the position, 0 idle, auto-release or calibrating", _shared: true}
+      - {bytes: "3", bit: 6, name: gripper_action_status, type: bit, meaning: "the action bit of the last command, as received; stays 1 while holding, not changed by the calibration", _shared: true}
       - {bytes: "3", bit: "5-4", name: gripper_object_detection, type: 2 bits, bit_order: lsb_first, meaning: "bit 5 is the low bit, bit 4 the high bit: 0 moving, 1 object detected while closing, 2 object detected while opening, 3 at the position", _shared: true}
       - {bytes: "3", bit: 3, name: gripper_temperature_error, type: bit, meaning: "", _shared: true}
       - {bytes: "3", bit: 2, name: gripper_timeout_error, type: bit, meaning: "", _shared: true}
@@ -60,7 +62,11 @@ commands:
     name: Send_gripper_calibrate
     group: gripper
     python: Send_gripper_calibrate()
-    description: Starts the gripper calibration (the jaws find their end stops). Needed after every power-up.
+    description: >
+      Starts the gripper calibration (the jaws find their end stops). Needed after every power-up. It has no
+      answer: poll with empty Send_gripper_data_pack frames until the calibrated bit is 1, and send nothing else
+      meanwhile, since a full gripper command or Send_Clear_Error ends the calibration. With an error active the
+      request is dropped: clear first.
   # ------------------------------------------------------------ system
   IN_CAN_ID:
     name: Send_CAN_ID
@@ -68,8 +74,8 @@ commands:
     python: Send_CAN_ID()
     description: >
       Gives the driver a new node ID, 0 to 13 (the firmware accepts up to 15, but the bootloader reserves 14 and 15:
-      a driver on one of those cannot be updated over CAN). Setting the ID also sets the bootloader's board ID.
-      The driver answers to the new ID at once; the ID is kept over a power cycle only after Send_Save_config.
+      a driver on one of those cannot be updated over CAN). The driver answers to the new ID at once;
+      Send_Save_config keeps it over a power cycle and also writes it into the bootloader's board ID.
     forms:
       - length: 1
         fields:
@@ -101,14 +107,17 @@ commands:
     group: system
     python: Send_Clear_Error()
     description: >
-      Clears the error flags and goes to idle. An error whose cause is still present comes straight back. A
-      calibration error is cleared only by calibrating.
+      Clears the error flags and goes to idle. An error whose cause is still present comes straight back; the
+      gripper's E-stop error comes back while the last gripper command's E-stop bit is 1, so send a command with
+      the bit at 0 first. A clear also ends a running gripper calibration. A calibration error is cleared only by
+      calibrating.
   IN_WATCHDOG_TIMEOUT:
     name: Send_Watchdog
     group: system
     python: Send_Watchdog()
     description: >
-      Sets the watchdog: every valid CAN frame the driver receives resets it; when the time runs out the driver
+      Sets the watchdog: the gripper command (full or empty) and the status requests reset it, Send_Clear_Error,
+      Send_gripper_calibrate and the setup messages do not; when the time runs out the driver
       reports a watchdog error and stops. 0 turns it off (the default). The action byte is stored but not acted on
       by this firmware: the driver always stops into its idle behaviour.
     forms:

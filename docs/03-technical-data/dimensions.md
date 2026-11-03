@@ -9,7 +9,7 @@
     <button type="button" name="reset" class="md-button">Reset view</button>
   </div>
   <p class="gripper-viewer__hint">Drag to turn the gripper, scroll to zoom, open and close the jaws, try the colours. The model is the
-repository's <a href="https://github.com/Source-Robotics/MSG-compliant-AI-stepper-gripper/tree/main/MSG_gripper_description">URDF</a> of the 150 mm rail variant; the shop sells the body in black and grey.</p>
+gripper's URDF, the 150 mm rail variant; the current URDF and MuJoCo models are linked from the repository's <a href="https://github.com/Source-Robotics/MSG-compliant-AI-stepper-gripper/tree/main/msg_description">msg_description</a> guide. The shop sells the body in black and grey.</p>
 </div>
 
 The gripper's dimensions depend on the rail and the stepper: the rail length sets the width (100, 150 or 200 mm
@@ -31,7 +31,9 @@ has to fit:
 
 ## For simulation
 
-The [MSG_gripper_description](https://github.com/Source-Robotics/MSG-compliant-AI-stepper-gripper/tree/main/MSG_gripper_description)
-folder has a URDF of the gripper for ROS 2 and Gazebo and an MJCF for MuJoCo 3.1.3 and newer, with a scene file.
+The product repository's [msg_description](https://github.com/Source-Robotics/MSG-compliant-AI-stepper-gripper/tree/main/msg_description)
+guide links the gripper's models, which are kept in [robot_descriptions](https://github.com/Source-Robotics/robot_descriptions):
+standalone URDF and MJCF (MuJoCo) packages of the gripper with solid or soft TPU jaws, with their meshes, collision
+shapes and mass properties, and the PAROL6 and PAR6 models with the gripper mounted.
 
 [CAD and downloads](../cad-files.md) lists everything that can be downloaded.

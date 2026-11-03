@@ -51,5 +51,8 @@ package, written for the SSG-48 gripper, speaks the same protocol and should wor
 
 ## The description files
 
-The URDF and the MJCF of the gripper for ROS 2, Gazebo and MuJoCo are in the product repository's
-[MSG_gripper_description](https://github.com/Source-Robotics/MSG-compliant-AI-stepper-gripper/tree/main/MSG_gripper_description).
+The gripper's standalone URDF and MJCF (MuJoCo) packages, with solid or soft TPU jaws, come from
+[robot_descriptions](https://github.com/Source-Robotics/robot_descriptions); the product repository's
+[msg_description](https://github.com/Source-Robotics/MSG-compliant-AI-stepper-gripper/tree/main/msg_description) guide links the
+downloads and says how to open them. Its display launch file is for ROS 1; in ROS 2, load the URDF with a launch
+file of your own.

@@ -46,8 +46,8 @@ then enter the stepper's parameters and calibrate:
 
 The motor turns, the driver prints each step and ends with `Calibration success!`. The whole routine and its
 messages are in [Calibration](https://docs.source-robotics.com/STEPFOC-docs/latest/05-setup/calibration/) on
-the STEPFOC site. `#Default` also resets the serial number the driver reports; note what `#Info` printed if you
-need it.
+the STEPFOC site. `#Default` also resets the serial number the driver reports; note what `#SERNUM` prints before
+you start if you need it.
 
 ## 2. The gripper settings
 

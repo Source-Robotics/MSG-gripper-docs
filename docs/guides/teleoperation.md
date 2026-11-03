@@ -83,8 +83,8 @@ while True:
 ```
 
 The reference readings: with both grippers powered and their jaws set by hand to the same opening, read each
-driver's position (`#Info` over UART, or `Send_Respond_Encoder_data` from Python) and put the two numbers in
-`REFERENCE`.
+driver's position as the loop receives it (print `motors[i].position` with both currents at 0) and put the two
+numbers in `REFERENCE`.
 
 ## Tuning
 

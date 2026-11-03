@@ -21,13 +21,13 @@ groups:
 commands:
   # ------------------------------------------------------------ gripper
   Gripper: {group: gripper, argument: 0 or 1, description: "Whether this driver is a gripper. A gripper has it set and saved; `#Default` clears it, so set it again after restoring the defaults.", response: the flag}
-  Gripcal: {group: gripper, description: Starts the gripper calibration (the jaws find their end stops)., response: "`Gripper calibration!`"}
+  Gripcal: {group: gripper, description: "Starts the gripper calibration (the jaws find their end stops). Clear any error first; until `#Gripinfo` reports it calibrated, send no `#Grippos` or `#Clear`, which end it.", response: "`Gripper calibration!`"}
   Grippos: {group: gripper, argument: 0 (open) to 255 (closed), description: "The position setpoint; also activates the gripper, sets the action bit and goes to gripper mode.", response: the current position}
   Gripvel: {group: gripper, argument: 0 to 255, description: The speed setpoint of gripper moves., response: the setpoint}
   Gripcur: {group: gripper, argument: current in mA, description: "The current limit of gripper moves, the grip force. The firmware does not clamp it; keep it at or below the stepper's rated current (see Force and speed).", response: the setpoint}
   Gripact: {group: gripper, argument: 0 or 1, description: The activate bit., response: the bit}
-  Gripstop: {group: gripper, argument: 0 or 1, description: The gripper E-stop bit., response: the bit}
-  Gripinfo: {group: gripper, description: "Prints the gripper state: calibrated, activated, end stops, position, current.", response: the report}
+  Gripstop: {group: gripper, argument: 0 or 1, description: "The gripper E-stop bit. While it is 1, the E-stop error is raised again at every cycle: set it to 0 before `#Clear`.", response: the bit}
+  Gripinfo: {group: gripper, description: "Prints the gripper state: gripper mode, calibrated, activated, the position, speed and current setpoints, the E-stop and action bits, the object detection, and the end stops in encoder ticks.", response: the report}
   # ------------------------------------------------------------ setup
   Default: {group: setup, description: "Writes the factory defaults to the EEPROM, including the serial number, hardware version and batch date, and clears the gripper flag, heartbeat and watchdog. Back those up first.", response: "`Loaded default config!`"}
   PP: {group: setup, argument: pole pairs, description: "The motor's pole pairs: 50 for a 1.8° stepper, 75 for 1.2°, 100 for 0.9°, 125 for 0.72°. Calibration accepts only these values.", response: the current value}
@@ -41,17 +41,17 @@ commands:
   Kt: {group: setup, argument: Nm/A, description: "The torque constant, found by calibration.", response: the current value}
   Term: {group: setup, argument: 0 or 1, description: Enables the thermistor measurement and the temperature error (off by default)., response: the setting}
   Tlim: {group: setup, argument: temperature in °C, description: The temperature at which the temperature error is raised; 75 by default., response: "`Temp limit N`"}
-  CANID: {group: setup, argument: 0 to 13, description: "The CAN node ID. Use 0 to 13: the firmware accepts 14 and 15, but the bootloader reserves them and a driver on one of those cannot be updated over CAN. Setting the ID also sets the bootloader's board ID. Kept over a power cycle after Save.", response: "the ID, or `Invalid CAN ID`"}
+  CANID: {group: setup, argument: 0 to 13, description: "The CAN node ID. Use 0 to 13: the firmware accepts 14 and 15, but the bootloader reserves them and a driver on one of those cannot be updated over CAN. Save keeps it over a power cycle and also writes it into the bootloader's board ID.", response: "the ID, or `Invalid CAN ID`"}
   Save: {group: setup, description: Writes the configuration to the EEPROM. Do it after calibration and after tuning., response: "`Save`"}
   # ------------------------------------------------------------ utility
-  Info: {group: utility, description: "Prints the driver's identity and state: hardware and firmware version, serial number, motor parameters, calibration, errors.", response: the report}
+  Info: {group: utility, description: "Prints the driver's identity and state: hardware version, batch date and firmware version, the ISR time, the CAN ID, the motor calibration, the thermistor and temperature, the supply voltage and the motor parameters (phase direction and order, pole pairs, R, L, Kt, KV). The serial number is printed by `#SERNUM`, the errors by `#Error`, gripper mode by `#Gripper`.", response: the report}
   Error: {group: utility, description: Prints which errors are active., response: "`No errors!` or `In error state!` followed by one line per active error"}
-  Clear: {group: utility, description: "Clears the errors and goes to idle. An error whose cause is still present comes straight back; a calibration error is cleared only by calibrating (or `#Calibrated 1`).", response: "`Clear errors`"}
+  Clear: {group: utility, description: "Clears the errors and goes to idle, and ends a running gripper calibration. An error whose cause is still present comes straight back, the gripper's E-stop too while `#Gripstop` is 1; a calibration error is cleared only by calibrating (or `#Calibrated 1`).", response: "`Clear errors`"}
   Reset: {group: utility, description: "Resets the driver. From firmware 105 the reset lands in the bootloader, which waits 2 s for a flashing host and then starts the firmware again.", response: nothing}
-  Help: {group: utility, description: Prints a short command reference. Added in firmware 108., response: the reference}
+  Help: {group: utility, description: Prints a short command reference. Added in firmware 106., response: the reference}
   Temp: {group: utility, description: Prints the thermistor temperature., response: "°C, or `Temp Off` while the thermistor is disabled"}
   Vbus: {group: utility, description: Prints the supply voltage., response: mV}
-  Mode: {group: utility, description: Prints the control mode., response: "`Idle mode`, `Position control`, `Speed control`, `Current control`, `PD control`, `Open loop`, `Gripper mode`"}
+  Mode: {group: utility, description: "Prints the control mode. In gripper mode (mode 11) it prints nothing; `#Gripinfo` shows the gripper's state.", response: "`Idle mode`, `Position control`, `Speed control`, `Current control`, `PD control`, `Open loop`, `Gripper calib mode` during the gripper calibration; `Gripper mode` is what it prints for mode 6, voltage torque"}
   LED: {group: utility, argument: 0 or 1, description: Turns the status LED on or off., response: the LED state}
   Magnet: {group: utility, description: Reads the encoder's magnet status., response: "`Magnet Good` or `Magnet Bad`"}
   Calibrated: {group: utility, argument: 0 or 1, description: "The calibrated flag. `#Calibrated 1` clears a calibration error without calibrating; the motor may still be uncalibrated.", response: the flag}

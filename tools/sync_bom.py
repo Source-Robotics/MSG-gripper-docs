@@ -13,6 +13,8 @@ docs/build/bill-of-materials.md and docs/assets/bom/. The page is the repository
     stored as WebP
   - links to other files of the repository become absolute, PCrnjak/ paths become Source-Robotics/, and an
     empty link ("coming soon") becomes plain text
+  - a list right after a line of text gets the blank line before it that Python-Markdown needs (GitHub renders
+    the list without it)
 
 Everything else, the parts, the quantities, the purchase links, is left untouched: a wrong part is fixed in the
 repository's file, then this tool is run again. --check exits 1 when the page is out of date.
@@ -78,6 +80,8 @@ def convert(text: str, repo: Path, bom: str, url: str, write_images: bool) -> st
     text = re.sub(r"> \[!(NOTE|TIP|WARNING|IMPORTANT)\]\n((?:>.*\n?)+)", admonition, text)
     text = re.sub(r"> \*\*Note:\*\* (.*)\n", lambda m: f"!!! note\n    {m.group(1)}\n", text)
     text = re.sub(r"\[([^\]]+)\]\(\)", r"\1", text)             # an empty link: plain text
+    # a list right after a line of text: Python-Markdown needs a blank line between them, GitHub does not
+    text = re.sub(r"(?m)^(?!\s|[-*+] |\d+\. |[>|!#<])(.+)\n(?=[-*+] |\d+\. )", r"\1\n\n", text)
 
     bom_dir = (repo / bom).parent
     img_src_used: dict[Path, str] = {}

@@ -2,7 +2,7 @@
 
 The jaws bolt to the two carriers on the rail and are yours to adapt. The product repository has three designs,
 all in [Gripper jaws attachment](https://github.com/Source-Robotics/MSG-compliant-AI-stepper-gripper/tree/main/STEP%20files/Gripper%20jaws%20attachment);
-each file is one jaw, mirrored in the slicer for the other side.
+each file is one jaw, mirrored in the slicer for the other side, except the solid jaw, which has a mirrored file.
 
 | Design | File | Use |
 |---|---|---|

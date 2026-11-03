@@ -44,14 +44,36 @@ gripper does not need, are on the [STEPFOC site](https://docs.source-robotics.co
 ## A control loop
 
 1. At power-up: Send_Clear_Error, then Send_gripper_calibrate; poll with empty Send_gripper_data_pack frames
-   until the calibrated bit is 1 (about ten seconds).
+   until the calibrated bit is 1 (up to about ten seconds; the routine gives up after 24 s). Send nothing else
+   meanwhile.
 2. For each grip: one Send_gripper_data_pack with the position, speed and current and the activate and action
-   bits set; then poll with empty frames until the object-detection field reads 1, 2 or 3, or your own timeout
-   passes.
+   bits set. Its answer still carries the state from before it; ignore it. Then poll with empty frames until
+   the object-detection field reads 1, 2 or 3, or your own timeout passes.
 3. Keep polling at a steady rate (50 Hz is plenty) if you set the watchdog: every frame resets it, and the gripper
    stops by itself when your program stops.
 
 The answer to every frame tells the whole state, so a host never has to ask twice.
+
+## Host checklist
+
+- **Clear, then calibrate.** With an error active, the driver drops the calibration request; a clear sent during
+  the calibration ends it.
+- **During the calibration, only empty frames.** A full Send_gripper_data_pack ends the calibration as well, and
+  the gripper stays uncalibrated. Wait for the calibrated bit; the routine gives up after 24 s.
+- **The first answer is old.** The answer to a full command is sent before the gripper acts on it. Ignore it,
+  and give the move about 100 ms before you trust the object detection: at the start of a move the jaws are
+  slow, which can briefly read as an object found.
+- **The action status repeats your bit.** It is the action bit you last sent and stays 1 while the gripper
+  holds. Follow a move by its object detection.
+- **An identical command does nothing.** To repeat a move to the position the gripper holds, change the speed
+  or the current by one.
+- **E-stop recovery:** first a command with the E-stop bit at 0 (and the action bit at 0), then
+  Send_Clear_Error. While the last command carries the E-stop bit, a clear does not hold.
+- **Watchdog:** with Send_Watchdog set, keep the polls coming. The gripper commands and the status requests
+  reset it; Send_Clear_Error and Send_gripper_calibrate do not. After a timeout, fix the host, clear, and
+  resume.
+- **Current:** keep the commanded current within the stepper's maximum, 1.5, 2.0 or 2.1 A; the firmware does
+  not clamp it ([Force and speed](../03-technical-data/force-and-speed.md)).
 
 ## From a PC
 

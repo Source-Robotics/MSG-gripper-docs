@@ -1,7 +1,8 @@
 <!-- One shared glossary, included by the Glossary page. Keep entries alphabetical. -->
 
 **Action bit**
-:   A bit of the move command: 1 carries out the move, 0 leaves the gripper idle with the command stored.
+:   A bit of the move command: 1 carries out the move, 0 stops the move and holds the jaws still, with the
+    command stored. The action status of the answer repeats this bit.
 
 **Activated**
 :   A flag the gripper keeps, set by the activate bit of the move command or by `#Gripact`. A move is carried out
@@ -24,8 +25,8 @@
     machine and the CAN and UART interfaces. The gripper's firmware is the driver's firmware.
 
 **E-stop bit**
-:   A bit of the move command. 1 stops the gripper and raises the gripper E-stop error, which stays until it is
-    cleared and a command with the bit at 0 arrives.
+:   A bit of the move command. 1 stops the gripper and raises the gripper E-stop error, which comes back at every
+    cycle while the last command's bit is 1: send a command with the bit at 0, then clear the error.
 
 **Error bit**
 :   Bit 0 of every CAN frame identifier the driver sends: 1 while any error is active.
@@ -68,12 +69,13 @@
 :   The speed of a move, 0 to 255, mapped by the firmware to 500 to 60000 encoder ticks per second of the motor.
 
 **Stroke**
-:   How far each jaw carrier travels from fully open to fully closed: 55, 105 or 155 mm, set by the rail length.
+:   How much the distance between the jaw carriers changes from fully open to fully closed: 55, 105 or 155 mm,
+    set by the rail length. Each jaw travels half of it.
 
 **Timeout error** (watchdog)
-:   The driver's CAN watchdog, as the gripper reports it: when the watchdog is set (`Send_Watchdog`) and no valid
-    frame arrives in time, the gripper stops and raises it.
+:   The driver's CAN watchdog, as the gripper reports it: when the watchdog is set (`Send_Watchdog`) and no
+    gripper command or status request arrives in time, the gripper stops and raises it.
 
 **Watchdog**
-:   A timer the driver resets with every valid CAN frame it receives. When it is set and runs out, the gripper
-    reports a timeout error and stops.
+:   A timer the driver resets with every gripper command (full or empty) and every status request it receives.
+    When it is set and runs out, the gripper reports a timeout error and stops.
