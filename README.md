@@ -24,7 +24,7 @@ the gripper runs the firmware of the STEPFOC driver,
 | `compatibility.yml` | which firmware release works with which bootloader, gripper hardware, Python library and ROS 2 driver |
 | `known_issues.yml` | the known faults of the firmware and the software that affect MSG users, with a workaround each; written into Troubleshooting > Known issues |
 | `hooks/` | `versions.py` writes the version facts into the pages (and the versioned links of CAD and downloads); `firmware_pages.py` builds the reference pages; `known_issues.py` the known issues table; `llms.py` writes the Markdown twin of every page, `llms.txt` and `llms-full.txt`; `figures.py` turns every standalone picture into a numbered figure, its alt text the caption |
-| `tools/` | `sync_firmware.py`, `sync_bom.py`, `test_tools.py`, `root_404.html` |
+| `tools/` | `sync_firmware.py`, `sync_bom.py`, `build_model.py`, `dimension_drawings.py`, `test_tools.py`, `root_404.html` |
 | `overrides/` | the theme changes: the older-version banner, the edit/report line, the header's repository card |
 
 The site is built with [MkDocs](https://www.mkdocs.org/) and the
@@ -87,6 +87,13 @@ as the BOM tool; needs `trimesh` with `fast-simplification`): the body, the jaws
 and dimensions pages show them in the configurator `docs/javascripts/gripper-viewer.js` (three.js from a CDN,
 through the import map in `overrides/main.html`, loaded only on those pages): turn and zoom, open the jaws,
 choose the colours. Run the tool again when the meshes change.
+
+`tools/dimension_drawings.py` draws the four dimension views of Dimensions and CAD (`docs/assets/dimensions/`,
+light and dark) from the assembled gripper of `projects/robot_descriptions` (`--models PATH`): the lines are the
+meshes' creases and silhouettes with the hidden ones removed, and every number is measured on the meshes, in the
+frame of Data for robot integration. `--measure` prints the numbers, `--variants` the parts that change per rail
+and stepper from the gripper repository's STEP files. It needs the cadquery environment:
+`..\..\.venv-cad\Scripts\python tools\dimension_drawings.py`. Run it again when the model changes.
 
 `hooks/llms.py` writes, at every build, a Markdown twin of every page next to its HTML (`…/index.md`), `llms.txt`
 (an index of the twins by tab) and `llms-full.txt` (every page in one file), with links pinned to the documented release (including when publishing with mike). The "Copy this page as Markdown" button in the page header reads the twin.
