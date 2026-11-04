@@ -9,6 +9,8 @@ start, with the parts in front of you.
 
 ## The order
 
+Touch earthed metal before you pick up the driver, and hold it by its edges: static electricity damages it.
+
 1. The driver first: calibrated, in gripper mode, with the thermistor, as [Driver setup and first run](first-run.md)
    describes. The motor calibration turns the stepper several revolutions, which the racks cannot follow, so it
    happens before the pinion meshes.

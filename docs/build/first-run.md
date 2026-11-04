@@ -17,6 +17,9 @@ and the [STEPFOC documentation](https://docs.source-robotics.com/STEPFOC-docs/) 
 - The thermistor from the BOM, soldered to the driver's thermistor connector and fixed to the motor housing
   with thermal cement.
 
+Static electricity damages the driver: touch earthed metal before you handle it, hold it by its edges, and
+connect and disconnect its cables with the supply off.
+
 ## With Motor GUI
 
 [Motor GUI](../05-setup/motor-gui.md), connected over **UART** through the serial adapter, has a preset per stepper on its

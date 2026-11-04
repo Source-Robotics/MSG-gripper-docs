@@ -22,6 +22,22 @@ hand or destroy the gripper when they are ignored.
     A gripped object that slips, or that the jaws crush, can fly or fall. The grip force is a current limit, not a
     measurement: a hard object takes the full force, a soft one deforms until the force is reached.
 
+### Clothing, hair and eyes
+
+The jaws, and the open rack and pinion behind them, catch more than fingers: long hair, loose sleeves, gloves,
+lanyards, rings and bracelets. Tie back long hair and take those off before you work at a powered gripper, and
+keep them out of the jaws' travel while it calibrates or moves. Wear safety glasses when a gripped part can break,
+slip or be thrown.
+
+### If a finger is caught
+
+!!! danger "The E-stop does not open the jaws"
+    The gripper's E-stop bit and Send_ESTOP stop the jaws where they are; they do not open them, and a powered
+    gripper holds its grip. To free a finger, switch off the gripper's supply: without current the stepper holds
+    nothing beyond its own friction, and the jaws can be pushed apart by hand. A gripper without an error opens
+    with a move to position 0 as well (**Open** in Motor GUI). Keep the supply's switch within reach while you
+    test.
+
 ## Electrical
 
 !!! danger "The cable"

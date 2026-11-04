@@ -2,7 +2,8 @@
 
 The gripper needs little: every wearing part is printed, so a worn part is replaced by printing a new one, and
 the mechanism is a rail, two racks and a pinion that want a little grease now and then. Power the gripper off
-before any work on it.
+before any work on it. Before you open the stepper cover or touch the driver, unplug the supply and touch earthed
+metal: static electricity damages the driver board. Hold the board by its edges.
 
 ## Before each session
 
@@ -16,11 +17,17 @@ before any work on it.
   the linear rail to reach the mechanism, wipe off the old grease and the dust, grease, refit, and move the jaws
   over the whole stroke by hand before you power up. A grinding noise, a stiff motion or a calibration that
   stops short of an end are the signs that it is due.
-- **Clean** with a dry cloth. The gripper is not waterproof or dustproof: keep it out of wet and dusty places,
-  and blow chips out of the rail rather than wash them out.
+- **Clean** the rail and the racks of chips and dust, as [Cleaning](#cleaning) describes.
 - **Screws**: the jaw screws, the rail screws and the clamp screws of the shaft coupler; threadlocker where the
   assembly instructions use it.
 - **The camera lens**, with a lens cloth.
+
+## Cleaning
+
+Clean the gripper switched off and unplugged. Wipe the printed parts with a dry or slightly damp cloth and use no
+solvents on them: the body is PETG, the pads are TPU. Never spray or pour anything onto the gripper; the driver
+behind the stepper cover and the M8 connector are open to it, and it is not waterproof or dustproof. Brush or blow
+chips out of the rail and the racks rather than wash them out, then grease them as above.
 
 ## Replacing worn parts
 
