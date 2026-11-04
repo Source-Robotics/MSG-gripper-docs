@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 410" role="img" aria-labelledby="title desc">
+<title id="title">M8 gripper connector, male mating face</title>
+<desc id="desc">Staggered four-pin layout: pin 4 GND at the top right, pin 2 CANH at the upper left, pin 1 CANL at the lower left, pin 3 positive 24 volts at the bottom right. The female contact view is mirrored.</desc>
+<rect width="760" height="410" rx="14" fill="#f4f5f6"/>
+<g font-family="Arial,sans-serif" fill="#17202a">
+<text x="28" y="35" font-size="23" font-weight="bold">Gripper end &#183; male mating face</text>
+<text x="28" y="62" font-size="16">Staggered contacts. Match the moulded pin numbers; schematic, not to scale.</text>
+<circle cx="370" cy="225" r="140" fill="#fff" stroke="#17202a" stroke-width="3"/>
+<g fill="#17202a"><circle cx="410" cy="112" r="13"/><circle cx="300" cy="174" r="13"/><circle cx="300" cy="266" r="13"/><circle cx="410" cy="338" r="13"/></g>
+<g fill="none" stroke="#475569" stroke-width="2"><path d="M423 112 H520"/><path d="M287 174 H215"/><path d="M287 266 H215"/><path d="M423 338 H520"/></g>
+<g font-size="22" font-weight="bold"><text x="534" y="119">4 &#183; GND</text><text x="69" y="181">2 &#183; CANH</text><text x="69" y="273">1 &#183; CANL</text><text x="534" y="345">3 &#183; +24 V</text></g>
+<text x="28" y="394" font-size="16">Cable female contact face and solder-side views are mirrored.</text></g></svg>
