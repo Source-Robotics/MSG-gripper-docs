@@ -268,6 +268,7 @@ nav:
               - Force and speed: 03-technical-data/force-and-speed.md
               - Connector and pinout: 03-technical-data/connector.md
               - Dimensions and CAD: 03-technical-data/dimensions.md
+              - Data for robot integration: 03-technical-data/integration-data.md
           - 4. Installation:
               - 04-installation/index.md
               - Mounting on a robot: 04-installation/mounting.md
