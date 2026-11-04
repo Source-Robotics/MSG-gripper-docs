@@ -22,7 +22,8 @@ the gripper runs the firmware of the STEPFOC driver,
 | `docs/includes/generated/` | written by `tools/sync_firmware.py` from the firmware's release tag: `firmware_facts.json`, `firmware_release_notes.md`. Never edit |
 | `versions.yml` | every version fact: the gripper release the site is versioned by, the firmware release it describes, the manual's number and revision |
 | `compatibility.yml` | which firmware release works with which bootloader, gripper hardware, Python library and ROS 2 driver |
-| `hooks/` | `versions.py` writes the version facts into the pages; `firmware_pages.py` builds the reference pages; `llms.py` writes the Markdown twin of every page, `llms.txt` and `llms-full.txt` |
+| `known_issues.yml` | the known faults of the firmware and the software that affect MSG users, with a workaround each; written into Troubleshooting > Known issues |
+| `hooks/` | `versions.py` writes the version facts into the pages (and the versioned links of CAD and downloads); `firmware_pages.py` builds the reference pages; `known_issues.py` the known issues table; `llms.py` writes the Markdown twin of every page, `llms.txt` and `llms-full.txt`; `figures.py` turns every standalone picture into a numbered figure, its alt text the caption |
 | `tools/` | `sync_firmware.py`, `sync_bom.py`, `test_tools.py`, `root_404.html` |
 | `overrides/` | the theme changes: the older-version banner, the edit/report line, the header's repository card |
 

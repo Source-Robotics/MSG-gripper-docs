@@ -56,7 +56,7 @@ The [illustrated Motor GUI guide](05-setup/motor-gui.md) shows the panel.
 
 !!! success "Check"
     Position and current feedback arrive. *Not calibrated* after power-up is normal. If feedback is missing,
-    check the power, port, node ID and termination: [Troubleshooting](09-troubleshooting.md). If a fault
+    check the power, port, node ID and termination: [Troubleshooting](09-troubleshooting/index.md). If a fault
     disables the controls, resolve it using [Errors and recovery](06-operation/errors.md).
 
 ## 5. Calibrate and activate
@@ -70,7 +70,7 @@ faults.
 !!! success "Check"
     The panel says **Calibrated**, **Activated**, and **No errors** before you command a move. A calibration
     that times out after 24 seconds has not found its end stops; do not continue as if it passed. Use
-    [Calibration troubleshooting](09-troubleshooting.md#calibration).
+    [Calibration troubleshooting](09-troubleshooting/index.md#calibration).
 
 ## 6. Make the first move
 
@@ -82,7 +82,7 @@ explains the relationship and the motor's limits.
 
 !!! success "Check"
     The position follows the command; on an object the jaws stop before fully closed and the panel reports an
-    object. If it does not move, slips or reports an error, use [Troubleshooting](09-troubleshooting.md).
+    object. If it does not move, slips or reports an error, use [Troubleshooting](09-troubleshooting/index.md).
 
 ## 7. Finish and continue
 
@@ -94,4 +94,4 @@ switch off the supply before changing cables.
 | Control it from a program | [With Python](06-operation/python.md), [With ROS 2](06-operation/ros2.md) |
 | Put it on a robot | [On PAROL6 and PAR6](06-operation/robots.md) |
 | Inspect a CAN frame or download DBC definitions | [CAN frame tool and downloads](reference/can-tools.md) |
-| Diagnose a problem | [Troubleshooting](09-troubleshooting.md), [Errors and recovery](06-operation/errors.md) |
+| Diagnose a problem | [Troubleshooting](09-troubleshooting/index.md), [Errors and recovery](06-operation/errors.md) |

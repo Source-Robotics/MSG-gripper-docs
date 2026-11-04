@@ -37,7 +37,7 @@ side of the switch shows the same driver as a motor, which the gripper does not 
 !!! success "Check"
     The gripper panel shows the gripper's position and current, and *Not calibrated* after a power-up. If the
     browser's port list does not show the adapter, see the notes for your system below; if the panel keeps
-    waiting for feedback, step 3 and [Troubleshooting](../09-troubleshooting.md).
+    waiting for feedback, step 3 and [Troubleshooting](../09-troubleshooting/index.md).
 
 ### The adapter's port on your system
 

@@ -1,12 +1,16 @@
 """Write the version facts of versions.yml into the pages (the same hook as Source-Robotics/par6, for a product
 that runs another product's firmware).
 
-Two placeholders, each replaced when the site is built:
+Four placeholders, each replaced when the site is built:
 
     <!-- doc-meta: KEY -->      a manual's version box, on its landing page: document number, the gripper release,
                                 the driver firmware release (for a document that describes one), revision,
                                 publication date, what it applies to
     <!-- documents-table -->    the list of every document, on the About page
+    <!-- version-url: COMPONENT -->   the address of the component's files at its tag, {repository}/tree/{tag}, to
+                                build a link to a folder: COMPONENT is product (the gripper) or firmware (the driver)
+    <!-- version-link: COMPONENT -->  a link to that address with the version as its text (the tag without its V),
+                                and the release date when versions.yml has one (product.released)
 
 The facts live in versions.yml only. docs_version is the gripper release: the product repository's tag without
 its V, and the name the site is published under. firmware.version is the driver firmware release the pages and
@@ -25,6 +29,7 @@ from mkdocs.exceptions import PluginError
 
 META_RE = re.compile(r"<!--\s*doc-meta:\s*([A-Za-z0-9_-]+)\s*-->")
 TABLE_RE = re.compile(r"<!--\s*documents-table\s*-->")
+URL_RE = re.compile(r"<!--\s*version-(url|link):\s*([A-Za-z0-9_-]+)\s*-->")
 REQUIRED = ("number", "title", "revision", "status", "covers")
 
 _facts: dict = {}
@@ -112,6 +117,19 @@ def documents_table(data: dict) -> str:
             "compatibility table says which firmware, Python library and hardware revisions work together.")
 
 
+def version_url(kind: str, name: str, data: dict) -> str:
+    """<!-- version-url: NAME --> and <!-- version-link: NAME -->, NAME product or firmware. Others stop the build."""
+    comp = data.get(name) if name in ("product", "firmware") else None
+    if not comp:
+        raise PluginError(f"version-{kind}: {name!r} is not a component of versions.yml (product or firmware)")
+    url = f"{str(comp['repository']).rstrip('/')}/tree/{comp['tag']}"
+    if kind == "url":
+        return url
+    released = comp.get("released")
+    date = f" ({released.isoformat()})" if isinstance(released, datetime.date) else ""
+    return f"[{str(comp['tag'])[1:]}]({url}){date}"
+
+
 def on_config(config):
     global _facts
     _facts = load(Path(config.config_file_path).parent / "versions.yml")
@@ -122,4 +140,5 @@ def on_config(config):
 
 def on_page_markdown(markdown, page, config, files):
     markdown = META_RE.sub(lambda m: meta_block(m.group(1), _facts), markdown)
+    markdown = URL_RE.sub(lambda m: version_url(m.group(1), m.group(2), _facts), markdown)
     return TABLE_RE.sub(lambda m: documents_table(_facts), markdown)

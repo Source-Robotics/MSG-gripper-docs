@@ -48,4 +48,4 @@ sent while the gripper calibration runs ends the calibration, and the gripper st
 - Moves to one end during calibration and stops there: the other end stop is blocked, or the mechanism is too
   stiff for the calibration's 500 mA; after 24 seconds the routine gives up.
 
-[Troubleshooting](../09-troubleshooting.md) goes through the symptoms one by one.
+[Troubleshooting](../09-troubleshooting/index.md) goes through the symptoms one by one.

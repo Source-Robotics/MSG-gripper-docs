@@ -1,6 +1,8 @@
 # Troubleshooting
 
-By symptom. The error flags and what clears them are in [Errors and recovery](06-operation/errors.md).
+By symptom. The error flags and what clears them are in [Errors and recovery](../06-operation/errors.md); the
+faults in the firmware and the software that are known and not yet fixed, with what to do until they are, are in
+[Known issues](known-issues.md).
 
 ## The gripper does not answer
 
@@ -29,8 +31,8 @@ flowchart TD
 |---|---|
 | calibrated, activated, no error, no motion | the action bit of the command is 0; the command is identical to the previous one (change the speed or the current by one to repeat a move) |
 | *Not calibrated* after power-up | normal: run the gripper calibration |
-| an error is shown | [Errors and recovery](06-operation/errors.md): clear it, then look at the cause if it comes back |
-| the driver reports *Not calibrated* in State_of_Errors and `#Error` | the stepper itself is not calibrated (a self-built gripper): [Driver configuration](build/first-run.md) |
+| an error is shown | [Errors and recovery](../06-operation/errors.md): clear it, then look at the cause if it comes back |
+| the driver reports *Not calibrated* in State_of_Errors and `#Error` | the stepper itself is not calibrated (a self-built gripper): [Driver configuration](../build/first-run.md) |
 
 ## Calibration
 
@@ -60,10 +62,10 @@ gripper without the thermistor on its motor has no such protection.
 
 If the gripper does not calibrate or behaves oddly after an update, check the driver's configuration over UART:
 `#Gripper` (gripper mode, 1), `#Term` (the thermistor, 1) and `#Info` (the motor calibration and parameters). A
-release note says when an update clears the configuration; [Driver configuration](build/first-run.md) restores
+release note says when an update clears the configuration; [Driver configuration](../build/first-run.md) restores
 it.
 
 ## Getting help
 
-[Support](support/index.md) says where to ask and what to include; the gripper's status and `#Info`'s output are
+[Support](../support/index.md) says where to ask and what to include; the gripper's status and `#Info`'s output are
 the first things.

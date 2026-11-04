@@ -26,7 +26,8 @@ Touch earthed metal before you pick up the driver, and hold it by its edges: sta
 !!! success "Check"
     With the supply off, push one jaw by hand over the whole stroke: both jaws move together, smoothly, without a
     tight spot, and nothing rubs on the cable. The termination switch is reachable through the stepper cover.
-    A stiff spot now makes the gripper calibration stop short later ([Calibration](../09-troubleshooting.md#calibration)).
+    A stiff spot now makes the gripper calibration stop short later
+    ([Calibration](../09-troubleshooting/index.md#calibration)).
 
 ## The cable
 

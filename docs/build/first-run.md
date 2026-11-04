@@ -90,7 +90,8 @@ calibration found.
 
 !!! success "Check"
     The jaws opened fully and closed fully, `#Gripinfo` prints `Gripper calibrated is: 1`, and a move at a low
-    current goes to its position. If the calibration gives up after 24 s: [Calibration](../09-troubleshooting.md#calibration).
+    current goes to its position. If the calibration gives up after 24 s:
+    [Calibration](../09-troubleshooting/index.md#calibration).
 
 ## Current limit
 

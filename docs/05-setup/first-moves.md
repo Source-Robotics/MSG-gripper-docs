@@ -70,7 +70,7 @@ calibration ends it, and the gripper stays uncalibrated.
 !!! success "Check"
     The jaws opened fully, then closed fully, and the gripper reports *Calibrated*: in Motor GUI's panel, as
     `gripper_calibrated` = 1 in Python, or `Gripper calibrated is: 1` from `#Gripinfo`. If not after 24 s:
-    [Calibration](../09-troubleshooting.md#calibration).
+    [Calibration](../09-troubleshooting/index.md#calibration).
 
 ## 4. Activate
 
@@ -126,7 +126,8 @@ once the motion is what you want.
 
 !!! success "Check"
     The jaws go to each position and the state reads *at position*; on the object they stop and the state reads
-    *object detected while closing*. If they do not move: [It does not move](../09-troubleshooting.md#it-does-not-move).
+    *object detected while closing*. If they do not move:
+    [It does not move](../09-troubleshooting/index.md#it-does-not-move).
 
 ## What the gripper reports
 

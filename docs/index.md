@@ -56,7 +56,7 @@ gripper's URDF, the 150 mm rail variant; the current URDF and MuJoCo models are 
 
     [Safety](02-safety.md), [Technical data](03-technical-data/index.md), [Installation](04-installation/index.md),
     [First setup](05-setup/index.md), [Operation](06-operation/index.md), [Maintenance](07-maintenance.md), [Firmware](08-firmware.md),
-    [Troubleshooting](09-troubleshooting.md).
+    [Troubleshooting](09-troubleshooting/index.md).
 
 -   :material-robot-industrial:{ .lg .middle } **On a robot**
 
