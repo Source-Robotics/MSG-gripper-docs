@@ -9,10 +9,7 @@ As shipped, the coupler plate carries a shaft coupler with an 8 mm bore and M4 c
 part: the gripper slides onto an 8 mm shaft and is clamped with the two M4 screws. Any robot or fixture that
 offers an 8 mm shaft takes the gripper this way.
 
-<figure markdown="span">
-  ![The coupler plate for an 8 mm shaft](../assets/MSG_conn_8mm.webp){ width="600" }
-  <figcaption>Figure 8: The coupler plate with the 8 mm shaft coupler.</figcaption>
-</figure>
+![The coupler plate with the 8 mm shaft coupler](../assets/MSG_conn_8mm.webp){ width="600" }
 
 ## PAROL6
 
@@ -21,10 +18,7 @@ to the robot's last joint. Tighten the shaft coupler's two clamp screws with blu
 gripper cable then runs from the gripper to the robot's gripper port; see [The cable](cable.md) and
 [On PAROL6 and PAR6](../06-operation/robots.md), which also has the joint 5 homing offset.
 
-<figure markdown="span">
-  ![The PAROL6 ring cover](../assets/MSG_with_parol_cover.webp){ width="600" }
-  <figcaption>Figure 9: The gripper with the PAROL6 ring cover (red).</figcaption>
-</figure>
+![The gripper with the PAROL6 ring cover (red)](../assets/MSG_with_parol_cover.webp){ width="600" }
 
 ## Another robot
 

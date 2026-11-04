@@ -24,11 +24,8 @@ set by the stepper:
 | 40 mm | 17HS16-2004S1 | 0.21 Nm/A | 25 N/A | 2.0 A | about 50 N |
 | 60 mm | 17HS24-2104S | 0.30 Nm/A | 36 N/A | 2.1 A | about 76 N |
 
-<figure markdown="span">
-  ![Grip force against the current limit, per stepper](../assets/grip_force_light.webp#only-light){ width="820" }
-  ![Grip force against the current limit, per stepper](../assets/grip_force_dark.webp#only-dark){ width="820" }
-  <figcaption>Figure 5: The grip force against the current limit for the three steppers, each up to its maximum current, from the formula above.</figcaption>
-</figure>
+![The grip force against the current limit for the three steppers, each up to its maximum current, from the formula above](../assets/grip_force_light.webp#only-light){ width="820" }
+![The grip force against the current limit for the three steppers, each up to its maximum current, from the formula above](../assets/grip_force_dark.webp#only-dark){ width="820" }
 
 The curves use the listed torque constants; they are not force-gauge measurements. STEPFOC estimates `#Kt`
 from a no-load speed/voltage test, rather than measuring shaft torque. The constant must match the driver's

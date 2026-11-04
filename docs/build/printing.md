@@ -29,11 +29,9 @@ jaw, which has a mirrored file:
 - **Solid jaws**: `MSG_solid_jaw` and `MSG_solid_jaw_mirror` in one piece, or `MSG_JAW_HOLLOW` for a two-colour
   print; `MSG_JAW_TPU_GLUE` prints solid too.
 
-<figure markdown="span">
-  ![The TPU jaw in the slicer](../assets/jaw_slicer1.webp){ width="520" }
-  ![The TPU pad's settings](../assets/jaw_slicer2.webp){ width="520" }
-  <figcaption>Figure 16: The TPU jaw: the PETG body and the TPU pad as separate prints, and the pad's settings.</figcaption>
-</figure>
+![The TPU jaw in the slicer: the PETG body (orange) and the TPU pad (green) as separate parts](../assets/jaw_slicer1.webp){ width="520" }
+
+![Two TPU pads sliced with the pad's settings: the honeycomb infill shows, with no top layer](../assets/jaw_slicer2.webp){ width="520" }
 
 Gluing the pad on, its orientation and the sponge tape for the gripping faces are in
 [Jaws](../04-installation/jaws.md); the repository's

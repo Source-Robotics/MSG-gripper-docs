@@ -10,17 +10,11 @@ each file is one jaw, mirrored in the slicer for the other side, except the soli
 | Solid jaw | `MSG_solid_jaw`, `MSG_solid_jaw_mirror` | one part, quick to print |
 | Hollow jaw | `MSG_JAW_HOLLOW` | lighter, and suited to multi-colour prints |
 
-<figure markdown="span">
-  ![A jaw](../assets/gripper_jaws.webp){ width="520" }
-  <figcaption>Figure 12: The jaw body, with the mounting holes for the carrier.</figcaption>
-</figure>
+![The jaw body, with the mounting holes for the carrier](../assets/gripper_jaws.webp){ width="520" }
 
 ## The TPU jaw
 
-<figure markdown="span">
-  ![TPU jaws](../assets/tpujaws.webp){ width="700" }
-  <figcaption>Figure 13: The TPU jaw: a PETG body (black) and a TPU pad (yellow).</figcaption>
-</figure>
+![The TPU jaw: a PETG body (black) and a TPU pad (yellow)](../assets/tpujaws.webp){ width="700" }
 
 Print the body in PETG with your usual settings and the pad in TPU with 16 % infill, no top or bottom layers and
 two walls, for the softest pad. Then glue the pad to the body with ordinary super glue, in the orientation the

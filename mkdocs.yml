@@ -101,7 +101,8 @@ hooks:
   - hooks/versions.py
   - hooks/firmware_pages.py
   - hooks/can_tools.py     # versioned CAN downloads and the offline frame tool
-  - hooks/llms.py          # last: the Markdown twins, llms.txt and llms-full.txt from the other hooks' output
+  - hooks/llms.py          # the Markdown twins, llms.txt and llms-full.txt from the content hooks' output
+  - hooks/figures.py       # captions: standalone pictures become numbered figures (after llms.py: twins keep plain pictures)
   - hooks/pdf.py           # the PDF of the manual, from the print-site page, when DOCS_PDF is set
 
 markdown_extensions:

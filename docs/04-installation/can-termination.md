@@ -4,10 +4,7 @@ A CAN bus needs a 120 Ω resistor at each of its two ends. The gripper's driver 
 reachable through an opening in the stepper cover: slide it to the **ON** mark to connect the resistor, away from
 it to disconnect it.
 
-<figure markdown="span">
-  ![The termination switch through the stepper cover](../assets/Gripper_termination.jpg){ width="700" }
-  <figcaption>Figure 14: The termination switch of the driver, seen through the stepper cover.</figcaption>
-</figure>
+![The termination switch of the driver, seen through the stepper cover](../assets/Gripper_termination.jpg){ width="700" }
 
 | The gripper is | Switch |
 |---|---|

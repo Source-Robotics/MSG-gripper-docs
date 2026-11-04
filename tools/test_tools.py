@@ -163,5 +163,28 @@ if loaded:
     check("B12 a command section: facts strip, the accepted lengths, the answer",
           "cmd-facts" in sec and "bytes" in sec and ("Respond_" in sec or not facts["can"]["handlers"].get(answered, {}).get("responds")), sec[:200])
 
+# ---------------------------------------------------------------- E. the figures hook
+fig = load_module("figures_hook", ROOT / "hooks" / "figures.py")
+pair = "\n".join(["Text.", "", '![A gripper](a.webp#only-light){ width="9" }',
+                  '![A gripper](a_dark.webp#only-dark){ width="9" }', "", "More."])
+out, n = fig.transform(pair, 1, "3.")
+check("E1 a light and a dark picture are one figure, numbered on from the chapter's count, alt text as caption",
+      n == 1 and out.count("<figure") == 1 and "<figcaption>Figure 3.2: A gripper.</figcaption>" in out, out)
+inline = "\n".join(["A line of text", "![A gripper](a.webp)", "", "![Hero](h.webp){ .hero }", ""])
+out, n = fig.transform(inline, 0, "")
+check("E2 a picture inside a paragraph and a hero picture are left alone", n == 0 and "<figure" not in out, out)
+check("E3 numbered chapters count across pages, other pages on their own",
+      fig.chapter("03-technical-data/dimensions.md") == ("03-technical-data", "3.")
+      and fig.chapter("07-maintenance.md") == ("07-maintenance.md", "7.")
+      and fig.chapter("build/printing.md") == ("build/printing.md", ""))
+handmade = "\n".join(['<figure class="gui-shot" markdown="1">', '<div markdown="1">', "", "![A screenshot](s.jpg)", "",
+                      "</div>", "<figcaption>1. A mark.</figcaption>", "</figure>", "", "![After it](b.webp)", ""])
+out, n = fig.transform(handmade, 0, "")
+check("E4 a picture inside a hand-made <figure> is left alone, the next standalone one is numbered",
+      n == 1 and out.count("<figure") == 2 and "Figure 1: After it." in out, out)
+numbered = [str(p.relative_to(ROOT / "docs")) for p in (ROOT / "docs").rglob("*.md")
+            if "<figcaption>Figure " in p.read_text(encoding="utf-8")]
+check("E5 no caption is numbered by hand: the hook numbers them", not numbered, "; ".join(numbered))
+
 print(f"\n{len(fails)} failure(s)" if fails else "\nall checks passed")
 sys.exit(1 if fails else 0)

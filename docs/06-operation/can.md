@@ -9,10 +9,7 @@ STEPFOC driver on the bus, so the frames are the driver's; this page is the part
 CAN 2.0 data frames with 11-bit identifiers at 1 Mbit/s. The identifier carries the node, the command and the
 error state:
 
-<figure markdown="span">
-  ![The CAN identifier](../assets/CANID.PNG){ width="600" }
-  <figcaption>Figure 15: Bits 10 to 7 of the identifier are the node ID, bits 6 to 1 the command ID, bit 0 the error bit.</figcaption>
-</figure>
+![Bits 10 to 7 of the identifier are the node ID, bits 6 to 1 the command ID, bit 0 the error bit](../assets/CANID.PNG){ width="600" }
 
 - **Node ID**, bits 10 to 7: which device. Every gripper ships as node 0; set another with Send_CAN_ID or `#CANID`
   and save it. Use 0 to 13: the driver's bootloader reserves 14 and 15, and a device on one of those cannot be

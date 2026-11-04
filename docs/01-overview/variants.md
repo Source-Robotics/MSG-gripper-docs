@@ -4,16 +4,10 @@ The gripper is modular in two ways: the length of the linear rail sets the strok
 the force. Any rail goes with any stepper, and the body comes in black or grey; the body, the jaw carriers and the
 stepper cover are printed for the chosen combination.
 
-<figure markdown="span">
-  ![The three rail lengths](../assets/Gripper_strokes.webp){ width="900" }
-  <figcaption>Figure 2: The three rail lengths and the stroke each gives.</figcaption>
-</figure>
+![The three rail lengths and the stroke each gives](../assets/Gripper_strokes.webp){ width="900" }
 
 === "Black"
-    <figure markdown="span">
-      ![The nine variants, black body](../assets/MSG_variants_black.webp){ width="900" }
-      <figcaption>Figure 3: The nine combinations of rail and stepper, black body: 55, 105 and 155 mm of stroke across, the 21.5, 40 and 60 mm steppers down.</figcaption>
-    </figure>
+    ![The nine combinations of rail and stepper, black body: 55, 105 and 155 mm of stroke across, the 21.5, 40 and 60 mm steppers down](../assets/MSG_variants_black.webp){ width="900" }
 
 === "Grey"
     <figure markdown="span">
@@ -61,7 +55,4 @@ independent of the gripper's electronics; the mount
 and its lid are printed parts (`camera extension`, `camera_lid`), and a gripper without a camera simply leaves
 them off.
 
-<figure markdown="span">
-  ![The camera's view](../assets/MSG_and_camera.webp){ width="700" }
-  <figcaption>Figure 4: The gripper on a PAROL6 and what its camera sees.</figcaption>
-</figure>
+![The gripper on a PAROL6 and what its camera sees](../assets/MSG_and_camera.webp){ width="700" }

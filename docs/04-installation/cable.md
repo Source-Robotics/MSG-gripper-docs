@@ -38,16 +38,10 @@ Wire it as the diagram for your robot shows. Pin 1 to 4 are the numbers moulded 
 colours are those of the cable in the BOM.
 
 === "PAROL6"
-    <figure markdown="span">
-      ![The PAROL6 gripper cable](../assets/PAROL6_cable.webp){ width="320" }
-      <figcaption>Figure 10: The PAROL6 cable: the pins are crossed between the two ends.</figcaption>
-    </figure>
+    ![The PAROL6 cable: the pins are crossed between the two ends](../assets/PAROL6_cable.webp){ width="320" }
 
 === "PAR6"
-    <figure markdown="span">
-      ![The PAR6 gripper cable](../assets/PAR6_cable.png){ width="200" }
-      <figcaption>Figure 11: The PAR6 cable: pin to pin.</figcaption>
-    </figure>
+    ![The PAR6 cable: pin to pin](../assets/PAR6_cable.png){ width="200" }
 
 === "Bench or your own robot"
     Connect the gripper's 24V and GND to a 24 V supply and its CANH and CANL to your CAN interface; on a PC that

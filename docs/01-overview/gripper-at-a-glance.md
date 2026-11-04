@@ -8,10 +8,7 @@ We designed the MSG specifically for teleoperation, VLA (vision-language-action)
 intelligence. A camera on top of the body looks down between the jaws, from a place chosen for a clear view of
 both jaws and the object between them.
 
-<figure markdown="span">
-  ![The MSG gripper](../assets/MSG_banner.webp){ width="900" }
-  <figcaption>Figure 1: The MSG gripper with the 150 mm rail and the camera mount.</figcaption>
-</figure>
+![The MSG gripper with the 150 mm rail and the camera mount](../assets/MSG_banner.webp){ width="900" }
 
 ## The parts
 
