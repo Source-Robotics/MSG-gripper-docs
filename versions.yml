@@ -8,14 +8,14 @@
 # without its V. The publishing workflow publishes the site under this name (the version selector in the header)
 # and points "latest" at it. A new gripper release gets a new version of the site; a new firmware release for the
 # same gripper updates this version in place (firmware.version below).
-docs_version: "1.1"
+docs_version: "1.2"
 
 # The gripper release: the product repository and its tag, which must be V<docs_version>.
 product:
   name: MSG gripper
   repository: https://github.com/Source-Robotics/MSG-compliant-AI-stepper-gripper
-  tag: V1.1
-  released: 2026-02-19
+  tag: V1.2
+  released: 2026-11-04
 
 # The driver firmware release the gripper runs and the pages describe; the generated reference is read from its
 # source at this tag. The gripper has no firmware of its own: it is a STEPFOC stepper driver in gripper mode.
@@ -38,9 +38,9 @@ manuals:
   msg:
     number: SR-5003
     title: MSG Gripper Manual
-    revision: 2026.A
+    revision: 2026.B
     status: published
-    published: 2026-11-03
+    published: 2026-11-04
     firmware: true
     applies_to: with the STEPFOC driver PCB v1
     covers: "the MSG compliant AI stepper gripper: safety, technical data, installation, setup, operation over CAN, UART, Python and ROS 2, firmware, the build guide; the gripper's API reference; guides"

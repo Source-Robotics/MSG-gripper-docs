@@ -37,4 +37,5 @@ by any of these.
 
 | Revision | Date | Changes |
 |---|---|---|
+| 2026.B | 2026-11-04 | Gripper release 1.2, with the files as downloads on the release; dimension drawings and what changes per variant; data for robot integration (frame, mass, inertia, TCP); known issues; the downloads with their versions; safety for clothing, hair and eyes, a caught finger, static and cleaning; check boxes after each step and Windows, Linux and macOS tabs; numbered figure captions; the 380 g variant |
 | 2026.A | 2026-11-03 | First version in this form: the manual chapters, the generated CAN and UART reference; gripper release 1.1, firmware 108 |
