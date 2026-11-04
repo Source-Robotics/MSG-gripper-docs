@@ -21,7 +21,8 @@ You need a mounted gripper with jaws/fingers fitted, a **24 V supply**, a correc
 **CANvas USB-to-CAN adapter**, and Chrome or Edge. The [What you need](01-overview/what-you-need.md) page lists
 the parts; [Mounting](04-installation/mounting.md) and [Jaws](04-installation/jaws.md) cover the mechanics.
 
-**Check:** the body cannot shift, the jaws travel freely, and the cable cannot enter their path.
+!!! success "Check"
+    The body cannot shift, the jaws travel freely, and the cable cannot enter their path.
 
 ## 3. Wire with power off
 
@@ -40,9 +41,10 @@ flowchart LR
     S -- return --> P4[Gripper pin 4: GND]
 ```
 
-**Check, unpowered:** the supply polarity and cable pinout match, and CANH-to-CANL measures about **60 Ω**
-with the bus connected. Otherwise check [The cable](04-installation/cable.md) and
-[CAN termination](04-installation/can-termination.md) before powering it.
+!!! success "Check, unpowered"
+    The supply polarity and cable pinout match, and CANH-to-CANL measures about **60 Ω** with the bus connected.
+    Otherwise check [The cable](04-installation/cable.md) and [CAN termination](04-installation/can-termination.md)
+    before powering it.
 
 ## 4. Connect Motor GUI
 
@@ -50,10 +52,12 @@ Power the gripper, plug the CANvas adapter into USB, and open [motorgui.com](htt
 Choose **CAN (slcan)** at **1 Mbit/s**, press **Connect**, and choose the adapter's serial port.
 Select node **0** (or your assigned ID) and switch from **Motor** to **Gripper**.
 
-**Check:** position and current feedback arrive. *Not calibrated* after power-up is normal. If feedback is
-missing, check the power, port, node ID and termination: [Troubleshooting](09-troubleshooting.md).
-If a fault disables the controls, resolve it using [Errors and recovery](06-operation/errors.md).
 The [illustrated Motor GUI guide](05-setup/motor-gui.md) shows the panel.
+
+!!! success "Check"
+    Position and current feedback arrive. *Not calibrated* after power-up is normal. If feedback is missing,
+    check the power, port, node ID and termination: [Troubleshooting](09-troubleshooting.md). If a fault
+    disables the controls, resolve it using [Errors and recovery](06-operation/errors.md).
 
 ## 5. Calibrate and activate
 
@@ -63,19 +67,22 @@ press nothing else until the panel says **Calibrated**: a move or a clear during
 [Calibrate, activate, move](05-setup/first-moves.md) for the full procedure, then **Activate** and check for
 faults.
 
-**Check:** the panel says **Calibrated**, **Activated**, and **No errors** before you command a move.
-A calibration that times out after 24 seconds has not found its end stops; do not continue as if it passed.
-Use [Calibration troubleshooting](09-troubleshooting.md#calibration).
+!!! success "Check"
+    The panel says **Calibrated**, **Activated**, and **No errors** before you command a move. A calibration
+    that times out after 24 seconds has not found its end stops; do not continue as if it passed. Use
+    [Calibration troubleshooting](09-troubleshooting.md#calibration).
 
 ## 6. Make the first move
 
 Set **Speed 30** and **Current 300 mA**, applying each with its **Set** button. Press **Open**, then **Close**.
 After that works, put a light test object between the jaws and repeat, keeping fingers clear.
 
-**Check:** the position follows the command; on an object the jaws stop before fully closed and the panel reports
-an object. If it does not move, slips or reports an error, use [Troubleshooting](09-troubleshooting.md).
 The current limit sets an approximate force limit; [Force and speed](03-technical-data/force-and-speed.md)
 explains the relationship and the motor's limits.
+
+!!! success "Check"
+    The position follows the command; on an object the jaws stop before fully closed and the panel reports an
+    object. If it does not move, slips or reports an error, use [Troubleshooting](09-troubleshooting.md).
 
 ## 7. Finish and continue
 

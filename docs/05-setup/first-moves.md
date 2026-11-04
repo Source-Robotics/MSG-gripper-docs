@@ -35,6 +35,11 @@ does not calibrate either: clear first.
 An error whose cause is still present comes straight back; after an E-stop, send a command with the E-stop bit
 at 0 before you clear. [Errors and recovery](../06-operation/errors.md) says what each needs.
 
+!!! success "Check"
+    Motor GUI shows no error; in Python the three error attributes read 0 after the next status poll; over UART,
+    `#Error` prints `No errors!`. An error that is back at once still has its cause:
+    [Errors and recovery](../06-operation/errors.md).
+
 ## 3. Calibrate
 
 The gripper calibration finds the two end stops: the jaws open fully, pause, then close fully, at low force
@@ -62,6 +67,11 @@ found: something blocks the jaws short of the end, or the mechanism is too stiff
 Until the gripper reports *Calibrated*, send nothing but status polls: a move command or a clear during the
 calibration ends it, and the gripper stays uncalibrated.
 
+!!! success "Check"
+    The jaws opened fully, then closed fully, and the gripper reports *Calibrated*: in Motor GUI's panel, as
+    `gripper_calibrated` = 1 in Python, or `Gripper calibrated is: 1` from `#Gripinfo`. If not after 24 s:
+    [Calibration](../09-troubleshooting.md#calibration).
+
 ## 4. Activate
 
 A calibrated gripper carries out a move only while it is activated.
@@ -79,6 +89,10 @@ A calibrated gripper carries out a move only while it is activated.
 
 === "UART"
     `#Grippos` activates by itself; `#Gripact 1` activates without moving.
+
+!!! success "Check"
+    The panel shows *Activated*; in Python `gripper_activated` reads 1; `#Gripinfo` prints
+    `Gripper activated is: 1`.
 
 ## 5. Move
 
@@ -109,6 +123,10 @@ Start with speed 30, about 24 mm/s at each jaw, and 300 mA.
 Put an object between the jaws and close on it: the jaws stop on it and hold it with 300 mA, and the state reads
 *object detected while closing*. Raise the current for a firmer grip, within the stepper's rating, and the speed
 once the motion is what you want.
+
+!!! success "Check"
+    The jaws go to each position and the state reads *at position*; on the object they stop and the state reads
+    *object detected while closing*. If they do not move: [It does not move](../09-troubleshooting.md#it-does-not-move).
 
 ## What the gripper reports
 

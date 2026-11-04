@@ -49,6 +49,11 @@ messages are in [Calibration](https://docs.source-robotics.com/STEPFOC-docs/late
 the STEPFOC site. `#Default` also resets the serial number the driver reports; note what `#SERNUM` prints before
 you start if you need it.
 
+!!! success "Check"
+    The terminal ends with `Calibration success!`, and `#Info` prints `Calibrated`, `Number of pole pairs: 50` and
+    the resistance and inductance you entered. If it ends with `Calibration failed!`, the STEPFOC page
+    [Calibration](https://docs.source-robotics.com/STEPFOC-docs/latest/05-setup/calibration/) explains each message.
+
 ## 2. The gripper settings
 
 ```
@@ -69,12 +74,20 @@ you start if you need it.
 | `#CANID 0` | the node ID on the robot's bus; 0 to 13, see [Over CAN](../06-operation/can.md) |
 | `#Save` | nothing above survives a power cycle until it is saved |
 
+!!! success "Check"
+    After a power cycle, `#Info` prints `CAN ID is: 0` and `Gripper: 1`, and `#Gripinfo` prints `I am a gripper`.
+    If not, the settings were not saved: enter them again and end with `#Save`.
+
 ## 3. Assemble and calibrate the gripper
 
 Fit the pinion and assemble the gripper, power it up, and run the gripper calibration (`#Gripcal`, or Motor GUI's
 **Calibrate**): the jaws open fully and close fully. Then a first move at a low current, as in
 [Calibrate, activate, move](../05-setup/first-moves.md). `#Gripinfo` prints the gripper's state, including the end stops the
 calibration found.
+
+!!! success "Check"
+    The jaws opened fully and closed fully, `#Gripinfo` prints `Gripper calibrated is: 1`, and a move at a low
+    current goes to its position. If the calibration gives up after 24 s: [Calibration](../09-troubleshooting.md#calibration).
 
 ## Current limit
 

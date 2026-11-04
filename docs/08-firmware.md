@@ -36,6 +36,11 @@ and [The bootloader](https://docs.source-robotics.com/STEPFOC-docs/latest/07-fir
       what `#Info` prints before you start.
     - Give the gripper a node ID from 0 to 13: the bootloader cannot address 14 or 15.
 
+!!! success "Check"
+    After the update, `#Info` prints `Software version:` with the new release (over CAN, the third byte of
+    Send_Respond_Device_Info), and the gripper calibrates and moves as before. If it no longer answers as a
+    gripper, its configuration was cleared: restore it as in [Driver setup and first run](build/first-run.md).
+
 A gripper whose driver runs firmware 103 or older has no bootloader; it is updated once with a programming
 adapter on the driver's JTAG pads, inside the housing, as described in
 [Installing the bootloader on an older board](https://docs.source-robotics.com/STEPFOC-docs/latest/07-firmware/bootloader/).

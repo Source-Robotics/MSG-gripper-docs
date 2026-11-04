@@ -21,6 +21,11 @@ start, with the parts in front of you.
 7. The coupler plate with the shaft coupler on the back, or `ring_cover-PAROL6` for the PAROL6 wrist.
 8. The jaws onto the carriers, the camera into its mount.
 
+!!! success "Check"
+    With the supply off, push one jaw by hand over the whole stroke: both jaws move together, smoothly, without a
+    tight spot, and nothing rubs on the cable. The termination switch is reachable through the stepper cover.
+    A stiff spot now makes the gripper calibration stop short later ([Calibration](../09-troubleshooting.md#calibration)).
+
 ## The cable
 
 The gripper's cable is not in the box. [The cable](../04-installation/cable.md) has the parts, the wiring

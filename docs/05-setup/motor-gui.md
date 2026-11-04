@@ -34,6 +34,30 @@ testing; everything it does is one CAN message, so what you learn here carries o
 The panel works with one gripper at a time; to work with another on the same bus, pick its node. The **Motor**
 side of the switch shows the same driver as a motor, which the gripper does not need.
 
+!!! success "Check"
+    The gripper panel shows the gripper's position and current, and *Not calibrated* after a power-up. If the
+    browser's port list does not show the adapter, see the notes for your system below; if the panel keeps
+    waiting for feedback, step 3 and [Troubleshooting](../09-troubleshooting.md).
+
+### The adapter's port on your system
+
+=== "Windows"
+    The CANvas adapter appears in Device Manager under **Ports (COM & LPT)** as a COM port, and the browser's
+    port list shows it. Close any other program that holds the port, a Python script or another browser tab:
+    the connection fails at once while it is open elsewhere.
+
+=== "Linux"
+    The browser opens the port only if your user may. Add yourself to the `dialout` group once, then log out and
+    in again:
+
+    ```
+    sudo usermod -aG dialout $USER
+    ```
+
+=== "macOS"
+    Nothing to install. A browser installed with Homebrew or from the App Store may need USB access: Motor GUI's
+    own guide points to System Settings, **Privacy & Security**.
+
 ## Try it without a gripper
 
 Open [Motor GUI](https://motorgui.com/), choose **Mock CAN (demo)** and **Connect**, then switch to **Gripper**.

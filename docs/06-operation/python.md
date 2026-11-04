@@ -5,11 +5,36 @@ and the gripper's answers unpacked into attributes. The ROS 2 driver and the leg
 
 ## Installing
 
-```
-pip install Spectral-BLDC
-```
+In a virtual environment, with Python 3.10 or newer:
 
-The source and the examples are in [Spectral-BLDC-Python](https://github.com/Source-Robotics/Spectral-BLDC-Python).
+=== "Windows"
+    ```
+    py -m venv .venv
+    .venv\Scripts\activate
+    pip install Spectral-BLDC
+    ```
+    The CANvas adapter's port is `COM` and a number: Device Manager lists it under **Ports (COM & LPT)**. Give it
+    as `channel='COM20'`.
+
+=== "Linux"
+    ```
+    python3 -m venv .venv
+    source .venv/bin/activate
+    pip install Spectral-BLDC
+    sudo usermod -aG dialout $USER     # access to the adapter's port; log out and in again once
+    ```
+    The adapter's port is `/dev/ttyACM0` (`ls /dev/ttyACM*` lists it).
+
+=== "macOS"
+    ```
+    python3 -m venv .venv
+    source .venv/bin/activate
+    pip install Spectral-BLDC
+    ```
+    The adapter's port is `/dev/tty.usbmodem` and a number (`ls /dev/tty.usbmodem*` lists it).
+
+The library pulls `python-can` and `pyserial`. The source and the examples are in
+[Spectral-BLDC-Python](https://github.com/Source-Robotics/Spectral-BLDC-Python).
 
 ## The first program
 
