@@ -53,7 +53,8 @@ are 106.20 mm apart, the TPU pads 104.20 mm. The model's `tcp` is its control po
 
 ## How accurate this is
 
-The masses are measured: about 380 g for the whole gripper, 39.3 g for each moving assembly (an approximate
+The masses are measured: about 380 g for the whole gripper with the 150 mm rail and the 21.5 mm stepper (the
+variant the model shows), 39.3 g for each moving assembly (an approximate
 figure). The centres of mass and the inertias are not: robot_descriptions 2.18.1 calls them existing, unverified
 estimates, not scaled to the measured masses or checked against the CAD's mass distribution. Use them for
 simulation and for a first payload setting, not as a measurement. The model has one variant; a longer rail or

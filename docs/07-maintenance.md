@@ -24,8 +24,8 @@ metal: static electricity damages the driver board. Hold the board by its edges.
 
 ## Cleaning
 
-Clean the gripper switched off and unplugged. Wipe the printed parts with a dry or slightly damp cloth and use no
-solvents on them: the body is PETG, the pads are TPU. Never spray or pour anything onto the gripper; the driver
+Clean the gripper switched off and unplugged. Wipe the printed parts with a dry or slightly damp cloth, or with a little isopropyl
+alcohol on the cloth for grease; use no other solvents, such as acetone: the body is PETG, the pads are TPU. Never spray or pour anything onto the gripper; the driver
 behind the stepper cover and the M8 connector are open to it, and it is not waterproof or dustproof. Brush or blow
 chips out of the rail and the racks rather than wash them out, then grease them as above.
 

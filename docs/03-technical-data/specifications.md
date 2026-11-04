@@ -19,7 +19,7 @@
 | | Value |
 |---|---|
 | Stroke | 55 mm (100 mm rail), 105 mm (150 mm rail), 155 mm (200 mm rail) |
-| Mass | about 380 g; a longer rail or stepper adds to it; centre of mass and inertia on [Data for robot integration](integration-data.md) |
+| Mass | about 380 g with the 150 mm rail and the 21.5 mm stepper; a longer rail or stepper adds to it; centre of mass and inertia on [Data for robot integration](integration-data.md) |
 | Position resolution | 1/255 of the stroke: 0.2 to 0.6 mm per step of the position byte |
 | Drive | NEMA 17 stepper, pinion (32 DP, 21 teeth, 8.3 mm pitch radius) on two racks, MGN7 linear rail |
 | Grip force | ideal combined force up to about 31 N (21.5 mm stepper), 50 N (40 mm) or 76 N (60 mm) at the stepper's maximum current; see the model assumptions in [Force and speed](force-and-speed.md) |
