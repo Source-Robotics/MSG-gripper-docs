@@ -41,8 +41,9 @@ slip or be thrown.
 ## Electrical
 
 !!! danger "The cable"
-    The gripper's M8 connector carries 24 V next to the CAN bus. A cable with the wrong pinout, including the
-    cable of the other Source Robotics robot, puts 24 V on the CAN pins and destroys the driver. Use the cable
+    The gripper's M8 connector carries 24 V next to the CAN bus. A cable with the wrong pinout destroys the driver:
+    the cable of the other Source Robotics robot reverses the supply, and a self-made one with a wrong pin can
+    put 24 V on a CAN pin. Use the cable
     made for your robot or check every pin of your own; see [The cable](04-installation/cable.md).
 
 !!! warning "Supply"

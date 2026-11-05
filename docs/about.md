@@ -37,6 +37,6 @@ by any of these.
 
 | Revision | Date | Changes |
 |---|---|---|
-| 2026.C | 2026-11-05 | The M8 pinout corrected to the one the gripper is built with (1 +24 V, 2 CANL, 3 GND, 4 CANH; page 17 of the SSG-48 assembly manual): the pin table, its drawing and the quick start of 2026.B had all four pins wrong; the bootloader comes with STEPFOC release 105, not 104; the camera works with any webcam software |
+| 2026.C | 2026-11-05 | The M8 pinout corrected to the one the gripper is built with (1 +24 V, 2 CANL, 3 GND, 4 CANH; page 17 of the SSG-48 assembly manual): the pin table, its drawing and the quick start of 2026.B had all four pins wrong; the bootloader comes with STEPFOC release 105, not 104; the camera works with any webcam software; the cable warnings: the other robot's cable reverses the supply, it does not put 24 V on the CAN pins; the PAROL6 cable's pin pairs |
 | 2026.B | 2026-11-04 | Gripper release 1.2, with the files as downloads on the release; dimension drawings and what changes per variant; data for robot integration (frame, mass, inertia, TCP); known issues; the downloads with their versions; safety for clothing, hair and eyes, a caught finger, static and cleaning; check boxes after each step and Windows, Linux and macOS tabs; numbered figure captions; the 380 g variant |
 | 2026.A | 2026-11-03 | First version in this form: the manual chapters, the generated CAN and UART reference; gripper release 1.1, firmware 108 |

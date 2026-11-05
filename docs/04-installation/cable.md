@@ -7,7 +7,7 @@ to robot.
 
 !!! danger "PAROL6 and PAR6 cables are different"
     The two robots put the four signals on different pins of their gripper port. The PAROL6 cable in a PAR6, or
-    the other way round, puts 24 V on the CAN bus and destroys the gripper's driver. Use the cable sold for your
+    the other way round, reverses the gripper's supply, 24 V on its GND pin, and destroys its driver. Use the cable sold for your
     robot, and check a self-made cable pin by pin.
 
 ## The cables from the shop
@@ -39,6 +39,9 @@ colours are those of the cable in the BOM.
 
 === "PAROL6"
     ![The PAROL6 cable: the pins are crossed between the two ends](../assets/PAROL6_cable.webp){ width="320" }
+
+    Male end at the robot, female end at the gripper: pin 1 to 3, 2 to 4, 3 to 1, 4 to 2. The PAROL6 socket has
+    GND on pin 1, CANH on 2, 24 V on 3 and CANL on 4; the cable brings each signal to the gripper's pin for it.
 
 === "PAR6"
     ![The PAR6 cable: pin to pin](../assets/PAR6_cable.png){ width="200" }

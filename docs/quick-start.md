@@ -5,7 +5,7 @@ For a gripper already connected to a robot, use [On PAROL6 and PAR6](06-operatio
 
 !!! danger "Before connecting power"
     Keep fingers and loose objects out of the stroke. Calibration opens and closes the jaws fully. A wrong
-    cable can put 24 V on the CAN pins and destroy the driver: check the [numbered pinout](03-technical-data/connector.md#pin-numbers).
+    cable can reverse the supply or put 24 V on a CAN pin, and either destroys the driver: check the [numbered pinout](03-technical-data/connector.md#pin-numbers).
 
 ## 1. Choose your starting point
 

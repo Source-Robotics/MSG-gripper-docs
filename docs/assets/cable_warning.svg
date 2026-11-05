@@ -9,6 +9,6 @@
   <text x="370" y="118" font-family="Roboto, Arial, Helvetica, sans-serif" font-size="56" font-weight="700" fill="#ffffff">PAROL6 and PAR6 gripper cables</text>
   <text x="370" y="186" font-family="Roboto, Arial, Helvetica, sans-serif" font-size="56" font-weight="700" fill="#ffffff">are NOT interchangeable</text>
   <text x="370" y="262" font-family="Roboto, Arial, Helvetica, sans-serif" font-size="34" fill="#ffffff">A PAROL6 cable on a PAR6, or a PAR6 cable on a PAROL6,</text>
-  <text x="370" y="310" font-family="Roboto, Arial, Helvetica, sans-serif" font-size="34" fill="#ffffff">puts 24 V on the CAN pins and destroys the gripper's driver.</text>
+  <text x="370" y="310" font-family="Roboto, Arial, Helvetica, sans-serif" font-size="34" fill="#ffffff">reverses the gripper's supply and destroys its driver.</text>
   <text x="370" y="376" font-family="Roboto, Arial, Helvetica, sans-serif" font-size="30" font-weight="700" fill="#ffd600">Use the cable sold for your robot; check a self-made one pin by pin.</text>
 </svg>
