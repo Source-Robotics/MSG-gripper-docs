@@ -12,7 +12,7 @@ which Python library and bootloader.
 
 ## Updating
 
-A gripper shipped with firmware 104 or newer carries the driver's bootloader and updates over its CAN cable: the
+A gripper whose driver runs firmware 105 or newer carries the driver's bootloader and updates over its CAN cable: the
 host tells the driver to reset, the bootloader waits two seconds for a host, and the host streams the new image
 into it. Nothing is opened. The image is `stepfoc-firmware-V<number>.bin` from the driver's
 [GitHub releases](https://github.com/Source-Robotics/STEPFOC-stepper-controller/releases), with a manifest
