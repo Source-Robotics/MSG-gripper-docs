@@ -34,7 +34,7 @@ import yaml
 ROOT = Path(__file__).resolve().parent.parent
 PAGE = ROOT / "docs" / "build" / "bill-of-materials.md"
 IMG_DIR = ROOT / "docs" / "assets" / "bom"
-BOM_PATH = {"MSG-compliant-AI-stepper-gripper": "BOM.md", "SSG-48-adaptive-electric-gripper": "BOM/BOM.md"}
+BOM_PATH = {"MSG-compliant-AI-stepper-gripper": "BOM.md", "SSG-48-adaptive-electric-gripper": "BOM/README.md"}
 THUMB = 120
 STORED = 400
 
