@@ -15,13 +15,14 @@ than matching wire colours or the installed housing's rotation.
 
 | Gripper pin | Signal | Connection |
 |---|---|---|
-| **1** | **CANL** | CAN low |
-| **2** | **CANH** | CAN high, 1 Mbit/s with CANL |
-| **3** | **+24 V** | positive motor supply |
-| **4** | **GND** | power-supply return |
+| **1** | **+24 V** | positive motor supply |
+| **2** | **CANL** | CAN low |
+| **3** | **GND** | power-supply return |
+| **4** | **CANH** | CAN high, 1 Mbit/s with CANL |
 
-These pin numbers combine the gripper's signal drawing above with the male contact numbering in the
-repository's [cable drawing](https://github.com/Source-Robotics/MSG-compliant-AI-stepper-gripper/blob/main/Photos/Gripper_cable_contact%20layout.png).
+These are the pin numbers the gripper is built with. The MSG and the SSG-48 share this wiring and
+their cables; page 17 of the [SSG-48 assembly manual](https://github.com/Source-Robotics/SSG-48-adaptive-electric-gripper/blob/main/Assembly%20manual/Gripper_assembly_manual.pdf) gives it,
+and the picture above shows the same four signals.
 They describe the **gripper end**. PAROL6 and PAR6 use different connections at the robot end:
 [The cable](../04-installation/cable.md) gives both diagrams. Check continuity with the supply disconnected.
 

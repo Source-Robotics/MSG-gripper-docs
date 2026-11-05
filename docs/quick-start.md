@@ -26,8 +26,8 @@ the parts; [Mounting](04-installation/mounting.md) and [Jaws](04-installation/ja
 
 ## 3. Wire with power off
 
-1. Check the cable against [Connector and pinout](03-technical-data/connector.md): gripper pin 3 is +24 V,
-   pin 4 GND, pin 2 CANH, pin 1 CANL. Check continuity before the first power-up.
+1. Check the cable against [Connector and pinout](03-technical-data/connector.md): gripper pin 1 is +24 V,
+   pin 3 GND, pin 4 CANH, pin 2 CANL. Check continuity before the first power-up.
 2. Connect the supply and the CANvas adapter as shown below.
 3. Set the gripper's CAN termination ON for this two-node bench bus; the CANvas adapter provides the other end.
    Leave the gripper at its shipped node ID, **0**, unless you already assigned another.
@@ -35,10 +35,10 @@ the parts; [Mounting](04-installation/mounting.md) and [Jaws](04-installation/ja
 ```mermaid
 flowchart LR
     PC[PC USB] --> A[CANvas adapter]
-    A -- CANH --> P2[Gripper pin 2: CANH]
-    A -- CANL --> P1[Gripper pin 1: CANL]
-    S[24 V supply] -- positive --> P3[Gripper pin 3: +24 V]
-    S -- return --> P4[Gripper pin 4: GND]
+    A -- CANH --> P4[Gripper pin 4: CANH]
+    A -- CANL --> P2[Gripper pin 2: CANL]
+    S[24 V supply] -- positive --> P1[Gripper pin 1: +24 V]
+    S -- return --> P3[Gripper pin 3: GND]
 ```
 
 !!! success "Check, unpowered"
