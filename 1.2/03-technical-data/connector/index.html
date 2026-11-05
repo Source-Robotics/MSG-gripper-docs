@@ -22,7 +22,7 @@
         
       
       
-      <link rel="icon" href="../../assets/Icon2.png">
+      <link rel="icon" href="../../assets/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
@@ -2338,33 +2338,35 @@ than matching wire colours or the installed housing's rotation.</p>
 <tbody>
 <tr>
 <td><strong>1</strong></td>
-<td><strong>CANL</strong></td>
-<td><abbr title="Controller Area Network, the bus between the robot or the PC and the gripper">CAN</abbr> low</td>
-</tr>
-<tr>
-<td><strong>2</strong></td>
-<td><strong>CANH</strong></td>
-<td><abbr title="Controller Area Network, the bus between the robot or the PC and the gripper">CAN</abbr> high, 1 Mbit/s with CANL</td>
-</tr>
-<tr>
-<td><strong>3</strong></td>
 <td><strong>+24 V</strong></td>
 <td>positive motor supply</td>
 </tr>
 <tr>
-<td><strong>4</strong></td>
+<td><strong>2</strong></td>
+<td><strong>CANL</strong></td>
+<td><abbr title="Controller Area Network, the bus between the robot or the PC and the gripper">CAN</abbr> low</td>
+</tr>
+<tr>
+<td><strong>3</strong></td>
 <td><strong>GND</strong></td>
 <td>power-supply return</td>
 </tr>
+<tr>
+<td><strong>4</strong></td>
+<td><strong>CANH</strong></td>
+<td><abbr title="Controller Area Network, the bus between the robot or the PC and the gripper">CAN</abbr> high, 1 Mbit/s with CANL</td>
+</tr>
 </tbody>
 </table>
-<p>These pin numbers combine the gripper's signal drawing above with the male contact numbering in the
-repository's <a href="https://github.com/Source-Robotics/MSG-compliant-AI-stepper-gripper/blob/main/Photos/Gripper_cable_contact%20layout.png">cable drawing</a>.
+<p>These are the pin numbers the gripper is built with. The MSG and the SSG-48 share this wiring and
+their cables; page 17 of the <a href="https://github.com/Source-Robotics/SSG-48-adaptive-electric-gripper/blob/main/Assembly%20manual/Gripper_assembly_manual.pdf">SSG-48 assembly manual</a> gives it,
+in a photo of the connector from the back, where the wires are soldered: the mirror image of the picture above.
 They describe the <strong>gripper end</strong>. PAROL6 and PAR6 use different connections at the robot end:
 <a href="../../04-installation/cable/">The cable</a> gives both diagrams. Check continuity with the supply disconnected.</p>
 <div class="admonition danger">
 <p class="admonition-title">The wrong cable destroys the driver</p>
-<p>A cable with 24 V on a <abbr title="Controller Area Network, the bus between the robot or the PC and the gripper">CAN</abbr> pin destroys the driver inside the gripper the moment it is powered. Use the cable
+<p>A reversed supply or 24 V on a <abbr title="Controller Area Network, the bus between the robot or the PC and the gripper">CAN</abbr> pin destroys the driver inside the gripper the moment it is powered; the
+other robot's cable reverses the supply. Use the cable
 made for your robot; check a self-made cable pin by pin against the pin table above and the wiring diagram
 before you plug it in.</p>
 </div>
@@ -2393,7 +2395,7 @@ driver's pinout is in the <a href="https://docs.source-robotics.com/STEPFOC-docs
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 4, 2026 08:32:02 UTC">November 4, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 5, 2026 16:14:53 UTC">November 5, 2026</span>
   </span>
 
     

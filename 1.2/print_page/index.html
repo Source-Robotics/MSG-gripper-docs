@@ -18,7 +18,7 @@
         
       
       
-      <link rel="icon" href="../assets/Icon2.png">
+      <link rel="icon" href="../assets/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
@@ -1779,8 +1779,8 @@ Code examples <a href="https://github.com/Source-Robotics/MSG-gripper-docs/blob/
 <p><strong>Document number:</strong> SR-5003</p>
 <p><strong>MSG gripper release:</strong> 1.2</p>
 <p><strong>Firmware:</strong> STEPFOC 108</p>
-<p><strong>Revision:</strong> 2026.B</p>
-<p><strong>Published:</strong> 2026-11-04</p>
+<p><strong>Revision:</strong> 2026.C</p>
+<p><strong>Published:</strong> 2026-11-05</p>
 <p><strong>Applies to:</strong> MSG gripper release 1.2 with the STEPFOC driver PCB v1, STEPFOC firmware 108</p>
 <p><em>Original instructions</em></p>
 </div>
@@ -1855,7 +1855,7 @@ For a gripper already connected to a robot, use <a href="#06-operation-robots">O
 <div class="admonition danger">
 <p class="admonition-title">Before connecting power</p>
 <p>Keep fingers and loose objects out of the stroke. Calibration opens and closes the jaws fully. A wrong
-cable can put 24 V on the <abbr title="Controller Area Network, the bus between the robot or the PC and the gripper">CAN</abbr> pins and destroy the driver: check the <a href="#03-technical-data-connector-pin-numbers">numbered pinout</a>.</p>
+cable can reverse the supply or put 24 V on a <abbr title="Controller Area Network, the bus between the robot or the PC and the gripper">CAN</abbr> pin, and either destroys the driver: check the <a href="#03-technical-data-connector-pin-numbers">numbered pinout</a>.</p>
 </div>
 <h2 id="quick-start-1-choose-your-starting-point">1. Choose your starting point<a class="headerlink" href="#quick-start-1-choose-your-starting-point" title="Permanent link">&para;</a></h2>
 <table>
@@ -1890,18 +1890,18 @@ the parts; <a href="#04-installation-mounting">Mounting</a> and <a href="#04-ins
 </div>
 <h2 id="quick-start-3-wire-with-power-off">3. Wire with power off<a class="headerlink" href="#quick-start-3-wire-with-power-off" title="Permanent link">&para;</a></h2>
 <ol>
-<li>Check the cable against <a href="#03-technical-data-connector">Connector and pinout</a>: gripper pin 3 is +24 V,
-   pin 4 GND, pin 2 CANH, pin 1 CANL. Check continuity before the first power-up.</li>
+<li>Check the cable against <a href="#03-technical-data-connector">Connector and pinout</a>: gripper pin 1 is +24 V,
+   pin 3 GND, pin 4 CANH, pin 2 CANL. Check continuity before the first power-up.</li>
 <li>Connect the supply and the CANvas adapter as shown below.</li>
 <li>Set the gripper's <abbr title="Controller Area Network, the bus between the robot or the PC and the gripper">CAN</abbr> termination ON for this two-node bench bus; the CANvas adapter provides the other end.
    Leave the gripper at its shipped node ID, <strong>0</strong>, unless you already assigned another.</li>
 </ol>
 <pre class="mermaid"><code>flowchart LR
     PC[PC USB] --&gt; A[CANvas adapter]
-    A -- CANH --&gt; P2[Gripper pin 2: CANH]
-    A -- CANL --&gt; P1[Gripper pin 1: CANL]
-    S[24 V supply] -- positive --&gt; P3[Gripper pin 3: +24 V]
-    S -- return --&gt; P4[Gripper pin 4: GND]</code></pre>
+    A -- CANH --&gt; P4[Gripper pin 4: CANH]
+    A -- CANL --&gt; P2[Gripper pin 2: CANL]
+    S[24 V supply] -- positive --&gt; P1[Gripper pin 1: +24 V]
+    S -- return --&gt; P3[Gripper pin 3: GND]</code></pre>
 <div class="admonition success">
 <p class="admonition-title">Check, unpowered</p>
 <p>The supply polarity and cable pinout match, and CANH-to-CANL measures about <strong>60 Ω</strong> with the bus connected.
@@ -2035,6 +2035,11 @@ by any of these.</p>
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>2026.C</td>
+<td>2026-11-05</td>
+<td>The M8 pinout corrected to the one the gripper is built with (1 +24 V, 2 CANL, 3 GND, 4 CANH; page 17 of the SSG-48 assembly manual): the pin table, its drawing and the quick start of 2026.B had all four pins wrong; the bootloader comes with STEPFOC release 105, not 104; the camera works with any webcam software; the cable warnings: the other robot's cable reverses the supply, it does not put 24 V on the <abbr title="Controller Area Network, the bus between the robot or the PC and the gripper">CAN</abbr> pins; the PAROL6 cable's pin pairs</td>
+</tr>
 <tr>
 <td>2026.B</td>
 <td>2026-11-04</td>
@@ -2252,8 +2257,9 @@ for the first and <em>while opening</em> for the second.</p>
 <p>The camera mount on top of the body carries an OV9732 USB camera module (100° version in the <abbr title="Bill Of Materials, the list of parts to buy">BOM</abbr>), looking down
 between the jaws. Its place and angle were chosen with care: the camera sees both jaws and the object between
 them, the view that teleoperation and <abbr title="Vision-Language-Action model, a robot policy that maps camera images and an instruction to actions">VLA</abbr> training need. It is a plain USB camera with its own cable,
-independent of the gripper's electronics; the mount
-and its lid are printed parts (<code>camera extension</code>, <code>camera_lid</code>), and a gripper without a camera simply leaves
+independent of the gripper's electronics: the computer sees it as an ordinary webcam, so any program that
+reads one works with it, from the camera app to OpenCV (<code>cv2.VideoCapture</code>) in Python or a ROS 2 camera node. The
+mount and its lid are printed parts (<code>camera extension</code>, <code>camera_lid</code>), and a gripper without a camera simply leaves
 them off.</p>
 <figure>
   <a class="glightbox" href="../assets/MSG_and_camera.webp" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="The gripper on a PAROL6 and what its camera sees" src="../assets/MSG_and_camera.webp" width="700" /></a>
@@ -2376,8 +2382,9 @@ test.</p>
 <h2 id="02-safety-electrical">Electrical<a class="headerlink" href="#02-safety-electrical" title="Permanent link">&para;</a></h2>
 <div class="admonition danger">
 <p class="admonition-title">The cable</p>
-<p>The gripper's M8 connector carries 24 V next to the <abbr title="Controller Area Network, the bus between the robot or the PC and the gripper">CAN</abbr> bus. A cable with the wrong pinout, including the
-cable of the other Source Robotics robot, puts 24 V on the <abbr title="Controller Area Network, the bus between the robot or the PC and the gripper">CAN</abbr> pins and destroys the driver. Use the cable
+<p>The gripper's M8 connector carries 24 V next to the <abbr title="Controller Area Network, the bus between the robot or the PC and the gripper">CAN</abbr> bus. A cable with the wrong pinout destroys the driver:
+the cable of the other Source Robotics robot reverses the supply, and a self-made one with a wrong pin can
+put 24 V on a <abbr title="Controller Area Network, the bus between the robot or the PC and the gripper">CAN</abbr> pin. Use the cable
 made for your robot or check every pin of your own; see <a href="#04-installation-cable">The cable</a>.</p>
 </div>
 <div class="admonition warning">
@@ -2805,33 +2812,35 @@ than matching wire colours or the installed housing's rotation.</p>
 <tbody>
 <tr>
 <td><strong>1</strong></td>
-<td><strong>CANL</strong></td>
-<td><abbr title="Controller Area Network, the bus between the robot or the PC and the gripper">CAN</abbr> low</td>
-</tr>
-<tr>
-<td><strong>2</strong></td>
-<td><strong>CANH</strong></td>
-<td><abbr title="Controller Area Network, the bus between the robot or the PC and the gripper">CAN</abbr> high, 1 Mbit/s with CANL</td>
-</tr>
-<tr>
-<td><strong>3</strong></td>
 <td><strong>+24 V</strong></td>
 <td>positive motor supply</td>
 </tr>
 <tr>
-<td><strong>4</strong></td>
+<td><strong>2</strong></td>
+<td><strong>CANL</strong></td>
+<td><abbr title="Controller Area Network, the bus between the robot or the PC and the gripper">CAN</abbr> low</td>
+</tr>
+<tr>
+<td><strong>3</strong></td>
 <td><strong>GND</strong></td>
 <td>power-supply return</td>
 </tr>
+<tr>
+<td><strong>4</strong></td>
+<td><strong>CANH</strong></td>
+<td><abbr title="Controller Area Network, the bus between the robot or the PC and the gripper">CAN</abbr> high, 1 Mbit/s with CANL</td>
+</tr>
 </tbody>
 </table>
-<p>These pin numbers combine the gripper's signal drawing above with the male contact numbering in the
-repository's <a href="https://github.com/Source-Robotics/MSG-compliant-AI-stepper-gripper/blob/main/Photos/Gripper_cable_contact%20layout.png">cable drawing</a>.
+<p>These are the pin numbers the gripper is built with. The MSG and the SSG-48 share this wiring and
+their cables; page 17 of the <a href="https://github.com/Source-Robotics/SSG-48-adaptive-electric-gripper/blob/main/Assembly%20manual/Gripper_assembly_manual.pdf">SSG-48 assembly manual</a> gives it,
+in a photo of the connector from the back, where the wires are soldered: the mirror image of the picture above.
 They describe the <strong>gripper end</strong>. PAROL6 and PAR6 use different connections at the robot end:
 <a href="#04-installation-cable">The cable</a> gives both diagrams. Check continuity with the supply disconnected.</p>
 <div class="admonition danger">
 <p class="admonition-title">The wrong cable destroys the driver</p>
-<p>A cable with 24 V on a <abbr title="Controller Area Network, the bus between the robot or the PC and the gripper">CAN</abbr> pin destroys the driver inside the gripper the moment it is powered. Use the cable
+<p>A reversed supply or 24 V on a <abbr title="Controller Area Network, the bus between the robot or the PC and the gripper">CAN</abbr> pin destroys the driver inside the gripper the moment it is powered; the
+other robot's cable reverses the supply. Use the cable
 made for your robot; check a self-made cable pin by pin against the pin table above and the wiring diagram
 before you plug it in.</p>
 </div>
@@ -3183,7 +3192,7 @@ to robot.</p>
 <div class="admonition danger">
 <p class="admonition-title">PAROL6 and PAR6 cables are different</p>
 <p>The two robots put the four signals on different pins of their gripper port. The PAROL6 cable in a PAR6, or
-the other way round, puts 24 V on the <abbr title="Controller Area Network, the bus between the robot or the PC and the gripper">CAN</abbr> bus and destroys the gripper's driver. Use the cable sold for your
+the other way round, reverses the gripper's supply, 24 V on its GND pin, and destroys its driver. Use the cable sold for your
 robot, and check a self-made cable pin by pin.</p>
 </div>
 <h2 id="04-installation-cable-the-cables-from-the-shop">The cables from the shop<a class="headerlink" href="#04-installation-cable-the-cables-from-the-shop" title="Permanent link">&para;</a></h2>
@@ -3248,6 +3257,8 @@ colours are those of the cable in the <abbr title="Bill Of Materials, the list o
   <a class="glightbox" href="../assets/PAROL6_cable.webp" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="The PAROL6 cable: the pins are crossed between the two ends" src="../assets/PAROL6_cable.webp" width="320" /></a>
   <figcaption>Figure 4.4: The PAROL6 cable: the pins are crossed between the two ends.</figcaption>
 </figure></p>
+<p>Male end at the robot, female end at the gripper: pin 1 to 3, 2 to 4, 3 to 1, 4 to 2. The PAROL6 socket has
+GND on pin 1, CANH on 2, 24 V on 3 and CANL on 4; the cable brings each signal to the gripper's pin for it.</p>
 </div>
 <div class="tabbed-block">
 <p><figure markdown="span">
@@ -4494,7 +4505,7 @@ site is versioned by; a new firmware release for the same gripper updates these 
 <code>Software version: &lt;number&gt;</code>. The <a href="#appendix-compatibility">compatibility table</a> says which releases go with
 which Python library and bootloader.</p>
 <h2 id="08-firmware-updating">Updating<a class="headerlink" href="#08-firmware-updating" title="Permanent link">&para;</a></h2>
-<p>A gripper shipped with firmware 104 or newer carries the driver's bootloader and updates over its <abbr title="Controller Area Network, the bus between the robot or the PC and the gripper">CAN</abbr> cable: the
+<p>A gripper whose driver runs firmware 105 or newer carries the driver's bootloader and updates over its <abbr title="Controller Area Network, the bus between the robot or the PC and the gripper">CAN</abbr> cable: the
 host tells the driver to reset, the bootloader waits two seconds for a host, and the host streams the new image
 into it. Nothing is opened. The image is <code>stepfoc-firmware-V&lt;number&gt;.bin</code> from the driver's
 <a href="https://github.com/Source-Robotics/STEPFOC-stepper-controller/releases">GitHub releases</a>, with a manifest

@@ -15,18 +15,20 @@ than matching wire colours or the installed housing's rotation.
 
 | Gripper pin | Signal | Connection |
 |---|---|---|
-| **1** | **CANL** | CAN low |
-| **2** | **CANH** | CAN high, 1 Mbit/s with CANL |
-| **3** | **+24 V** | positive motor supply |
-| **4** | **GND** | power-supply return |
+| **1** | **+24 V** | positive motor supply |
+| **2** | **CANL** | CAN low |
+| **3** | **GND** | power-supply return |
+| **4** | **CANH** | CAN high, 1 Mbit/s with CANL |
 
-These pin numbers combine the gripper's signal drawing above with the male contact numbering in the
-repository's [cable drawing](https://github.com/Source-Robotics/MSG-compliant-AI-stepper-gripper/blob/main/Photos/Gripper_cable_contact%20layout.png).
+These are the pin numbers the gripper is built with. The MSG and the SSG-48 share this wiring and
+their cables; page 17 of the [SSG-48 assembly manual](https://github.com/Source-Robotics/SSG-48-adaptive-electric-gripper/blob/main/Assembly%20manual/Gripper_assembly_manual.pdf) gives it,
+in a photo of the connector from the back, where the wires are soldered: the mirror image of the picture above.
 They describe the **gripper end**. PAROL6 and PAR6 use different connections at the robot end:
 [The cable](https://docs.source-robotics.com/MSG-gripper-docs/1.2/04-installation/cable/) gives both diagrams. Check continuity with the supply disconnected.
 
 !!! danger "The wrong cable destroys the driver"
-    A cable with 24 V on a CAN pin destroys the driver inside the gripper the moment it is powered. Use the cable
+    A reversed supply or 24 V on a CAN pin destroys the driver inside the gripper the moment it is powered; the
+    other robot's cable reverses the supply. Use the cable
     made for your robot; check a self-made cable pin by pin against the pin table above and the wiring diagram
     before you plug it in.
 

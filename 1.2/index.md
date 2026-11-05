@@ -10,9 +10,9 @@
 
 **Firmware:** STEPFOC 108
 
-**Revision:** 2026.B
+**Revision:** 2026.C
 
-**Published:** 2026-11-04
+**Published:** 2026-11-05
 
 **Applies to:** MSG gripper release 1.2 with the STEPFOC driver PCB v1, STEPFOC firmware 108
 

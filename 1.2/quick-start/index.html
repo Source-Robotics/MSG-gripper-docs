@@ -22,7 +22,7 @@
         
       
       
-      <link rel="icon" href="../assets/Icon2.png">
+      <link rel="icon" href="../assets/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
@@ -2241,7 +2241,7 @@ For a gripper already connected to a robot, use <a href="../06-operation/robots/
 <div class="admonition danger">
 <p class="admonition-title">Before connecting power</p>
 <p>Keep fingers and loose objects out of the stroke. Calibration opens and closes the jaws fully. A wrong
-cable can put 24 V on the <abbr title="Controller Area Network, the bus between the robot or the PC and the gripper">CAN</abbr> pins and destroy the driver: check the <a href="../03-technical-data/connector/#pin-numbers">numbered pinout</a>.</p>
+cable can reverse the supply or put 24 V on a <abbr title="Controller Area Network, the bus between the robot or the PC and the gripper">CAN</abbr> pin, and either destroys the driver: check the <a href="../03-technical-data/connector/#pin-numbers">numbered pinout</a>.</p>
 </div>
 <h2 id="1-choose-your-starting-point">1. Choose your starting point<a class="headerlink" href="#1-choose-your-starting-point" title="Permanent link">&para;</a></h2>
 <table>
@@ -2276,18 +2276,18 @@ the parts; <a href="../04-installation/mounting/">Mounting</a> and <a href="../0
 </div>
 <h2 id="3-wire-with-power-off">3. Wire with power off<a class="headerlink" href="#3-wire-with-power-off" title="Permanent link">&para;</a></h2>
 <ol>
-<li>Check the cable against <a href="../03-technical-data/connector/">Connector and pinout</a>: gripper pin 3 is +24 V,
-   pin 4 GND, pin 2 CANH, pin 1 CANL. Check continuity before the first power-up.</li>
+<li>Check the cable against <a href="../03-technical-data/connector/">Connector and pinout</a>: gripper pin 1 is +24 V,
+   pin 3 GND, pin 4 CANH, pin 2 CANL. Check continuity before the first power-up.</li>
 <li>Connect the supply and the CANvas adapter as shown below.</li>
 <li>Set the gripper's <abbr title="Controller Area Network, the bus between the robot or the PC and the gripper">CAN</abbr> termination ON for this two-node bench bus; the CANvas adapter provides the other end.
    Leave the gripper at its shipped node ID, <strong>0</strong>, unless you already assigned another.</li>
 </ol>
 <pre class="mermaid"><code>flowchart LR
     PC[PC USB] --&gt; A[CANvas adapter]
-    A -- CANH --&gt; P2[Gripper pin 2: CANH]
-    A -- CANL --&gt; P1[Gripper pin 1: CANL]
-    S[24 V supply] -- positive --&gt; P3[Gripper pin 3: +24 V]
-    S -- return --&gt; P4[Gripper pin 4: GND]</code></pre>
+    A -- CANH --&gt; P4[Gripper pin 4: CANH]
+    A -- CANL --&gt; P2[Gripper pin 2: CANL]
+    S[24 V supply] -- positive --&gt; P1[Gripper pin 1: +24 V]
+    S -- return --&gt; P3[Gripper pin 3: GND]</code></pre>
 <div class="admonition success">
 <p class="admonition-title">Check, unpowered</p>
 <p>The supply polarity and cable pinout match, and CANH-to-CANL measures about <strong>60 Ω</strong> with the bus connected.
@@ -2376,7 +2376,7 @@ switch off the supply before changing cables.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 4, 2026 08:41:35 UTC">November 4, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 5, 2026 16:14:53 UTC">November 5, 2026</span>
   </span>
 
     
