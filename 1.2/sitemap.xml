@@ -2,250 +2,250 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://docs.source-robotics.com/MSG-gripper-docs/1.2/</loc>
-         <lastmod>2026-11-04</lastmod>
+         <lastmod>2026-11-05</lastmod>
     </url>
     <url>
          <loc>https://docs.source-robotics.com/MSG-gripper-docs/1.2/02-safety/</loc>
-         <lastmod>2026-11-04</lastmod>
+         <lastmod>2026-11-05</lastmod>
     </url>
     <url>
          <loc>https://docs.source-robotics.com/MSG-gripper-docs/1.2/07-maintenance/</loc>
-         <lastmod>2026-11-04</lastmod>
+         <lastmod>2026-11-05</lastmod>
     </url>
     <url>
          <loc>https://docs.source-robotics.com/MSG-gripper-docs/1.2/08-firmware/</loc>
-         <lastmod>2026-11-04</lastmod>
+         <lastmod>2026-11-05</lastmod>
     </url>
     <url>
          <loc>https://docs.source-robotics.com/MSG-gripper-docs/1.2/about/</loc>
-         <lastmod>2026-11-04</lastmod>
+         <lastmod>2026-11-05</lastmod>
     </url>
     <url>
          <loc>https://docs.source-robotics.com/MSG-gripper-docs/1.2/cad-files/</loc>
-         <lastmod>2026-11-04</lastmod>
+         <lastmod>2026-11-05</lastmod>
     </url>
     <url>
          <loc>https://docs.source-robotics.com/MSG-gripper-docs/1.2/quick-start/</loc>
-         <lastmod>2026-11-04</lastmod>
+         <lastmod>2026-11-05</lastmod>
     </url>
     <url>
          <loc>https://docs.source-robotics.com/MSG-gripper-docs/1.2/terminology/</loc>
-         <lastmod>2026-11-04</lastmod>
+         <lastmod>2026-11-05</lastmod>
     </url>
     <url>
          <loc>https://docs.source-robotics.com/MSG-gripper-docs/1.2/01-overview/</loc>
-         <lastmod>2026-11-04</lastmod>
+         <lastmod>2026-11-05</lastmod>
     </url>
     <url>
          <loc>https://docs.source-robotics.com/MSG-gripper-docs/1.2/01-overview/gripper-at-a-glance/</loc>
-         <lastmod>2026-11-04</lastmod>
+         <lastmod>2026-11-05</lastmod>
     </url>
     <url>
          <loc>https://docs.source-robotics.com/MSG-gripper-docs/1.2/01-overview/variants/</loc>
-         <lastmod>2026-11-04</lastmod>
+         <lastmod>2026-11-05</lastmod>
     </url>
     <url>
          <loc>https://docs.source-robotics.com/MSG-gripper-docs/1.2/01-overview/what-you-need/</loc>
-         <lastmod>2026-11-04</lastmod>
+         <lastmod>2026-11-05</lastmod>
     </url>
     <url>
          <loc>https://docs.source-robotics.com/MSG-gripper-docs/1.2/03-technical-data/</loc>
-         <lastmod>2026-11-04</lastmod>
+         <lastmod>2026-11-05</lastmod>
     </url>
     <url>
          <loc>https://docs.source-robotics.com/MSG-gripper-docs/1.2/03-technical-data/connector/</loc>
-         <lastmod>2026-11-04</lastmod>
+         <lastmod>2026-11-05</lastmod>
     </url>
     <url>
          <loc>https://docs.source-robotics.com/MSG-gripper-docs/1.2/03-technical-data/dimensions/</loc>
-         <lastmod>2026-11-04</lastmod>
+         <lastmod>2026-11-05</lastmod>
     </url>
     <url>
          <loc>https://docs.source-robotics.com/MSG-gripper-docs/1.2/03-technical-data/force-and-speed/</loc>
-         <lastmod>2026-11-04</lastmod>
+         <lastmod>2026-11-05</lastmod>
     </url>
     <url>
          <loc>https://docs.source-robotics.com/MSG-gripper-docs/1.2/03-technical-data/integration-data/</loc>
-         <lastmod>2026-11-04</lastmod>
+         <lastmod>2026-11-05</lastmod>
     </url>
     <url>
          <loc>https://docs.source-robotics.com/MSG-gripper-docs/1.2/03-technical-data/specifications/</loc>
-         <lastmod>2026-11-04</lastmod>
+         <lastmod>2026-11-05</lastmod>
     </url>
     <url>
          <loc>https://docs.source-robotics.com/MSG-gripper-docs/1.2/04-installation/</loc>
-         <lastmod>2026-11-04</lastmod>
+         <lastmod>2026-11-05</lastmod>
     </url>
     <url>
          <loc>https://docs.source-robotics.com/MSG-gripper-docs/1.2/04-installation/cable/</loc>
-         <lastmod>2026-11-04</lastmod>
+         <lastmod>2026-11-05</lastmod>
     </url>
     <url>
          <loc>https://docs.source-robotics.com/MSG-gripper-docs/1.2/04-installation/can-termination/</loc>
-         <lastmod>2026-11-04</lastmod>
+         <lastmod>2026-11-05</lastmod>
     </url>
     <url>
          <loc>https://docs.source-robotics.com/MSG-gripper-docs/1.2/04-installation/jaws/</loc>
-         <lastmod>2026-11-04</lastmod>
+         <lastmod>2026-11-05</lastmod>
     </url>
     <url>
          <loc>https://docs.source-robotics.com/MSG-gripper-docs/1.2/04-installation/mounting/</loc>
-         <lastmod>2026-11-04</lastmod>
+         <lastmod>2026-11-05</lastmod>
     </url>
     <url>
          <loc>https://docs.source-robotics.com/MSG-gripper-docs/1.2/05-setup/</loc>
-         <lastmod>2026-11-04</lastmod>
+         <lastmod>2026-11-05</lastmod>
     </url>
     <url>
          <loc>https://docs.source-robotics.com/MSG-gripper-docs/1.2/05-setup/first-moves/</loc>
-         <lastmod>2026-11-04</lastmod>
+         <lastmod>2026-11-05</lastmod>
     </url>
     <url>
          <loc>https://docs.source-robotics.com/MSG-gripper-docs/1.2/05-setup/motor-gui/</loc>
-         <lastmod>2026-11-04</lastmod>
+         <lastmod>2026-11-05</lastmod>
     </url>
     <url>
          <loc>https://docs.source-robotics.com/MSG-gripper-docs/1.2/06-operation/</loc>
-         <lastmod>2026-11-04</lastmod>
+         <lastmod>2026-11-05</lastmod>
     </url>
     <url>
          <loc>https://docs.source-robotics.com/MSG-gripper-docs/1.2/06-operation/can/</loc>
-         <lastmod>2026-11-04</lastmod>
+         <lastmod>2026-11-05</lastmod>
     </url>
     <url>
          <loc>https://docs.source-robotics.com/MSG-gripper-docs/1.2/06-operation/errors/</loc>
-         <lastmod>2026-11-04</lastmod>
+         <lastmod>2026-11-05</lastmod>
     </url>
     <url>
          <loc>https://docs.source-robotics.com/MSG-gripper-docs/1.2/06-operation/how-it-works/</loc>
-         <lastmod>2026-11-04</lastmod>
+         <lastmod>2026-11-05</lastmod>
     </url>
     <url>
          <loc>https://docs.source-robotics.com/MSG-gripper-docs/1.2/06-operation/python/</loc>
-         <lastmod>2026-11-04</lastmod>
+         <lastmod>2026-11-05</lastmod>
     </url>
     <url>
          <loc>https://docs.source-robotics.com/MSG-gripper-docs/1.2/06-operation/robots/</loc>
-         <lastmod>2026-11-04</lastmod>
+         <lastmod>2026-11-05</lastmod>
     </url>
     <url>
          <loc>https://docs.source-robotics.com/MSG-gripper-docs/1.2/06-operation/ros2/</loc>
-         <lastmod>2026-11-04</lastmod>
+         <lastmod>2026-11-05</lastmod>
     </url>
     <url>
          <loc>https://docs.source-robotics.com/MSG-gripper-docs/1.2/06-operation/uart/</loc>
-         <lastmod>2026-11-04</lastmod>
+         <lastmod>2026-11-05</lastmod>
     </url>
     <url>
          <loc>https://docs.source-robotics.com/MSG-gripper-docs/1.2/09-troubleshooting/</loc>
-         <lastmod>2026-11-04</lastmod>
+         <lastmod>2026-11-05</lastmod>
     </url>
     <url>
          <loc>https://docs.source-robotics.com/MSG-gripper-docs/1.2/09-troubleshooting/known-issues/</loc>
-         <lastmod>2026-11-04</lastmod>
+         <lastmod>2026-11-05</lastmod>
     </url>
     <url>
          <loc>https://docs.source-robotics.com/MSG-gripper-docs/1.2/appendix/compatibility/</loc>
-         <lastmod>2026-11-04</lastmod>
+         <lastmod>2026-11-05</lastmod>
     </url>
     <url>
          <loc>https://docs.source-robotics.com/MSG-gripper-docs/1.2/appendix/firmware-release-notes/</loc>
-         <lastmod>2026-11-04</lastmod>
+         <lastmod>2026-11-05</lastmod>
     </url>
     <url>
          <loc>https://docs.source-robotics.com/MSG-gripper-docs/1.2/appendix/performance/</loc>
-         <lastmod>2026-11-04</lastmod>
+         <lastmod>2026-11-05</lastmod>
     </url>
     <url>
          <loc>https://docs.source-robotics.com/MSG-gripper-docs/1.2/build/</loc>
-         <lastmod>2026-11-04</lastmod>
+         <lastmod>2026-11-05</lastmod>
     </url>
     <url>
          <loc>https://docs.source-robotics.com/MSG-gripper-docs/1.2/build/bill-of-materials/</loc>
-         <lastmod>2026-11-04</lastmod>
+         <lastmod>2026-11-05</lastmod>
     </url>
     <url>
          <loc>https://docs.source-robotics.com/MSG-gripper-docs/1.2/build/first-run/</loc>
-         <lastmod>2026-11-04</lastmod>
+         <lastmod>2026-11-05</lastmod>
     </url>
     <url>
          <loc>https://docs.source-robotics.com/MSG-gripper-docs/1.2/build/mechanical-assembly/</loc>
-         <lastmod>2026-11-04</lastmod>
+         <lastmod>2026-11-05</lastmod>
     </url>
     <url>
          <loc>https://docs.source-robotics.com/MSG-gripper-docs/1.2/build/printing/</loc>
-         <lastmod>2026-11-04</lastmod>
+         <lastmod>2026-11-05</lastmod>
     </url>
     <url>
          <loc>https://docs.source-robotics.com/MSG-gripper-docs/1.2/guides/</loc>
-         <lastmod>2026-11-04</lastmod>
+         <lastmod>2026-11-05</lastmod>
     </url>
     <url>
          <loc>https://docs.source-robotics.com/MSG-gripper-docs/1.2/guides/basic-control/</loc>
-         <lastmod>2026-11-04</lastmod>
+         <lastmod>2026-11-05</lastmod>
     </url>
     <url>
          <loc>https://docs.source-robotics.com/MSG-gripper-docs/1.2/guides/teleoperation/</loc>
-         <lastmod>2026-11-04</lastmod>
+         <lastmod>2026-11-05</lastmod>
     </url>
     <url>
          <loc>https://docs.source-robotics.com/MSG-gripper-docs/1.2/reference/</loc>
-         <lastmod>2026-11-04</lastmod>
+         <lastmod>2026-11-05</lastmod>
     </url>
     <url>
          <loc>https://docs.source-robotics.com/MSG-gripper-docs/1.2/reference/can-tools/</loc>
-         <lastmod>2026-11-04</lastmod>
+         <lastmod>2026-11-05</lastmod>
     </url>
     <url>
          <loc>https://docs.source-robotics.com/MSG-gripper-docs/1.2/reference/errors/</loc>
-         <lastmod>2026-11-04</lastmod>
+         <lastmod>2026-11-05</lastmod>
     </url>
     <url>
          <loc>https://docs.source-robotics.com/MSG-gripper-docs/1.2/reference/python/</loc>
-         <lastmod>2026-11-04</lastmod>
+         <lastmod>2026-11-05</lastmod>
     </url>
     <url>
          <loc>https://docs.source-robotics.com/MSG-gripper-docs/1.2/reference/can/</loc>
-         <lastmod>2026-11-04</lastmod>
+         <lastmod>2026-11-05</lastmod>
     </url>
     <url>
          <loc>https://docs.source-robotics.com/MSG-gripper-docs/1.2/reference/can/gripper/</loc>
-         <lastmod>2026-11-04</lastmod>
+         <lastmod>2026-11-05</lastmod>
     </url>
     <url>
          <loc>https://docs.source-robotics.com/MSG-gripper-docs/1.2/reference/can/status/</loc>
-         <lastmod>2026-11-04</lastmod>
+         <lastmod>2026-11-05</lastmod>
     </url>
     <url>
          <loc>https://docs.source-robotics.com/MSG-gripper-docs/1.2/reference/can/system/</loc>
-         <lastmod>2026-11-04</lastmod>
+         <lastmod>2026-11-05</lastmod>
     </url>
     <url>
          <loc>https://docs.source-robotics.com/MSG-gripper-docs/1.2/reference/uart/</loc>
-         <lastmod>2026-11-04</lastmod>
+         <lastmod>2026-11-05</lastmod>
     </url>
     <url>
          <loc>https://docs.source-robotics.com/MSG-gripper-docs/1.2/reference/uart/gripper/</loc>
-         <lastmod>2026-11-04</lastmod>
+         <lastmod>2026-11-05</lastmod>
     </url>
     <url>
          <loc>https://docs.source-robotics.com/MSG-gripper-docs/1.2/reference/uart/setup/</loc>
-         <lastmod>2026-11-04</lastmod>
+         <lastmod>2026-11-05</lastmod>
     </url>
     <url>
          <loc>https://docs.source-robotics.com/MSG-gripper-docs/1.2/reference/uart/utility/</loc>
-         <lastmod>2026-11-04</lastmod>
+         <lastmod>2026-11-05</lastmod>
     </url>
     <url>
          <loc>https://docs.source-robotics.com/MSG-gripper-docs/1.2/support/</loc>
-         <lastmod>2026-11-04</lastmod>
+         <lastmod>2026-11-05</lastmod>
     </url>
     <url>
          <loc>https://docs.source-robotics.com/MSG-gripper-docs/1.2/support/contributing/</loc>
-         <lastmod>2026-11-04</lastmod>
+         <lastmod>2026-11-05</lastmod>
     </url>
     <url>
          <loc>https://docs.source-robotics.com/MSG-gripper-docs/1.2/support/report-a-problem/</loc>
-         <lastmod>2026-11-04</lastmod>
+         <lastmod>2026-11-05</lastmod>
     </url>
 </urlset>
