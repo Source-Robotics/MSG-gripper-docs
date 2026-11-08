@@ -49,7 +49,15 @@ then enter the stepper's parameters and calibrate:
 
 The motor turns, the driver prints each step and ends with `Calibration success!`. The whole routine and its
 messages are in [Calibration](https://docs.source-robotics.com/STEPFOC-docs/latest/05-setup/calibration/) on
-the STEPFOC site. `#Default` also resets the serial number the driver reports; note what `#SERNUM` prints before
+the STEPFOC site.
+
+!!! note "STEPFOC firmware 109 and newer"
+    From STEPFOC firmware 109 a successful `#Cal` is followed by two runs of its own, the encoder table and the
+    anti-cogging: the motor turns slowly for about another minute, and the driver saves everything when they
+    finish. Keep the pinion off until then, and start step 2 when `#Info` no longer shows `running:` under
+    `In force:`. The encoder-table run holds about 1.3 A in the coils for some 20 s (80 % of the 1600 mA
+    calibration leaves; see [Calibration](https://docs.source-robotics.com/STEPFOC-docs/latest/05-setup/calibration/)
+    on the STEPFOC site). `#Default` also resets the serial number the driver reports; note what `#SERNUM` prints before
 you start if you need it.
 
 !!! success "Check"

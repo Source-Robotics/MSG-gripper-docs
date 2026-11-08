@@ -94,8 +94,8 @@ the identifier; `UnpackData` fills the gripper attributes:
 !!! note "Object detection in library 1.20"
     Library version 1.20 assembles `gripper_object_detection` with its two bits swapped relative to the firmware:
     it reports 1 where the gripper sends 2 (object found while opening) and 2 where it sends 1 (object found
-    while closing); 0 and 3 are unaffected. Until the library is fixed, swap the two values in your program, or
-    test for "1 or 2" as this example does.
+    while closing); 0 and 3 are unaffected. The library's release after 1.20 reads them right. With 1.20, swap the
+    two values in your program, or test for "1 or 2" as this example does.
 
 ## Stopping
 
