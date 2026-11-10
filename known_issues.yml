@@ -130,3 +130,15 @@ issues:
     status: open
     since: 2026-11-03
     source: parol6/tools.py:835 (v0.9.1)
+
+  - id: KI-10
+    component: firmware
+    summary: A status poll (an empty Send_gripper_data_pack) or a repeat of the command that reaches the driver within
+      one control cycle (about 0.16 ms) of a new move command cancels it as new. The move then runs in position mode,
+      and object detection reads 3 while the jaws press on an object. Fixed in the coming firmware 109.
+    workaround: Read the move's answer, or wait a millisecond, before the first poll; the examples on these pages do.
+    page: 06-operation/can.md#host-checklist
+    title: Over CAN, host checklist
+    status: open
+    since: 2026-11-10
+    source: STEPFOC firmware/src/communication_CAN.cpp:330 and :400 (V108)
