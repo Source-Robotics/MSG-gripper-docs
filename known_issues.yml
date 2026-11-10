@@ -15,8 +15,8 @@
 #   source      where it is in the code, at the version named under components: (not shown on the page)
 
 components:
-  firmware: {name: STEPFOC firmware, version: "108 (the driver's firmware, gripper mode)"}
-  spectral_bldc: {name: Python library (Spectral-BLDC), version: "1.20"}
+  firmware: {name: STEPFOC firmware, version: "109 (the driver's firmware, gripper mode)"}
+  spectral_bldc: {name: Python library (Spectral-BLDC), version: "1.21"}
   python_api: {name: PAROL6 Python API (parol6), version: "0.9.1"}
 
 issues:
@@ -78,7 +78,8 @@ issues:
       apply Motor GUI's MSG preset, which sets the current limit.
     page: build/first-run.md#current-limit
     title: Driver setup, current limit
-    status: open
+    status: fixed
+    fixed_in: "109: calibration puts back the current limit that was in force when it started"
     since: 2026-11-03
     source: STEPFOC firmware/src/motor_control.cpp:1003, :1055, :1575 (V108)
 
@@ -90,7 +91,8 @@ issues:
     workaround: Swap 1 and 2 in your program, or test for "1 or 2" when any object will do.
     page: 06-operation/python.md#the-first-program
     title: With Python
-    status: open
+    status: fixed
+    fixed_in: "1.21: `UnpackData` reads the two bits the right way round"
     since: 2026-11-03
     source: Spectral_BLDC/Spectral_BLDC.py:256 (1.20) against communication_CAN.cpp:1143-1147 (V108)
 
@@ -123,7 +125,7 @@ issues:
   - id: KI-9
     component: python_api
     summary: "The MSG's `current` is a fraction of 100 to 2800 mA, so `current=1.0` commands 2800 mA, more than any of
-      the three steppers takes, and the firmware does not clamp it."
+      the three steppers takes, and the firmware clamps only above 2800 mA."
     workaround: Keep `current` at or below 0.51 (21.5 mm stepper), 0.70 (40 mm) or 0.74 (60 mm).
     page: 06-operation/robots.md#driving-it
     title: On PAROL6 and PAR6, driving it
@@ -135,10 +137,11 @@ issues:
     component: firmware
     summary: A status poll (an empty Send_gripper_data_pack) or a repeat of the command that reaches the driver within
       one control cycle (about 0.16 ms) of a new move command cancels it as new. The move then runs in position mode,
-      and object detection reads 3 while the jaws press on an object. Fixed in the coming firmware 109.
+      and object detection reads 3 while the jaws press on an object.
     workaround: Read the move's answer, or wait a millisecond, before the first poll; the examples on these pages do.
     page: 06-operation/can.md#host-checklist
     title: Over CAN, host checklist
-    status: open
+    status: fixed
+    fixed_in: "109: only a new command marks itself new, so a poll or a repeat no longer cancels the move"
     since: 2026-11-10
     source: STEPFOC firmware/src/communication_CAN.cpp:330 and :400 (V108)

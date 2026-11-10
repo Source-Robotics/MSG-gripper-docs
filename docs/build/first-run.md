@@ -107,4 +107,4 @@ calibration found.
 
 The gripper's moves use the current limit of each command, not the driver's `#Ilim`. Keep the commanded current
 at or below the stepper's maximum current ([Force and speed](../03-technical-data/force-and-speed.md)); the
-firmware does not clamp it.
+firmware clamps it only at 2800 mA.

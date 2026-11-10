@@ -35,7 +35,7 @@ commands:
         fields:
           - {bytes: "0", name: Position, type: unsigned 8-bit, meaning: "0 fully open, 255 fully closed"}
           - {bytes: "1", name: Speed, type: unsigned 8-bit, meaning: "0 slowest, 255 fastest"}
-          - {bytes: "2-3", name: Current, type: signed 16-bit, meaning: "current limit of the move in mA, the grip force; not clamped by the firmware, keep it at or below the stepper's rated current (Force and speed)"}
+          - {bytes: "2-3", name: Current, type: signed 16-bit, meaning: "current limit of the move in mA, the grip force; clamped by the firmware only at 2800 mA, keep it at or below the stepper's rated current (Force and speed)"}
           - {bytes: "4", bit: 7, name: Activate, type: bit, meaning: "1 activate the gripper, 0 deactivate"}
           - {bytes: "4", bit: 6, name: Action, type: bit, meaning: "1 go to the position, 0 stop and hold the jaws still", _shared: true}
           - {bytes: "4", bit: 5, name: E-stop, type: bit, meaning: "1 raises the gripper E-stop error, again at every cycle while the last command's bit is 1", _shared: true}

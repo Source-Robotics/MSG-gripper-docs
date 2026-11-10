@@ -24,7 +24,7 @@ commands:
   Gripcal: {group: gripper, description: "Starts the gripper calibration (the jaws find their end stops). Clear any error first; until `#Gripinfo` reports it calibrated, send no `#Grippos` or `#Clear`, which end it.", response: "`Gripper calibration!`"}
   Grippos: {group: gripper, argument: 0 (open) to 255 (closed), description: "The position setpoint; also activates the gripper, sets the action bit and goes to gripper mode.", response: the current position}
   Gripvel: {group: gripper, argument: 0 to 255, description: The speed setpoint of gripper moves., response: the setpoint}
-  Gripcur: {group: gripper, argument: current in mA, description: "The current limit of gripper moves, the grip force. The firmware does not clamp it; keep it at or below the stepper's rated current (see Force and speed).", response: the setpoint}
+  Gripcur: {group: gripper, argument: current in mA, description: "The current limit of gripper moves, the grip force. The firmware clamps it only at 2800 mA; keep it at or below the stepper's rated current (see Force and speed).", response: the setpoint}
   Gripact: {group: gripper, argument: 0 or 1, description: The activate bit., response: the bit}
   Gripstop: {group: gripper, argument: 0 or 1, description: "The gripper E-stop bit. While it is 1, the E-stop error is raised again at every cycle: set it to 0 before `#Clear`.", response: the bit}
   Gripinfo: {group: gripper, description: "Prints the gripper state: gripper mode, calibrated, activated, the position, speed and current setpoints, the E-stop and action bits, the object detection, and the end stops in encoder ticks.", response: the report}

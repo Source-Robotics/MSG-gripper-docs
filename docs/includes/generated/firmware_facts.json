@@ -8,6 +8,20 @@
     ],
     "responds": []
    },
+   "IN_BUFFER_READ": {
+    "empty": false,
+    "lengths": [
+     5
+    ],
+    "responds": []
+   },
+   "IN_BUFFER_WRITE": {
+    "empty": false,
+    "lengths": [
+     8
+    ],
+    "responds": []
+   },
    "IN_CAN_ID": {
     "empty": false,
     "lengths": [
@@ -126,6 +140,20 @@
     ],
     "responds": []
    },
+   "IN_PARAM_GET": {
+    "empty": false,
+    "lengths": [
+     1
+    ],
+    "responds": []
+   },
+   "IN_PARAM_SET": {
+    "empty": false,
+    "lengths": [
+     5
+    ],
+    "responds": []
+   },
    "IN_RESET": {
     "empty": false,
     "lengths": [],
@@ -137,6 +165,18 @@
     "responds": []
    },
    "IN_SETTINGS": {
+    "empty": false,
+    "lengths": [],
+    "responds": []
+   },
+   "IN_SOUND": {
+    "empty": false,
+    "lengths": [
+     8
+    ],
+    "responds": []
+   },
+   "IN_SOUND_SAMPLES": {
     "empty": false,
     "lengths": [],
     "responds": []
@@ -169,6 +209,13 @@
      "Encoder_data_CAN"
     ]
    },
+   "OUT_IN_IDENTITY": {
+    "empty": false,
+    "lengths": [],
+    "responds": [
+     "Identity_CAN"
+    ]
+   },
    "OUT_IN_IQ": {
     "empty": false,
     "lengths": [],
@@ -197,6 +244,13 @@
      "State_of_Errors_CAN"
     ]
    },
+   "OUT_IN_TELEMETRY": {
+    "empty": false,
+    "lengths": [],
+    "responds": [
+     "Telemetry_CAN"
+    ]
+   },
    "OUT_IN_TEMPERATURE_CAN": {
     "empty": false,
     "lengths": [],
@@ -210,6 +264,286 @@
     "responds": [
      "Voltage_CAN"
     ]
+   },
+   "PARAM_BOARD_ID": {
+    "empty": false,
+    "lengths": [],
+    "responds": []
+   },
+   "PARAM_BOARD_PRODUCT": {
+    "empty": false,
+    "lengths": [],
+    "responds": []
+   },
+   "PARAM_BRAKE_COAST": {
+    "empty": false,
+    "lengths": [],
+    "responds": []
+   },
+   "PARAM_BUILD_COMMIT": {
+    "empty": false,
+    "lengths": [],
+    "responds": []
+   },
+   "PARAM_BUILD_TIME": {
+    "empty": false,
+    "lengths": [],
+    "responds": []
+   },
+   "PARAM_CALIBRATION_ID": {
+    "empty": false,
+    "lengths": [],
+    "responds": []
+   },
+   "PARAM_COMM_DELAY_US": {
+    "empty": false,
+    "lengths": [],
+    "responds": []
+   },
+   "PARAM_CURRENT_BANDWIDTH": {
+    "empty": false,
+    "lengths": [],
+    "responds": []
+   },
+   "PARAM_CURRENT_LIMIT": {
+    "empty": true,
+    "lengths": [],
+    "responds": []
+   },
+   "PARAM_FAST_PWM": {
+    "empty": false,
+    "lengths": [],
+    "responds": []
+   },
+   "PARAM_FAST_READ": {
+    "empty": false,
+    "lengths": [],
+    "responds": []
+   },
+   "PARAM_FAST_TRIG": {
+    "empty": false,
+    "lengths": [],
+    "responds": []
+   },
+   "PARAM_FEATURES": {
+    "empty": false,
+    "lengths": [],
+    "responds": []
+   },
+   "PARAM_HEARTBEAT_MS": {
+    "empty": false,
+    "lengths": [],
+    "responds": []
+   },
+   "PARAM_ID_SETPOINT": {
+    "empty": false,
+    "lengths": [],
+    "responds": []
+   },
+   "PARAM_INPUT_FILTER_HZ": {
+    "empty": false,
+    "lengths": [],
+    "responds": []
+   },
+   "PARAM_KD": {
+    "empty": true,
+    "lengths": [],
+    "responds": []
+   },
+   "PARAM_KIIQ": {
+    "empty": true,
+    "lengths": [],
+    "responds": []
+   },
+   "PARAM_KIV": {
+    "empty": true,
+    "lengths": [],
+    "responds": []
+   },
+   "PARAM_KP": {
+    "empty": true,
+    "lengths": [],
+    "responds": []
+   },
+   "PARAM_KPIQ": {
+    "empty": true,
+    "lengths": [],
+    "responds": []
+   },
+   "PARAM_KPP": {
+    "empty": true,
+    "lengths": [],
+    "responds": []
+   },
+   "PARAM_KPV": {
+    "empty": true,
+    "lengths": [],
+    "responds": []
+   },
+   "PARAM_KT": {
+    "empty": false,
+    "lengths": [],
+    "responds": []
+   },
+   "PARAM_L_UH": {
+    "empty": false,
+    "lengths": [],
+    "responds": []
+   },
+   "PARAM_POLE_PAIRS": {
+    "empty": false,
+    "lengths": [],
+    "responds": []
+   },
+   "PARAM_PROFILE_CHECKS": {
+    "empty": true,
+    "lengths": [],
+    "responds": []
+   },
+   "PARAM_PROFILE_CONTROL": {
+    "empty": true,
+    "lengths": [],
+    "responds": []
+   },
+   "PARAM_PROFILE_READ": {
+    "empty": true,
+    "lengths": [],
+    "responds": []
+   },
+   "PARAM_PROFILE_REST": {
+    "empty": false,
+    "lengths": [],
+    "responds": []
+   },
+   "PARAM_PROFILE_TRANSFORM": {
+    "empty": true,
+    "lengths": [],
+    "responds": []
+   },
+   "PARAM_R_MOHM": {
+    "empty": false,
+    "lengths": [],
+    "responds": []
+   },
+   "PARAM_SENSE1_OFFSET": {
+    "empty": false,
+    "lengths": [],
+    "responds": []
+   },
+   "PARAM_SENSE1_OFFSET_OFF": {
+    "empty": false,
+    "lengths": [],
+    "responds": []
+   },
+   "PARAM_SENSE1_OFFSET_SW": {
+    "empty": false,
+    "lengths": [],
+    "responds": []
+   },
+   "PARAM_SENSE2_OFFSET": {
+    "empty": false,
+    "lengths": [],
+    "responds": []
+   },
+   "PARAM_SENSE2_OFFSET_OFF": {
+    "empty": false,
+    "lengths": [],
+    "responds": []
+   },
+   "PARAM_SENSE2_OFFSET_SW": {
+    "empty": false,
+    "lengths": [],
+    "responds": []
+   },
+   "PARAM_SENSE_ZERO_SWITCHING": {
+    "empty": false,
+    "lengths": [],
+    "responds": []
+   },
+   "PARAM_SENSE_ZERO_USE_SWITCHING": {
+    "empty": false,
+    "lengths": [],
+    "responds": []
+   },
+   "PARAM_SOUND_AXIS": {
+    "empty": false,
+    "lengths": [],
+    "responds": []
+   },
+   "PARAM_SOUND_LIMIT_MV": {
+    "empty": false,
+    "lengths": [],
+    "responds": []
+   },
+   "PARAM_SOUND_STATE": {
+    "empty": false,
+    "lengths": [],
+    "responds": []
+   },
+   "PARAM_SPEED_ESTIMATOR": {
+    "empty": false,
+    "lengths": [],
+    "responds": []
+   },
+   "PARAM_SPEED_PLL_BANDWIDTH": {
+    "empty": false,
+    "lengths": [],
+    "responds": []
+   },
+   "PARAM_STACK_UNUSED": {
+    "empty": false,
+    "lengths": [],
+    "responds": []
+   },
+   "PARAM_TOOL_ID": {
+    "empty": false,
+    "lengths": [],
+    "responds": []
+   },
+   "PARAM_VELOCITY_LIMIT": {
+    "empty": true,
+    "lengths": [],
+    "responds": []
+   },
+   "PARAM_VEL_INT_DEADBAND": {
+    "empty": false,
+    "lengths": [],
+    "responds": []
+   },
+   "PARAM_VOLTAGE_LIMIT": {
+    "empty": false,
+    "lengths": [],
+    "responds": []
+   },
+   "PARAM_WD_ACTION": {
+    "empty": true,
+    "lengths": [],
+    "responds": []
+   },
+   "PARAM_WD_AFTER_ACTION": {
+    "empty": true,
+    "lengths": [],
+    "responds": []
+   },
+   "PARAM_WD_FALLBACK_CURRENT": {
+    "empty": true,
+    "lengths": [],
+    "responds": []
+   },
+   "PARAM_WD_FALLBACK_SPEED": {
+    "empty": true,
+    "lengths": [],
+    "responds": []
+   },
+   "PARAM_WD_FALLBACK_TIME": {
+    "empty": true,
+    "lengths": [],
+    "responds": []
+   },
+   "PARAM_WD_TIME": {
+    "empty": false,
+    "lengths": [],
+    "responds": []
    }
   },
   "ids": [
@@ -370,6 +704,56 @@
    },
    {
     "comment": "",
+    "id": 36,
+    "name": "IN_PARAM_SET"
+   },
+   {
+    "comment": "",
+    "id": 37,
+    "name": "IN_PARAM_GET"
+   },
+   {
+    "comment": "",
+    "id": 38,
+    "name": "OUT_PARAM_VALUE"
+   },
+   {
+    "comment": "",
+    "id": 39,
+    "name": "OUT_IN_IDENTITY"
+   },
+   {
+    "comment": "",
+    "id": 40,
+    "name": "OUT_IN_TELEMETRY"
+   },
+   {
+    "comment": "",
+    "id": 41,
+    "name": "IN_BUFFER_READ"
+   },
+   {
+    "comment": "",
+    "id": 42,
+    "name": "OUT_BUFFER_DATA"
+   },
+   {
+    "comment": "",
+    "id": 43,
+    "name": "IN_BUFFER_WRITE"
+   },
+   {
+    "comment": "",
+    "id": 44,
+    "name": "IN_SOUND"
+   },
+   {
+    "comment": "",
+    "id": 45,
+    "name": "IN_SOUND_SAMPLES"
+   },
+   {
+    "comment": "",
     "id": 2,
     "name": "IN_DATA_PACK_1"
    },
@@ -446,6 +830,10 @@
     "id_define": "OUT_HEARTBEAT",
     "len": 0
    },
+   "Identity_CAN": {
+    "id_define": "OUT_IN_IDENTITY",
+    "len": 8
+   },
    "KT_data_CAN": {
     "id_define": "OUT_IN_KT",
     "len": 4
@@ -458,6 +846,10 @@
     "id_define": "OUT_IN_STATE_OF_ERRORS_CAN",
     "len": 2
    },
+   "Telemetry_CAN": {
+    "id_define": "OUT_IN_TELEMETRY",
+    "len": 8
+   },
    "Temperature_CAN": {
     "id_define": "OUT_IN_TEMPERATURE_CAN",
     "len": 2
@@ -468,7 +860,7 @@
    }
   }
  },
- "commit": "46b4911dd8f7",
+ "commit": "56741ac67678",
  "defaults": [
   {
    "comment": "",
@@ -521,9 +913,9 @@
    "value": "50"
   },
   {
-   "comment": "default 200 HZ; Will set PI gains for Q and D current loops based on phase resistance",
+   "comment": "Hz: the current PI gains come from R, L",
    "name": "current_control_bandwidth",
-   "value": "500"
+   "value": "CURRENT_BANDWIDTH_DEFAULT"
   },
   {
    "comment": "",
@@ -596,6 +988,11 @@
    "value": "0"
   },
   {
+   "comment": "largest gap between runs of the same direction, % of the mean",
+   "name": "KV_spread_pct",
+   "value": "0"
+  },
+  {
    "comment": "Max temperature in degrees",
    "name": "Max_temperature",
    "value": "75"
@@ -631,8 +1028,153 @@
    "value": "1"
   },
   {
-   "comment": "Hold position, Idle, brake",
+   "comment": "0 legacy, 1 hold, 2 brake, 3 coast, 4 descend (watchdog_action.h)",
    "name": "watchdog_action",
+   "value": "0"
+  },
+  {
+   "comment": "how long hold/descend may run before the after-action",
+   "name": "wd_fallback_time_ms",
+   "value": "2000"
+  },
+  {
+   "comment": "mA, descend: the current applied (signed)",
+   "name": "wd_fallback_current",
+   "value": "0"
+  },
+  {
+   "comment": "ticks/s, descend: the speed cap in either direction",
+   "name": "wd_fallback_speed",
+   "value": "1000"
+  },
+  {
+   "comment": "after hold/descend: 0 legacy, 2 brake, 3 coast",
+   "name": "wd_after_action",
+   "value": "0"
+  },
+  {
+   "comment": "parameter 87: new at every successful calibration",
+   "name": "calibration_id",
+   "value": "0"
+  },
+  {
+   "comment": "what the drive is built into: 0 none, 1 SSG-48, 11-33 MSG, 200-254 custom",
+   "name": "tool_id",
+   "value": "0"
+  },
+  {
+   "comment": "the EEPROM has the bank settings block 2 lives in (0x51)",
+   "name": "eeprom_block2_ok",
+   "value": "0"
+  },
+  {
+   "comment": "product lock stamp in block 2: 1 STEPFOC, 2 Spectral, 0 none",
+   "name": "board_product",
+   "value": "0"
+  },
+  {
+   "comment": "this firmware is on the other product's board: it drives nothing",
+   "name": "wrong_product",
+   "value": "0"
+  },
+  {
+   "comment": "current-sense zero of channel 1, ADC counts from 2048 (start-up)",
+   "name": "sense1_offset",
+   "value": "0"
+  },
+  {
+   "comment": "current-sense zero of channel 2",
+   "name": "sense2_offset",
+   "value": "0"
+  },
+  {
+   "comment": "the bridge-off zeros, kept for comparison (parameters 40, 41)",
+   "name": "sense1_offset_off",
+   "value": "0"
+  },
+  {
+   "comment": "",
+   "name": "sense2_offset_off",
+   "value": "0"
+  },
+  {
+   "comment": "SENSE_ZERO_SW_*: the zero measured with the bridge switching",
+   "name": "sense_zero_switching",
+   "value": "0"
+  },
+  {
+   "comment": "the switching zeros, when measured (parameters 47, 48)",
+   "name": "sense1_offset_sw",
+   "value": "0"
+  },
+  {
+   "comment": "",
+   "name": "sense2_offset_sw",
+   "value": "0"
+  },
+  {
+   "comment": "parameter 64: commutation delay compensation, us",
+   "name": "comm_delay_us",
+   "value": "COMM_DELAY_DEFAULT_US"
+  },
+  {
+   "comment": "parameter 74: the position input filter, Hz (0 = off)",
+   "name": "input_filter_hz",
+   "value": "0"
+  },
+  {
+   "comment": "parameter 75: the velocity integral's deadband, ticks (0 = off)",
+   "name": "vel_int_deadband",
+   "value": "0"
+  },
+  {
+   "comment": "parameter 81: the sound's voltage at most (batch 22)",
+   "name": "sound_limit_mv",
+   "value": "SOUND_LIMIT_DEFAULT_MV"
+  },
+  {
+   "comment": "parameter 82: 1 the q axis (default: much louder on the bench), 0 the d axis",
+   "name": "sound_axis",
+   "value": "1"
+  },
+  {
+   "comment": "parameter 65: 1 the transforms' sin/cos from the integer table (it was",
+   "name": "fast_trig",
+   "value": "0"
+  },
+  {
+   "comment": "parameter 50",
+   "name": "speed_estimator",
+   "value": "SPEED_ESTIMATOR_DEFAULT"
+  },
+  {
+   "comment": "parameter 51, Hz",
+   "name": "speed_pll_bandwidth",
+   "value": "SPEED_PLL_BANDWIDTH_DEFAULT"
+  },
+  {
+   "comment": "the start-up zero was measured and within SENSE_ZERO_MAX_DEV",
+   "name": "sense_zero_ok",
+   "value": "0"
+  },
+  {
+   "comment": "no motor supply at start-up: the zero is measured once it comes",
+   "name": "sense_zero_wait_vbus",
+   "value": "0"
+  },
+  {
+   "comment": "the EEPROM answers at 0x53, so anti-cogging block 3 can be saved",
+   "name": "eeprom_block3_ok",
+   "value": "0"
+  },
+  {
+   "comment": "the EEPROM answers at 0x54, so the encoder block can be saved",
+   "name": "eeprom_block4_ok",
+   "value": "0"
+  },
+  {
+   "comment": "the anti-cogging in RAM is the one in EEPROM block 3",
+   "name": "cogging_saved",
    "value": "0"
   },
   {
@@ -941,6 +1483,31 @@
    "value": "0"
   },
   {
+   "comment": "why the last alignment gave up: 0 it did not, 1 timeout, 2 did not turn, 3 wrong way",
+   "name": "Align_fail_reason",
+   "value": "0"
+  },
+  {
+   "comment": "ticks/s the last alignment check measured under +Iq",
+   "name": "Align_verify_speed",
+   "value": "0"
+  },
+  {
+   "comment": "how many times that check flipped the offset by 180 degrees",
+   "name": "Align_flips",
+   "value": "0"
+  },
+  {
+   "comment": "the offsets from the two approaches, radians",
+   "name": "Align_off_a",
+   "value": "0"
+  },
+  {
+   "comment": "",
+   "name": "Align_off_b",
+   "value": "0"
+  },
+  {
    "comment": "",
    "name": "Velocity_bwd",
    "value": "0"
@@ -948,6 +1515,11 @@
   {
    "comment": "",
    "name": "Align_stage",
+   "value": "0"
+  },
+  {
+   "comment": "a calibration was ended from outside (an E-stop): the alignment starts from its first stage next time",
+   "name": "Align_restart",
    "value": "0"
   },
   {
@@ -976,6 +1548,26 @@
    "value": "0"
   },
   {
+   "comment": "the commutation delay rotation, cos and sin (Comm_delay_update)",
+   "name": "delay_c",
+   "value": "1.0f"
+  },
+  {
+   "comment": "",
+   "name": "delay_s",
+   "value": "0.0f"
+  },
+  {
+   "comment": "the sound added to the output this loop, mV (batch 22)",
+   "name": "sound_d",
+   "value": "0.0f"
+  },
+  {
+   "comment": "",
+   "name": "sound_q",
+   "value": "0.0f"
+  },
+  {
    "comment": "Voltage limit for Ud and Uq voltages. If 0 value of controller.VBUS_mV will be used",
    "name": "Voltage_limit",
    "value": "6000"
@@ -1001,14 +1593,14 @@
    "value": "0"
   },
   {
-   "comment": "basic values that work for most motors but not optimal",
+   "comment": "bench 2026-11-08: a bare NEMA 17 vibrates at 0.056 (speed PLL) or 0.04",
    "name": "Kp_v",
-   "value": "0.007"
+   "value": "0.02"
   },
   {
-   "comment": "basic values that work for most motors but not optimal",
+   "comment": "bench 2026-11-08 (kiv_sweep.py, KPV 0.02): rings at 0.004; 0.001 halves the",
    "name": "Ki_v",
-   "value": "0.0005"
+   "value": "0.001"
   },
   {
    "comment": "",
@@ -1216,100 +1808,12 @@
    "value": "0"
   }
  ],
- "tag": "V108",
+ "tag": "V109",
  "uart": {
-  "accepted": [
-   "Iq",
-   "Id",
-   "Uq",
-   "Ud",
-   "V",
-   "Vlim",
-   "P",
-   "PD",
-   "Kpp",
-   "Kpv",
-   "Kpiq",
-   "Kpid",
-   "Kiv",
-   "Kiiq",
-   "Kiid",
-   "KP",
-   "KD",
-   "PDV",
-   "PDI",
-   "R",
-   "L",
-   "Kt",
-   "KV",
-   "flux",
-   "zz",
-   "Cal",
-   "Save",
-   "Reset",
-   "Ilim",
-   "Dir",
-   "Temp",
-   "Magnet",
-   "Term",
-   "Mode",
-   "Vbus",
-   "Vmin",
-   "Vmax",
-   "Error",
-   "Clear",
-   "Default",
-   "SIN",
-   "SPWM",
-   "Iabc",
-   "Close",
-   "Cbw",
-   "Resv",
-   "Calpwr",
-   "Openv",
-   "Opens",
-   "Vp",
-   "Calibrated",
-   "Param",
-   "PP",
-   "Openloop",
-   "LED",
-   "Cyc",
-   "Cyca",
-   "CANID",
-   "SERNUM",
-   "Info",
-   "Help",
-   "Vlimit",
-   "Phase",
-   "Activate",
-   "Gripper",
-   "Gripcal",
-   "Grippos",
-   "Gripvel",
-   "Gripcur",
-   "Gripact",
-   "Gripstop",
-   "Gripinfo",
-   "Rstint",
-   "Pullconfig",
-   "Tlim",
-   "Brake",
-   "HALL",
-   "Coast",
-   "Calangle",
-   "Offset",
-   "Iqoffset",
-   "microstep",
-   "stepinterval",
-   "gosteps",
-   "Idle",
-   "EN",
-   "PWM"
-  ],
+  "accepted": [],
   "handlers": [
    {
-    "arg": "float",
+    "arg": "",
     "comment": "Set Iq setpoint Switches actuator to current control mode",
     "kind": "Set/Get",
     "mode": "current",
@@ -1317,7 +1821,7 @@
     "response": "Iq"
    },
    {
-    "arg": "float",
+    "arg": "",
     "comment": "Set Id setpoint",
     "kind": "Set/Get",
     "mode": "",
@@ -1421,7 +1925,7 @@
     "response": "PDI"
    },
    {
-    "arg": "float",
+    "arg": "",
     "comment": "Set/Get Kpp (Position loop Kp gain)",
     "kind": "Set/Get",
     "mode": "",
@@ -1429,7 +1933,7 @@
     "response": "Kpp"
    },
    {
-    "arg": "float",
+    "arg": "",
     "comment": "Set/Get KP (PD loop)",
     "kind": "Set/Get",
     "mode": "",
@@ -1437,7 +1941,7 @@
     "response": "KP"
    },
    {
-    "arg": "float",
+    "arg": "",
     "comment": "Set/Get KD (PD loop)",
     "kind": "Set/Get",
     "mode": "",
@@ -1445,7 +1949,7 @@
     "response": "KD"
    },
    {
-    "arg": "float",
+    "arg": "",
     "comment": "Set/Get Kpv (Velocity loop Kp gain)",
     "kind": "Set/Get",
     "mode": "",
@@ -1453,7 +1957,7 @@
     "response": "Kpv"
    },
    {
-    "arg": "float",
+    "arg": "",
     "comment": "Set/Get Kpiq (Iq current loop Kp gain) It will also set Kpid",
     "kind": "Set/Get",
     "mode": "",
@@ -1461,7 +1965,7 @@
     "response": "Kpiq"
    },
    {
-    "arg": "float",
+    "arg": "",
     "comment": "Set/Get Kpid (Id current loop Kp gain)",
     "kind": "Set/Get",
     "mode": "",
@@ -1469,7 +1973,7 @@
     "response": "Kpid"
    },
    {
-    "arg": "float",
+    "arg": "",
     "comment": "Set/Get Kpiv (Velocity loop integrator gain)",
     "kind": "Set/Get",
     "mode": "",
@@ -1477,7 +1981,7 @@
     "response": "Kiv"
    },
    {
-    "arg": "float",
+    "arg": "",
     "comment": "Set/Get Kiiq (Iq loop integrator gain) It will also set Kiid",
     "kind": "Set/Get",
     "mode": "",
@@ -1485,7 +1989,7 @@
     "response": "Kiiq"
    },
    {
-    "arg": "float",
+    "arg": "",
     "comment": "Set/Get Kiid (Id loop integrator gain)",
     "kind": "Set/Get",
     "mode": "",
@@ -1493,7 +1997,7 @@
     "response": "Kiid"
    },
    {
-    "arg": "float",
+    "arg": "",
     "comment": "Set/Get Resistance",
     "kind": "Set/Get",
     "mode": "",
@@ -1501,7 +2005,7 @@
     "response": "R"
    },
    {
-    "arg": "float",
+    "arg": "",
     "comment": "Set/Get Inductance",
     "kind": "Set/Get",
     "mode": "",
@@ -1509,7 +2013,7 @@
     "response": "L"
    },
    {
-    "arg": "float",
+    "arg": "",
     "comment": "Set/Get Kt (Torque constant)",
     "kind": "Set/Get",
     "mode": "",
@@ -1517,7 +2021,7 @@
     "response": "Kt"
    },
    {
-    "arg": "float",
+    "arg": "",
     "comment": "Set/Get KV (motor velocity constant)",
     "kind": "Set/Get",
     "mode": "",
@@ -1533,7 +2037,7 @@
     "response": "Vmax in mV:"
    },
    {
-    "arg": "float",
+    "arg": "",
     "comment": "Set/Get Flux linkage",
     "kind": "Set/Get",
     "mode": "",
@@ -1550,10 +2054,42 @@
    },
    {
     "arg": "",
-    "comment": "Enter calibration mode",
-    "kind": "Action",
+    "comment": "Enter calibration mode #Cal: the calibration, then always the encoder table and the anti-cogging, then save; #Calonly: the calibration alone",
+    "kind": "Get",
     "mode": "",
     "name": "Cal",
+    "response": ""
+   },
+   {
+    "arg": "",
+    "comment": "Enter calibration mode #Cal: the calibration, then always the encoder table and the anti-cogging, then save; #Calonly: the calibration alone",
+    "kind": "Get",
+    "mode": "",
+    "name": "Calonly",
+    "response": "Cal: not started, the E-stop is latched (#Clear first)"
+   },
+   {
+    "arg": "",
+    "comment": "",
+    "kind": "Get",
+    "mode": "",
+    "name": "Cal",
+    "response": ""
+   },
+   {
+    "arg": "",
+    "comment": "",
+    "kind": "Action",
+    "mode": "",
+    "name": "Calonly",
+    "response": ""
+   },
+   {
+    "arg": "",
+    "comment": "",
+    "kind": "Action",
+    "mode": "idle",
+    "name": "Calonly",
     "response": ""
    },
    {
@@ -1562,10 +2098,10 @@
     "kind": "Action",
     "mode": "angle-offset calibration",
     "name": "Calangle",
-    "response": "Idle"
+    "response": "Calangle: not started, the drive is in error (#Error, #Clear)"
    },
    {
-    "arg": "float",
+    "arg": "",
     "comment": "set get theta_offset",
     "kind": "Set/Get",
     "mode": "",
@@ -1717,7 +2253,7 @@
     "response": "PWM1"
    },
    {
-    "arg": "float",
+    "arg": "",
     "comment": "Set/Get Current loop bandwidth",
     "kind": "Set/Get",
     "mode": "",
@@ -1733,7 +2269,7 @@
     "response": "Resistance voltage:"
    },
    {
-    "arg": "float",
+    "arg": "",
     "comment": "Set/get max power that can be used during Inductance and resistance search",
     "kind": "Set/Get",
     "mode": "",
@@ -1773,7 +2309,7 @@
     "response": "Moving for"
    },
    {
-    "arg": "float",
+    "arg": "",
     "comment": "Set/get open loop calibration speed",
     "kind": "Set/Get",
     "mode": "",
@@ -1799,7 +2335,7 @@
    {
     "arg": "",
     "comment": "Print Information about motor driver and motor",
-    "kind": "Get",
+    "kind": "Action",
     "mode": "",
     "name": "Info",
     "response": "Hardware version:"
@@ -1811,6 +2347,62 @@
     "mode": "",
     "name": "Gripper",
     "response": "Gripper:"
+   },
+   {
+    "arg": "int",
+    "comment": "Set/get the tool id: what this drive is built into (0 none, 1 SSG-48, 11-33 MSG with tens = rail 1/2/3 = 100/150/200 mm and units = stepper 1/2/3 = 21.5/40/60 mm, 200-254 custom). Saved with #Save.",
+    "kind": "Set/Get",
+    "mode": "",
+    "name": "Tool",
+    "response": "Invalid tool id (0-255)"
+   },
+   {
+    "arg": "",
+    "comment": "The encoder table on the drive (encal.h): #Encal measures it (one shaft turn each way at 2048 ticks/s, about 20 s; the shaft must be free), #Encal save also saves, #Encal all also identifies the anti-cogging and saves both, #Encal stop aborts, #Encal on / off switches the correction, #Encal state shows it. A tone through the motor (batch 22): #Tone f,mA[,ms] (ms left out: 500; 0: until #Tone off); #Tone off. It plays while the drive holds or moves; from idle the drive first holds the position it is at.",
+    "kind": "Set/Get",
+    "mode": "position",
+    "name": "Tone",
+    "response": "Tone off"
+   },
+   {
+    "arg": "int",
+    "comment": "Any CAN parameter by number (batch 20): #Par lists all, #Par n reads one, #Par n,v sets it",
+    "kind": "Set/Get",
+    "mode": "",
+    "name": "Par",
+    "response": "Par: a number 1-255, then optionally ,value"
+   },
+   {
+    "arg": "",
+    "comment": "",
+    "kind": "Set/Get",
+    "mode": "",
+    "name": "Encal",
+    "response": "Encoder table:"
+   },
+   {
+    "arg": "",
+    "comment": "On-drive anti-cogging identification (cogcal.h): #Cogcal runs it, #Cogcal save also saves, #Cogcal stop aborts, #Cogcal state shows it. One motor turn each way at the cogcal speed: the shaft must be free to turn.",
+    "kind": "Set/Get",
+    "mode": "",
+    "name": "Cogcal",
+    "response": "Anti-cogging identification:"
+   },
+   {
+    "arg": "",
+    "comment": "Product lock: #Product shows the board's stamp; #Product claim stamps it as this product (a motor the rule misjudges, a repaired board); #Product clear removes the stamp. UART only, on purpose.",
+    "kind": "Action",
+    "mode": "",
+    "name": "Product",
+    "response": "Board stamped as this product. Power-cycle the drive."
+   },
+   {
+    "arg": "",
+    "comment": "Set/get the watchdog fallback: #WdFb time_ms,current_mA,speed_ticks_s,after_action (after_action 0 legacy, 2 brake, 3 coast). Used by watchdog actions 1 (hold) and 4 (descend). Saved with #Save.",
+    "kind": "Set/Get",
+    "mode": "",
+    "name": "WdFb",
+    "response": "Use #WdFb time_ms,current_mA,speed_ticks_s,after_action"
    },
    {
     "arg": "",
@@ -1922,7 +2514,7 @@
     "kind": "Set/Get",
     "mode": "",
     "name": "PP",
-    "response": "Pole pairs:"
+    "response": "PP: not taken (1-200, and only while idle)"
    },
    {
     "arg": "",
@@ -1933,7 +2525,7 @@
     "response": "Controller activated"
    },
    {
-    "arg": "float",
+    "arg": "",
     "comment": "",
     "kind": "Set/Get",
     "mode": "open loop",
@@ -1966,5 +2558,5 @@
    }
   ]
  },
- "version": "108"
+ "version": "109"
 }

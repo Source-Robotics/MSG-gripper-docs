@@ -12,6 +12,13 @@ columns:
   - {key: docs, title: Docs (gripper release)}
 
 rows:
+  - firmware: "109"
+    date: 2026-11-10
+    bootloader: required
+    gripper: V1.2, V1.1
+    python: 1.21 or newer (1.20 swaps object detection 1 and 2)
+    ros2: msg_gripper_ros2 (ROS 2 Humble)
+    docs: "1.2"
   - firmware: "108"
     date: 2026-08-26
     bootloader: required (installed on grippers shipped with 104 or newer)

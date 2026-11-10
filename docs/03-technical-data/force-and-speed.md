@@ -38,7 +38,8 @@ The current limit caps motor torque; it does not guarantee that the commanded cu
 contact force is reached. Mechanism friction, finger flex and the contact position affect the actual force.
 
 !!! danger "Stay within the stepper's maximum"
-    The firmware does not clamp the gripper's current. A current above the stepper's maximum overheats the
+    The firmware clamps the gripper's current only at the driver's 2800 mA, above every stepper's maximum. A
+    current above the stepper's maximum overheats the
     motor; the thermistor stops the gripper at 75 °C, but a motor driven far over its rating heats faster than
     the thermistor follows. The maximums are in the table above.
 

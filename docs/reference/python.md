@@ -29,7 +29,6 @@ move; called without arguments it sends the empty frame that only asks for the s
 | Send_Respond_Device_Info | `HARDWARE_VERSION`, `BATCH_DATE`, `SOFTWARE_VERSION`, `SERIAL_NUMBER` |
 
 !!! note "Object detection in the library"
-    Library version 1.20 assembles `gripper_object_detection` with the two bits swapped relative to the firmware,
-    so it reports 1 where the gripper sends 2 (object detected while opening) and 2 where it sends 1 (object
-    detected while closing); 0 and 3 are unaffected. The library's release after 1.20 reads them right. With 1.20,
-    swap the two values in your program, or read the bits yourself from the frame.
+    Library 1.20 and older assemble `gripper_object_detection` with the two bits swapped relative to the
+    firmware, so they report 1 where the gripper sends 2 (object detected while opening) and 2 where it sends 1
+    (object detected while closing); 0 and 3 are unaffected. 1.21 and newer read them right.
