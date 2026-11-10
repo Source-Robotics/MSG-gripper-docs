@@ -35,7 +35,7 @@ edit it and one to report a problem with it.
 |---|---|---|
 | MSG Gripper Manual | SR-5003 | the MSG compliant AI stepper gripper: safety, technical data, installation, setup, operation over CAN, UART, Python and ROS 2, firmware, the build guide; the gripper's API reference; guides |
 
-A document marked with a firmware release describes MSG gripper release 1.2 running STEPFOC firmware 108. The version selector in the header switches between gripper releases; a new firmware release for the same gripper updates the pages in place. The compatibility table says which firmware, Python library and hardware revisions work together.
+A document marked with a firmware release describes MSG gripper release 1.2 running STEPFOC firmware 109. The version selector in the header switches between gripper releases; a new firmware release for the same gripper updates the pages in place. The compatibility table says which firmware, Python library and hardware revisions work together.
 
 The driver inside the gripper is documented at [https://docs.source-robotics.com/STEPFOC-docs/](https://docs.source-robotics.com/STEPFOC-docs/). The SSG-48 gripper, the MSG's predecessor on the Spectral Micro driver, is at [docs.source-robotics.com/SSG48-gripper-docs](https://docs.source-robotics.com/SSG48-gripper-docs/). The robots the gripper is
 made for: [docs.source-robotics.com/PAROL-docs](https://docs.source-robotics.com/PAROL-docs/) and
@@ -52,6 +52,7 @@ by any of these.
 
 | Revision | Date | Changes |
 |---|---|---|
+| 2026.D | 2026-11-10 | STEPFOC firmware 109: the generated CAN and UART reference; the encoder table and the anti-cogging that follow `#Cal` in the first run, and the presets' gains on 109; a poll right after a move no longer cancels it (KI-10); calibration puts the current limit back (KI-5); the gripper's current clamped at 2800 mA. Python library 1.21, which reads the object detection right (KI-6) |
 | 2026.C | 2026-11-05 | The M8 pinout corrected to the one the gripper is built with (1 +24 V, 2 CANL, 3 GND, 4 CANH; page 17 of the SSG-48 assembly manual): the pin table, its drawing and the quick start of 2026.B had all four pins wrong; the bootloader comes with STEPFOC release 105, not 104; the camera works with any webcam software; the cable warnings: the other robot's cable reverses the supply, it does not put 24 V on the CAN pins; the PAROL6 cable's pin pairs |
 | 2026.B | 2026-11-04 | Gripper release 1.2, with the files as downloads on the release; dimension drawings and what changes per variant; data for robot integration (frame, mass, inertia, TCP); known issues; the downloads with their versions; safety for clothing, hair and eyes, a caught finger, static and cleaning; check boxes after each step and Windows, Linux and macOS tabs; numbered figure captions; the 380 g variant |
 | 2026.A | 2026-11-03 | First version in this form: the manual chapters, the generated CAN and UART reference; gripper release 1.1, firmware 108 |

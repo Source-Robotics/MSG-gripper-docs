@@ -6,6 +6,7 @@ describes it.
 
 | Firmware (STEPFOC) | Released | Bootloader | MSG gripper | Python library (Spectral-BLDC) | ROS 2 driver | Docs (gripper release) |
 |---|---|---|---|---|---|---|
+| 109 | 2026-11-10 | required | V1.2, V1.1 | 1.21 or newer (1.20 swaps object detection 1 and 2) | msg_gripper_ros2 (ROS 2 Humble) | 1.2 |
 | 108 | 2026-08-26 | required (installed on grippers shipped with 104 or newer) | V1.2, V1.1 | 1.20 or newer | msg_gripper_ros2 (ROS 2 Humble) | 1.2 |
 | 107 | 2026-08-24 | required | V1.1 | 1.20 or newer | msg_gripper_ros2 | not published |
 | 106 | 2026-07-05 | required | V1.1 | 1.19 or newer | msg_gripper_ros2 | not published |

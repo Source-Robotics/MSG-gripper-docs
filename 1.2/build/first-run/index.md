@@ -52,6 +52,16 @@ messages are in [Calibration](https://docs.source-robotics.com/STEPFOC-docs/late
 the STEPFOC site. `#Default` also resets the serial number the driver reports; note what `#SERNUM` prints before
 you start if you need it.
 
+!!! note "STEPFOC firmware 109 and newer"
+    From STEPFOC firmware 109 a successful `#Cal` is followed by two runs of its own, the encoder table and the
+    anti-cogging: the motor turns slowly for about another minute, and the driver saves everything when they
+    finish. Keep the pinion off until then, and start step 2 when `#Info` no longer shows `running:` under
+    `In force:`. The encoder-table run holds 80 % of the current limit in the coils for some 20 s; after
+    `#Default` the limit is 1700 mA, so set `#Ilim` for the stepper (its maximum in
+    [Force and speed](https://docs.source-robotics.com/MSG-gripper-docs/1.2/03-technical-data/force-and-speed/)) before `#Cal`. See
+    [Calibration](https://docs.source-robotics.com/STEPFOC-docs/latest/05-setup/calibration/) on the STEPFOC
+    site.
+
 !!! success "Check"
     The terminal ends with `Calibration success!`, and `#Info` prints `Calibrated`, `Number of pole pairs: 50` and
     the resistance and inductance you entered. If it ends with `Calibration failed!`, the STEPFOC page
@@ -73,7 +83,7 @@ you start if you need it.
 |---|---|
 | `#Gripper 1` | gripper mode: the driver runs the gripper state machine and answers the gripper messages |
 | `#Term 1`, `#Tlim 75` | the thermistor on, the temperature limit at 75 °C. Without it the motor can burn out under a long grip |
-| `#Kpiq 1.4047`, `#Kiiq 0.1149` | the current loop gains of Motor GUI's gripper presets, the same for the three steppers; the gains the calibration computes for the stepper are sharper than a gripper needs |
+| `#Kpiq 1.4047`, `#Kiiq 0.1149` | the current loop gains of Motor GUI's gripper presets on firmware 108 and older, the same for the three steppers. From 109 the presets send `#Cbw 160` and each stepper's own gains (21.5 mm 4.828 / 0.5951, 40 mm 2.7033 / 0.1769, 60 mm 3.1464 / 0.2574), `#Kpv 0.014` / `#Kiv 0.00014` for the 21.5 mm and 0.02 / 0.001 for the others, and the tool id, `#Tool` 11 to 33 (tens: the rail, 1 = 100, 2 = 150, 3 = 200 mm; units: the stepper, 1 = 21.5, 2 = 40, 3 = 60 mm). On 108 the gains the calibration computes for the stepper are sharper than a gripper needs |
 | `#CANID 0` | the node ID on the robot's bus; 0 to 13, see [Over CAN](https://docs.source-robotics.com/MSG-gripper-docs/1.2/06-operation/can/) |
 | `#Save` | nothing above survives a power cycle until it is saved |
 
@@ -97,4 +107,4 @@ calibration found.
 
 The gripper's moves use the current limit of each command, not the driver's `#Ilim`. Keep the commanded current
 at or below the stepper's maximum current ([Force and speed](https://docs.source-robotics.com/MSG-gripper-docs/1.2/03-technical-data/force-and-speed/)); the
-firmware does not clamp it.
+firmware clamps it only at 2800 mA.

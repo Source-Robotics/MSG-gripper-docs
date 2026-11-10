@@ -21,13 +21,13 @@ Full text of every page, in the order of the site's navigation. Source: https://
 
 **MSG gripper release:** 1.2
 
-**Firmware:** STEPFOC 108
+**Firmware:** STEPFOC 109
 
-**Revision:** 2026.C
+**Revision:** 2026.D
 
-**Published:** 2026-11-05
+**Published:** 2026-11-10
 
-**Applies to:** MSG gripper release 1.2 with the STEPFOC driver PCB v1, STEPFOC firmware 108
+**Applies to:** MSG gripper release 1.2 with the STEPFOC driver PCB v1, STEPFOC firmware 109
 
 *Original instructions*
 
@@ -249,7 +249,7 @@ edit it and one to report a problem with it.
 |---|---|---|
 | MSG Gripper Manual | SR-5003 | the MSG compliant AI stepper gripper: safety, technical data, installation, setup, operation over CAN, UART, Python and ROS 2, firmware, the build guide; the gripper's API reference; guides |
 
-A document marked with a firmware release describes MSG gripper release 1.2 running STEPFOC firmware 108. The version selector in the header switches between gripper releases; a new firmware release for the same gripper updates the pages in place. The compatibility table says which firmware, Python library and hardware revisions work together.
+A document marked with a firmware release describes MSG gripper release 1.2 running STEPFOC firmware 109. The version selector in the header switches between gripper releases; a new firmware release for the same gripper updates the pages in place. The compatibility table says which firmware, Python library and hardware revisions work together.
 
 The driver inside the gripper is documented at [https://docs.source-robotics.com/STEPFOC-docs/](https://docs.source-robotics.com/STEPFOC-docs/). The SSG-48 gripper, the MSG's predecessor on the Spectral Micro driver, is at [docs.source-robotics.com/SSG48-gripper-docs](https://docs.source-robotics.com/SSG48-gripper-docs/). The robots the gripper is
 made for: [docs.source-robotics.com/PAROL-docs](https://docs.source-robotics.com/PAROL-docs/) and
@@ -266,6 +266,7 @@ by any of these.
 
 | Revision | Date | Changes |
 |---|---|---|
+| 2026.D | 2026-11-10 | STEPFOC firmware 109: the generated CAN and UART reference; the encoder table and the anti-cogging that follow `#Cal` in the first run, and the presets' gains on 109; a poll right after a move no longer cancels it (KI-10); calibration puts the current limit back (KI-5); the gripper's current clamped at 2800 mA. Python library 1.21, which reads the object detection right (KI-6) |
 | 2026.C | 2026-11-05 | The M8 pinout corrected to the one the gripper is built with (1 +24 V, 2 CANL, 3 GND, 4 CANH; page 17 of the SSG-48 assembly manual): the pin table, its drawing and the quick start of 2026.B had all four pins wrong; the bootloader comes with STEPFOC release 105, not 104; the camera works with any webcam software; the cable warnings: the other robot's cable reverses the supply, it does not put 24 V on the CAN pins; the PAROL6 cable's pin pairs |
 | 2026.B | 2026-11-04 | Gripper release 1.2, with the files as downloads on the release; dimension drawings and what changes per variant; data for robot integration (frame, mass, inertia, TCP); known issues; the downloads with their versions; safety for clothing, hair and eyes, a caught finger, static and cleaning; check boxes after each step and Windows, Linux and macOS tabs; numbered figure captions; the 380 g variant |
 | 2026.A | 2026-11-03 | First version in this form: the manual chapters, the generated CAN and UART reference; gripper release 1.1, firmware 108 |
@@ -695,7 +696,8 @@ The current limit caps motor torque; it does not guarantee that the commanded cu
 contact force is reached. Mechanism friction, finger flex and the contact position affect the actual force.
 
 !!! danger "Stay within the stepper's maximum"
-    The firmware does not clamp the gripper's current. A current above the stepper's maximum overheats the
+    The firmware clamps the gripper's current only at the driver's 2800 mA, above every stepper's maximum. A
+    current above the stepper's maximum overheats the
     motor; the thermistor stops the gripper at 75 °C, but a motor driven far over its rating heats faster than
     the thermistor follows. The maximums are in the table above.
 
@@ -1597,7 +1599,7 @@ Send_gripper_data_pack carries, in 5 bytes:
 |---|---|---|
 | Position | 0 to 255 | 0 fully open, 255 fully closed, linear over the stroke |
 | Speed | 0 to 255 | 1.6 to 190 mm/s at each jaw, linear (500 to 60000 encoder ticks per second); see [Force and speed](https://docs.source-robotics.com/MSG-gripper-docs/1.2/03-technical-data/force-and-speed/) |
-| Current | mA | the current limit of the move, so the grip force; not clamped by the firmware |
+| Current | mA | the current limit of the move, so the grip force; clamped by the firmware only at 2800 mA |
 | Activate | bit | 1 activates the gripper; 0 deactivates it: the move stops and the jaws are held still |
 | Action | bit | 1 carries out the move; 0 stores the command and holds the jaws still where they are |
 | E-stop | bit | 1 stops the gripper and raises the E-stop error, again at every cycle while the bit stays 1 |
@@ -1766,8 +1768,8 @@ The answer to every frame tells the whole state, so a host never has to ask twic
 - **Watchdog:** with Send_Watchdog set, keep the polls coming. The gripper commands and the status requests
   reset it; Send_Clear_Error and Send_gripper_calibrate do not. After a timeout, fix the host, clear, and
   resume.
-- **Current:** keep the commanded current within the stepper's maximum, 1.5, 2.0 or 2.1 A; the firmware does
-  not clamp it ([Force and speed](https://docs.source-robotics.com/MSG-gripper-docs/1.2/03-technical-data/force-and-speed/)).
+- **Current:** keep the commanded current within the stepper's maximum, 1.5, 2.0 or 2.1 A; the firmware clamps
+  it only at 2800 mA ([Force and speed](https://docs.source-robotics.com/MSG-gripper-docs/1.2/03-technical-data/force-and-speed/)).
 
 ## From a PC
 
@@ -1934,11 +1936,11 @@ the identifier; `UnpackData` fills the gripper attributes:
 | `gripper_temperature_error`, `gripper_timeout_error`, `gripper_estop_error` | the three error bits |
 | `gripper_calibrated` | the gripper calibration is done |
 
-!!! note "Object detection in library 1.20"
-    Library version 1.20 assembles `gripper_object_detection` with its two bits swapped relative to the firmware:
-    it reports 1 where the gripper sends 2 (object found while opening) and 2 where it sends 1 (object found
-    while closing); 0 and 3 are unaffected. Until the library is fixed, swap the two values in your program, or
-    test for "1 or 2" as this example does.
+!!! note "Object detection in library 1.20 and older"
+    Library 1.20 and older assemble `gripper_object_detection` with its two bits swapped relative to the firmware:
+    they report 1 where the gripper sends 2 (object found while opening) and 2 where it sends 1 (object found
+    while closing); 0 and 3 are unaffected. 1.21 and newer read them right. The example tests for "1 or 2", which
+    is right with every version.
 
 ## Stopping
 
@@ -2365,7 +2367,7 @@ them in one place. Which versions work together is in [Versions and compatibilit
 
 ### STEPFOC firmware
 
-Seen in: 108 (the driver's firmware, gripper mode).
+Seen in: 109 (the driver's firmware, gripper mode).
 
 | | What happens | What to do | More |
 |---|---|---|---|
@@ -2373,15 +2375,6 @@ Seen in: 108 (the driver's firmware, gripper mode).
 | KI-2 | The answer to a full gripper command is sent before the gripper acts on it, so it carries the state from before the command, for example object detection 3 of the move before. | Ignore that answer. Poll with empty Send_gripper_data_pack frames, and give a move about 100 ms before you trust its object detection. | [How the gripper works, the answer](https://docs.source-robotics.com/MSG-gripper-docs/1.2/06-operation/how-it-works/#the-answer) |
 | KI-3 | A full gripper command or a clear sent while the gripper calibration runs ends it, and the gripper stays uncalibrated. The routine's progress and its 24 s timer are not reset, so the next calibration can start part way through or give up early. | Clear first, then calibrate, and send only empty status polls until the calibrated bit is 1. After an interrupted calibration, switch the gripper off and on before you calibrate again. | [How the gripper works, the states](https://docs.source-robotics.com/MSG-gripper-docs/1.2/06-operation/how-it-works/#the-states) |
 | KI-4 | The action status in the gripper's answer is the action bit of the last command as it was received; the gripper never clears it, so it stays 1 after a move has finished and while the gripper holds. | Follow a move by its object detection (0 moving, 1 or 2 object found, 3 at the position), not by the action status. | [How the gripper works, the answer](https://docs.source-robotics.com/MSG-gripper-docs/1.2/06-operation/how-it-works/#the-answer) |
-| KI-5 | The motor calibration (`#Cal`) leaves the driver's current limit at 1600 mA, whatever it was before, which is more than the 21.5 mm stepper's 1.5 A. Gripper moves use the current of each command; the limit applies when the driver runs as a motor (Motor GUI's Motor side, the UART motor modes). | After `#Cal`, set `#Ilim` to the stepper's maximum current (1500, 2000 or 2100) before `#Save`, or apply Motor GUI's MSG preset, which sets the current limit. | [Driver setup, current limit](https://docs.source-robotics.com/MSG-gripper-docs/1.2/build/first-run/#current-limit) |
-
-### Python library (Spectral-BLDC)
-
-Seen in: 1.20.
-
-| | What happens | What to do | More |
-|---|---|---|---|
-| KI-6 | `UnpackData` assembles `gripper_object_detection` with its two bits swapped: it reports 1 where the gripper sends 2 (object found while opening) and 2 where it sends 1 (object found while closing); 0 and 3 are right. | Swap 1 and 2 in your program, or test for "1 or 2" when any object will do. | [With Python](https://docs.source-robotics.com/MSG-gripper-docs/1.2/06-operation/python/#the-first-program) |
 
 ### PAROL6 Python API (parol6)
 
@@ -2391,7 +2384,15 @@ Seen in: 0.9.1.
 |---|---|---|---|
 | KI-7 | `tool.status()` does not follow the gripper's status byte: `engaged` reads true at all times, and `part_detected` comes from bits 3 and 2 of the byte, which hold the temperature and timeout errors, not the object detection. The calibrated and error bits are not in it. | Use the jaw position (`positions`) and the current (`channels`), and check where the jaws stopped to know that a part is held. | [On PAROL6 and PAR6, driving it](https://docs.source-robotics.com/MSG-gripper-docs/1.2/06-operation/robots/#driving-it) |
 | KI-8 | `calibrate()` counts the calibration done after a fixed 2 s without reading the calibrated bit; the next gripper action then ends a calibration that is still running, and the MSG's takes up to about ten seconds. The API has no action that clears the gripper's errors. | Wait about 10 s after `calibrate()` before the next gripper action. Clear a gripper error with the commander's **Clear gripper error** or with Motor GUI, then calibrate. | [On PAROL6 and PAR6, driving it](https://docs.source-robotics.com/MSG-gripper-docs/1.2/06-operation/robots/#driving-it) |
-| KI-9 | The MSG's `current` is a fraction of 100 to 2800 mA, so `current=1.0` commands 2800 mA, more than any of the three steppers takes, and the firmware does not clamp it. | Keep `current` at or below 0.51 (21.5 mm stepper), 0.70 (40 mm) or 0.74 (60 mm). | [On PAROL6 and PAR6, driving it](https://docs.source-robotics.com/MSG-gripper-docs/1.2/06-operation/robots/#driving-it) |
+| KI-9 | The MSG's `current` is a fraction of 100 to 2800 mA, so `current=1.0` commands 2800 mA, more than any of the three steppers takes, and the firmware clamps only above 2800 mA. | Keep `current` at or below 0.51 (21.5 mm stepper), 0.70 (40 mm) or 0.74 (60 mm). | [On PAROL6 and PAR6, driving it](https://docs.source-robotics.com/MSG-gripper-docs/1.2/06-operation/robots/#driving-it) |
+
+### Fixed
+
+| | What happened | Fixed in | More |
+|---|---|---|---|
+| KI-5 | The motor calibration (`#Cal`) leaves the driver's current limit at 1600 mA, whatever it was before, which is more than the 21.5 mm stepper's 1.5 A. Gripper moves use the current of each command; the limit applies when the driver runs as a motor (Motor GUI's Motor side, the UART motor modes). | 109: calibration puts back the current limit that was in force when it started | [Driver setup, current limit](https://docs.source-robotics.com/MSG-gripper-docs/1.2/build/first-run/#current-limit) |
+| KI-6 | `UnpackData` assembles `gripper_object_detection` with its two bits swapped: it reports 1 where the gripper sends 2 (object found while opening) and 2 where it sends 1 (object found while closing); 0 and 3 are right. | 1.21: `UnpackData` reads the two bits the right way round | [With Python](https://docs.source-robotics.com/MSG-gripper-docs/1.2/06-operation/python/#the-first-program) |
+| KI-10 | A status poll (an empty Send_gripper_data_pack) or a repeat of the command that reaches the driver within one control cycle (about 0.16 ms) of a new move command cancels it as new. The move then runs in position mode, and object detection reads 3 while the jaws press on an object. | 109: only a new command marks itself new, so a poll or a repeat no longer cancels the move | [Over CAN, host checklist](https://docs.source-robotics.com/MSG-gripper-docs/1.2/06-operation/can/#host-checklist) |
 
 ## Something that is not here
 
@@ -2691,6 +2692,16 @@ messages are in [Calibration](https://docs.source-robotics.com/STEPFOC-docs/late
 the STEPFOC site. `#Default` also resets the serial number the driver reports; note what `#SERNUM` prints before
 you start if you need it.
 
+!!! note "STEPFOC firmware 109 and newer"
+    From STEPFOC firmware 109 a successful `#Cal` is followed by two runs of its own, the encoder table and the
+    anti-cogging: the motor turns slowly for about another minute, and the driver saves everything when they
+    finish. Keep the pinion off until then, and start step 2 when `#Info` no longer shows `running:` under
+    `In force:`. The encoder-table run holds 80 % of the current limit in the coils for some 20 s; after
+    `#Default` the limit is 1700 mA, so set `#Ilim` for the stepper (its maximum in
+    [Force and speed](https://docs.source-robotics.com/MSG-gripper-docs/1.2/03-technical-data/force-and-speed/)) before `#Cal`. See
+    [Calibration](https://docs.source-robotics.com/STEPFOC-docs/latest/05-setup/calibration/) on the STEPFOC
+    site.
+
 !!! success "Check"
     The terminal ends with `Calibration success!`, and `#Info` prints `Calibrated`, `Number of pole pairs: 50` and
     the resistance and inductance you entered. If it ends with `Calibration failed!`, the STEPFOC page
@@ -2712,7 +2723,7 @@ you start if you need it.
 |---|---|
 | `#Gripper 1` | gripper mode: the driver runs the gripper state machine and answers the gripper messages |
 | `#Term 1`, `#Tlim 75` | the thermistor on, the temperature limit at 75 °C. Without it the motor can burn out under a long grip |
-| `#Kpiq 1.4047`, `#Kiiq 0.1149` | the current loop gains of Motor GUI's gripper presets, the same for the three steppers; the gains the calibration computes for the stepper are sharper than a gripper needs |
+| `#Kpiq 1.4047`, `#Kiiq 0.1149` | the current loop gains of Motor GUI's gripper presets on firmware 108 and older, the same for the three steppers. From 109 the presets send `#Cbw 160` and each stepper's own gains (21.5 mm 4.828 / 0.5951, 40 mm 2.7033 / 0.1769, 60 mm 3.1464 / 0.2574), `#Kpv 0.014` / `#Kiv 0.00014` for the 21.5 mm and 0.02 / 0.001 for the others, and the tool id, `#Tool` 11 to 33 (tens: the rail, 1 = 100, 2 = 150, 3 = 200 mm; units: the stepper, 1 = 21.5, 2 = 40, 3 = 60 mm). On 108 the gains the calibration computes for the stepper are sharper than a gripper needs |
 | `#CANID 0` | the node ID on the robot's bus; 0 to 13, see [Over CAN](https://docs.source-robotics.com/MSG-gripper-docs/1.2/06-operation/can/) |
 | `#Save` | nothing above survives a power cycle until it is saved |
 
@@ -2736,7 +2747,7 @@ calibration found.
 
 The gripper's moves use the current limit of each command, not the driver's `#Ilim`. Keep the commanded current
 at or below the stepper's maximum current ([Force and speed](https://docs.source-robotics.com/MSG-gripper-docs/1.2/03-technical-data/force-and-speed/)); the
-firmware does not clamp it.
+firmware clamps it only at 2800 mA.
 
 
 ---
@@ -2768,6 +2779,55 @@ A thermal test of the MSG gripper. The thermal limit is 75 °C at the thermistor
 What changed in each release of the STEPFOC firmware the gripper runs, from the release notes in the driver's
 repository, up to the release this site describes. Entries about the driver's motion modes do not concern a
 gripper; the gripper mode, the CAN protocol and the bootloader do.
+
+## V109 (2026-11-10)
+
+STEPFOC firmware **V109** — application image for flashing via the Spectral bootloader. From 109 the STEPFOC and the Spectral Micro share their version numbers. Everything below is described in the manual: [STEPFOC docs](https://docs.source-robotics.com/STEPFOC-docs/); what a driver keeps and what to run after the update: [Upgrading from older firmware](https://docs.source-robotics.com/STEPFOC-docs/latest/07-firmware/upgrading/).
+
+#### New features
+- **Parameters:** any setting or read-out by number over CAN (commands 36-38) or `#Par`: the gains and limits, the watchdog, the current loop, the speed estimate, the tool id and more (parameters 1-87). Identity (39) and telemetry (40) frames.
+- **Capture, histogram and buffers** (41-43): record three signals from the control loop, read the encoder and anti-cogging tables.
+- **Watchdog actions:** on a lost host the driver can idle, brake, coast, hold the position, or descend at a capped speed, with a fallback time.
+- **Current loop from R, L and one bandwidth** (parameter 49, default 160 Hz); the direct PLL speed estimate at 60 Hz by default; commutation delay compensation, 166 µs by default; a position input filter and a velocity-integral deadband.
+- **Encoder table and anti-cogging measured on the driver:** `#Cal` runs the calibration, then the encoder table and the anti-cogging identification, and saves; `#Calonly` is the calibration alone.
+- **Sound through the motor:** tones, a queue of notes and samples (CAN 44 and 45, `#Tone`).
+- **Identification:** `#Info` and parameters 84-87 report the build (git commit), the board ID and a calibration ID.
+- **Settings in blocks with their own checksums;** a reset keeps the CAN ID; a product lock refuses a Spectral image on a STEPFOC board.
+
+#### Calibration
+- The angle alignment locks the rotor with the calibration current through the coil's resistance (it used a fixed 0.5 V, too weak for small motors with a high coil resistance). On a 20 mm stepper the alignment offset now comes out 6× steadier from run to run; 25 of 25 calibrations passed.
+- Kt and KV are measured in four spins alternating direction at a forced 6 V; a warning only when two same-direction spins differ by more than 5 %.
+- `#Cal` from a moving motor switches the bridge off first; a failed calibration switches it off at once; an E-stop ends a calibration, and `#Cal` is refused while one is latched (`Cal: not started, the E-stop is latched (#Clear first)`); the alignment starts from its first stage after a calibration that was ended from outside. `#Calangle` is refused while the driver is in error.
+- The current limit is put back when a calibration ends.
+
+#### Safety
+- Limits: a negative or not-a-number value is ignored by the legacy CAN frames (limits, gains, Kt, voltage limit 0-60000 mV); `#Ilim` and `#Vlimit` take the magnitude; the current of a gripper move stays within 0-2800 mA; `#PP` takes 1-200 pole pairs, only while idle. PWM duties stay between 0 and 100 %.
+- The current-sense zero waits for the motor supply: started on USB before the supply, the driver used a zero about 100 mA off. It now says so in `#Info` and measures the zero by itself once the supply is there.
+- No undervoltage error while the supply ramps up at power-up.
+
+#### CAN bus
+- A gripper poll right after a new move command no longer cancels it as new: object detection reports contact again (it read "at position" while pressing on an object). The same in every release before 109.
+- The current and PD frames set their setpoint and mode together. Length codes above 8 are read as 8; extended (29-bit) frames are ignored.
+- Watchdog: setting its time or a save starts a fresh window; a negative time means off; hold and descend no longer use the last moving loop's delay compensation.
+
+#### Bug fixes
+- After `#Cal`, a host that takes the driver within 3 s drops the encoder-table and anti-cogging runs (they used to start by themselves at the next idle). `#Encal` and `#Cogcal` start only on their own words. While such a run turns the motor, a capture is not armed and the histogram is not changed.
+- A storage block whose check fails is read up to three times before its defaults are used. `#Info` says the anti-cogging is saved only while what is in RAM equals what is stored.
+- The current-loop integrals are cleared whenever the bridge brakes or coasts. The sound queue and sample buffer no longer replay old content after a stop; a pitch the driver cannot play answers `Tone: not played`.
+
+#### Compatibility
+- Python library **1.21 or newer** (`pip install --upgrade Spectral-BLDC`), Motor GUI **0.5.0**.
+- The calibration and the settings of 108 are kept. Not tested on the bench for this release: an upgrade from V103 with the ST-Link, and a downgrade.
+
+#### Assets
+- `stepfoc-firmware-V109.bin` — application firmware image (flash at `0x08003000`, target STM32F103CB).
+- `firmware.json` — manifest with version, size, and SHA-256 for download verification by the web flasher.
+
+#### Integrity
+- SHA-256: `94bc56430195b323f48dd47237be99700623ec8d0ae391f974a809e3eae123cc`
+- Size: 112088 bytes
+
+Built from commit 118fe17 on `bootloader-version` (`#Info` shows it as `Build: 118FE17`). Includes bootloader entry support (CAN/UART reset-into-bootloader).
 
 ## V108 (2026-08-26)
 
@@ -2893,6 +2953,7 @@ describes it.
 
 | Firmware (STEPFOC) | Released | Bootloader | MSG gripper | Python library (Spectral-BLDC) | ROS 2 driver | Docs (gripper release) |
 |---|---|---|---|---|---|---|
+| 109 | 2026-11-10 | required | V1.2, V1.1 | 1.21 or newer (1.20 swaps object detection 1 and 2) | msg_gripper_ros2 (ROS 2 Humble) | 1.2 |
 | 108 | 2026-08-26 | required (installed on grippers shipped with 104 or newer) | V1.2, V1.1 | 1.20 or newer | msg_gripper_ros2 (ROS 2 Humble) | 1.2 |
 | 107 | 2026-08-24 | required | V1.1 | 1.20 or newer | msg_gripper_ros2 | not published |
 | 106 | 2026-07-05 | required | V1.1 | 1.19 or newer | msg_gripper_ros2 | not published |
@@ -3004,7 +3065,7 @@ file, `versions.yml`, so this page changes with them; which versions work togeth
 
 | What | Version | Download | How to install |
 |---|---|---|---|
-| The driver's firmware (STEPFOC), which is the gripper's firmware | [108](https://github.com/Source-Robotics/STEPFOC-stepper-controller/tree/V108) | the image `stepfoc-firmware-V<number>.bin` and its manifest in the [releases](https://github.com/Source-Robotics/STEPFOC-stepper-controller/releases); the source at the tag, [STEPFOC firmware](https://github.com/Source-Robotics/STEPFOC-stepper-controller/tree/V108/STEPFOC%20firmware) | [Firmware](https://docs.source-robotics.com/MSG-gripper-docs/1.2/08-firmware/) |
+| The driver's firmware (STEPFOC), which is the gripper's firmware | [109](https://github.com/Source-Robotics/STEPFOC-stepper-controller/tree/V109) (2026-11-10) | the image `stepfoc-firmware-V<number>.bin` and its manifest in the [releases](https://github.com/Source-Robotics/STEPFOC-stepper-controller/releases); the source at the tag, [STEPFOC firmware](https://github.com/Source-Robotics/STEPFOC-stepper-controller/tree/V109/STEPFOC%20firmware) | [Firmware](https://docs.source-robotics.com/MSG-gripper-docs/1.2/08-firmware/) |
 | Bootloader and its host tool, `host_tools/bl_flash.py` | | [stm32f103c-bootloader](https://github.com/Source-Robotics/stm32f103c-bootloader) | [Firmware: updating](https://docs.source-robotics.com/MSG-gripper-docs/1.2/08-firmware/#updating) |
 | Motor GUI, the browser tool for the driver and the gripper | runs in the browser, always the latest | [motorgui.com](https://motorgui.com/) | [Motor GUI](https://docs.source-robotics.com/MSG-gripper-docs/1.2/05-setup/motor-gui/) |
 | Python library (`Spectral-BLDC`) | the one in [Versions and compatibility](https://docs.source-robotics.com/MSG-gripper-docs/1.2/appendix/compatibility/) | [Spectral-BLDC-Python](https://github.com/Source-Robotics/Spectral-BLDC-Python), `pip install Spectral-BLDC` | [With Python](https://docs.source-robotics.com/MSG-gripper-docs/1.2/06-operation/python/) |
@@ -3078,7 +3139,7 @@ run in your browser; the tool does not connect to an adapter or send commands to
 
 ## Downloads
 
-[Command definitions (JSON)](https://docs.source-robotics.com/MSG-gripper-docs/1.2/assets/can/protocol-V108.json) · [Gripper DBC](https://docs.source-robotics.com/MSG-gripper-docs/1.2/assets/can/protocol-V108-gripper.dbc)
+[Command definitions (JSON)](https://docs.source-robotics.com/MSG-gripper-docs/1.2/assets/can/protocol-V109.json) · [Gripper DBC](https://docs.source-robotics.com/MSG-gripper-docs/1.2/assets/can/protocol-V109-gripper.dbc)
 
 The JSON includes the firmware tag, source commit, message IDs, every documented layout and its bit order.
 The DBC files cover **nodes 0 to 13**, with both the clean and fault-bit identifiers of driver replies.
@@ -3100,7 +3161,7 @@ current 300 mA, activate and action set, E-stop and release direction clear. The
 encoding; the device's current and motion limits still apply. Select another message above the fields to build
 one of its documented forms. To inspect a reply, enter its identifier and data bytes below.
 
-<div class="can-tool" data-schema="../../assets/can/protocol-V108.json" markdown="0">
+<div class="can-tool" data-schema="../../assets/can/protocol-V109.json" markdown="0">
   <p class="can-tool__status" role="status">Loading the firmware's command definitions…</p>
   <fieldset><legend>Build a frame</legend>
     <label for="ct-node">Node ID (0–13)</label><input id="ct-node" name="node" type="number" min="0" max="13" step="1" value="0">
@@ -3211,7 +3272,7 @@ The gripper command, for a driver set up as a gripper (`#Gripper 1`, saved). Pos
 |---|---|---|---|---|
 | 0 |  | Position | unsigned 8-bit | 0 fully open, 255 fully closed |
 | 1 |  | Speed | unsigned 8-bit | 0 slowest, 255 fastest |
-| 2-3 |  | Current | signed 16-bit | current limit of the move in mA, the grip force; not clamped by the firmware, keep it at or below the stepper's rated current (Force and speed) |
+| 2-3 |  | Current | signed 16-bit | current limit of the move in mA, the grip force; clamped by the firmware only at 2800 mA, keep it at or below the stepper's rated current (Force and speed) |
 | 4 | 7 | Activate | bit | 1 activate the gripper, 0 deactivate |
 | 4 | 6 | Action | bit | 1 go to the position, 0 stop and hold the jaws still |
 | 4 | 5 | E-stop | bit | 1 raises the gripper E-stop error, again at every cycle while the last command's bit is 1 |
@@ -3504,10 +3565,10 @@ used.
 
 | Command | Kind | Argument | Group |
 |---|---|---|---|
-| [`#Cal`](https://docs.source-robotics.com/MSG-gripper-docs/1.2/reference/uart/setup/) | Action |  | Driver setup |
+| [`#Cal`](https://docs.source-robotics.com/MSG-gripper-docs/1.2/reference/uart/setup/) | Get |  | Driver setup |
 | [`#Calibrated`](https://docs.source-robotics.com/MSG-gripper-docs/1.2/reference/uart/utility/) | Set/Get | int | Status and utility |
 | [`#CANID`](https://docs.source-robotics.com/MSG-gripper-docs/1.2/reference/uart/setup/) | Set/Get | int | Driver setup |
-| [`#Cbw`](https://docs.source-robotics.com/MSG-gripper-docs/1.2/reference/uart/setup/) | Set/Get | float | Driver setup |
+| [`#Cbw`](https://docs.source-robotics.com/MSG-gripper-docs/1.2/reference/uart/setup/) | Set/Get |  | Driver setup |
 | [`#Clear`](https://docs.source-robotics.com/MSG-gripper-docs/1.2/reference/uart/utility/) | Action |  | Status and utility |
 | [`#Default`](https://docs.source-robotics.com/MSG-gripper-docs/1.2/reference/uart/setup/) | Action |  | Driver setup |
 | [`#Error`](https://docs.source-robotics.com/MSG-gripper-docs/1.2/reference/uart/utility/) | Get |  | Status and utility |
@@ -3521,16 +3582,16 @@ used.
 | [`#Gripvel`](https://docs.source-robotics.com/MSG-gripper-docs/1.2/reference/uart/gripper/) | Set/Get | int | Gripper |
 | [`#Help`](https://docs.source-robotics.com/MSG-gripper-docs/1.2/reference/uart/utility/) | Action |  | Status and utility |
 | [`#Ilim`](https://docs.source-robotics.com/MSG-gripper-docs/1.2/reference/uart/setup/) | Set/Get | int | Driver setup |
-| [`#Info`](https://docs.source-robotics.com/MSG-gripper-docs/1.2/reference/uart/utility/) | Get |  | Status and utility |
-| [`#Kiiq`](https://docs.source-robotics.com/MSG-gripper-docs/1.2/reference/uart/setup/) | Set/Get | float | Driver setup |
-| [`#Kpiq`](https://docs.source-robotics.com/MSG-gripper-docs/1.2/reference/uart/setup/) | Set/Get | float | Driver setup |
-| [`#Kt`](https://docs.source-robotics.com/MSG-gripper-docs/1.2/reference/uart/setup/) | Set/Get | float | Driver setup |
-| [`#L`](https://docs.source-robotics.com/MSG-gripper-docs/1.2/reference/uart/setup/) | Set/Get | float | Driver setup |
+| [`#Info`](https://docs.source-robotics.com/MSG-gripper-docs/1.2/reference/uart/utility/) | Action |  | Status and utility |
+| [`#Kiiq`](https://docs.source-robotics.com/MSG-gripper-docs/1.2/reference/uart/setup/) | Set/Get |  | Driver setup |
+| [`#Kpiq`](https://docs.source-robotics.com/MSG-gripper-docs/1.2/reference/uart/setup/) | Set/Get |  | Driver setup |
+| [`#Kt`](https://docs.source-robotics.com/MSG-gripper-docs/1.2/reference/uart/setup/) | Set/Get |  | Driver setup |
+| [`#L`](https://docs.source-robotics.com/MSG-gripper-docs/1.2/reference/uart/setup/) | Set/Get |  | Driver setup |
 | [`#LED`](https://docs.source-robotics.com/MSG-gripper-docs/1.2/reference/uart/utility/) | Set/Get | int | Status and utility |
 | [`#Magnet`](https://docs.source-robotics.com/MSG-gripper-docs/1.2/reference/uart/utility/) | Get |  | Status and utility |
 | [`#Mode`](https://docs.source-robotics.com/MSG-gripper-docs/1.2/reference/uart/utility/) | Get |  | Status and utility |
 | [`#PP`](https://docs.source-robotics.com/MSG-gripper-docs/1.2/reference/uart/setup/) | Set/Get | int | Driver setup |
-| [`#R`](https://docs.source-robotics.com/MSG-gripper-docs/1.2/reference/uart/setup/) | Set/Get | float | Driver setup |
+| [`#R`](https://docs.source-robotics.com/MSG-gripper-docs/1.2/reference/uart/setup/) | Set/Get |  | Driver setup |
 | [`#Reset`](https://docs.source-robotics.com/MSG-gripper-docs/1.2/reference/uart/utility/) | Action |  | Status and utility |
 | [`#Save`](https://docs.source-robotics.com/MSG-gripper-docs/1.2/reference/uart/setup/) | Action |  | Driver setup |
 | [`#Temp`](https://docs.source-robotics.com/MSG-gripper-docs/1.2/reference/uart/utility/) | Get |  | Status and utility |
@@ -3561,7 +3622,7 @@ The driver's other commands (motion, gains, the calibration settings) are in the
 | `#Gripinfo` | Get |  | Prints the gripper state: gripper mode, calibrated, activated, the position, speed and current setpoints, the E-stop and action bits, the object detection, and the end stops in encoder ticks. | the report |
 | `#Gripstop` | Set/Get | int: 0 or 1 | The gripper E-stop bit. While it is 1, the E-stop error is raised again at every cycle: set it to 0 before `#Clear`. | the bit |
 | `#Gripact` | Set/Get | int: 0 or 1 | The activate bit. | the bit |
-| `#Gripcur` | Set/Get | int: current in mA | The current limit of gripper moves, the grip force. The firmware does not clamp it; keep it at or below the stepper's rated current (see Force and speed). | the setpoint |
+| `#Gripcur` | Set/Get | int: current in mA | The current limit of gripper moves, the grip force. The firmware clamps it only at 2800 mA; keep it at or below the stepper's rated current (see Force and speed). | the setpoint |
 | `#Gripvel` | Set/Get | int: 0 to 255 | The speed setpoint of gripper moves. | the setpoint |
 | `#Grippos` | Set/Get | int: 0 (open) to 255 (closed) | The position setpoint; also activates the gripper, sets the action bit and goes to gripper mode. Enters **gripper** mode. | the current position |
 
@@ -3577,18 +3638,19 @@ is the procedure.
 
 | Command | Kind | Argument | What it does | Response |
 |---|---|---|---|---|
-| `#Kpiq` | Set/Get | float: gain | Kp of the Iq current loop; also sets Kpid. | the current value |
-| `#Kiiq` | Set/Get | float: gain | Ki of the Iq current loop; also sets Kiid. | the current value |
-| `#R` | Set/Get | float: resistance in Ω | The phase resistance of the motor (one coil). STEPFOC does not measure it; enter the datasheet value before Cal. | the current value |
-| `#L` | Set/Get | float: inductance in H | The phase inductance of the motor (one coil); enter the datasheet value before Cal. | the current value |
-| `#Kt` | Set/Get | float: Nm/A | The torque constant, found by calibration. | the current value |
-| `#Cal` | Action |  | Runs the driver's motor calibration (see Driver configuration): enter PP, R and L first, with the pinion not yet in the rack. | the calibration log |
+| `#Kpiq` | Set/Get | gain | Kp of the Iq current loop; also sets Kpid. | the current value |
+| `#Kiiq` | Set/Get | gain | Ki of the Iq current loop; also sets Kiid. | the current value |
+| `#R` | Set/Get | resistance in Ω | The phase resistance of the motor (one coil). STEPFOC does not measure it; enter the datasheet value before Cal. | the current value |
+| `#L` | Set/Get | inductance in H | The phase inductance of the motor (one coil); enter the datasheet value before Cal. | the current value |
+| `#Kt` | Set/Get | Nm/A | The torque constant, found by calibration. | the current value |
+| `#Cal` | Get |  | Runs the driver's motor calibration (see Driver configuration): enter PP, R and L first, with the pinion not yet in the rack. | the calibration log |
+| `#Cal` | Get |  | Runs the driver's motor calibration (see Driver configuration): enter PP, R and L first, with the pinion not yet in the rack. | the calibration log |
 | `#Save` | Action |  | Writes the configuration to the EEPROM. Do it after calibration and after tuning. | `Save` |
 | `#Ilim` | Set/Get | int: current in mA | The driver's Iq current limit outside gripper mode; the firmware clamps it to 2800 mA. Gripper moves use Gripcur instead. | the current limit |
 | `#Tlim` | Set/Get | int: temperature in °C | The temperature at which the temperature error is raised; 75 by default. | `Temp limit N` |
 | `#Default` | Action |  | Writes the factory defaults to the EEPROM, including the serial number, hardware version and batch date, and clears the gripper flag, heartbeat and watchdog. Back those up first. | `Loaded default config!` |
 | `#Term` | Set/Get | int: 0 or 1 | Enables the thermistor measurement and the temperature error (off by default). | the setting |
-| `#Cbw` | Set/Get | float: bandwidth in Hz | The current loop bandwidth calibration uses to compute Kpiq and Kiiq. | the bandwidth |
+| `#Cbw` | Set/Get | bandwidth in Hz | The current loop bandwidth calibration uses to compute Kpiq and Kiiq. | the bandwidth |
 | `#CANID` | Set/Get | int: 0 to 13 | The CAN node ID. Use 0 to 13: the firmware accepts 14 and 15, but the bootloader reserves them and a driver on one of those cannot be updated over CAN. Save keeps it over a power cycle and also writes it into the bootloader's board ID. | the ID, or `Invalid CAN ID` |
 | `#PP` | Set/Get | int: pole pairs | The motor's pole pairs: 50 for a 1.8° stepper, 75 for 1.2°, 100 for 0.9°, 125 for 0.72°. Calibration accepts only these values. | the current value |
 
@@ -3609,7 +3671,7 @@ is the procedure.
 | `#Error` | Get |  | Prints which errors are active. | `No errors!` or `In error state!` followed by one line per active error |
 | `#Clear` | Action |  | Clears the errors and goes to idle, and ends a running gripper calibration. An error whose cause is still present comes straight back, the gripper's E-stop too while `#Gripstop` is 1; a calibration error is cleared only by calibrating (or `#Calibrated 1`). Enters **idle** mode. | `Clear errors` |
 | `#Help` | Action |  | Prints a short command reference. Added in firmware 106. | the reference |
-| `#Info` | Get |  | Prints the driver's identity and state: hardware version, batch date and firmware version, the ISR time, the CAN ID, the motor calibration, the thermistor and temperature, the supply voltage and the motor parameters (phase direction and order, pole pairs, R, L, Kt, KV). The serial number is printed by `#SERNUM`, the errors by `#Error`, gripper mode by `#Gripper`. | the report |
+| `#Info` | Action |  | Prints the driver's identity and state: hardware version, batch date and firmware version, the ISR time, the CAN ID, the motor calibration, the thermistor and temperature, the supply voltage and the motor parameters (phase direction and order, pole pairs, R, L, Kt, KV). The serial number is printed by `#SERNUM`, the errors by `#Error`, gripper mode by `#Gripper`. | the report |
 | `#Calibrated` | Set/Get | int: 0 or 1 | The calibrated flag. `#Calibrated 1` clears a calibration error without calibrating; the motor may still be uncalibrated. | the flag |
 | `#LED` | Set/Get | int: 0 or 1 | Turns the status LED on or off. | the LED state |
 
@@ -3636,7 +3698,8 @@ Byte 3 of Respond_Gripper_data_pack, the answer to every gripper command, bits n
 
 The Python library's attributes are `gripper_activated`, `gripper_action_status`, `gripper_object_detection`,
 `gripper_temperature_error`, `gripper_timeout_error`, `gripper_estop_error` and `gripper_calibrated`; library
-version 1.20 assembles `gripper_object_detection` with its two bits swapped (1 and 2 exchanged).
+1.20 and older assemble `gripper_object_detection` with its two bits swapped (1 and 2 exchanged), 1.21 and newer
+read them right.
 
 ## The driver's error flags
 
@@ -3725,10 +3788,9 @@ move; called without arguments it sends the empty frame that only asks for the s
 | Send_Respond_Device_Info | `HARDWARE_VERSION`, `BATCH_DATE`, `SOFTWARE_VERSION`, `SERIAL_NUMBER` |
 
 !!! note "Object detection in the library"
-    Library version 1.20 assembles `gripper_object_detection` with the two bits swapped relative to the firmware,
-    so it reports 1 where the gripper sends 2 (object detected while opening) and 2 where it sends 1 (object
-    detected while closing); 0 and 3 are unaffected. Until the library is fixed, swap the two values in your
-    program, or read the bits yourself from the frame.
+    Library 1.20 and older assemble `gripper_object_detection` with the two bits swapped relative to the
+    firmware, so they report 1 where the gripper sends 2 (object detected while opening) and 2 where it sends 1
+    (object detected while closing); 0 and 3 are unaffected. 1.21 and newer read them right.
 
 
 ---

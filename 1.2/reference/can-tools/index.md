@@ -5,7 +5,7 @@ run in your browser; the tool does not connect to an adapter or send commands to
 
 ## Downloads
 
-[Command definitions (JSON)](https://docs.source-robotics.com/MSG-gripper-docs/1.2/assets/can/protocol-V108.json) · [Gripper DBC](https://docs.source-robotics.com/MSG-gripper-docs/1.2/assets/can/protocol-V108-gripper.dbc)
+[Command definitions (JSON)](https://docs.source-robotics.com/MSG-gripper-docs/1.2/assets/can/protocol-V109.json) · [Gripper DBC](https://docs.source-robotics.com/MSG-gripper-docs/1.2/assets/can/protocol-V109-gripper.dbc)
 
 The JSON includes the firmware tag, source commit, message IDs, every documented layout and its bit order.
 The DBC files cover **nodes 0 to 13**, with both the clean and fault-bit identifiers of driver replies.
@@ -27,7 +27,7 @@ current 300 mA, activate and action set, E-stop and release direction clear. The
 encoding; the device's current and motion limits still apply. Select another message above the fields to build
 one of its documented forms. To inspect a reply, enter its identifier and data bytes below.
 
-<div class="can-tool" data-schema="../../assets/can/protocol-V108.json" markdown="0">
+<div class="can-tool" data-schema="../../assets/can/protocol-V109.json" markdown="0">
   <p class="can-tool__status" role="status">Loading the firmware's command definitions…</p>
   <fieldset><legend>Build a frame</legend>
     <label for="ct-node">Node ID (0–13)</label><input id="ct-node" name="node" type="number" min="0" max="13" step="1" value="0">

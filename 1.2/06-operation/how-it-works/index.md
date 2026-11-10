@@ -76,7 +76,7 @@ Send_gripper_data_pack carries, in 5 bytes:
 |---|---|---|
 | Position | 0 to 255 | 0 fully open, 255 fully closed, linear over the stroke |
 | Speed | 0 to 255 | 1.6 to 190 mm/s at each jaw, linear (500 to 60000 encoder ticks per second); see [Force and speed](https://docs.source-robotics.com/MSG-gripper-docs/1.2/03-technical-data/force-and-speed/) |
-| Current | mA | the current limit of the move, so the grip force; not clamped by the firmware |
+| Current | mA | the current limit of the move, so the grip force; clamped by the firmware only at 2800 mA |
 | Activate | bit | 1 activates the gripper; 0 deactivates it: the move stops and the jaws are held still |
 | Action | bit | 1 carries out the move; 0 stores the command and holds the jaws still where they are |
 | E-stop | bit | 1 stops the gripper and raises the E-stop error, again at every cycle while the bit stays 1 |

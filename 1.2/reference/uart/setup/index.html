@@ -1293,41 +1293,48 @@ is the procedure.</p>
 <tr>
 <td><code>#Kpiq</code></td>
 <td>Set/Get</td>
-<td>float: gain</td>
+<td>gain</td>
 <td>Kp of the Iq current loop; also sets Kpid.</td>
 <td>the current value</td>
 </tr>
 <tr>
 <td><code>#Kiiq</code></td>
 <td>Set/Get</td>
-<td>float: gain</td>
+<td>gain</td>
 <td>Ki of the Iq current loop; also sets Kiid.</td>
 <td>the current value</td>
 </tr>
 <tr>
 <td><code>#R</code></td>
 <td>Set/Get</td>
-<td>float: resistance in Ω</td>
+<td>resistance in Ω</td>
 <td>The phase resistance of the motor (one coil). STEPFOC does not measure it; enter the datasheet value before Cal.</td>
 <td>the current value</td>
 </tr>
 <tr>
 <td><code>#L</code></td>
 <td>Set/Get</td>
-<td>float: inductance in H</td>
+<td>inductance in H</td>
 <td>The phase inductance of the motor (one coil); enter the datasheet value before Cal.</td>
 <td>the current value</td>
 </tr>
 <tr>
 <td><code>#Kt</code></td>
 <td>Set/Get</td>
-<td>float: Nm/A</td>
+<td>Nm/A</td>
 <td>The torque constant, found by calibration.</td>
 <td>the current value</td>
 </tr>
 <tr>
 <td><code>#Cal</code></td>
-<td>Action</td>
+<td>Get</td>
+<td></td>
+<td>Runs the driver's motor calibration (see Driver configuration): enter PP, R and L first, with the pinion not yet in the rack.</td>
+<td>the calibration log</td>
+</tr>
+<tr>
+<td><code>#Cal</code></td>
+<td>Get</td>
 <td></td>
 <td>Runs the driver's motor calibration (see Driver configuration): enter PP, R and L first, with the pinion not yet in the rack.</td>
 <td>the calibration log</td>
@@ -1370,7 +1377,7 @@ is the procedure.</p>
 <tr>
 <td><code>#Cbw</code></td>
 <td>Set/Get</td>
-<td>float: bandwidth in Hz</td>
+<td>bandwidth in Hz</td>
 <td>The current loop bandwidth calibration uses to compute Kpiq and Kiiq.</td>
 <td>the bandwidth</td>
 </tr>

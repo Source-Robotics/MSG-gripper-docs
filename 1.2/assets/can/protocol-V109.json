@@ -1,7 +1,7 @@
 {
   "product": "MSG gripper",
-  "firmware": "V108",
-  "commit": "46b4911dd8f7",
+  "firmware": "V109",
+  "commit": "56741ac67678",
   "byte_order": "big-endian",
   "bitrate": 1000000,
   "commands": [
@@ -48,7 +48,7 @@
               "signed": true,
               "float": false,
               "lsb_first": false,
-              "meaning": "current limit of the move in mA, the grip force; not clamped by the firmware, keep it at or below the stepper's rated current (Force and speed)"
+              "meaning": "current limit of the move in mA, the grip force; clamped by the firmware only at 2800 mA, keep it at or below the stepper's rated current (Force and speed)"
             },
             {
               "name": "Activate",

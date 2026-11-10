@@ -1320,10 +1320,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#python-library-spectral-bldc" class="md-nav__link">
+  <a href="#parol6-python-api-parol6" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Python library (Spectral-BLDC)
+        PAROL6 Python API (parol6)
       
     </span>
   </a>
@@ -1331,10 +1331,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#parol6-python-api-parol6" class="md-nav__link">
+  <a href="#fixed" class="md-nav__link">
     <span class="md-ellipsis">
       
-        PAROL6 Python API (parol6)
+        Fixed
       
     </span>
   </a>
@@ -2101,10 +2101,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#python-library-spectral-bldc" class="md-nav__link">
+  <a href="#parol6-python-api-parol6" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Python library (Spectral-BLDC)
+        PAROL6 Python API (parol6)
       
     </span>
   </a>
@@ -2112,10 +2112,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#parol6-python-api-parol6" class="md-nav__link">
+  <a href="#fixed" class="md-nav__link">
     <span class="md-ellipsis">
       
-        PAROL6 Python API (parol6)
+        Fixed
       
     </span>
   </a>
@@ -2247,7 +2247,7 @@
 what to do until they are. The pages that describe each part say the same where it matters; this page collects
 them in one place. Which versions work together is in <a href="../../appendix/compatibility/">Versions and compatibility</a>.</p>
 <h3 id="stepfoc-firmware">STEPFOC firmware<a class="headerlink" href="#stepfoc-firmware" title="Permanent link">&para;</a></h3>
-<p>Seen in: 108 (the driver's firmware, gripper mode).</p>
+<p>Seen in: 109 (the driver's firmware, gripper mode).</p>
 <table>
 <thead>
 <tr>
@@ -2282,32 +2282,6 @@ them in one place. Which versions work together is in <a href="../../appendix/co
 <td>Follow a move by its object detection (0 moving, 1 or 2 object found, 3 at the position), not by the action status.</td>
 <td><a href="../../06-operation/how-it-works/#the-answer">How the gripper works, the answer</a></td>
 </tr>
-<tr>
-<td>KI-5</td>
-<td>The motor calibration (<code>#Cal</code>) leaves the driver's current limit at 1600 mA, whatever it was before, which is more than the 21.5 mm stepper's 1.5 A. Gripper moves use the current of each command; the limit applies when the driver runs as a motor (Motor GUI's Motor side, the <abbr title="the serial port of the driver inside the gripper, 3.3 V, 256000 baud">UART</abbr> motor modes).</td>
-<td>After <code>#Cal</code>, set <code>#Ilim</code> to the stepper's maximum current (1500, 2000 or 2100) before <code>#Save</code>, or apply Motor GUI's MSG preset, which sets the current limit.</td>
-<td><a href="../../build/first-run/#current-limit">Driver setup, current limit</a></td>
-</tr>
-</tbody>
-</table>
-<h3 id="python-library-spectral-bldc">Python library (Spectral-BLDC)<a class="headerlink" href="#python-library-spectral-bldc" title="Permanent link">&para;</a></h3>
-<p>Seen in: 1.20.</p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th>What happens</th>
-<th>What to do</th>
-<th>More</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>KI-6</td>
-<td><code>UnpackData</code> assembles <code>gripper_object_detection</code> with its two bits swapped: it reports 1 where the gripper sends 2 (object found while opening) and 2 where it sends 1 (object found while closing); 0 and 3 are right.</td>
-<td>Swap 1 and 2 in your program, or test for "1 or 2" when any object will do.</td>
-<td><a href="../../06-operation/python/#the-first-program">With Python</a></td>
-</tr>
 </tbody>
 </table>
 <h3 id="parol6-python-api-parol6">PAROL6 Python API (parol6)<a class="headerlink" href="#parol6-python-api-parol6" title="Permanent link">&para;</a></h3>
@@ -2336,9 +2310,40 @@ them in one place. Which versions work together is in <a href="../../appendix/co
 </tr>
 <tr>
 <td>KI-9</td>
-<td>The MSG's <code>current</code> is a fraction of 100 to 2800 mA, so <code>current=1.0</code> commands 2800 mA, more than any of the three steppers takes, and the firmware does not clamp it.</td>
+<td>The MSG's <code>current</code> is a fraction of 100 to 2800 mA, so <code>current=1.0</code> commands 2800 mA, more than any of the three steppers takes, and the firmware clamps only above 2800 mA.</td>
 <td>Keep <code>current</code> at or below 0.51 (21.5 mm stepper), 0.70 (40 mm) or 0.74 (60 mm).</td>
 <td><a href="../../06-operation/robots/#driving-it">On PAROL6 and PAR6, driving it</a></td>
+</tr>
+</tbody>
+</table>
+<h3 id="fixed">Fixed<a class="headerlink" href="#fixed" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>What happened</th>
+<th>Fixed in</th>
+<th>More</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>KI-5</td>
+<td>The motor calibration (<code>#Cal</code>) leaves the driver's current limit at 1600 mA, whatever it was before, which is more than the 21.5 mm stepper's 1.5 A. Gripper moves use the current of each command; the limit applies when the driver runs as a motor (Motor GUI's Motor side, the <abbr title="the serial port of the driver inside the gripper, 3.3 V, 256000 baud">UART</abbr> motor modes).</td>
+<td>109: calibration puts back the current limit that was in force when it started</td>
+<td><a href="../../build/first-run/#current-limit">Driver setup, current limit</a></td>
+</tr>
+<tr>
+<td>KI-6</td>
+<td><code>UnpackData</code> assembles <code>gripper_object_detection</code> with its two bits swapped: it reports 1 where the gripper sends 2 (object found while opening) and 2 where it sends 1 (object found while closing); 0 and 3 are right.</td>
+<td>1.21: <code>UnpackData</code> reads the two bits the right way round</td>
+<td><a href="../../06-operation/python/#the-first-program">With Python</a></td>
+</tr>
+<tr>
+<td>KI-10</td>
+<td>A status poll (an empty Send_gripper_data_pack) or a repeat of the command that reaches the driver within one control cycle (about 0.16 ms) of a new move command cancels it as new. The move then runs in position mode, and object detection reads 3 while the jaws press on an object.</td>
+<td>109: only a new command marks itself new, so a poll or a repeat no longer cancels the move</td>
+<td><a href="../../06-operation/can/#host-checklist">Over <abbr title="Controller Area Network, the bus between the robot or the PC and the gripper">CAN</abbr>, host checklist</a></td>
 </tr>
 </tbody>
 </table>

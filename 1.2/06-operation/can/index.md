@@ -69,8 +69,8 @@ The answer to every frame tells the whole state, so a host never has to ask twic
 - **Watchdog:** with Send_Watchdog set, keep the polls coming. The gripper commands and the status requests
   reset it; Send_Clear_Error and Send_gripper_calibrate do not. After a timeout, fix the host, clear, and
   resume.
-- **Current:** keep the commanded current within the stepper's maximum, 1.5, 2.0 or 2.1 A; the firmware does
-  not clamp it ([Force and speed](https://docs.source-robotics.com/MSG-gripper-docs/1.2/03-technical-data/force-and-speed/)).
+- **Current:** keep the commanded current within the stepper's maximum, 1.5, 2.0 or 2.1 A; the firmware clamps
+  it only at 2800 mA ([Force and speed](https://docs.source-robotics.com/MSG-gripper-docs/1.2/03-technical-data/force-and-speed/)).
 
 ## From a PC
 

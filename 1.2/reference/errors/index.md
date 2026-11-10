@@ -16,7 +16,8 @@ Byte 3 of Respond_Gripper_data_pack, the answer to every gripper command, bits n
 
 The Python library's attributes are `gripper_activated`, `gripper_action_status`, `gripper_object_detection`,
 `gripper_temperature_error`, `gripper_timeout_error`, `gripper_estop_error` and `gripper_calibrated`; library
-version 1.20 assembles `gripper_object_detection` with its two bits swapped (1 and 2 exchanged).
+1.20 and older assemble `gripper_object_detection` with its two bits swapped (1 and 2 exchanged), 1.21 and newer
+read them right.
 
 ## The driver's error flags
 

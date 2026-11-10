@@ -1324,7 +1324,7 @@
 <p>Build or inspect a frame using the command definitions of this manual's firmware release. All calculations
 run in your browser; the tool does not connect to an adapter or send commands to hardware.</p>
 <h2 id="downloads">Downloads<a class="headerlink" href="#downloads" title="Permanent link">&para;</a></h2>
-<p><a href="../../assets/can/protocol-V108.json">Command definitions (JSON)</a> · <a href="../../assets/can/protocol-V108-gripper.dbc">Gripper DBC</a></p>
+<p><a href="../../assets/can/protocol-V109.json">Command definitions (JSON)</a> · <a href="../../assets/can/protocol-V109-gripper.dbc">Gripper DBC</a></p>
 <p>The JSON includes the firmware tag, source commit, message IDs, every documented layout and its bit order.
 The DBC files cover <strong>nodes 0 to 13</strong>, with both the clean and fault-bit identifiers of driver replies.
 Reserved commands are omitted. Values use the firmware's native units: ticks, ticks/s, mA and the units in
@@ -1340,7 +1340,7 @@ numeric status (1 = closing, 2 = opening).</p>
 current 300 mA, activate and action set, E-stop and release direction clear. These are an illustration of the
 encoding; the device's current and motion limits still apply. Select another message above the fields to build
 one of its documented forms. To inspect a reply, enter its identifier and data bytes below.</p>
-<div class="can-tool" data-schema="../../assets/can/protocol-V108.json" markdown="0">
+<div class="can-tool" data-schema="../../assets/can/protocol-V109.json" markdown="0">
   <p class="can-tool__status" role="status">Loading the firmware's command definitions…</p>
   <fieldset><legend>Build a frame</legend>
     <label for="ct-node">Node ID (0–13)</label><input id="ct-node" name="node" type="number" min="0" max="13" step="1" value="0">
