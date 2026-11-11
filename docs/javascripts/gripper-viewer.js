@@ -40,10 +40,12 @@ async function mount(el) {
   const state = { body: null, jaws: null, jawNodes: {}, colors: { ...cfg.default }, opening: cfg.default.opening };
   const dirs = cfg.dir ? { jaw1: new THREE.Vector3().fromArray(cfg.dir.jaw1), jaw2: new THREE.Vector3().fromArray(cfg.dir.jaw2) } : null;
 
+  // a part with a colour of its own in the model (a motor, a lens, a TPU pad) sits under a node named fixed_...
+  const fixed = (o) => { for (let p = o; p; p = p.parent) if ((p.name || "").startsWith("fixed_")) return true; return false; };
   function paint(obj, hex) {
     if (!obj) return;
     obj.traverse((o) => {
-      if (o.isMesh) {
+      if (o.isMesh && !fixed(o)) {
         if (!o.userData.own) { o.material = o.material.clone(); o.userData.own = true; }
         o.material.color.set(hex);
       }

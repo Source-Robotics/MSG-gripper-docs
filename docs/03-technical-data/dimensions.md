@@ -70,7 +70,18 @@ The STEP files of every part are in the product repository, and are the referenc
 - [Print files](https://github.com/Source-Robotics/MSG-compliant-AI-stepper-gripper/tree/main/Print%20files):
   the same parts as 3MF, ready to slice.
 
-![The STEP model of the gripper without its jaws, seen from the front, into the camera](../assets/MSG_3D_model.webp){ width="600" }
+<div class="grid" markdown>
+
+![The robot model of the MSG with the solid jaws](../assets/renders/msg_solid.webp#only-light){ width="420" }
+![The robot model of the MSG with the solid jaws](../assets/renders/msg_solid_dark.webp#only-dark){ width="420" }
+
+![The robot model of the MSG with the TPU jaws](../assets/renders/msg_soft_tpu.webp#only-light){ width="420" }
+![The robot model of the MSG with the TPU jaws](../assets/renders/msg_soft_tpu_dark.webp#only-dark){ width="420" }
+
+</div>
+
+<!-- Rendered from projects/robot_descriptions (v2.19.0-1-ga626564, mujoco/msg/scene_solid.xml and scene_soft_tpu.xml)
+     with a transparent background and a thin outline per theme. -->
 
 ## For simulation
 

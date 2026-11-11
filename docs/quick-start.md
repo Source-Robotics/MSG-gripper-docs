@@ -33,7 +33,8 @@ More: the [What you need](01-overview/what-you-need.md) page lists the parts.
 1. Check the cable against [Connector and pinout](03-technical-data/connector.md): gripper pin 1 is +24 V,
    pin 3 GND, pin 4 CANH, pin 2 CANL.
 
-    ![M8 male on the gripper: front mating face and numbered signals](assets/m8-gripper-pinout.svg){ width="520" }
+    ![M8 male on the gripper, as it sits in the gripper: the numbered signals](assets/m8-gripper-pinout.svg#only-light) { width="520" }
+    ![M8 male on the gripper, as it sits in the gripper: the numbered signals](assets/m8-gripper-pinout_dark.svg#only-dark) { width="520" }
 
 2. Check continuity before the first power-up.
 3. Connect the supply and the CANvas adapter as shown below.

@@ -6,7 +6,8 @@ The gripper has one connector, an M8 4-pin male on the side of the body, and one
 
 ## Pin numbers
 
-![M8 male on the gripper: front mating face and numbered signals](../assets/m8-gripper-pinout.svg){ width="650" }
+![M8 male on the gripper, as it sits in the gripper: the numbered signals](../assets/m8-gripper-pinout.svg#only-light) { width="650" }
+![M8 male on the gripper, as it sits in the gripper: the numbered signals](../assets/m8-gripper-pinout_dark.svg#only-dark) { width="650" }
 
 The drawing shows the connector's staggered contact layout. Look **into the male connector on
 the gripper**, with its pins visible. The female cable connector has the

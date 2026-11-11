@@ -34,11 +34,12 @@ picture a teleoperator and a learning model need.
   <div class="gripper-viewer__controls">
     <label class="gripper-viewer__field">Opening <input type="range" name="opening" min="0" max="100" value="50"></label>
     <label class="gripper-viewer__field">Body <span class="gripper-viewer__swatches" data-target="body"></span><input type="color" name="body" value="#d2d2cf" title="Any colour"></label>
-    <label class="gripper-viewer__field">Jaws <span class="gripper-viewer__swatches" data-target="jaws"></span><input type="color" name="jaws_color" value="#1a1a1a" title="Any colour"></label>
+    <label class="gripper-viewer__field">Jaws <select name="jaws"></select></label>
+    <label class="gripper-viewer__field">Jaw colour <span class="gripper-viewer__swatches" data-target="jaws"></span><input type="color" name="jaws_color" value="#1a1a1a" title="Any colour"></label>
     <button type="button" name="reset" class="md-button">Reset view</button>
   </div>
-  <p class="gripper-viewer__hint">Drag to turn the gripper, scroll to zoom, open and close the jaws, try the colours. The model is the
-gripper's URDF, the 150 mm rail variant; the current URDF and MuJoCo models are linked from the repository's <a href="https://github.com/Source-Robotics/MSG-compliant-AI-stepper-gripper/tree/main/msg_description">msg_description</a> guide. The shop sells the body in black and grey.</p>
+  <p class="gripper-viewer__hint">Drag to turn the gripper, scroll to zoom, open and close the jaws, try the jaws and the colours. The model is the
+gripper's robot model, the 150 mm rail with the 21.5 mm stepper, with the solid or the TPU jaws; its URDF and MuJoCo files are in <a href="https://github.com/Source-Robotics/robot_descriptions/tree/main/urdf/msg_description">robot_descriptions</a>. The shop sells the body in black and grey.</p>
 </div>
 
 <div class="grid cards" markdown>

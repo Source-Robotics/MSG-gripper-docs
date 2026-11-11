@@ -2,12 +2,17 @@
  "body": "body.glb",
  "jaws": [
   {
-   "key": "printed",
-   "label": "Printed jaws",
-   "file": "jaws_printed.glb"
+   "key": "solid",
+   "label": "Solid jaws",
+   "file": "jaws_solid.glb"
+  },
+  {
+   "key": "soft_tpu",
+   "label": "TPU jaws",
+   "file": "jaws_soft_tpu.glb"
   }
  ],
- "travel_m": 0.052,
+ "travel_m": 0.0525,
  "dir": {
   "jaw1": [
    7e-06,
@@ -33,7 +38,7 @@
   }
  },
  "default": {
-  "jaws": "printed",
+  "jaws": "solid",
   "opening": 0.5,
   "body": "#d2d2cf",
   "jaws_color": "#1a1a1a"
@@ -42,5 +47,6 @@
   "azimuth_deg": 55,
   "polar_deg": 68,
   "fill": 1.0
- }
+ },
+ "source": "robot_descriptions v2.19.0-1-ga626564, urdf/msg_description"
 }
