@@ -3,7 +3,10 @@
 The MSG is a two-jaw parallel gripper driven by a NEMA 17 stepper under field-oriented control. The
 [STEPFOC driver](https://docs.source-robotics.com/STEPFOC-docs/) on the back of the stepper regulates the motor's
 current, so a move sets not only where the jaws go and how fast, but how hard they press: the current limit is the
-grip force. The jaws stop on an object, hold it with that force, and the driver reports that an object was found.
+grip force.
+
+The jaws stop on an object, hold it with that force, and the driver reports that an object was found.
+
 We designed the MSG specifically for teleoperation, VLA (vision-language-action) training and physical
 intelligence. A camera on top of the body looks down between the jaws, from a place chosen for a clear view of
 both jaws and the object between them.
@@ -30,9 +33,13 @@ through the stepper cover ([CAN termination](../04-installation/can-termination.
 ## What the firmware does
 
 After power-up the gripper calibrates by finding both end stops. Then it takes move commands: a position from 0
-(open) to 255 (closed), a speed from 0 to 255 and a current limit in mA. When the jaws stop short of the target
+(open) to 255 (closed), a speed from 0 to 255 and a current limit in mA.
+
+When the jaws stop short of the target
 with the current at its limit, an object is in the way and is held; when they reach the target, the position is
-held. Every answer carries the state: moving, object found while closing or opening, or at the position. The
+held. Every answer carries the state: moving, object found while closing or opening, or at the position.
+
+The
 gripper stops itself on an over-temperature, an E-stop bit from the host, a CAN watchdog that runs out, and every
 fault the driver detects. [How the gripper works](../06-operation/how-it-works.md) and
 [Errors and recovery](../06-operation/errors.md) have the details.

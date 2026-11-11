@@ -61,7 +61,9 @@ takes about ten seconds; the result is not kept over a power cycle, so this runs
     ```
 
 If the jaws do not move at all, or move to one end and stop: the gripper is in an error state (clear it first, see
-step 2), or the stepper is not calibrated. If the routine runs for 24 seconds and gives up, an end stop was not
+step 2), or the stepper is not calibrated.
+
+If the routine runs for 24 seconds and gives up, an end stop was not
 found: something blocks the jaws short of the end, or the mechanism is too stiff for 500 mA.
 
 Until the gripper reports *Calibrated*, send nothing but status polls: a move command or a clear during the

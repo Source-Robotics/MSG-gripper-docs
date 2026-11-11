@@ -12,5 +12,6 @@ it to disconnect it.
 | alone on a bench bus with the CANvas adapter (which has its own termination) | ON |
 | in the middle of a bus, with other nodes after it | off |
 
-A bus with the right termination measures about 60 Ω between CANH and CANL with everything unpowered. A missing
-or doubled termination shows up as lost frames and a gripper that answers only sometimes.
+!!! success "Check"
+    A bus with the right termination measures about 60 Ω between CANH and CANL with everything unpowered. A
+    missing or doubled termination shows up as lost frames and a gripper that answers only sometimes.

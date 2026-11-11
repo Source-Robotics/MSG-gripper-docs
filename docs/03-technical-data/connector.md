@@ -23,6 +23,7 @@ than matching wire colours or the installed housing's rotation.
 These are the pin numbers the gripper is built with. The MSG and the SSG-48 share this wiring and
 their cables; page 17 of the [SSG-48 assembly manual](https://github.com/Source-Robotics/SSG-48-adaptive-electric-gripper/blob/main/Assembly%20manual/Gripper_assembly_manual.pdf) gives it,
 in a photo of the connector from the back, where the wires are soldered: the mirror image of the picture above.
+
 They describe the **gripper end**. PAROL6 and PAR6 use different connections at the robot end:
 [The cable](../04-installation/cable.md) gives both diagrams. Check continuity with the supply disconnected.
 

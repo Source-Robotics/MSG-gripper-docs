@@ -1,7 +1,9 @@
 # Maintenance
 
 The gripper needs little: every wearing part is printed, so a worn part is replaced by printing a new one, and
-the mechanism is a rail, two racks and a pinion that want a little grease now and then. Power the gripper off
+the mechanism is a rail, two racks and a pinion that want a little grease now and then.
+
+Power the gripper off
 before any work on it. Before you open the stepper cover or touch the driver, unplug the supply and touch earthed
 metal: static electricity damages the driver board. Hold the board by its edges.
 
@@ -25,7 +27,9 @@ metal: static electricity damages the driver board. Hold the board by its edges.
 ## Cleaning
 
 Clean the gripper switched off and unplugged. Wipe the printed parts with a dry or slightly damp cloth, or with a little isopropyl
-alcohol on the cloth for grease; use no other solvents, such as acetone: the body is PETG, the pads are TPU. Never spray or pour anything onto the gripper; the driver
+alcohol on the cloth for grease; use no other solvents, such as acetone: the body is PETG, the pads are TPU.
+
+Never spray or pour anything onto the gripper; the driver
 behind the stepper cover and the M8 connector are open to it, and it is not waterproof or dustproof. Brush or blow
 chips out of the rail and the racks rather than wash them out, then grease them as above.
 

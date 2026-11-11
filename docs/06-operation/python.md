@@ -73,7 +73,9 @@ for position in (200, 20, 200, 20):
 ```
 
 The answer to a move command is sent before the gripper acts on it, so it still carries the state from before:
-after a finished move, object detection 3. The example reads that answer and drops it. At the very start of a
+after a finished move, object detection 3. The example reads that answer and drops it.
+
+At the very start of a
 move the jaws are still slow, and with the current near its limit the object detection can briefly read 1 or 2;
 the pause of 0.1 s covers that. While the gripper calibration runs, send only empty frames: a full command or
 Send_Clear_Error ends the calibration, and the gripper stays uncalibrated.

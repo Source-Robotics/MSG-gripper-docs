@@ -13,10 +13,13 @@ offers an 8 mm shaft takes the gripper this way.
 
 ## PAROL6
 
-For the PAROL6 wrist, replace `ring_cover` with `ring_cover-PAROL6` from the STEP files (`Common parts`): it bolts
-to the robot's last joint. Tighten the shaft coupler's two clamp screws with blue threadlocker. The PAROL6
-gripper cable then runs from the gripper to the robot's gripper port; see [The cable](cable.md) and
-[On PAROL6 and PAR6](../06-operation/robots.md), which also has the joint 5 homing offset.
+For the PAROL6 wrist:
+
+1. Replace `ring_cover` with `ring_cover-PAROL6` from the STEP files (`Common parts`): it bolts to the robot's
+   last joint.
+2. Tighten the shaft coupler's two clamp screws with blue threadlocker.
+3. Run the PAROL6 gripper cable from the gripper to the robot's gripper port; see [The cable](cable.md) and
+   [On PAROL6 and PAR6](../06-operation/robots.md), which also has the joint 5 homing offset.
 
 ![The gripper with the PAROL6 ring cover (red)](../assets/MSG_with_parol_cover.webp){ width="600" }
 

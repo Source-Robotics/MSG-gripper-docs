@@ -102,7 +102,9 @@ Python or over CAN.
 
 Connected over **UART** instead, through the [serial adapter](https://source-robotics.com/products/usb-to-serial-adapter)
 on the driver's UART port, Motor GUI's setup page has tuned presets for the grippers: *MSG 21.5 mm motor*, *MSG 40 mm
-motor* and *MSG 60 mm motor*, and *SSG-48* for the other gripper. A preset writes the
+motor* and *MSG 60 mm motor*, and *SSG-48* for the other gripper.
+
+A preset writes the
 motor's parameters, the loop gains, gripper mode, the thermistor and the CAN ID to the driver and saves them; its
 CAN ID is 6, the PAR6 gripper's, so change it before applying for another robot.
 [Driver configuration](../build/first-run.md) says when to apply it, and lists the same settings as commands
