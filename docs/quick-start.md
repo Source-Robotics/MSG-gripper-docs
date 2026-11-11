@@ -50,7 +50,8 @@ More: the [What you need](01-overview/what-you-need.md) page lists the parts.
 
 4. Set the gripper's CAN termination ON for this two-node bench bus; the CANvas adapter provides the other end.
 
-    ![The termination switch of the driver, seen through the stepper cover](assets/Gripper_termination.jpg){ width="520" }
+    ![The termination switch of the driver, seen through the stepper cover](assets/Gripper_termination.webp#only-light){ width="520" }
+    ![The termination switch of the driver, seen through the stepper cover](assets/Gripper_termination_dark.webp#only-dark){ width="520" }
 
 5. Leave the gripper at its shipped node ID, **0**, unless you already assigned another.
 

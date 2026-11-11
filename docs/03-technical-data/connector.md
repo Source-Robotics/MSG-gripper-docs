@@ -2,7 +2,8 @@
 
 The gripper has one connector, an M8 4-pin male on the side of the body, and one cable: 24 V and the CAN bus.
 
-![The M8 connector on the gripper body and its four signals: 24V, GND, CANH, CANL](../assets/MSG_pinout.webp){ width="900" }
+![The M8 connector on the gripper body and its four signals: 24V, GND, CANH, CANL](../assets/MSG_pinout.webp#only-light){ width="900" }
+![The M8 connector on the gripper body and its four signals: 24V, GND, CANH, CANL](../assets/MSG_pinout_dark.webp#only-dark){ width="900" }
 
 ## Pin numbers
 
