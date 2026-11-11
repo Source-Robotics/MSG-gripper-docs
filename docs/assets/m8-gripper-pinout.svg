@@ -1,5 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 430" width="760" height="430" role="img" aria-labelledby="title desc">
 <title id="title">M8 gripper connector, male mating face</title>
+<rect width="760" height="430" rx="12" fill="#ffffff"/>
 <desc id="desc">Staggered four-pin layout: pin 2 CANH at the upper right, pin 1 CANL at the upper left, pin 3 +24 V at the lower left, pin 4 GND at the lower right. The female contact view and the solder side are mirrored.</desc>
 <text x="24" y="34" font-family="Roboto, Arial, sans-serif" font-size="23" font-weight="700" fill="#17202a">Gripper end &#183; male mating face</text>
 <text x="24" y="60" font-family="Roboto, Arial, sans-serif" font-size="16" fill="#4b5563">Where the cable plugs in. Match the moulded pin numbers; schematic, not to scale.</text>
