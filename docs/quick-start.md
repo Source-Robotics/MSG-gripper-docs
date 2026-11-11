@@ -30,8 +30,8 @@ More: the [What you need](01-overview/what-you-need.md) page lists the parts.
 
 ## 3. Wire with power off
 
-1. Check the cable against [Connector and pinout](03-technical-data/connector.md): gripper pin 1 is +24 V,
-   pin 3 GND, pin 4 CANH, pin 2 CANL.
+1. Check the cable against [Connector and pinout](03-technical-data/connector.md): gripper pin 1 is CANL,
+   pin 2 CANH, pin 3 +24 V, pin 4 GND.
 
     ![M8 male on the gripper, as it sits in the gripper: the numbered signals](assets/m8-gripper-pinout.svg#only-light) { width="520" }
     ![M8 male on the gripper, as it sits in the gripper: the numbered signals](assets/m8-gripper-pinout_dark.svg#only-dark) { width="520" }
@@ -42,10 +42,10 @@ More: the [What you need](01-overview/what-you-need.md) page lists the parts.
     ```mermaid
     flowchart LR
         PC[PC USB] --> A[CANvas adapter]
-        A -- CANH --> P4[Gripper pin 4: CANH]
-        A -- CANL --> P2[Gripper pin 2: CANL]
-        S[24 V supply] -- positive --> P1[Gripper pin 1: +24 V]
-        S -- return --> P3[Gripper pin 3: GND]
+        A -- CANH --> P2[Gripper pin 2: CANH]
+        A -- CANL --> P1[Gripper pin 1: CANL]
+        S[24 V supply] -- positive --> P3[Gripper pin 3: +24 V]
+        S -- return --> P4[Gripper pin 4: GND]
     ```
 
 4. Set the gripper's CAN termination ON for this two-node bench bus; the CANvas adapter provides the other end.

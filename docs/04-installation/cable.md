@@ -40,8 +40,8 @@ colours are those of the cable in the BOM.
 === "PAROL6"
     ![The PAROL6 cable: the pins are crossed between the two ends](../assets/PAROL6_cable.webp){ width="320" }
 
-    Male end at the robot, female end at the gripper: pin 1 to 3, 2 to 4, 3 to 1, 4 to 2. The PAROL6 socket has
-    GND on pin 1, CANH on 2, 24 V on 3 and CANL on 4; the cable brings each signal to the gripper's pin for it.
+    Male end at the robot, female end at the gripper: pin 1 to 3, 2 to 4, 3 to 1, 4 to 2. The crossing brings each
+    signal of the PAROL6 socket to the gripper's pin for it.
 
 === "PAR6"
     ![The PAR6 cable: pin to pin](../assets/PAR6_cable.png){ width="200" }

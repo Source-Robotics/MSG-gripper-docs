@@ -9,21 +9,25 @@ The gripper has one connector, an M8 4-pin male on the side of the body, and one
 ![M8 male on the gripper, as it sits in the gripper: the numbered signals](../assets/m8-gripper-pinout.svg#only-light) { width="650" }
 ![M8 male on the gripper, as it sits in the gripper: the numbered signals](../assets/m8-gripper-pinout_dark.svg#only-dark) { width="650" }
 
-The drawing shows the connector's staggered contact layout. Look **into the male connector on
-the gripper**, with its pins visible. The female cable connector has the
-mirrored contact view. The solder side is also mirrored: use the numbers moulded into the connector, rather
-than matching wire colours or the installed housing's rotation.
+The drawing shows the connector's staggered contact layout. Look **into the male connector on the gripper**, with
+its pins visible: the mating face, where the cable plugs in. The female cable connector has the mirrored contact
+view. Use the numbers moulded into the connector, rather than matching wire colours or the installed housing's
+rotation.
 
 | Gripper pin | Signal | Connection |
 |---|---|---|
-| **1** | **+24 V** | positive motor supply |
-| **2** | **CANL** | CAN low |
-| **3** | **GND** | power-supply return |
-| **4** | **CANH** | CAN high, 1 Mbit/s with CANL |
+| **1** | **CANL** | CAN low |
+| **2** | **CANH** | CAN high, 1 Mbit/s with CANL |
+| **3** | **+24 V** | positive motor supply |
+| **4** | **GND** | power-supply return |
 
-These are the pin numbers the gripper is built with. The MSG and the SSG-48 share this wiring and
-their cables; page 17 of the [SSG-48 assembly manual](https://github.com/Source-Robotics/SSG-48-adaptive-electric-gripper/blob/main/Assembly%20manual/Gripper_assembly_manual.pdf) gives it,
-in a photo of the connector from the back, where the wires are soldered: the mirror image of the picture above.
+These are the numbers of the mating face, the side you connect to. The MSG and the SSG-48 share this wiring and
+their cables.
+
+!!! note "Building the gripper: the solder side"
+    Page 17 of the [SSG-48 assembly manual](https://github.com/Source-Robotics/SSG-48-adaptive-electric-gripper/blob/main/Assembly%20manual/Gripper_assembly_manual.pdf)
+    numbers the other side of the same connector, where the wires are soldered when the gripper is built:
+    1 24V, 2 CANL, 3 GND, 4 CANH. Use those numbers for soldering only, and the table above for connecting.
 
 They describe the **gripper end**. PAROL6 and PAR6 use different connections at the robot end:
 [The cable](../04-installation/cable.md) gives both diagrams. Check continuity with the supply disconnected.
