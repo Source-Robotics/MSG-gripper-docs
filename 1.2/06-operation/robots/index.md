@@ -1,7 +1,9 @@
 # On PAROL6 and PAR6
 
 The gripper is made for the Source Robotics arms. Both drive it over their own CAN bus; their software calibrates
-it, moves it and reads its state, so a program for the robot does not talk CAN itself. What any robot's software
+it, moves it and reads its state, so a program for the robot does not talk CAN itself.
+
+What any robot's software
 needs to carry the gripper, the tool centre point, the mass, the centre of mass and the inertia, is on
 [Data for robot integration](https://docs.source-robotics.com/MSG-gripper-docs/1.2/03-technical-data/integration-data/).
 
@@ -24,7 +26,9 @@ needs to carry the gripper, the tool centre point, the mass, the centre of mass 
 ### The joint 5 homing offset
 
 Joint 5 homes against the tool, and the control board firmware's default offset (8900) is for the pneumatic
-gripper holder, not for the MSG's ring cover. After the first homing, check joint 5 with the pin through its
+gripper holder, not for the MSG's ring cover.
+
+After the first homing, check joint 5 with the pin through its
 witness marks. If it is off, measure the offset and set `j5_homing_offset` in `main.cpp` of the control board
 firmware, as the PAROL6 documentation's mastering page describes.
 

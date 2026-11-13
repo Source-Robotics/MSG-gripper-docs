@@ -50,9 +50,13 @@ for the first and *while opening* for the second.
 
 The camera mount on top of the body carries an OV9732 USB camera module (100° version in the BOM), looking down
 between the jaws. Its place and angle were chosen with care: the camera sees both jaws and the object between
-them, the view that teleoperation and VLA training need. It is a plain USB camera with its own cable,
+them, the view that teleoperation and VLA training need.
+
+It is a plain USB camera with its own cable,
 independent of the gripper's electronics: the computer sees it as an ordinary webcam, so any program that
-reads one works with it, from the camera app to OpenCV (`cv2.VideoCapture`) in Python or a ROS 2 camera node. The
+reads one works with it, from the camera app to OpenCV (`cv2.VideoCapture`) in Python or a ROS 2 camera node.
+
+The
 mount and its lid are printed parts (`camera extension`, `camera_lid`), and a gripper without a camera simply leaves
 them off.
 

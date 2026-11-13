@@ -4,7 +4,8 @@ A CAN bus needs a 120 Ω resistor at each of its two ends. The gripper's driver 
 reachable through an opening in the stepper cover: slide it to the **ON** mark to connect the resistor, away from
 it to disconnect it.
 
-![The termination switch of the driver, seen through the stepper cover](https://docs.source-robotics.com/MSG-gripper-docs/1.2/assets/Gripper_termination.jpg){ width="700" }
+![The termination switch of the driver, seen through the stepper cover](https://docs.source-robotics.com/MSG-gripper-docs/1.2/assets/Gripper_termination.webp){ width="700" }
+![The termination switch of the driver, seen through the stepper cover](https://docs.source-robotics.com/MSG-gripper-docs/1.2/assets/Gripper_termination_dark.webp){ width="700" }
 
 | The gripper is | Switch |
 |---|---|
@@ -12,5 +13,6 @@ it to disconnect it.
 | alone on a bench bus with the CANvas adapter (which has its own termination) | ON |
 | in the middle of a bus, with other nodes after it | off |
 
-A bus with the right termination measures about 60 Ω between CANH and CANL with everything unpowered. A missing
-or doubled termination shows up as lost frames and a gripper that answers only sometimes.
+!!! success "Check"
+    A bus with the right termination measures about 60 Ω between CANH and CANL with everything unpowered. A
+    missing or doubled termination shows up as lost frames and a gripper that answers only sometimes.

@@ -83,7 +83,9 @@ Send_gripper_data_pack carries, in 5 bytes:
 | Release direction | bit | read by the firmware but not used |
 
 The same command sent twice does nothing new: the driver compares every command with the previous one, and only
-a changed command resets the "at position" state and starts a move. So a host may repeat the command at any
+a changed command resets the "at position" state and starts a move.
+
+So a host may repeat the command at any
 rate, which the CAN watchdog needs; to move the jaws from a held position to the same position again, change
 the speed or the current by one.
 
@@ -144,9 +146,12 @@ sequenceDiagram
 ## Object detection, exactly
 
 While a move is in progress and the jaws are not yet at the target, the driver reads *moving* (0) as long as the
-jaws move faster than 500 encoder ticks per second, about 1.6 mm/s. When they are slower than that and the motor
+jaws move faster than 500 encoder ticks per second, about 1.6 mm/s.
+
+When they are slower than that and the motor
 current is above 80 % of the commanded limit, something stops them: *object found*, 1 or 2 by the sign of the
 current. Below 80 % with the jaws slow, it still reads *moving*: the object is soft and still being squeezed.
+
 At the very start of a move the jaws are slow too, and with the current already near its limit the state can
 briefly read 1 or 2; a host gives a move about 100 ms before it trusts the state. Once the target is reached, 3,
 and it stays 3 until a different command arrives.
@@ -159,12 +164,16 @@ exactly that.
 
 The current limit of a move is the driver's Iq limit for the duration of the move and the hold. It bounds the
 torque, so the force on an object, and it also bounds how fast the jaws accelerate: a low limit with a high speed
-gives a gentle, slow-starting move. The temperature of the motor is the other bound: holding an object at a high
+gives a gentle, slow-starting move.
+
+The temperature of the motor is the other bound: holding an object at a high
 current for minutes heats the windings, and at 75 °C the thermistor stops the gripper.
 
 ## Timing
 
 The driver runs its loops at 6250 Hz; a move command takes effect at the next cycle, and the answer leaves within
-a millisecond. The CAN bus at 1 Mbit/s carries a command and its answer in well under half a millisecond, so a host
+a millisecond.
+
+The CAN bus at 1 Mbit/s carries a command and its answer in well under half a millisecond, so a host
 can run the gripper at several hundred commands per second; 50 Hz is a good rate for a controller that polls the
 state.

@@ -40,8 +40,11 @@ colours are those of the cable in the BOM.
 === "PAROL6"
     ![The PAROL6 cable: the pins are crossed between the two ends](https://docs.source-robotics.com/MSG-gripper-docs/1.2/assets/PAROL6_cable.webp){ width="320" }
 
-    Male end at the robot, female end at the gripper: pin 1 to 3, 2 to 4, 3 to 1, 4 to 2. The PAROL6 socket has
-    GND on pin 1, CANH on 2, 24 V on 3 and CANL on 4; the cable brings each signal to the gripper's pin for it.
+    Male end at the robot, female end at the gripper. The cable mirrors the CAN pair and the power pair between its
+    ends, so each signal reaches the gripper's pin for the same signal: +24 V to +24 V, GND to GND, CANH to CANH,
+    CANL to CANL. Wire a cable of your own by signal, and check each end against its own pin table: the PAROL6
+    [gripper socket](https://docs.source-robotics.com/PAROL-docs/latest/end-effectors/flange/#the-gripper-socket)
+    and the gripper's [pin numbers](https://docs.source-robotics.com/MSG-gripper-docs/1.2/03-technical-data/connector/#pin-numbers).
 
 === "PAR6"
     ![The PAR6 cable: pin to pin](https://docs.source-robotics.com/MSG-gripper-docs/1.2/assets/PAR6_cable.png){ width="200" }

@@ -13,7 +13,9 @@ gripper's URDF, the 150 mm rail with the 21.5 mm stepper; the current URDF and M
 </div>
 
 The drawings show the variant of the 3D model: the 150 mm rail, the 21.5 mm stepper and the solid jaws, with the
-jaws fully open. All dimensions are in millimetres, measured on the gripper's CAD as the
+jaws fully open.
+
+All dimensions are in millimetres, measured on the gripper's CAD as the
 [robot model](https://docs.source-robotics.com/MSG-gripper-docs/1.2/03-technical-data/integration-data/) carries it. Heights are counted from the coupler's back face, the face that
 rests against the robot; the coupler axis is the gripper's axis on the robot.
 
@@ -36,7 +38,9 @@ repository draws the four views from the model and prints every number on them.
 ## Other rails and steppers
 
 The rail sets the width and the stroke; the stepper sets how far the stepper cover, and the camera mount on top of
-it, stand away from the rail. Neither changes the coupler, the jaws or the 110.30 mm to the jaw tips. The lengths
+it, stand away from the rail.
+
+Neither changes the coupler, the jaws or the 110.30 mm to the jaw tips. The lengths
 below are measured in the parts' STEP files; the overall sizes add them to the drawn variant.
 
 | Rail | Stroke | Body | Over the jaw blockers | Printed parts |
@@ -66,14 +70,24 @@ The STEP files of every part are in the product repository, and are the referenc
 - [Print files](https://github.com/Source-Robotics/MSG-compliant-AI-stepper-gripper/tree/main/Print%20files):
   the same parts as 3MF, ready to slice.
 
-![The STEP model of the gripper without its jaws, seen from the front, into the camera](https://docs.source-robotics.com/MSG-gripper-docs/1.2/assets/MSG_3D_model.webp){ width="600" }
+<div class="grid" markdown>
+
+![The robot model of the MSG with the solid jaws](https://docs.source-robotics.com/MSG-gripper-docs/1.2/assets/renders/msg_solid.webp){ width="420" }
+![The robot model of the MSG with the solid jaws](https://docs.source-robotics.com/MSG-gripper-docs/1.2/assets/renders/msg_solid_dark.webp){ width="420" }
+
+![The robot model of the MSG with the TPU jaws](https://docs.source-robotics.com/MSG-gripper-docs/1.2/assets/renders/msg_soft_tpu.webp){ width="420" }
+![The robot model of the MSG with the TPU jaws](https://docs.source-robotics.com/MSG-gripper-docs/1.2/assets/renders/msg_soft_tpu_dark.webp){ width="420" }
+
+</div>
 
 ## For simulation
 
 The product repository's [msg_description](https://github.com/Source-Robotics/MSG-compliant-AI-stepper-gripper/tree/main/msg_description)
 guide links the gripper's models, which are kept in [robot_descriptions](https://github.com/Source-Robotics/robot_descriptions):
 standalone URDF and MJCF (MuJoCo) packages of the gripper with solid or soft TPU jaws, with their meshes, collision
-shapes and mass properties, and the PAROL6 and PAR6 models with the gripper mounted. The numbers a robot needs,
+shapes and mass properties, and the PAROL6 and PAR6 models with the gripper mounted.
+
+The numbers a robot needs,
 the tool centre point, the mass and the inertia, are on [Data for robot integration](https://docs.source-robotics.com/MSG-gripper-docs/1.2/03-technical-data/integration-data/).
 
 [CAD and downloads](https://docs.source-robotics.com/MSG-gripper-docs/1.2/cad-files/) lists everything that can be downloaded.

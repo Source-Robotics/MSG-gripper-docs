@@ -16,9 +16,10 @@ each file is one jaw, mirrored in the slicer for the other side, except the soli
 
 ![The TPU jaw: a PETG body (black) and a TPU pad (yellow)](https://docs.source-robotics.com/MSG-gripper-docs/1.2/assets/tpujaws.webp){ width="700" }
 
-Print the body in PETG with your usual settings and the pad in TPU with 16 % infill, no top or bottom layers and
-two walls, for the softest pad. Then glue the pad to the body with ordinary super glue, in the orientation the
-pictures show: a pad glued the wrong way round leaves the jaws facing the wrong direction.
+1. Print the body in PETG with your usual settings.
+2. Print the pad in TPU with 16 % infill, no top or bottom layers and two walls, for the softest pad.
+3. Glue the pad to the body with ordinary super glue, in the orientation the pictures show: a pad glued the wrong
+   way round leaves the jaws facing the wrong direction.
 
 <div class="grid" markdown>
 ![Apply super glue](https://docs.source-robotics.com/MSG-gripper-docs/1.2/assets/jaw_glue.webp){ width="300" }

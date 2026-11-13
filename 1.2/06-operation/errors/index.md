@@ -33,7 +33,9 @@ Send_Clear_Error, **Clear** in the GUI or `#Clear` clears every flag, the grippe
 idle. An error whose cause is still present comes straight back: a hot motor, a supply that is still low.
 
 The gripper's E-stop counts as such a cause while the E-stop bit of the last gripper command is 1: the driver
-raises the error again at every cycle. So after an E-stop, first send a gripper command with the E-stop bit at 0
+raises the error again at every cycle.
+
+So after an E-stop, first send a gripper command with the E-stop bit at 0
 and the action bit at 0 (or `#Gripstop 0` over UART), then clear. The next command with the action bit set moves
 the gripper again.
 

@@ -332,3 +332,35 @@
 .sr-repo--docs .md-source__repository { font-size: 0.55rem; }
 .md-nav__source .sr-repo { padding: 0.35rem 0.4rem; }
 .md-nav__source .sr-repo--docs { padding-top: 0; }
+
+/* Previous / Next at the end of every page's text (overrides/partials/page-nav.html): Previous left, Next right; on a
+   phone one above the other, full width */
+.md-typeset .page-nav { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.6rem; margin: 2.4rem 0 1.2rem; }
+.md-typeset .page-nav .md-button { display: inline-flex; align-items: center; gap: 0.5em; margin: 0; max-width: 100%; }
+.md-typeset .page-nav__next { margin-left: auto; text-align: right; }
+@media screen and (max-width: 44.9375em) {
+  .md-typeset .page-nav .md-button { width: 100%; justify-content: center; text-align: center; }
+}
+#print-site-page .page-nav { display: none !important; }
+@media print { .page-nav { display: none !important; } }
+
+/* The version selector on the Bill of materials page (docs/javascripts/bom-variants.js): a group of buttons per
+   choice, a summary of the version and its print files; the rows a version does not need are hidden, and every row
+   comes back in print. The rail length to buy is a green tag beside the rail's name. */
+.md-typeset .bom-variants__panel { margin: 1.2em 0 0.6em; }
+.md-typeset .bom-variants__q { font-weight: 700; margin: 0 0 0.4em; }
+.md-typeset .bom-variants__group { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; margin: 0.35em 0; }
+.md-typeset .bom-variants__group .md-button { margin: 0; font-size: 0.7rem; padding: 0.4em 1.1em; }
+.md-typeset .bom-variants__label { min-width: 4.6rem; font-weight: 700; color: var(--md-default-fg-color--light); }
+.md-typeset .bom-variants__summary { margin: 0.6em 0 1.2em; padding: 0.5rem 0.8rem; border-left: 0.2rem solid
+  var(--md-accent-fg-color); background: var(--md-code-bg-color); font-size: 0.75rem; }
+.md-typeset .bom-variants__summary p { margin: 0.3em 0; }
+.md-typeset .bom-variants__reset { font: inherit; color: var(--md-typeset-a-color); background: none; border: 0;
+  padding: 0; cursor: pointer; text-decoration: underline; }
+.md-typeset tr.bom-variants__off { display: none; }
+.md-typeset .bom-variants__pick { display: inline-block; margin-left: 0.4em; padding: 0 0.45em; border-radius: 0.6em;
+  font-size: 0.85em; font-weight: 700; white-space: nowrap; color: var(--md-accent-bg-color);
+  background: var(--md-accent-fg-color); }
+#print-site-page .bom-variants { display: none !important; }
+@media print { .bom-variants, .bom-variants__pick { display: none !important; }
+  .md-typeset tr.bom-variants__off { display: table-row !important; } }

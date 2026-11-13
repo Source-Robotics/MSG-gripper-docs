@@ -57,11 +57,12 @@ picture a teleoperator and a learning model need.
   <div class="gripper-viewer__controls">
     <label class="gripper-viewer__field">Opening <input type="range" name="opening" min="0" max="100" value="50"></label>
     <label class="gripper-viewer__field">Body <span class="gripper-viewer__swatches" data-target="body"></span><input type="color" name="body" value="#d2d2cf" title="Any colour"></label>
-    <label class="gripper-viewer__field">Jaws <span class="gripper-viewer__swatches" data-target="jaws"></span><input type="color" name="jaws_color" value="#1a1a1a" title="Any colour"></label>
+    <label class="gripper-viewer__field">Jaws <select name="jaws"></select></label>
+    <label class="gripper-viewer__field">Jaw colour <span class="gripper-viewer__swatches" data-target="jaws"></span><input type="color" name="jaws_color" value="#1a1a1a" title="Any colour"></label>
     <button type="button" name="reset" class="md-button">Reset view</button>
   </div>
-  <p class="gripper-viewer__hint">Drag to turn the gripper, scroll to zoom, open and close the jaws, try the colours. The model is the
-gripper's URDF, the 150 mm rail variant; the current URDF and MuJoCo models are linked from the repository's <a href="https://github.com/Source-Robotics/MSG-compliant-AI-stepper-gripper/tree/main/msg_description">msg_description</a> guide. The shop sells the body in black and grey.</p>
+  <p class="gripper-viewer__hint">Drag to turn the gripper, scroll to zoom, open and close the jaws, try the jaws and the colours. The model is the
+gripper's robot model, the 150 mm rail with the 21.5 mm stepper, with the solid or the TPU jaws; its URDF and MuJoCo files are in <a href="https://github.com/Source-Robotics/robot_descriptions/tree/main/urdf/msg_description">robot_descriptions</a>. The shop sells the body in black and grey.</p>
 </div>
 
 <div class="grid cards" markdown>
@@ -129,28 +130,42 @@ For a gripper already connected to a robot, use [On PAROL6 and PAR6](https://doc
 ## 2. Gather and mount
 
 You need a mounted gripper with jaws/fingers fitted, a **24 V supply**, a correctly wired **M8 cable**, a
-**CANvas USB-to-CAN adapter**, and Chrome or Edge. The [What you need](https://docs.source-robotics.com/MSG-gripper-docs/1.2/01-overview/what-you-need/) page lists
-the parts; [Mounting](https://docs.source-robotics.com/MSG-gripper-docs/1.2/04-installation/mounting/) and [Jaws](https://docs.source-robotics.com/MSG-gripper-docs/1.2/04-installation/jaws/) cover the mechanics.
+**CANvas USB-to-CAN adapter**, and Chrome or Edge.
+
+1. Mount the gripper: [Mounting](https://docs.source-robotics.com/MSG-gripper-docs/1.2/04-installation/mounting/).
+2. Fit the jaws: [Jaws](https://docs.source-robotics.com/MSG-gripper-docs/1.2/04-installation/jaws/).
 
 !!! success "Check"
     The body cannot shift, the jaws travel freely, and the cable cannot enter their path.
 
+More: the [What you need](https://docs.source-robotics.com/MSG-gripper-docs/1.2/01-overview/what-you-need/) page lists the parts.
+
 ## 3. Wire with power off
 
-1. Check the cable against [Connector and pinout](https://docs.source-robotics.com/MSG-gripper-docs/1.2/03-technical-data/connector/): gripper pin 1 is +24 V,
-   pin 3 GND, pin 4 CANH, pin 2 CANL. Check continuity before the first power-up.
-2. Connect the supply and the CANvas adapter as shown below.
-3. Set the gripper's CAN termination ON for this two-node bench bus; the CANvas adapter provides the other end.
-   Leave the gripper at its shipped node ID, **0**, unless you already assigned another.
+1. Check the cable against [Connector and pinout](https://docs.source-robotics.com/MSG-gripper-docs/1.2/03-technical-data/connector/): gripper pin 1 is CANL,
+   pin 2 CANH, pin 3 +24 V, pin 4 GND.
 
-```mermaid
-flowchart LR
-    PC[PC USB] --> A[CANvas adapter]
-    A -- CANH --> P4[Gripper pin 4: CANH]
-    A -- CANL --> P2[Gripper pin 2: CANL]
-    S[24 V supply] -- positive --> P1[Gripper pin 1: +24 V]
-    S -- return --> P3[Gripper pin 3: GND]
-```
+    ![M8 male on the gripper, as it sits in the gripper: the numbered signals](https://docs.source-robotics.com/MSG-gripper-docs/1.2/assets/gripper-m8-face.svg){ width="520" }
+    ![M8 male on the gripper, as it sits in the gripper: the numbered signals](https://docs.source-robotics.com/MSG-gripper-docs/1.2/assets/gripper-m8-face_dark.svg){ width="520" }
+
+2. Check continuity before the first power-up.
+3. Connect the supply and the CANvas adapter as shown below.
+
+    ```mermaid
+    flowchart LR
+        PC[PC USB] --> A[CANvas adapter]
+        A -- CANH --> P2[Gripper pin 2: CANH]
+        A -- CANL --> P1[Gripper pin 1: CANL]
+        S[24 V supply] -- positive --> P3[Gripper pin 3: +24 V]
+        S -- return --> P4[Gripper pin 4: GND]
+    ```
+
+4. Set the gripper's CAN termination ON for this two-node bench bus; the CANvas adapter provides the other end.
+
+    ![The termination switch of the driver, seen through the stepper cover](https://docs.source-robotics.com/MSG-gripper-docs/1.2/assets/Gripper_termination.webp){ width="520" }
+    ![The termination switch of the driver, seen through the stepper cover](https://docs.source-robotics.com/MSG-gripper-docs/1.2/assets/Gripper_termination_dark.webp){ width="520" }
+
+5. Leave the gripper at its shipped node ID, **0**, unless you already assigned another.
 
 !!! success "Check, unpowered"
     The supply polarity and cable pinout match, and CANH-to-CANL measures about **60 Ω** with the bus connected.
@@ -159,34 +174,48 @@ flowchart LR
 
 ## 4. Connect Motor GUI
 
-Power the gripper, plug the CANvas adapter into USB, and open [motorgui.com](https://motorgui.com/).
-Choose **CAN (slcan)** at **1 Mbit/s**, press **Connect**, and choose the adapter's serial port.
-Select node **0** (or your assigned ID) and switch from **Motor** to **Gripper**.
-
-The [illustrated Motor GUI guide](https://docs.source-robotics.com/MSG-gripper-docs/1.2/05-setup/motor-gui/) shows the panel.
+1. Power the gripper.
+2. Plug the CANvas adapter into USB.
+3. Open [motorgui.com](https://motorgui.com/).
+4. Choose **CAN (slcan)** at **1 Mbit/s**.
+5. Press **Connect**, and choose the adapter's serial port.
+6. Select node **0** (or your assigned ID).
+7. Switch from **Motor** to **Gripper**.
 
 !!! success "Check"
     Position and current feedback arrive. *Not calibrated* after power-up is normal. If feedback is missing,
     check the power, port, node ID and termination: [Troubleshooting](https://docs.source-robotics.com/MSG-gripper-docs/1.2/09-troubleshooting/). If a fault
     disables the controls, resolve it using [Errors and recovery](https://docs.source-robotics.com/MSG-gripper-docs/1.2/06-operation/errors/).
 
+More: the [illustrated Motor GUI guide](https://docs.source-robotics.com/MSG-gripper-docs/1.2/05-setup/motor-gui/) shows the panel.
+
 ## 5. Calibrate and activate
 
-If the panel shows an error, press **Clear errors** first. With the stroke empty and the gripper deactivated,
-press **Calibrate**, read the prompt, and press **Start calibration**. Let the jaws find both end stops, and
-press nothing else until the panel says **Calibrated**: a move or a clear during the calibration ends it. Follow
-[Calibrate, activate, move](https://docs.source-robotics.com/MSG-gripper-docs/1.2/05-setup/first-moves/) for the full procedure, then **Activate** and check for
-faults.
+1. If the panel shows an error, press **Clear errors** first.
+2. With the stroke empty and the gripper deactivated, press **Calibrate**.
+3. Read the prompt, and press **Start calibration**.
+
+    ![Mock gripper calibration prompt warning that the jaws travel through their full range](https://docs.source-robotics.com/MSG-gripper-docs/1.2/assets/motor-gui/gripper-calibration-demo.jpg){ width="700" }
+
+4. Let the jaws find both end stops, and press nothing else until the panel says **Calibrated**: a move or a clear
+   during the calibration ends it.
+5. Press **Activate**, and check for faults.
 
 !!! success "Check"
     The panel says **Calibrated**, **Activated**, and **No errors** before you command a move. A calibration
     that times out after 24 seconds has not found its end stops; do not continue as if it passed. Use
     [Calibration troubleshooting](https://docs.source-robotics.com/MSG-gripper-docs/1.2/09-troubleshooting/#calibration).
 
+More: [Calibrate, activate, move](https://docs.source-robotics.com/MSG-gripper-docs/1.2/05-setup/first-moves/), the full procedure.
+
 ## 6. Make the first move
 
-Set **Speed 30** and **Current 300 mA**, applying each with its **Set** button. Press **Open**, then **Close**.
-After that works, put a light test object between the jaws and repeat, keeping fingers clear.
+1. Set **Speed 30**, and apply it with its **Set** button.
+2. Set **Current 300 mA**, and apply it with its **Set** button.
+3. Press **Open**, then **Close**.
+4. After that works, put a light test object between the jaws and repeat, keeping fingers clear.
+
+![Calibrated and activated gripper demo with command controls and plots](https://docs.source-robotics.com/MSG-gripper-docs/1.2/assets/motor-gui/gripper-ready-demo.jpg){ width="700" }
 
 The current limit sets an approximate force limit; [Force and speed](https://docs.source-robotics.com/MSG-gripper-docs/1.2/03-technical-data/force-and-speed/)
 explains the relationship and the motor's limits.
@@ -302,7 +331,10 @@ gripping.
 The MSG is a two-jaw parallel gripper driven by a NEMA 17 stepper under field-oriented control. The
 [STEPFOC driver](https://docs.source-robotics.com/STEPFOC-docs/) on the back of the stepper regulates the motor's
 current, so a move sets not only where the jaws go and how fast, but how hard they press: the current limit is the
-grip force. The jaws stop on an object, hold it with that force, and the driver reports that an object was found.
+grip force.
+
+The jaws stop on an object, hold it with that force, and the driver reports that an object was found.
+
 We designed the MSG specifically for teleoperation, VLA (vision-language-action) training and physical
 intelligence. A camera on top of the body looks down between the jaws, from a place chosen for a clear view of
 both jaws and the object between them.
@@ -329,9 +361,13 @@ through the stepper cover ([CAN termination](https://docs.source-robotics.com/MS
 ## What the firmware does
 
 After power-up the gripper calibrates by finding both end stops. Then it takes move commands: a position from 0
-(open) to 255 (closed), a speed from 0 to 255 and a current limit in mA. When the jaws stop short of the target
+(open) to 255 (closed), a speed from 0 to 255 and a current limit in mA.
+
+When the jaws stop short of the target
 with the current at its limit, an object is in the way and is held; when they reach the target, the position is
-held. Every answer carries the state: moving, object found while closing or opening, or at the position. The
+held. Every answer carries the state: moving, object found while closing or opening, or at the position.
+
+The
 gripper stops itself on an over-temperature, an E-stop bit from the host, a CAN watchdog that runs out, and every
 fault the driver detects. [How the gripper works](https://docs.source-robotics.com/MSG-gripper-docs/1.2/06-operation/how-it-works/) and
 [Errors and recovery](https://docs.source-robotics.com/MSG-gripper-docs/1.2/06-operation/errors/) have the details.
@@ -403,9 +439,13 @@ for the first and *while opening* for the second.
 
 The camera mount on top of the body carries an OV9732 USB camera module (100° version in the BOM), looking down
 between the jaws. Its place and angle were chosen with care: the camera sees both jaws and the object between
-them, the view that teleoperation and VLA training need. It is a plain USB camera with its own cable,
+them, the view that teleoperation and VLA training need.
+
+It is a plain USB camera with its own cable,
 independent of the gripper's electronics: the computer sees it as an ordinary webcam, so any program that
-reads one works with it, from the camera app to OpenCV (`cv2.VideoCapture`) in Python or a ROS 2 camera node. The
+reads one works with it, from the camera app to OpenCV (`cv2.VideoCapture`) in Python or a ROS 2 camera node.
+
+The
 mount and its lid are printed parts (`camera extension`, `camera_lid`), and a gripper without a camera simply leaves
 them off.
 
@@ -665,7 +705,9 @@ force and speed. Force and payload values are ideal model estimates, not measure
 
 The driver limits the motor's current to the value you command, so the torque the motor produces is limited to
 $T = K_t \, I_q$, with $K_t$ the motor's torque constant in Nm/A (`#Kt` prints what the driver uses) and $I_q$
-the current limit in amperes (the command is in mA). The pinion shares that torque between two racks.
+the current limit in amperes (the command is in mA).
+
+The pinion shares that torque between two racks.
 Here $F$ is the **combined normal force of both jaws**,
 not the force at one jaw:
 
@@ -688,6 +730,7 @@ set by the stepper:
 The curves use the listed torque constants; they are not force-gauge measurements. STEPFOC estimates `#Kt`
 from a no-load speed/voltage test, rather than measuring shaft torque. The constant must match the driver's
 $q$-axis current convention; a motor datasheet's current rating or supply current cannot be substituted directly.
+
 A self-built gripper with another stepper needs its own force calibration. Below about
 150 mA the motor does not move reliably, so the usable range starts at a few newtons. Motor GUI commands up to
 1500 mA; the full force of the 40 mm and 60 mm steppers needs a command from Python or over CAN.
@@ -703,7 +746,9 @@ contact force is reached. Mechanism friction, finger flex and the contact positi
 
 For a symmetric grip, each jaw applies $F/2$. The torque balance is
 $T = F_\mathrm{left} r + F_\mathrm{right} r = F r$; counting $F$ once for each jaw would count the motor's torque twice.
-These are theoretical forces before losses in the mechanism. A compression gauge between the jaws reads the
+These are theoretical forces before losses in the mechanism.
+
+A compression gauge between the jaws reads the
 force at **one contact**; double that reading before comparing it with the combined force here. Record the
 current, fingers and contact position when measuring; the same setup is needed for a useful comparison.
 
@@ -757,7 +802,9 @@ W = \frac{\mu\,F}{S}, \qquad m = \frac{W}{g}
 $$
 
 Using an assumed $\mu$ = 0.3 and $S$ = 2, the model gives about 11 N of supported weight (1.2 kg) at 76 N
-of combined grip force, or 4.7 N (0.47 kg) at 31 N. These are static estimates. Upward acceleration of 1 g
+of combined grip force, or 4.7 N (0.47 kg) at 31 N. These are static estimates.
+
+Upward acceleration of 1 g
 doubles the load; acceleration and emergency-stop loads need a separate check. Friction can be lower than
 0.3, so measure it with your jaws on your object. A form-fit grip needs its own load assessment.
 
@@ -790,7 +837,9 @@ Both jaws move, so the gap closes at twice the speed of one jaw. At speed 255 a 
 ## Position
 
 The position byte is linear over the stroke: 0 is the fully open end stop found by the gripper calibration, 255
-the fully closed one. One step of the byte is the stroke divided by 255: 0.22 mm on the 100 mm rail, 0.41 mm on
+the fully closed one.
+
+One step of the byte is the stroke divided by 255: 0.22 mm on the 100 mm rail, 0.41 mm on
 the 150 mm rail, 0.61 mm on the 200 mm rail. The driver considers the position reached within 5 encoder ticks,
 about 0.03 mm.
 
@@ -804,26 +853,33 @@ about 0.03 mm.
 The gripper has one connector, an M8 4-pin male on the side of the body, and one cable: 24 V and the CAN bus.
 
 ![The M8 connector on the gripper body and its four signals: 24V, GND, CANH, CANL](https://docs.source-robotics.com/MSG-gripper-docs/1.2/assets/MSG_pinout.webp){ width="900" }
+![The M8 connector on the gripper body and its four signals: 24V, GND, CANH, CANL](https://docs.source-robotics.com/MSG-gripper-docs/1.2/assets/MSG_pinout_dark.webp){ width="900" }
 
 ## Pin numbers
 
-![M8 male on the gripper: front mating face and numbered signals](https://docs.source-robotics.com/MSG-gripper-docs/1.2/assets/m8-gripper-pinout.svg){ width="650" }
+![M8 male on the gripper, as it sits in the gripper: the numbered signals](https://docs.source-robotics.com/MSG-gripper-docs/1.2/assets/gripper-m8-face.svg){ width="650" }
+![M8 male on the gripper, as it sits in the gripper: the numbered signals](https://docs.source-robotics.com/MSG-gripper-docs/1.2/assets/gripper-m8-face_dark.svg){ width="650" }
 
-The drawing shows the connector's staggered contact layout. Look **into the male connector on
-the gripper**, with its pins visible. The female cable connector has the
-mirrored contact view. The solder side is also mirrored: use the numbers moulded into the connector, rather
-than matching wire colours or the installed housing's rotation.
+The drawing shows the connector's staggered contact layout. Look **into the male connector on the gripper**, with
+its pins visible: the mating face, where the cable plugs in. The female cable connector has the mirrored contact
+view. Use the numbers moulded into the connector, rather than matching wire colours or the installed housing's
+rotation.
 
 | Gripper pin | Signal | Connection |
 |---|---|---|
-| **1** | **+24 V** | positive motor supply |
-| **2** | **CANL** | CAN low |
-| **3** | **GND** | power-supply return |
-| **4** | **CANH** | CAN high, 1 Mbit/s with CANL |
+| **1** | **CANL** | CAN low |
+| **2** | **CANH** | CAN high, 1 Mbit/s with CANL |
+| **3** | **+24 V** | positive motor supply |
+| **4** | **GND** | power-supply return |
 
-These are the pin numbers the gripper is built with. The MSG and the SSG-48 share this wiring and
-their cables; page 17 of the [SSG-48 assembly manual](https://github.com/Source-Robotics/SSG-48-adaptive-electric-gripper/blob/main/Assembly%20manual/Gripper_assembly_manual.pdf) gives it,
-in a photo of the connector from the back, where the wires are soldered: the mirror image of the picture above.
+These are the numbers of the mating face, the side you connect to. The MSG and the SSG-48 share this wiring and
+their cables.
+
+!!! note "Building the gripper: the solder side"
+    Page 17 of the [SSG-48 assembly manual](https://github.com/Source-Robotics/SSG-48-adaptive-electric-gripper/blob/main/Assembly%20manual/Gripper_assembly_manual.pdf)
+    numbers the other side of the same connector, where the wires are soldered when the gripper is built:
+    1 24V, 2 CANL, 3 GND, 4 CANH. Use those numbers for soldering only, and the table above for connecting.
+
 They describe the **gripper end**. PAROL6 and PAR6 use different connections at the robot end:
 [The cable](https://docs.source-robotics.com/MSG-gripper-docs/1.2/04-installation/cable/) gives both diagrams. Check continuity with the supply disconnected.
 
@@ -860,7 +916,9 @@ gripper's URDF, the 150 mm rail with the 21.5 mm stepper; the current URDF and M
 </div>
 
 The drawings show the variant of the 3D model: the 150 mm rail, the 21.5 mm stepper and the solid jaws, with the
-jaws fully open. All dimensions are in millimetres, measured on the gripper's CAD as the
+jaws fully open.
+
+All dimensions are in millimetres, measured on the gripper's CAD as the
 [robot model](https://docs.source-robotics.com/MSG-gripper-docs/1.2/03-technical-data/integration-data/) carries it. Heights are counted from the coupler's back face, the face that
 rests against the robot; the coupler axis is the gripper's axis on the robot.
 
@@ -883,7 +941,9 @@ repository draws the four views from the model and prints every number on them.
 ## Other rails and steppers
 
 The rail sets the width and the stroke; the stepper sets how far the stepper cover, and the camera mount on top of
-it, stand away from the rail. Neither changes the coupler, the jaws or the 110.30 mm to the jaw tips. The lengths
+it, stand away from the rail.
+
+Neither changes the coupler, the jaws or the 110.30 mm to the jaw tips. The lengths
 below are measured in the parts' STEP files; the overall sizes add them to the drawn variant.
 
 | Rail | Stroke | Body | Over the jaw blockers | Printed parts |
@@ -913,14 +973,24 @@ The STEP files of every part are in the product repository, and are the referenc
 - [Print files](https://github.com/Source-Robotics/MSG-compliant-AI-stepper-gripper/tree/main/Print%20files):
   the same parts as 3MF, ready to slice.
 
-![The STEP model of the gripper without its jaws, seen from the front, into the camera](https://docs.source-robotics.com/MSG-gripper-docs/1.2/assets/MSG_3D_model.webp){ width="600" }
+<div class="grid" markdown>
+
+![The robot model of the MSG with the solid jaws](https://docs.source-robotics.com/MSG-gripper-docs/1.2/assets/renders/msg_solid.webp){ width="420" }
+![The robot model of the MSG with the solid jaws](https://docs.source-robotics.com/MSG-gripper-docs/1.2/assets/renders/msg_solid_dark.webp){ width="420" }
+
+![The robot model of the MSG with the TPU jaws](https://docs.source-robotics.com/MSG-gripper-docs/1.2/assets/renders/msg_soft_tpu.webp){ width="420" }
+![The robot model of the MSG with the TPU jaws](https://docs.source-robotics.com/MSG-gripper-docs/1.2/assets/renders/msg_soft_tpu_dark.webp){ width="420" }
+
+</div>
 
 ## For simulation
 
 The product repository's [msg_description](https://github.com/Source-Robotics/MSG-compliant-AI-stepper-gripper/tree/main/msg_description)
 guide links the gripper's models, which are kept in [robot_descriptions](https://github.com/Source-Robotics/robot_descriptions):
 standalone URDF and MJCF (MuJoCo) packages of the gripper with solid or soft TPU jaws, with their meshes, collision
-shapes and mass properties, and the PAROL6 and PAR6 models with the gripper mounted. The numbers a robot needs,
+shapes and mass properties, and the PAROL6 and PAR6 models with the gripper mounted.
+
+The numbers a robot needs,
 the tool centre point, the mass and the inertia, are on [Data for robot integration](https://docs.source-robotics.com/MSG-gripper-docs/1.2/03-technical-data/integration-data/).
 
 [CAD and downloads](https://docs.source-robotics.com/MSG-gripper-docs/1.2/cad-files/) lists everything that can be downloaded.
@@ -933,7 +1003,9 @@ the tool centre point, the mass and the inertia, are on [Data for robot integrat
 # Data for robot integration
 
 What a robot's software needs to carry the gripper: the frame the numbers are given in, the mass, the centre of
-mass and the inertia, and the tool centre point (TCP). The numbers are taken from the gripper's robot model in
+mass and the inertia, and the tool centre point (TCP).
+
+The numbers are taken from the gripper's robot model in
 [robot_descriptions](https://github.com/Source-Robotics/robot_descriptions) (version 2.18.1, `msg_description`
 in URDF and `msg` in MJCF) and moved into the frame below. The model is the 150 mm rail with the 21.5 mm stepper,
 the variant of the [drawings](https://docs.source-robotics.com/MSG-gripper-docs/1.2/03-technical-data/dimensions/).
@@ -962,8 +1034,12 @@ body behind the coupler ring: subtract 15.50 mm from a Z below to have it in the
 
 The model's mass is the body, 301.4 g, and two moving assemblies of 39.3 g each (the rail carriage, the jaw
 carrier and the jaw). The inertia is about the centre of mass, with the axes of the frame above, as the elements of
-the inertia tensor that a URDF's `<inertia>` takes. The solid and the soft TPU jaws have the same mass data in the
-model, so one row serves both. Closed is the model's closed end of the travel. Opening and closing move the two
+the inertia tensor that a URDF's `<inertia>` takes.
+
+The solid and the soft TPU jaws have the same mass data in the
+model, so one row serves both. Closed is the model's closed end of the travel.
+
+Opening and closing move the two
 jaws along Y by the same amount in opposite directions: the centre of mass stays where it is, Ixx and Izz change.
 The URDF and the MJCF model give the jaws different centres of mass and inertias, hence the two pairs of rows.
 
@@ -978,8 +1054,12 @@ The URDF and the MJCF model give the jaws different centres of mass and inertias
 | Both | the model's `tcp` frame | −28.35 | 0 | 99.30 | the frame's axes | any |
 
 The two jaws move by the same amount in opposite directions, so each point stays on the gripper's centre plane
-(y = 0) at every opening. A gripping face is the centre of its area: the solid jaw's face is 18.00 mm wide along X
-and runs from z = 51.30 to 110.30 mm, the TPU pad from z = 52.30 to 110.30 mm. Fully open, the solid jaws' faces
+(y = 0) at every opening.
+
+A gripping face is the centre of its area: the solid jaw's face is 18.00 mm wide along X
+and runs from z = 51.30 to 110.30 mm, the TPU pad from z = 52.30 to 110.30 mm.
+
+Fully open, the solid jaws' faces
 are 106.20 mm apart, the TPU pads 104.20 mm. The model's `tcp` is its control point on the jaws' centre line,
 11.00 mm short of the tips, the same for both jaws; robot_descriptions says it is not a measured grasp centre.
 
@@ -987,17 +1067,22 @@ are 106.20 mm apart, the TPU pads 104.20 mm. The model's `tcp` is its control po
 
 The masses are measured: about 380 g for the whole gripper with the 150 mm rail and the 21.5 mm stepper (the
 variant the model shows), 39.3 g for each moving assembly (an approximate
-figure). The centres of mass and the inertias are not: robot_descriptions 2.18.1 calls them existing, unverified
+figure).
+
+The centres of mass and the inertias are not: robot_descriptions 2.18.1 calls them existing, unverified
 estimates, not scaled to the measured masses or checked against the CAD's mass distribution. Use them for
-simulation and for a first payload setting, not as a measurement. The model has one variant; a longer rail or
+simulation and for a first payload setting, not as a measurement.
+
+The model has one variant; a longer rail or
 stepper is heavier and moves the centre of mass toward the extra part, and the model does not say by how much.
 
 ## Where the numbers go
 
 In the PAROL6 Python API the MSG is a built-in tool, `rbt.select_tool("MSG", variant_key="150mm")`, with its TCP at
 (−29, 0, −109.5) mm in the API's flange frame, whose Z points back into the wrist
-([Tools and the TCP](https://docs.source-robotics.com/PAROL-docs/latest/programming/02-python-api/tools-and-tcp/));
-in a URDF, the mass, the centre of mass and the inertia go into the gripper link's `<inertial>` and the TCP into a
+([Tools and the TCP](https://docs.source-robotics.com/PAROL-docs/latest/programming/02-python-api/tools-and-tcp/)).
+
+In a URDF, the mass, the centre of mass and the inertia go into the gripper link's `<inertial>` and the TCP into a
 fixed joint from the mounting frame.
 
 
@@ -1036,15 +1121,20 @@ part: the gripper slides onto an 8 mm shaft and is clamped with the two M4 screw
 offers an 8 mm shaft takes the gripper this way.
 
 ![The coupler plate with the 8 mm shaft coupler](https://docs.source-robotics.com/MSG-gripper-docs/1.2/assets/MSG_conn_8mm.webp){ width="600" }
+![The coupler plate with the 8 mm shaft coupler](https://docs.source-robotics.com/MSG-gripper-docs/1.2/assets/MSG_conn_8mm_dark.webp){ width="600" }
 
 ## PAROL6
 
-For the PAROL6 wrist, replace `ring_cover` with `ring_cover-PAROL6` from the STEP files (`Common parts`): it bolts
-to the robot's last joint. Tighten the shaft coupler's two clamp screws with blue threadlocker. The PAROL6
-gripper cable then runs from the gripper to the robot's gripper port; see [The cable](https://docs.source-robotics.com/MSG-gripper-docs/1.2/04-installation/cable/) and
-[On PAROL6 and PAR6](https://docs.source-robotics.com/MSG-gripper-docs/1.2/06-operation/robots/), which also has the joint 5 homing offset.
+For the PAROL6 wrist:
+
+1. Replace `ring_cover` with `ring_cover-PAROL6` from the STEP files (`Common parts`): it bolts to the robot's
+   last joint.
+2. Tighten the shaft coupler's two clamp screws with blue threadlocker.
+3. Run the PAROL6 gripper cable from the gripper to the robot's gripper port; see [The cable](https://docs.source-robotics.com/MSG-gripper-docs/1.2/04-installation/cable/) and
+   [On PAROL6 and PAR6](https://docs.source-robotics.com/MSG-gripper-docs/1.2/06-operation/robots/), which also has the joint 5 homing offset.
 
 ![The gripper with the PAROL6 ring cover (red)](https://docs.source-robotics.com/MSG-gripper-docs/1.2/assets/MSG_with_parol_cover.webp){ width="600" }
+![The gripper with the PAROL6 ring cover (red)](https://docs.source-robotics.com/MSG-gripper-docs/1.2/assets/MSG_with_parol_cover_dark.webp){ width="600" }
 
 ## Another robot
 
@@ -1103,8 +1193,11 @@ colours are those of the cable in the BOM.
 === "PAROL6"
     ![The PAROL6 cable: the pins are crossed between the two ends](https://docs.source-robotics.com/MSG-gripper-docs/1.2/assets/PAROL6_cable.webp){ width="320" }
 
-    Male end at the robot, female end at the gripper: pin 1 to 3, 2 to 4, 3 to 1, 4 to 2. The PAROL6 socket has
-    GND on pin 1, CANH on 2, 24 V on 3 and CANL on 4; the cable brings each signal to the gripper's pin for it.
+    Male end at the robot, female end at the gripper. The cable mirrors the CAN pair and the power pair between its
+    ends, so each signal reaches the gripper's pin for the same signal: +24 V to +24 V, GND to GND, CANH to CANH,
+    CANL to CANL. Wire a cable of your own by signal, and check each end against its own pin table: the PAROL6
+    [gripper socket](https://docs.source-robotics.com/PAROL-docs/latest/end-effectors/flange/#the-gripper-socket)
+    and the gripper's [pin numbers](https://docs.source-robotics.com/MSG-gripper-docs/1.2/03-technical-data/connector/#pin-numbers).
 
 === "PAR6"
     ![The PAR6 cable: pin to pin](https://docs.source-robotics.com/MSG-gripper-docs/1.2/assets/PAR6_cable.png){ width="200" }
@@ -1146,9 +1239,10 @@ each file is one jaw, mirrored in the slicer for the other side, except the soli
 
 ![The TPU jaw: a PETG body (black) and a TPU pad (yellow)](https://docs.source-robotics.com/MSG-gripper-docs/1.2/assets/tpujaws.webp){ width="700" }
 
-Print the body in PETG with your usual settings and the pad in TPU with 16 % infill, no top or bottom layers and
-two walls, for the softest pad. Then glue the pad to the body with ordinary super glue, in the orientation the
-pictures show: a pad glued the wrong way round leaves the jaws facing the wrong direction.
+1. Print the body in PETG with your usual settings.
+2. Print the pad in TPU with 16 % infill, no top or bottom layers and two walls, for the softest pad.
+3. Glue the pad to the body with ordinary super glue, in the orientation the pictures show: a pad glued the wrong
+   way round leaves the jaws facing the wrong direction.
 
 <div class="grid" markdown>
 ![Apply super glue](https://docs.source-robotics.com/MSG-gripper-docs/1.2/assets/jaw_glue.webp){ width="300" }
@@ -1188,7 +1282,8 @@ A CAN bus needs a 120 Ω resistor at each of its two ends. The gripper's driver 
 reachable through an opening in the stepper cover: slide it to the **ON** mark to connect the resistor, away from
 it to disconnect it.
 
-![The termination switch of the driver, seen through the stepper cover](https://docs.source-robotics.com/MSG-gripper-docs/1.2/assets/Gripper_termination.jpg){ width="700" }
+![The termination switch of the driver, seen through the stepper cover](https://docs.source-robotics.com/MSG-gripper-docs/1.2/assets/Gripper_termination.webp){ width="700" }
+![The termination switch of the driver, seen through the stepper cover](https://docs.source-robotics.com/MSG-gripper-docs/1.2/assets/Gripper_termination_dark.webp){ width="700" }
 
 | The gripper is | Switch |
 |---|---|
@@ -1196,8 +1291,9 @@ it to disconnect it.
 | alone on a bench bus with the CANvas adapter (which has its own termination) | ON |
 | in the middle of a bus, with other nodes after it | off |
 
-A bus with the right termination measures about 60 Ω between CANH and CANL with everything unpowered. A missing
-or doubled termination shows up as lost frames and a gripper that answers only sometimes.
+!!! success "Check"
+    A bus with the right termination measures about 60 Ω between CANH and CANL with everything unpowered. A
+    missing or doubled termination shows up as lost frames and a gripper that answers only sometimes.
 
 
 ---
@@ -1326,7 +1422,9 @@ Python or over CAN.
 
 Connected over **UART** instead, through the [serial adapter](https://source-robotics.com/products/usb-to-serial-adapter)
 on the driver's UART port, Motor GUI's setup page has tuned presets for the grippers: *MSG 21.5 mm motor*, *MSG 40 mm
-motor* and *MSG 60 mm motor*, and *SSG-48* for the other gripper. A preset writes the
+motor* and *MSG 60 mm motor*, and *SSG-48* for the other gripper.
+
+A preset writes the
 motor's parameters, the loop gains, gripper mode, the thermistor and the CAN ID to the driver and saves them; its
 CAN ID is 6, the PAR6 gripper's, so change it before applying for another robot.
 [Driver configuration](https://docs.source-robotics.com/MSG-gripper-docs/1.2/build/first-run/) says when to apply it, and lists the same settings as commands
@@ -1419,7 +1517,9 @@ takes about ten seconds; the result is not kept over a power cycle, so this runs
     ```
 
 If the jaws do not move at all, or move to one end and stop: the gripper is in an error state (clear it first, see
-step 2), or the stepper is not calibrated. If the routine runs for 24 seconds and gives up, an end stop was not
+step 2), or the stepper is not calibrated.
+
+If the routine runs for 24 seconds and gives up, an end stop was not
 found: something blocks the jaws short of the end, or the mechanism is too stiff for 500 mA.
 
 Until the gripper reports *Calibrated*, send nothing but status polls: a move command or a clear during the
@@ -1606,7 +1706,9 @@ Send_gripper_data_pack carries, in 5 bytes:
 | Release direction | bit | read by the firmware but not used |
 
 The same command sent twice does nothing new: the driver compares every command with the previous one, and only
-a changed command resets the "at position" state and starts a move. So a host may repeat the command at any
+a changed command resets the "at position" state and starts a move.
+
+So a host may repeat the command at any
 rate, which the CAN watchdog needs; to move the jaws from a held position to the same position again, change
 the speed or the current by one.
 
@@ -1667,9 +1769,12 @@ sequenceDiagram
 ## Object detection, exactly
 
 While a move is in progress and the jaws are not yet at the target, the driver reads *moving* (0) as long as the
-jaws move faster than 500 encoder ticks per second, about 1.6 mm/s. When they are slower than that and the motor
+jaws move faster than 500 encoder ticks per second, about 1.6 mm/s.
+
+When they are slower than that and the motor
 current is above 80 % of the commanded limit, something stops them: *object found*, 1 or 2 by the sign of the
 current. Below 80 % with the jaws slow, it still reads *moving*: the object is soft and still being squeezed.
+
 At the very start of a move the jaws are slow too, and with the current already near its limit the state can
 briefly read 1 or 2; a host gives a move about 100 ms before it trusts the state. Once the target is reached, 3,
 and it stays 3 until a different command arrives.
@@ -1682,13 +1787,17 @@ exactly that.
 
 The current limit of a move is the driver's Iq limit for the duration of the move and the hold. It bounds the
 torque, so the force on an object, and it also bounds how fast the jaws accelerate: a low limit with a high speed
-gives a gentle, slow-starting move. The temperature of the motor is the other bound: holding an object at a high
+gives a gentle, slow-starting move.
+
+The temperature of the motor is the other bound: holding an object at a high
 current for minutes heats the windings, and at 75 °C the thermistor stops the gripper.
 
 ## Timing
 
 The driver runs its loops at 6250 Hz; a move command takes effect at the next cycle, and the answer leaves within
-a millisecond. The CAN bus at 1 Mbit/s carries a command and its answer in well under half a millisecond, so a host
+a millisecond.
+
+The CAN bus at 1 Mbit/s carries a command and its answer in well under half a millisecond, so a host
 can run the gripper at several hundred commands per second; 50 Hz is a good rate for a controller that polls the
 state.
 
@@ -1708,7 +1817,8 @@ STEPFOC driver on the bus, so the frames are the driver's; this page is the part
 CAN 2.0 data frames with 11-bit identifiers at 1 Mbit/s. The identifier carries the node, the command and the
 error state:
 
-![Bits 10 to 7 of the identifier are the node ID, bits 6 to 1 the command ID, bit 0 the error bit](https://docs.source-robotics.com/MSG-gripper-docs/1.2/assets/CANID.PNG){ width="600" }
+![Bits 10 to 7 of the identifier are the node ID, bits 6 to 1 the command ID, bit 0 the error bit](https://docs.source-robotics.com/MSG-gripper-docs/1.2/assets/can-id.svg){ width="600" }
+![Bits 10 to 7 of the identifier are the node ID, bits 6 to 1 the command ID, bit 0 the error bit](https://docs.source-robotics.com/MSG-gripper-docs/1.2/assets/can-id_dark.svg){ width="600" }
 
 - **Node ID**, bits 10 to 7: which device. Every gripper ships as node 0; set another with Send_CAN_ID or `#CANID`
   and save it. Use 0 to 13: the driver's bootloader reserves 14 and 15, and a device on one of those cannot be
@@ -1797,7 +1907,9 @@ reports when something is wrong.
 
 ## Reaching the port
 
-The UART connector of the driver (JST SH, 4 pins, 3.3 V) is inside the housing, under the coupler plate. Unscrew
+The UART connector of the driver (JST SH, 4 pins, 3.3 V) is inside the housing, under the coupler plate.
+
+Unscrew
 the plate, plug in the [USB-to-serial adapter](https://source-robotics.com/products/usb-to-serial-adapter) with
 the UART cable, and open a terminal at 256000 baud with CR+LF line endings; the gripper's 24 V must be on for
 anything but reading settings. [The serial terminal](https://docs.source-robotics.com/STEPFOC-docs/latest/05-setup/terminal/)
@@ -1918,7 +2030,9 @@ for position in (200, 20, 200, 20):
 ```
 
 The answer to a move command is sent before the gripper acts on it, so it still carries the state from before:
-after a finished move, object detection 3. The example reads that answer and drops it. At the very start of a
+after a finished move, object detection 3. The example reads that answer and drops it.
+
+At the very start of a
 move the jaws are still slow, and with the current near its limit the object detection can briefly read 1 or 2;
 the pause of 0.1 s covers that. While the gripper calibration runs, send only empty frames: a full command or
 Send_Clear_Error ends the calibration, and the gripper stays uncalibrated.
@@ -2034,7 +2148,9 @@ file of your own.
 # On PAROL6 and PAR6
 
 The gripper is made for the Source Robotics arms. Both drive it over their own CAN bus; their software calibrates
-it, moves it and reads its state, so a program for the robot does not talk CAN itself. What any robot's software
+it, moves it and reads its state, so a program for the robot does not talk CAN itself.
+
+What any robot's software
 needs to carry the gripper, the tool centre point, the mass, the centre of mass and the inertia, is on
 [Data for robot integration](https://docs.source-robotics.com/MSG-gripper-docs/1.2/03-technical-data/integration-data/).
 
@@ -2057,7 +2173,9 @@ needs to carry the gripper, the tool centre point, the mass, the centre of mass 
 ### The joint 5 homing offset
 
 Joint 5 homes against the tool, and the control board firmware's default offset (8900) is for the pneumatic
-gripper holder, not for the MSG's ring cover. After the first homing, check joint 5 with the pin through its
+gripper holder, not for the MSG's ring cover.
+
+After the first homing, check joint 5 with the pin through its
 witness marks. If it is off, measure the offset and set `j5_homing_offset` in `main.cpp` of the control board
 firmware, as the PAROL6 documentation's mastering page describes.
 
@@ -2154,7 +2272,9 @@ Send_Clear_Error, **Clear** in the GUI or `#Clear` clears every flag, the grippe
 idle. An error whose cause is still present comes straight back: a hot motor, a supply that is still low.
 
 The gripper's E-stop counts as such a cause while the E-stop bit of the last gripper command is 1: the driver
-raises the error again at every cycle. So after an E-stop, first send a gripper command with the E-stop bit at 0
+raises the error again at every cycle.
+
+So after an E-stop, first send a gripper command with the E-stop bit at 0
 and the action bit at 0 (or `#Gripstop 0` over UART), then clear. The next command with the action bit set moves
 the gripper again.
 
@@ -2179,7 +2299,9 @@ sent while the gripper calibration runs ends the calibration, and the gripper st
 # Maintenance
 
 The gripper needs little: every wearing part is printed, so a worn part is replaced by printing a new one, and
-the mechanism is a rail, two racks and a pinion that want a little grease now and then. Power the gripper off
+the mechanism is a rail, two racks and a pinion that want a little grease now and then.
+
+Power the gripper off
 before any work on it. Before you open the stepper cover or touch the driver, unplug the supply and touch earthed
 metal: static electricity damages the driver board. Hold the board by its edges.
 
@@ -2203,7 +2325,9 @@ metal: static electricity damages the driver board. Hold the board by its edges.
 ## Cleaning
 
 Clean the gripper switched off and unplugged. Wipe the printed parts with a dry or slightly damp cloth, or with a little isopropyl
-alcohol on the cloth for grease; use no other solvents, such as acetone: the body is PETG, the pads are TPU. Never spray or pour anything onto the gripper; the driver
+alcohol on the cloth for grease; use no other solvents, such as acetone: the body is PETG, the pads are TPU.
+
+Never spray or pour anything onto the gripper; the driver
 behind the stepper cover and the M8 connector are open to it, and it is not waterproof or dustproof. Brush or blow
 chips out of the rail and the racks rather than wash them out, then grease them as above.
 
@@ -2240,7 +2364,9 @@ which Python library and bootloader.
 
 A gripper whose driver runs firmware 105 or newer carries the driver's bootloader and updates over its CAN cable: the
 host tells the driver to reset, the bootloader waits two seconds for a host, and the host streams the new image
-into it. Nothing is opened. The image is `stepfoc-firmware-V<number>.bin` from the driver's
+into it.
+
+Nothing is opened. The image is `stepfoc-firmware-V<number>.bin` from the driver's
 [GitHub releases](https://github.com/Source-Robotics/STEPFOC-stepper-controller/releases), with a manifest
 `firmware.json` and the release notes.
 
@@ -2457,6 +2583,8 @@ is in the shop too.
     [open an issue](https://github.com/Source-Robotics/MSG-compliant-AI-stepper-gripper/issues/new) there, and the fix lands here with the next sync. The shop's
     [starter kit](https://docs.source-robotics.com/MSG-gripper-docs/1.2/build/#kits-and-the-shop) covers the driver and everything its setup needs.
 
+<div class="bom-variants" data-variants="{&quot;choices&quot;:{&quot;rail&quot;:{&quot;label&quot;:&quot;Rail&quot;,&quot;options&quot;:{&quot;100&quot;:{&quot;label&quot;:&quot;100 mm&quot;,&quot;detail&quot;:&quot;55 mm stroke&quot;},&quot;150&quot;:{&quot;label&quot;:&quot;150 mm&quot;,&quot;detail&quot;:&quot;105 mm stroke&quot;},&quot;200&quot;:{&quot;label&quot;:&quot;200 mm&quot;,&quot;detail&quot;:&quot;155 mm stroke&quot;}}},&quot;stepper&quot;:{&quot;label&quot;:&quot;Stepper&quot;,&quot;options&quot;:{&quot;21.5&quot;:{&quot;label&quot;:&quot;21.5 mm&quot;,&quot;detail&quot;:&quot;17HS08-1004S, about 31 N&quot;},&quot;40&quot;:{&quot;label&quot;:&quot;40 mm&quot;,&quot;detail&quot;:&quot;17HS16-2004S1, about 50 N&quot;},&quot;60&quot;:{&quot;label&quot;:&quot;60 mm&quot;,&quot;detail&quot;:&quot;17HS24-2104S, about 76 N&quot;}}},&quot;camera&quot;:{&quot;label&quot;:&quot;Camera&quot;,&quot;options&quot;:{&quot;with&quot;:{&quot;label&quot;:&quot;With camera&quot;,&quot;phrase&quot;:&quot;with a camera&quot;},&quot;without&quot;:{&quot;label&quot;:&quot;Without camera&quot;,&quot;phrase&quot;:&quot;without a camera&quot;}}}},&quot;rows&quot;:[{&quot;section&quot;:&quot;Screws and Nuts&quot;,&quot;first&quot;:&quot;M3&quot;,&quot;has&quot;:&quot;For 17HS08-1004S stepper&quot;,&quot;only&quot;:{&quot;stepper&quot;:[&quot;21.5&quot;]}},{&quot;section&quot;:&quot;Screws and Nuts&quot;,&quot;first&quot;:&quot;M3&quot;,&quot;has&quot;:&quot;For 17HS16-2004S1 stepper&quot;,&quot;only&quot;:{&quot;stepper&quot;:[&quot;40&quot;]}},{&quot;section&quot;:&quot;Screws and Nuts&quot;,&quot;first&quot;:&quot;M3&quot;,&quot;has&quot;:&quot;For 17HS24-2104S stepper&quot;,&quot;only&quot;:{&quot;stepper&quot;:[&quot;60&quot;]}},{&quot;section&quot;:&quot;Motors (You need one of these per gripper!)&quot;,&quot;first&quot;:&quot;17HS08-1004S&quot;,&quot;only&quot;:{&quot;stepper&quot;:[&quot;21.5&quot;]}},{&quot;section&quot;:&quot;Motors (You need one of these per gripper!)&quot;,&quot;first&quot;:&quot;17HS16-2004S1&quot;,&quot;only&quot;:{&quot;stepper&quot;:[&quot;40&quot;]}},{&quot;section&quot;:&quot;Motors (You need one of these per gripper!)&quot;,&quot;first&quot;:&quot;17HS24-2104S&quot;,&quot;only&quot;:{&quot;stepper&quot;:[&quot;60&quot;]}},{&quot;section&quot;:&quot;Mechanical Components&quot;,&quot;first&quot;:&quot;Linear guide&quot;,&quot;note&quot;:{&quot;rail&quot;:{&quot;100&quot;:&quot;100 mm long&quot;,&quot;150&quot;:&quot;150 mm long&quot;,&quot;200&quot;:&quot;200 mm long&quot;}}},{&quot;section&quot;:&quot;Electronics&quot;,&quot;first&quot;:&quot;OV9732 Camera&quot;,&quot;only&quot;:{&quot;camera&quot;:[&quot;with&quot;]}}],&quot;print&quot;:{&quot;url&quot;:&quot;https://github.com/Source-Robotics/MSG-compliant-AI-stepper-gripper/tree/main/Print%20files&quot;,&quot;common&quot;:[&quot;Common_parts_MSG_gripper&quot;],&quot;rail&quot;:{&quot;100&quot;:[&quot;MSG_Gripper_body_100mm&quot;,&quot;gripper_jaws_100mm&quot;],&quot;150&quot;:[&quot;MSG_Gripper_body_150mm&quot;,&quot;gripper_jaws_150mm&quot;],&quot;200&quot;:[&quot;MSG_Gripper_body_200mm&quot;,&quot;gripper_jaws_200mm&quot;]},&quot;stepper&quot;:{&quot;21.5&quot;:[&quot;Stepper_cover_21_5mm&quot;],&quot;40&quot;:[&quot;Stepper_cover_40mm&quot;],&quot;60&quot;:[&quot;Stepper_cover_60mm&quot;]},&quot;without camera&quot;:&quot;the common parts include the camera mount and its lid; leave them off the print&quot;}}"></div>
+
 This BOM lists all components required to build the MSG gripper. Quantities are for **one gripper**.
 
 !!! note
@@ -2641,7 +2769,9 @@ Printing, gluing and padding the jaws: [Printing the parts](https://docs.source-
 # Driver setup and first run
 
 A gripper from the shop arrives with its driver configured: the stepper calibrated, gripper mode on, the
-thermistor on, the gains set, everything saved. A gripper you build has a bare STEPFOC driver that must be
+thermistor on, the gains set, everything saved.
+
+A gripper you build has a bare STEPFOC driver that must be
 brought to the same state once, over its UART port. This page is that procedure; the commands are the driver's,
 and the [STEPFOC documentation](https://docs.source-robotics.com/STEPFOC-docs/) explains each in depth.
 

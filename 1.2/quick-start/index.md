@@ -18,28 +18,42 @@ For a gripper already connected to a robot, use [On PAROL6 and PAR6](https://doc
 ## 2. Gather and mount
 
 You need a mounted gripper with jaws/fingers fitted, a **24 V supply**, a correctly wired **M8 cable**, a
-**CANvas USB-to-CAN adapter**, and Chrome or Edge. The [What you need](https://docs.source-robotics.com/MSG-gripper-docs/1.2/01-overview/what-you-need/) page lists
-the parts; [Mounting](https://docs.source-robotics.com/MSG-gripper-docs/1.2/04-installation/mounting/) and [Jaws](https://docs.source-robotics.com/MSG-gripper-docs/1.2/04-installation/jaws/) cover the mechanics.
+**CANvas USB-to-CAN adapter**, and Chrome or Edge.
+
+1. Mount the gripper: [Mounting](https://docs.source-robotics.com/MSG-gripper-docs/1.2/04-installation/mounting/).
+2. Fit the jaws: [Jaws](https://docs.source-robotics.com/MSG-gripper-docs/1.2/04-installation/jaws/).
 
 !!! success "Check"
     The body cannot shift, the jaws travel freely, and the cable cannot enter their path.
 
+More: the [What you need](https://docs.source-robotics.com/MSG-gripper-docs/1.2/01-overview/what-you-need/) page lists the parts.
+
 ## 3. Wire with power off
 
-1. Check the cable against [Connector and pinout](https://docs.source-robotics.com/MSG-gripper-docs/1.2/03-technical-data/connector/): gripper pin 1 is +24 V,
-   pin 3 GND, pin 4 CANH, pin 2 CANL. Check continuity before the first power-up.
-2. Connect the supply and the CANvas adapter as shown below.
-3. Set the gripper's CAN termination ON for this two-node bench bus; the CANvas adapter provides the other end.
-   Leave the gripper at its shipped node ID, **0**, unless you already assigned another.
+1. Check the cable against [Connector and pinout](https://docs.source-robotics.com/MSG-gripper-docs/1.2/03-technical-data/connector/): gripper pin 1 is CANL,
+   pin 2 CANH, pin 3 +24 V, pin 4 GND.
 
-```mermaid
-flowchart LR
-    PC[PC USB] --> A[CANvas adapter]
-    A -- CANH --> P4[Gripper pin 4: CANH]
-    A -- CANL --> P2[Gripper pin 2: CANL]
-    S[24 V supply] -- positive --> P1[Gripper pin 1: +24 V]
-    S -- return --> P3[Gripper pin 3: GND]
-```
+    ![M8 male on the gripper, as it sits in the gripper: the numbered signals](https://docs.source-robotics.com/MSG-gripper-docs/1.2/assets/gripper-m8-face.svg){ width="520" }
+    ![M8 male on the gripper, as it sits in the gripper: the numbered signals](https://docs.source-robotics.com/MSG-gripper-docs/1.2/assets/gripper-m8-face_dark.svg){ width="520" }
+
+2. Check continuity before the first power-up.
+3. Connect the supply and the CANvas adapter as shown below.
+
+    ```mermaid
+    flowchart LR
+        PC[PC USB] --> A[CANvas adapter]
+        A -- CANH --> P2[Gripper pin 2: CANH]
+        A -- CANL --> P1[Gripper pin 1: CANL]
+        S[24 V supply] -- positive --> P3[Gripper pin 3: +24 V]
+        S -- return --> P4[Gripper pin 4: GND]
+    ```
+
+4. Set the gripper's CAN termination ON for this two-node bench bus; the CANvas adapter provides the other end.
+
+    ![The termination switch of the driver, seen through the stepper cover](https://docs.source-robotics.com/MSG-gripper-docs/1.2/assets/Gripper_termination.webp){ width="520" }
+    ![The termination switch of the driver, seen through the stepper cover](https://docs.source-robotics.com/MSG-gripper-docs/1.2/assets/Gripper_termination_dark.webp){ width="520" }
+
+5. Leave the gripper at its shipped node ID, **0**, unless you already assigned another.
 
 !!! success "Check, unpowered"
     The supply polarity and cable pinout match, and CANH-to-CANL measures about **60 Ω** with the bus connected.
@@ -48,34 +62,48 @@ flowchart LR
 
 ## 4. Connect Motor GUI
 
-Power the gripper, plug the CANvas adapter into USB, and open [motorgui.com](https://motorgui.com/).
-Choose **CAN (slcan)** at **1 Mbit/s**, press **Connect**, and choose the adapter's serial port.
-Select node **0** (or your assigned ID) and switch from **Motor** to **Gripper**.
-
-The [illustrated Motor GUI guide](https://docs.source-robotics.com/MSG-gripper-docs/1.2/05-setup/motor-gui/) shows the panel.
+1. Power the gripper.
+2. Plug the CANvas adapter into USB.
+3. Open [motorgui.com](https://motorgui.com/).
+4. Choose **CAN (slcan)** at **1 Mbit/s**.
+5. Press **Connect**, and choose the adapter's serial port.
+6. Select node **0** (or your assigned ID).
+7. Switch from **Motor** to **Gripper**.
 
 !!! success "Check"
     Position and current feedback arrive. *Not calibrated* after power-up is normal. If feedback is missing,
     check the power, port, node ID and termination: [Troubleshooting](https://docs.source-robotics.com/MSG-gripper-docs/1.2/09-troubleshooting/). If a fault
     disables the controls, resolve it using [Errors and recovery](https://docs.source-robotics.com/MSG-gripper-docs/1.2/06-operation/errors/).
 
+More: the [illustrated Motor GUI guide](https://docs.source-robotics.com/MSG-gripper-docs/1.2/05-setup/motor-gui/) shows the panel.
+
 ## 5. Calibrate and activate
 
-If the panel shows an error, press **Clear errors** first. With the stroke empty and the gripper deactivated,
-press **Calibrate**, read the prompt, and press **Start calibration**. Let the jaws find both end stops, and
-press nothing else until the panel says **Calibrated**: a move or a clear during the calibration ends it. Follow
-[Calibrate, activate, move](https://docs.source-robotics.com/MSG-gripper-docs/1.2/05-setup/first-moves/) for the full procedure, then **Activate** and check for
-faults.
+1. If the panel shows an error, press **Clear errors** first.
+2. With the stroke empty and the gripper deactivated, press **Calibrate**.
+3. Read the prompt, and press **Start calibration**.
+
+    ![Mock gripper calibration prompt warning that the jaws travel through their full range](https://docs.source-robotics.com/MSG-gripper-docs/1.2/assets/motor-gui/gripper-calibration-demo.jpg){ width="700" }
+
+4. Let the jaws find both end stops, and press nothing else until the panel says **Calibrated**: a move or a clear
+   during the calibration ends it.
+5. Press **Activate**, and check for faults.
 
 !!! success "Check"
     The panel says **Calibrated**, **Activated**, and **No errors** before you command a move. A calibration
     that times out after 24 seconds has not found its end stops; do not continue as if it passed. Use
     [Calibration troubleshooting](https://docs.source-robotics.com/MSG-gripper-docs/1.2/09-troubleshooting/#calibration).
 
+More: [Calibrate, activate, move](https://docs.source-robotics.com/MSG-gripper-docs/1.2/05-setup/first-moves/), the full procedure.
+
 ## 6. Make the first move
 
-Set **Speed 30** and **Current 300 mA**, applying each with its **Set** button. Press **Open**, then **Close**.
-After that works, put a light test object between the jaws and repeat, keeping fingers clear.
+1. Set **Speed 30**, and apply it with its **Set** button.
+2. Set **Current 300 mA**, and apply it with its **Set** button.
+3. Press **Open**, then **Close**.
+4. After that works, put a light test object between the jaws and repeat, keeping fingers clear.
+
+![Calibrated and activated gripper demo with command controls and plots](https://docs.source-robotics.com/MSG-gripper-docs/1.2/assets/motor-gui/gripper-ready-demo.jpg){ width="700" }
 
 The current limit sets an approximate force limit; [Force and speed](https://docs.source-robotics.com/MSG-gripper-docs/1.2/03-technical-data/force-and-speed/)
 explains the relationship and the motor's limits.

@@ -1,7 +1,9 @@
 # Driver setup and first run
 
 A gripper from the shop arrives with its driver configured: the stepper calibrated, gripper mode on, the
-thermistor on, the gains set, everything saved. A gripper you build has a bare STEPFOC driver that must be
+thermistor on, the gains set, everything saved.
+
+A gripper you build has a bare STEPFOC driver that must be
 brought to the same state once, over its UART port. This page is that procedure; the commands are the driver's,
 and the [STEPFOC documentation](https://docs.source-robotics.com/STEPFOC-docs/) explains each in depth.
 
