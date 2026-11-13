@@ -24,9 +24,7 @@ firmware:
   version: "110"
   repository: https://github.com/Source-Robotics/STEPFOC-stepper-controller
   tag: V110
-  # PROVISIONAL: V110 is not released yet (the pages are written from commit a84ead2, sync_firmware.py
-  # --prerelease). Set the release date here on the release day; null shows the version without a date.
-  released: null
+  released: 2026-11-13
   # The firmware's source folder in that repository, and its Controller_mode numbers with their names (for the
   # "enters mode" column of the UART reference). tools/sync_firmware.py reads both.
   src: STEPFOC firmware/src
@@ -43,9 +41,8 @@ manuals:
     number: SR-5003
     title: MSG Gripper Manual
     revision: 2026.E
-    # PROVISIONAL until firmware 110 is released: then status: published and the publication date
-    status: draft
-    published: null
+    status: published
+    published: 2026-11-13
     firmware: true
     applies_to: with the STEPFOC driver PCB v1
     covers: "the MSG compliant AI stepper gripper: safety, technical data, installation, setup, operation over CAN, UART, Python and ROS 2, firmware, the build guide; the gripper's API reference; guides"

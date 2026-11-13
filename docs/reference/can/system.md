@@ -25,6 +25,7 @@ gripper:
 Parameters 90 to 93 are new in firmware 110, and from 110 Send_Save_config keeps 18 too; it keeps 90 to 92 like
 the other settings. A value outside the range is refused, and the value in force stays.
 
-The Python library 1.21 has no names for 90 to 93: use the numbers. `gripper.Send_Parameter(92, 1)` writes one;
+The Python library names them from 1.22 (`PARAM_RSTINT`, `PARAM_THERMISTOR`, `PARAM_GRIPPER_MODE`,
+`PARAM_GRIPPER_STROKE`); 1.21 takes the numbers. `gripper.Send_Parameter(92, 1)` writes one;
 `gripper.Send_Get_Parameter(93)` asks for one, and its answer, passed through `UnpackData`, lands in
 `gripper.parameters[93]`.

@@ -13,10 +13,10 @@ columns:
 
 rows:
   - firmware: "110"
-    date: not released yet
+    date: 2026-11-13
     bootloader: required
     gripper: V1.2, V1.1
-    python: 1.21 or newer (parameters 90 to 93 by their numbers)
+    python: 1.22 or newer (names for parameters 90 to 93; 1.21 reads them by their numbers)
     ros2: msg_gripper_ros2 (ROS 2 Humble)
     docs: "1.2"
   - firmware: "109"
