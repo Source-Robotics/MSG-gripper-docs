@@ -125,6 +125,9 @@ if loaded:
     facts = d["facts"]
     check("B2 the generated facts are from the firmware release versions.yml names", facts["tag"] == shipped["firmware"]["tag"]
           and facts["version"] == str(shipped["firmware"]["version"]), f"{facts['tag']} vs {shipped['firmware']['tag']}")
+    pre = facts.get("prerelease")
+    check("B2b the generated facts come from the release tag, not a prerelease commit (sync_firmware.py --prerelease)",
+          not pre, f"read from commit {pre and pre.get('commit')}: run tools/sync_firmware.py once the tag exists")
     missing = [g["page"] for src in (d["can"], d["uart"]) for g in src["groups"].values()]
     missing = [p for p, base in zip(missing, ["can"] * len(d["can"]["groups"]) + ["uart"] * len(d["uart"]["groups"]))
                if not (ROOT / "docs" / "reference" / base / p).exists()]

@@ -15,7 +15,7 @@
 #   source      where it is in the code, at the version named under components: (not shown on the page)
 
 components:
-  firmware: {name: STEPFOC firmware, version: "109 (the driver's firmware, gripper mode)"}
+  firmware: {name: STEPFOC firmware, version: "110 (the driver's firmware, gripper mode)"}
   spectral_bldc: {name: Python library (Spectral-BLDC), version: "1.21"}
   python_api: {name: PAROL6 Python API (parol6), version: "0.9.1"}
 
@@ -36,8 +36,8 @@ issues:
     component: firmware
     summary: The answer to a full gripper command is sent before the gripper acts on it, so it carries the state from
       before the command, for example object detection 3 of the move before.
-    workaround: Ignore that answer. Poll with empty Send_gripper_data_pack frames, and give a move about 100 ms before
-      you trust its object detection.
+    workaround: Ignore that answer, and follow the move with empty Send_gripper_data_pack frames. On firmware 109
+      and older, also give a move about 100 ms before you trust its object detection.
     page: 06-operation/how-it-works.md#the-answer
     title: How the gripper works, the answer
     status: open
@@ -53,7 +53,9 @@ issues:
       interrupted calibration, switch the gripper off and on before you calibrate again.
     page: 06-operation/how-it-works.md#the-states
     title: How the gripper works, the states
-    status: open
+    status: fixed
+    fixed_in: "110: a new calibration starts from the beginning, with its whole 24 s; a command or a clear still ends a
+      running one, and the gripper keeps the calibration it had before"
     since: 2026-11-03
     source: STEPFOC firmware/src/communication_CAN.cpp:367 and :563, motor_control.cpp:2756-2762 and :2876 (V108)
 
@@ -145,3 +147,68 @@ issues:
     fixed_in: "109: only a new command marks itself new, so a poll or a repeat no longer cancels the move"
     since: 2026-11-10
     source: STEPFOC firmware/src/communication_CAN.cpp:330 and :400 (V108)
+
+  - id: KI-11
+    component: firmware
+    summary: After a move the current took a second or more to settle, and some of it stayed while the gripper held
+      the position. The velocity loop carried the current of the move into the hold and unwound it slowly through
+      the rail's friction.
+    workaround: Update the firmware to 110. The integral deadband (parameter 75) does not help, it keeps the current
+      of the move.
+    page: 06-operation/how-it-works.md#the-states
+    title: How the gripper works, the states
+    status: fixed
+    fixed_in: "110: the integral is dropped on arrival, the last stretch is slower and the hold has a small dead zone;
+      a few mA are left after a move"
+    since: 2026-11-13
+    source: STEPFOC firmware/src/motor_control.cpp:3093-3172, Gripper_mode (V109)
+
+  - id: KI-12
+    component: firmware
+    summary: The gripper calibration read the two ends while it pushed into the stops at 500 mA, so positions 0 and
+      255 lay inside the stops. A full open or close with less current stopped short, kept pressing on the stop with
+      the grip current, and often reported an object (1 or 2) instead of 3.
+    workaround: Command positions a few steps inside 0 and 255, or update the firmware to 110.
+    page: 06-operation/how-it-works.md#the-states
+    title: How the gripper works, the states
+    status: fixed
+    fixed_in: "110: each end is read under a light 100 mA push; 0 lies 32 encoder ticks inside the open stop, 255 16
+      ticks from the closed one"
+    since: 2026-11-13
+    source: STEPFOC firmware/src/motor_control.cpp:3221 and :3251, Calibrate_gripper (V109)
+
+  - id: KI-13
+    component: firmware
+    summary: Gripper moves set the driver's current limit (`#Ilim`, parameter 16) to the current of each command, and
+      the gripper calibration set it to 500 mA. A Send_Save_config or `#Save` then stored that as the driver's limit.
+    workaround: Set `#Ilim` (parameter 16) again right before you save.
+    page: build/first-run.md#current-limit
+    title: Driver setup, current limit
+    status: fixed
+    fixed_in: "110: the gripper and its calibration push with their own current; the driver's limit stays as set"
+    since: 2026-11-13
+    source: STEPFOC firmware/src/motor_control.cpp:3105, :3201 and :3232 (V109)
+
+  - id: KI-14
+    component: firmware
+    summary: Brake or coast when idle (parameter 18) was not saved. After every power-up the driver braked, whatever
+      was set before Send_Save_config.
+    workaround: Set brake or coast again after every power-up.
+    page: reference/can/system.md#parameters-a-gripper-uses
+    title: System, parameters a gripper uses
+    status: fixed
+    fixed_in: "110: Send_Save_config keeps it; a driver that never saved it brakes, as before"
+    since: 2026-11-13
+    source: STEPFOC firmware/src/EEPROM.cpp:414, Write_settings2_block (V109)
+
+  - id: KI-15
+    component: firmware
+    summary: With the watchdog's action set to hold or descend, a watchdog that ran out while the gripper was idle
+      started the hold or the descend later, when the next gripper command arrived, for the whole fallback time.
+    workaround: Clear the watchdog error before you send the next gripper command.
+    page: reference/can/system.md#send_watchdog
+    title: System, Send_Watchdog
+    status: fixed
+    fixed_in: "110: hold and descend start only when the watchdog runs out in gripper mode"
+    since: 2026-11-13
+    source: STEPFOC firmware/src/motor_control.cpp:718 (V109)

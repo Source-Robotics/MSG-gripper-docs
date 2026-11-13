@@ -10,7 +10,7 @@ stateDiagram-v2
     [*] --> NotCalibrated: power-up
     NotCalibrated --> Calibrating: Send_gripper_calibrate / #Gripcal
     Calibrating --> Calibrated: both end stops found
-    Calibrating --> NotCalibrated: not done in 24 s, or a full command or a clear
+    Calibrating --> NotCalibrated: not done in 24 s, a stroke under 1000 ticks, or a full command or a clear
     Calibrated --> Moving: command with activate = 1, action = 1
     Moving --> Holding: object found, or position reached
     Holding --> Moving: a different command
@@ -31,18 +31,30 @@ stateDiagram-v2
 **Calibrating**
 
 - The jaws open at speed 40 and 500 mA until they have stood still against the end stop for half a second.
-- They pause briefly, then close the same way.
-- The two end positions become 0 (open) and 255 (closed).
+- The push then eases to a light 100 mA for a quarter of a second, so the jaws settle against the stop, and the
+  end is read there.
+- Then they close the same way.
+- Position 0 (open) is set 32 encoder ticks inside the open stop, and 255 (closed) 16 ticks from the closed stop.
+  A move to 0 or 255 therefore ends in free travel and does not press on the stop.
+- The two ends must lie at least 1000 encoder ticks apart. If they do not, something jams the jaws, and the
+  gripper stays uncalibrated.
 - If the whole routine has not found both end stops within 24 seconds of its start, it gives up and the
   gripper stays uncalibrated.
-- While it runs, send only empty Send_gripper_data_pack frames, the status poll. A full gripper command or
-  Send_Clear_Error ends the calibration where it is, and the gripper stays uncalibrated.
+- While it runs, send only empty Send_gripper_data_pack frames, the status poll. A full gripper command,
+  Send_Clear_Error or an error ends the calibration. The gripper keeps the calibration it had before; after a
+  power-up that is none.
+- A new Send_gripper_calibrate always starts the routine from the beginning, also after one that was cut short.
+- The calibration pushes with its own current. The driver's current limit (`#Ilim`, parameter 16) stays as it
+  was.
 - Send_gripper_calibrate has no answer; the calibrated bit of the status turns 1 when the routine is done.
 
 **Moving**
 
 - A command with the activate and action bits set starts a move towards the position, at the speed.
-- The current is limited to the commanded value.
+- The move does not start at full speed: it picks up speed over its first 0.1 s. Over the last stretch before
+  the target it slows down, so the jaws arrive at the slowest speed.
+- The current is limited to the commanded value. This is the gripper's own limit: the driver's current limit
+  (`#Ilim`, parameter 16) stays as it is.
 - The driver runs its velocity loop towards the target and watches two things: the speed of the jaws and the
   motor current.
 
@@ -50,9 +62,13 @@ stateDiagram-v2
 
 - **Position reached** (within 5 encoder ticks): the driver switches to position control and holds the jaws
   there. Object detection reads 3.
-- **Object in the way**: the jaws stop before the target with the current at its limit. The driver keeps pushing
-  with the limited current, which is the grip. Object detection reads 1 if the jaws were closing, 2 if they were
-  opening.
+- On arrival the velocity loop's integral is dropped. While the jaws stay within a quarter of a position step of
+  the target (16 encoder ticks at most), the driver does not push them: friction holds them, and a few mA are
+  left after a move. Pushed further off, the position loop pulls them back.
+- A new command for the position where the jaws already rest, within that quarter step, is reached at once.
+- **Object in the way**: the jaws stand still before the target, pushing with nearly the commanded current, for
+  50 ms. The driver keeps pushing with the limited current, which is the grip. Object detection reads 1 if the
+  jaws were closing, 2 if they were opening.
 - Either way, nothing moves until a different command arrives.
 
 **Stopped**
@@ -101,7 +117,7 @@ Every Send_gripper_data_pack is answered with Respond_Gripper_data_pack, 4 bytes
 
 | Field | Meaning |
 |---|---|
-| Position | where the jaws are, 0 to 255 |
+| Position | where the jaws are, 0 to 255, rounded to the nearest step |
 | Current | the motor current, mA; positive while opening, negative while closing |
 | Activated | the activate flag |
 | Action status | the action bit of the last command, as received; it stays 1 while the gripper holds, and the calibration does not change it |
@@ -149,12 +165,13 @@ While a move is in progress and the jaws are not yet at the target, the driver r
 jaws move faster than 500 encoder ticks per second, about 1.6 mm/s.
 
 When they are slower than that and the motor
-current is above 80 % of the commanded limit, something stops them: *object found*, 1 or 2 by the sign of the
-current. Below 80 % with the jaws slow, it still reads *moving*: the object is soft and still being squeezed.
+current is above 80 % of the commanded limit, something stops them. Once that has lasted 50 ms, the state reads
+*object found*, 1 or 2 by the sign of the current. Below 80 % with the jaws slow, it still reads *moving*: the
+object is soft and still being squeezed.
 
-At the very start of a move the jaws are slow too, and with the current already near its limit the state can
-briefly read 1 or 2; a host gives a move about 100 ms before it trusts the state. Once the target is reached, 3,
-and it stays 3 until a different command arrives.
+At the very start of a move the jaws are slow too. The 50 ms keep that from reading as an object, so a host
+needs no pause before it trusts the state. Once the target is reached, 3, and it stays 3 until a different
+command arrives.
 
 The state is therefore a snapshot of each answer. A host that wants to know "did the grip succeed" sends the move,
 then polls until the state is 1, 2 or 3, with a timeout of its own; the ROS 2 driver and the PAROL6 software do
@@ -162,9 +179,12 @@ exactly that.
 
 ## What the current limit does
 
-The current limit of a move is the driver's Iq limit for the duration of the move and the hold. It bounds the
+The current limit of a move is the gripper's Iq limit for the duration of the move and the hold. It bounds the
 torque, so the force on an object, and it also bounds how fast the jaws accelerate: a low limit with a high speed
 gives a gentle, slow-starting move.
+
+The driver's own current limit (`#Ilim`, parameter 16) applies only when the driver runs as a motor. Gripper
+moves and the gripper calibration leave it as it is, so a Send_Save_config or `#Save` stores the limit you set.
 
 The temperature of the motor is the other bound: holding an object at a high
 current for minutes heats the windings, and at 75 °C the thermistor stops the gripper.

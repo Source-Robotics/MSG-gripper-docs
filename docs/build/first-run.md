@@ -37,9 +37,12 @@ then enter the stepper's parameters and calibrate:
 
 | Stepper | `#PP` | `#R` | `#L` |
 |---|---|---|---|
-| 21.5 mm, 17HS08-1004S | 50 | 3.7 | 0.0045 |
+| 21.5 mm, 17HS08-1004S | 50 | 3.8 | 0.0054 |
 | 40 mm, 17HS16-2004S1 | 50 | 1.1 | 0.0026 |
 | 60 mm, 17HS24-2104S | 50 | 1.6 | 0.0030 |
+
+The 21.5 mm values are what the driver measures on that motor in the gripper (firmware 110); the 40 mm and 60 mm
+values are not measured on the gripper yet.
 
 ```
 #Default
@@ -49,8 +52,10 @@ then enter the stepper's parameters and calibrate:
 #Cal
 ```
 
-The motor turns, the driver prints each step and ends with `Calibration success!`. The whole routine and its
-messages are in [Calibration](https://docs.source-robotics.com/STEPFOC-docs/latest/05-setup/calibration/) on
+The motor turns, the driver prints each step and ends with `Calibration success!`. To stop it early, send
+`#Estop`; `#Clear` then clears the E-stop before the next try.
+
+The whole routine and its messages are in [Calibration](https://docs.source-robotics.com/STEPFOC-docs/latest/05-setup/calibration/) on
 the STEPFOC site. `#Default` also resets the serial number the driver reports; note what `#SERNUM` prints before
 you start if you need it.
 
@@ -85,7 +90,7 @@ you start if you need it.
 |---|---|
 | `#Gripper 1` | gripper mode: the driver runs the gripper state machine and answers the gripper messages |
 | `#Term 1`, `#Tlim 75` | the thermistor on, the temperature limit at 75 °C. Without it the motor can burn out under a long grip |
-| `#Kpiq 1.4047`, `#Kiiq 0.1149` | the current loop gains of Motor GUI's gripper presets on firmware 108 and older, the same for the three steppers. From 109 the presets send `#Cbw 160` and each stepper's own gains (21.5 mm 4.828 / 0.5951, 40 mm 2.7033 / 0.1769, 60 mm 3.1464 / 0.2574), `#Kpv 0.014` / `#Kiv 0.00014` for the 21.5 mm and 0.02 / 0.001 for the others, and the tool id, `#Tool` 11 to 33 (tens: the rail, 1 = 100, 2 = 150, 3 = 200 mm; units: the stepper, 1 = 21.5, 2 = 40, 3 = 60 mm). On 108 the gains the calibration computes for the stepper are sharper than a gripper needs |
+| `#Kpiq 1.4047`, `#Kiiq 0.1149` | the current loop gains of Motor GUI's gripper presets on firmware 108 and older, the same for the three steppers. From 109 the presets send `#Cbw 160` and each stepper's own gains (40 mm 2.7033 / 0.1769, 60 mm 3.1464 / 0.2574) with `#Kpv 0.02` / `#Kiv 0.001`. On firmware 110 the 21.5 mm preset sends the values tuned on the gripper: R 3.8 and L 0.0054, `#Cbw 250`, 8.9688 / 0.955, `#Kpv 0.025` / `#Kiv 0.0003` (on 109: R 3.7 and L 0.0045, `#Cbw 160`, 4.828 / 0.5951, `#Kpv 0.014` / `#Kiv 0.00014`). Every preset also sends `#Kpp 5` and the tool id, `#Tool` 11 to 33 (tens: the rail, 1 = 100, 2 = 150, 3 = 200 mm; units: the stepper, 1 = 21.5, 2 = 40, 3 = 60 mm). On 108 the gains the calibration computes for the stepper are sharper than a gripper needs |
 | `#CANID 0` | the node ID on the robot's bus; 0 to 13, see [Over CAN](../06-operation/can.md) |
 | `#Save` | nothing above survives a power cycle until it is saved |
 
@@ -107,6 +112,7 @@ calibration found.
 
 ## Current limit
 
-The gripper's moves use the current limit of each command, not the driver's `#Ilim`. Keep the commanded current
+The gripper's moves use the current limit of each command, not the driver's `#Ilim`, and they leave `#Ilim` as
+it is: a `#Save` after gripper moves stores the limit you set. Keep the commanded current
 at or below the stepper's maximum current ([Force and speed](../03-technical-data/force-and-speed.md)); the
 firmware clamps it only at 2800 mA.

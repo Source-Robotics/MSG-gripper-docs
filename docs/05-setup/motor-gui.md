@@ -110,6 +110,15 @@ CAN ID is 6, the PAR6 gripper's, so change it before applying for another robot.
 [Driver configuration](../build/first-run.md) says when to apply it, and lists the same settings as commands
 for a terminal.
 
+On a driver with firmware 110, Motor GUI 0.7.0 and newer give the *MSG 21.5 mm motor* preset the values tuned
+on the gripper: R 3.8 Ω and L 5.4 mH, a 250 Hz current loop, Kpv 0.025 and Kiv 0.0003. On 109 it keeps the
+values it had.
+
+The 40 mm and 60 mm presets are not tuned on the gripper yet and are the same on both.
+
+Over CAN, 0.7.0 applies a preset whole on firmware 110: gripper mode, the thermistor and `#Rstint` go out as
+parameters 92, 91 and 90. On 109 those three need UART.
+
 ## Calibration prompt
 
 <figure class="gui-shot" markdown="1">

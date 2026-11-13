@@ -34,7 +34,7 @@ commands:
   R: {group: setup, argument: resistance in Ω, description: The phase resistance of the motor (one coil). STEPFOC does not measure it; enter the datasheet value before Cal., response: the current value}
   L: {group: setup, argument: inductance in H, description: The phase inductance of the motor (one coil); enter the datasheet value before Cal., response: the current value}
   Cal: {group: setup, description: "Runs the driver's motor calibration (see Driver configuration): enter PP, R and L first, with the pinion not yet in the rack.", response: the calibration log}
-  Ilim: {group: setup, argument: current in mA, description: The driver's Iq current limit outside gripper mode; the firmware clamps it to 2800 mA. Gripper moves use Gripcur instead., response: the current limit}
+  Ilim: {group: setup, argument: current in mA, description: "The driver's Iq current limit outside gripper mode; the firmware clamps it to 2800 mA. Gripper moves use Gripcur instead and leave this limit as it is.", response: the current limit}
   Kpiq: {group: setup, argument: gain, description: Kp of the Iq current loop; also sets Kpid., response: the current value}
   Kiiq: {group: setup, argument: gain, description: Ki of the Iq current loop; also sets Kiid., response: the current value}
   Cbw: {group: setup, argument: bandwidth in Hz, description: The current loop bandwidth calibration uses to compute Kpiq and Kiiq., response: the bandwidth}
@@ -47,6 +47,7 @@ commands:
   Info: {group: utility, description: "Prints the driver's identity and state: hardware version, batch date and firmware version, the ISR time, the CAN ID, the motor calibration, the thermistor and temperature, the supply voltage and the motor parameters (phase direction and order, pole pairs, R, L, Kt, KV). The serial number is printed by `#SERNUM`, the errors by `#Error`, gripper mode by `#Gripper`.", response: the report}
   Error: {group: utility, description: Prints which errors are active., response: "`No errors!` or `In error state!` followed by one line per active error"}
   Clear: {group: utility, description: "Clears the errors and goes to idle, and ends a running gripper calibration. An error whose cause is still present comes straight back, the gripper's E-stop too while `#Gripstop` is 1; a calibration error is cleared only by calibrating (or `#Calibrated 1`).", response: "`Clear errors`"}
+  Estop: {group: utility, description: "The driver's E-stop, as Send_ESTOP over CAN: the motor is released, a running calibration (the motor's or the gripper's) ends, and the E-stop error stays until `#Clear`. It shows in `#Error` and in Send_Respond_State_of_Errors, not in the gripper's own E-stop bit. New in firmware 110.", response: "`E-stop`"}
   Reset: {group: utility, description: "Resets the driver. From firmware 105 the reset lands in the bootloader, which waits 2 s for a flashing host and then starts the firmware again.", response: nothing}
   Help: {group: utility, description: Prints a short command reference. Added in firmware 106., response: the reference}
   Temp: {group: utility, description: Prints the thermistor temperature., response: "°C, or `Temp Off` while the thermistor is disabled"}

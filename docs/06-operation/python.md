@@ -75,10 +75,12 @@ for position in (200, 20, 200, 20):
 The answer to a move command is sent before the gripper acts on it, so it still carries the state from before:
 after a finished move, object detection 3. The example reads that answer and drops it.
 
-At the very start of a
-move the jaws are still slow, and with the current near its limit the object detection can briefly read 1 or 2;
-the pause of 0.1 s covers that. While the gripper calibration runs, send only empty frames: a full command or
-Send_Clear_Error ends the calibration, and the gripper stays uncalibrated.
+An object is reported only after the jaws have stood still against it for 50 ms, so the slow start of a move
+does not read as one. The pause of 0.1 s is for firmware 109 and older, where the start of a move could briefly
+read 1 or 2.
+
+While the gripper calibration runs, send only empty frames: a full command or Send_Clear_Error ends the
+calibration, and the gripper keeps the calibration it had before (none after a power-up).
 
 `Send_gripper_data_pack` with all seven arguments sends the move; without arguments it sends the empty status
 poll. `receive_can_messages` returns the raw `python-can` message and the node ID, command ID and error bit from

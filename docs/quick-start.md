@@ -109,8 +109,9 @@ The current limit sets an approximate force limit; [Force and speed](03-technica
 explains the relationship and the motor's limits.
 
 !!! success "Check"
-    The position follows the command; on an object the jaws stop before fully closed and the panel reports an
-    object. If it does not move, slips or reports an error, use [Troubleshooting](09-troubleshooting/index.md).
+    The position follows the command, and **Open** and **Close** end *at position* without pressing on the
+    stops; on an object the jaws stop before fully closed and the panel reports an object. If it does not move,
+    slips or reports an error, use [Troubleshooting](09-troubleshooting/index.md).
 
 ## 7. Finish and continue
 

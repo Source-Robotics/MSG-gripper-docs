@@ -12,6 +12,13 @@ columns:
   - {key: docs, title: Docs (gripper release)}
 
 rows:
+  - firmware: "110"
+    date: not released yet
+    bootloader: required
+    gripper: V1.2, V1.1
+    python: 1.21 or newer (parameters 90 to 93 by their numbers)
+    ros2: msg_gripper_ros2 (ROS 2 Humble)
+    docs: "1.2"
   - firmware: "109"
     date: 2026-11-10
     bootloader: required
