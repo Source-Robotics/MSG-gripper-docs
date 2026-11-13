@@ -238,5 +238,36 @@ out = ki.all_issues(kdata, "09-troubleshooting/known-issues.md") if kdata else "
 check("F5 open issues are listed by component, fixed ones under Fixed with their version",
       "### C" in out and "### Fixed" in out and "| KI-2 | s | 1.1 |" in out and "| KI-1 | s | w |" in out, err or out)
 
+# ---------------------------------------------------------------- G. the version selector on the bill of materials
+import html  # noqa: E402
+import re  # noqa: E402
+bom = load_module("sync_bom", ROOT / "tools" / "sync_bom.py")
+variants = yaml.safe_load((DOCS / "includes" / "bom-variants.yml").read_text(encoding="utf-8"))
+page = (DOCS / "build" / "bill-of-materials.md").read_text(encoding="utf-8")
+rows = bom.bom_rows(page)
+problems = bom.variant_problems(variants, rows)
+check("G1 every entry of bom-variants.yml finds exactly one row of the bill of materials", rows and not problems,
+      "; ".join(problems))
+box = re.search(r'<div class="bom-variants" data-variants="([^"]*)"></div>', page)
+check("G2 the page carries the current bom-variants.yml (else run tools/sync_bom.py)",
+      box is not None and json.loads(html.unescape(box.group(1))) == variants)
+SAMPLE = ("## Screws\n\n| Type | Length | Use |\n|---|---|---|\n| M3 | 22 mm | For the short stepper |\n"
+          "| M3 | 40 mm | For the long stepper |\n\n## Motors\n\n| Type | Quantity |\n| :--- | :--- |\n| Short | 1 |\n")
+TOY = {"choices": {"stepper": {"options": {"s": {}, "l": {}}}, "rail": {"options": {"1": {}}}},
+       "print": {"stepper": {"s": [], "l": []}, "rail": {"1": []}},
+       "rows": [{"section": "Screws", "first": "M3", "has": "short stepper", "only": {"stepper": ["s"]}},
+                {"section": "Motors", "first": "Short", "only": {"stepper": ["s"]}}]}
+check("G3 the BOM's rows are read with their section and cells",
+      [(s, c[0]) for s, c in bom.bom_rows(SAMPLE)] == [("Screws", "M3"), ("Screws", "M3"), ("Motors", "Short")])
+check("G4 a correct entry passes, and `has` tells repeated first cells apart",
+      bom.variant_problems(TOY, bom.bom_rows(SAMPLE)) == [], bom.variant_problems(TOY, bom.bom_rows(SAMPLE)))
+bad = dict(TOY, rows=[{"section": "Screws", "first": "M3", "only": {"stepper": ["s"]}},
+                      {"section": "Motors", "first": "Long"},
+                      {"section": "Motors", "first": "Short", "only": {"stepper": ["xl"]}}])
+found = bom.variant_problems(bad, bom.bom_rows(SAMPLE))
+check("G5 an entry that finds two rows, one that finds none, and an unknown option are reported",
+      any("finds 2 rows" in f for f in found) and any("finds 0 rows" in f for f in found)
+      and any("unknown choice or option" in f for f in found), found)
+
 print(f"\n{len(fails)} failure(s)" if fails else "\nall checks passed")
 sys.exit(1 if fails else 0)

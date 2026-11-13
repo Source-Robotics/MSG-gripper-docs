@@ -1,0 +1,57 @@
+# The version selector on the Bill of materials page (owner, 2026-11-13: pick the version you build, and the page
+# offers the right list of parts). The page is the gripper repository's BOM.md, copied by tools/sync_bom.py, which
+# also writes this file into the page; docs/javascripts/bom-variants.js shows the choices, hides the rows the chosen
+# version does not need, and lists the files to print.
+#
+# A BOM row not named under `rows` is needed by every version. A named row is found by its section (the BOM's ##
+# heading) and its first cell, and by a text the row contains (`has`) when the first cell repeats in the section.
+# `only` lists, per choice, the options the row is needed for; `note` adds a word to the row for the chosen option.
+# An option's `phrase` is how the summary names it (else "the <label> <choice>").
+# tools/sync_bom.py and tools/test_tools.py fail when an entry finds no row or more than one, or names an option
+# that is not under `choices`. The variants themselves: docs/01-overview/variants.md.
+
+choices:
+  rail:
+    label: Rail
+    options:
+      "100": {label: 100 mm, detail: 55 mm stroke}
+      "150": {label: 150 mm, detail: 105 mm stroke}
+      "200": {label: 200 mm, detail: 155 mm stroke}
+  stepper:
+    label: Stepper
+    options:
+      "21.5": {label: 21.5 mm, detail: "17HS08-1004S, about 31 N"}
+      "40": {label: 40 mm, detail: "17HS16-2004S1, about 50 N"}
+      "60": {label: 60 mm, detail: "17HS24-2104S, about 76 N"}
+  camera:
+    label: Camera
+    options:
+      with: {label: With camera, phrase: with a camera}
+      without: {label: Without camera, phrase: without a camera}
+
+rows:
+  - {section: Screws and Nuts, first: M3, has: For 17HS08-1004S stepper, only: {stepper: ["21.5"]}}
+  - {section: Screws and Nuts, first: M3, has: For 17HS16-2004S1 stepper, only: {stepper: ["40"]}}
+  - {section: Screws and Nuts, first: M3, has: For 17HS24-2104S stepper, only: {stepper: ["60"]}}
+  - {section: Motors (You need one of these per gripper!), first: 17HS08-1004S, only: {stepper: ["21.5"]}}
+  - {section: Motors (You need one of these per gripper!), first: 17HS16-2004S1, only: {stepper: ["40"]}}
+  - {section: Motors (You need one of these per gripper!), first: 17HS24-2104S, only: {stepper: ["60"]}}
+  - section: Mechanical Components
+    first: Linear guide
+    note: {rail: {"100": 100 mm long, "150": 150 mm long, "200": 200 mm long}}
+  - {section: Electronics, first: OV9732 Camera, only: {camera: [with]}}
+
+# The 3MF files in the repository's Print files folder, ready to slice: the common parts, then one per rail and
+# one per stepper (docs/build/printing.md has the STEP files and the jaws).
+print:
+  url: https://github.com/Source-Robotics/MSG-compliant-AI-stepper-gripper/tree/main/Print%20files
+  common: [Common_parts_MSG_gripper]
+  rail:
+    "100": [MSG_Gripper_body_100mm, gripper_jaws_100mm]
+    "150": [MSG_Gripper_body_150mm, gripper_jaws_150mm]
+    "200": [MSG_Gripper_body_200mm, gripper_jaws_200mm]
+  stepper:
+    "21.5": [Stepper_cover_21_5mm]
+    "40": [Stepper_cover_40mm]
+    "60": [Stepper_cover_60mm]
+  without camera: the common parts include the camera mount and its lid; leave them off the print

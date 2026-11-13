@@ -18,10 +18,16 @@ docs/build/bill-of-materials.md and docs/assets/bom/. The page is the repository
 
 Everything else, the parts, the quantities, the purchase links, is left untouched: a wrong part is fixed in the
 repository's file, then this tool is run again. --check exits 1 when the page is out of date.
+
+When docs/includes/bom-variants.yml exists (the MSG: which rows each version needs), the tool writes it into the
+page for the version selector (docs/javascripts/bom-variants.js) and stops when an entry finds no row, finds more
+than one, or names an option the file does not offer.
 """
 from __future__ import annotations
 
 import argparse
+import html
+import json
 import os
 import re
 import subprocess
@@ -34,6 +40,7 @@ import yaml
 ROOT = Path(__file__).resolve().parent.parent
 PAGE = ROOT / "docs" / "build" / "bill-of-materials.md"
 IMG_DIR = ROOT / "docs" / "assets" / "bom"
+VARIANTS = ROOT / "docs" / "includes" / "bom-variants.yml"
 BOM_PATH = {"MSG-compliant-AI-stepper-gripper": "BOM.md", "SSG-48-adaptive-electric-gripper": "BOM/README.md"}
 THUMB = 120
 STORED = 400
@@ -119,6 +126,62 @@ def convert(text: str, repo: Path, bom: str, url: str, write_images: bool) -> st
     return text.strip() + "\n"
 
 
+def bom_rows(text: str) -> list[tuple[str, list[str]]]:
+    """(section, cells) of every row of every table: the section is the ## heading above the table."""
+    rows, section, header = [], "", False
+    for line in text.replace("\r\n", "\n").split("\n"):
+        if line.startswith("## "):
+            section = line[3:].strip()
+        if not line.startswith("|"):
+            header = False
+            continue
+        cells = [c.strip() for c in line.strip().strip("|").split("|")]
+        if not header:
+            header = True                                   # the first line of a table is its header
+        elif not set("".join(cells)) <= set(":- "):
+            rows.append((section, cells))
+    return rows
+
+
+def found_rows(entry: dict, rows: list[tuple[str, list[str]]]) -> list[int]:
+    """The rows a bom-variants.yml entry names: its section, its first cell, and its `has` text if it gives one."""
+    return [i for i, (section, cells) in enumerate(rows)
+            if section == entry.get("section") and cells and cells[0] == entry.get("first")
+            and (not entry.get("has") or entry["has"] in " | ".join(cells))]
+
+
+def variant_problems(data: dict, rows: list[tuple[str, list[str]]]) -> list[str]:
+    """Every entry finds exactly one row, and names only choices and options the file offers."""
+    problems, choices = [], data.get("choices") or {}
+    for e in data.get("rows") or []:
+        name = f"{e.get('section')} / {e.get('first')}" + (f" ({e['has']})" if e.get("has") else "")
+        hits = len(found_rows(e, rows))
+        if hits != 1:
+            problems.append(f"{name} finds {hits} rows, not one")
+        for key in ("only", "note"):
+            for choice, values in (e.get(key) or {}).items():
+                offered = (choices.get(choice) or {}).get("options") or {}
+                if choice not in choices or not set(values) <= set(offered):
+                    problems.append(f"{name}: {key} names an unknown choice or option: {choice} {list(values)}")
+    for choice in ("rail", "stepper"):
+        offered = set(((choices.get(choice) or {}).get("options") or {}))
+        if set(((data.get("print") or {}).get(choice) or {})) != offered:
+            problems.append(f"print.{choice} does not cover exactly the {choice} options")
+    return problems
+
+
+def variant_box(body: str) -> str:
+    """The element the version selector fills, with bom-variants.yml in it; empty when there is no such file."""
+    if not VARIANTS.exists():
+        return ""
+    data = yaml.safe_load(VARIANTS.read_text(encoding="utf-8"))
+    problems = variant_problems(data, bom_rows(body))
+    if problems:
+        sys.exit("sync_bom: the BOM and docs/includes/bom-variants.yml disagree:\n  " + "\n  ".join(problems))
+    payload = html.escape(json.dumps(data, ensure_ascii=False, separators=(",", ":")), quote=True)
+    return f'<div class="bom-variants" data-variants="{payload}"></div>\n\n'
+
+
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--repo", help="the clone of the gripper repository")
@@ -133,7 +196,8 @@ def main(argv=None) -> int:
     except (subprocess.CalledProcessError, ValueError, FileNotFoundError):
         commit, when = "unknown", "today"
     body = convert((repo / bom).read_text(encoding="utf-8"), repo, bom, url, write_images=not args.check)
-    page = (HEADER.format(bom=bom, bom_url=bom.replace(" ", "%20"), url=url, when=when, commit=commit) + body).replace("\n", "\r\n")
+    page = (HEADER.format(bom=bom, bom_url=bom.replace(" ", "%20"), url=url, when=when, commit=commit)
+            + variant_box(body) + body).replace("\n", "\r\n")
     if args.check:
         current = PAGE.read_bytes().decode("utf-8") if PAGE.exists() else ""
         same = current.split("\r\n\r\n", 2)[-1:] == page.split("\r\n\r\n", 2)[-1:]
