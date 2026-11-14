@@ -22,7 +22,7 @@ every CAN frame it sends. The grip is released: an idle stepper holds nothing be
 | Encoder | State_of_Errors | the driver's encoder does not see its magnet | the magnet on the stepper shaft (a self-built gripper) |
 | Driver | State_of_Errors | the driver stage's own protection tripped: overcurrent, overtemperature | lower the current; check the motor leads |
 | Velocity | State_of_Errors | the motor exceeded the driver's speed limit | unlikely in a gripper; clear |
-| Driver E-stop | State_of_Errors | Send_ESTOP was received | clear |
+| Driver E-stop | State_of_Errors, `#Error` | Send_ESTOP was received, or `#Estop` over UART | clear |
 
 A gripper that is not **gripper-calibrated** is not in error: it just refuses moves until Send_gripper_calibrate
 has found the end stops.
@@ -40,7 +40,8 @@ and the action bit at 0 (or `#Gripstop 0` over UART), then clear. The next comma
 the gripper again.
 
 After clearing, the gripper is idle and still calibrated and activated; the next move command moves it. A clear
-sent while the gripper calibration runs ends the calibration, and the gripper stays uncalibrated.
+sent while the gripper calibration runs ends the calibration, and the gripper keeps the calibration it had
+before (none after a power-up).
 
 ## When the gripper does not answer
 

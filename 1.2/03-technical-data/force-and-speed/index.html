@@ -2553,13 +2553,18 @@ v = \omega \, r
 </tbody>
 </table>
 <p>Both jaws move, so the gap closes at twice the speed of one jaw. At speed 255 a 105 mm stroke takes about
-0.3 s. The gripper calibration runs at speed 40 and 500 mA.</p>
+0.3 s at full speed. A move picks up speed over its first 0.1 s and slows down before the target, which adds a
+little.</p>
+<p>The gripper calibration runs at speed 40 and 500 mA, and reads each end under a light 100 mA push.</p>
 <h2 id="position">Position<a class="headerlink" href="#position" title="Permanent link">&para;</a></h2>
 <p>The position byte is linear over the stroke: 0 is the fully open end stop found by the gripper calibration, 255
 the fully closed one.</p>
+<p>Both lie a little inside their stop: 0 by 32 encoder ticks, 255 by 16, about 0.1 and 0.05 mm at each jaw. A
+move to either end so arrives in free travel and does not press on the stop.</p>
 <p>One step of the byte is the stroke divided by 255: 0.22 mm on the 100 mm rail, 0.41 mm on
-the 150 mm rail, 0.61 mm on the 200 mm rail. The driver considers the position reached within 5 encoder ticks,
-about 0.03 mm.</p>
+the 150 mm rail, 0.61 mm on the 200 mm rail.</p>
+<p>The driver considers the position reached within 5 encoder ticks, about 0.03 mm. It then holds without pushing
+while the jaws stay within a quarter of a step (16 ticks at most).</p>
 
   
   
@@ -2600,7 +2605,7 @@ about 0.03 mm.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 11, 2026 14:53:32 UTC">November 11, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 13, 2026 22:18:26 UTC">November 13, 2026</span>
   </span>
 
     

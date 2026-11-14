@@ -42,9 +42,13 @@ at 0 before you clear. [Errors and recovery](https://docs.source-robotics.com/MS
 
 ## 3. Calibrate
 
-The gripper calibration finds the two end stops: the jaws open fully, pause, then close fully, at low force
-(500 mA) and low speed. Each end is recognised when the jaws have stood still against it for half a second. It
-takes about ten seconds; the result is not kept over a power cycle, so this runs at every power-up.
+The gripper calibration finds the two end stops: the jaws open fully, then close fully, at low force
+(500 mA) and low speed. Each end is recognised when the jaws have stood still against it for half a second, and
+read under a light 100 mA push.
+
+Positions 0 and 255 lie just inside the two stops, so a full open or close does not press on them.
+
+It takes about ten seconds; the result is not kept over a power cycle, so this runs at every power-up.
 
 === "Motor GUI"
     **Calibrate**, and confirm. When the jaws stop, the panel shows *Calibrated*; press nothing else until then.
@@ -66,8 +70,12 @@ step 2), or the stepper is not calibrated.
 If the routine runs for 24 seconds and gives up, an end stop was not
 found: something blocks the jaws short of the end, or the mechanism is too stiff for 500 mA.
 
+If the jaws barely move, less than 1000 encoder ticks between the two ends, the routine ends without a
+calibration: something jams them.
+
 Until the gripper reports *Calibrated*, send nothing but status polls: a move command or a clear during the
-calibration ends it, and the gripper stays uncalibrated.
+calibration ends it. The gripper then keeps the calibration it had before, none after a power-up. Calibrate
+again, and the routine starts from the beginning.
 
 !!! success "Check"
     The jaws opened fully, then closed fully, and the gripper reports *Calibrated*: in Motor GUI's panel, as

@@ -29,6 +29,7 @@ used.
 | [`#Clear`](https://docs.source-robotics.com/MSG-gripper-docs/1.2/reference/uart/utility/) | Action |  | Status and utility |
 | [`#Default`](https://docs.source-robotics.com/MSG-gripper-docs/1.2/reference/uart/setup/) | Action |  | Driver setup |
 | [`#Error`](https://docs.source-robotics.com/MSG-gripper-docs/1.2/reference/uart/utility/) | Get |  | Status and utility |
+| [`#Estop`](https://docs.source-robotics.com/MSG-gripper-docs/1.2/reference/uart/utility/) | Action |  | Status and utility |
 | [`#Gripact`](https://docs.source-robotics.com/MSG-gripper-docs/1.2/reference/uart/gripper/) | Set/Get | int | Gripper |
 | [`#Gripcal`](https://docs.source-robotics.com/MSG-gripper-docs/1.2/reference/uart/gripper/) | Action |  | Gripper |
 | [`#Gripcur`](https://docs.source-robotics.com/MSG-gripper-docs/1.2/reference/uart/gripper/) | Set/Get | int | Gripper |

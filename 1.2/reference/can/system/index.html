@@ -896,6 +896,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#parameters-a-gripper-uses" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parameters a gripper uses
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1414,6 +1425,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#parameters-a-gripper-uses" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parameters a gripper uses
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1532,7 +1554,7 @@ messages a gripper host uses.</p>
 <div class="cmd-facts">
 <p><span class="fact">ID 0</span><span class="fact">host → driver</span><span class="fact">0 bytes</span><span class="fact">Python: <code>Send_ESTOP()</code></span></p>
 </div>
-<p>Stops the motor and raises the E-stop error, which stays until Send_Clear_Error.</p>
+<p>Stops the motor and raises the E-stop error, which stays until Send_Clear_Error. A running calibration ends. From firmware 110 <code>#Estop</code> does the same over <abbr title="the serial port of the driver inside the gripper, 3.3 V, 256000 baud">UART</abbr>.</p>
 <p>The driver does not answer this command.</p>
 <hr />
 <h3 id="send_idle">Send_Idle<a class="headerlink" href="#send_idle" title="Permanent link">&para;</a></h3>
@@ -1546,7 +1568,7 @@ messages a gripper host uses.</p>
 <div class="cmd-facts">
 <p><span class="fact">ID 13</span><span class="fact">host → driver</span><span class="fact">0 bytes</span><span class="fact">Python: <code>Send_Save_config()</code></span></p>
 </div>
-<p>Writes the current configuration (gains, limits, calibration, <abbr title="Controller Area Network, the bus between the robot or the PC and the gripper">CAN</abbr> ID, heartbeat, watchdog, gripper flag) to the <abbr title="the non-volatile memory on the driver that holds its configuration">EEPROM</abbr>.</p>
+<p>Writes the current configuration (gains, limits, the motor calibration, <abbr title="Controller Area Network, the bus between the robot or the PC and the gripper">CAN</abbr> ID, heartbeat, watchdog, gripper flag, and from firmware 110 brake or coast) to the <abbr title="the non-volatile memory on the driver that holds its configuration">EEPROM</abbr>. The gripper calibration is not saved: it runs after every power-up.</p>
 <p>The driver does not answer this command.</p>
 <hr />
 <h3 id="send_reset">Send_Reset<a class="headerlink" href="#send_reset" title="Permanent link">&para;</a></h3>
@@ -1567,7 +1589,7 @@ messages a gripper host uses.</p>
 <div class="cmd-facts">
 <p><span class="fact">ID 15</span><span class="fact">host → driver</span><span class="fact">5 bytes</span><span class="fact">Python: <code>Send_Watchdog()</code></span></p>
 </div>
-<p>Sets the watchdog: the gripper command (full or empty) and the status requests reset it, Send_Clear_Error, Send_gripper_calibrate and the setup messages do not; when the time runs out the driver reports a watchdog error and stops. 0 turns it off (the default). The action byte is stored but not acted on by this firmware: the driver always stops into its idle behaviour.</p>
+<p>Sets the watchdog: the gripper command (full or empty) and the status requests reset it, Send_Clear_Error, Send_gripper_calibrate and the setup messages do not; when the time runs out the driver reports a watchdog error and does what the action byte says. 0 turns it off (the default). Hold and descend run for the fallback time, then the after-action (parameters 2 and 5), and only when the watchdog runs out while the driver is in gripper mode. From firmware 110 a watchdog that runs out while the driver is idle starts neither, also not when the next gripper command arrives. The STEPFOC site explains each action, <a href="https://docs.source-robotics.com/STEPFOC-docs/latest/06-operation/watchdog/">The watchdog</a>.</p>
 <p><strong>5 bytes</strong></p>
 <table>
 <thead>
@@ -1592,7 +1614,7 @@ messages a gripper host uses.</p>
 <td></td>
 <td>Action</td>
 <td>unsigned 8-bit</td>
-<td>0 idle, 1 hold, 2 brake (stored only)</td>
+<td>0 legacy (brake or coast as idle does), 1 hold the position, 2 brake, 3 coast, 4 descend at the fallback current and speed; other values act as 0</td>
 </tr>
 </tbody>
 </table>
@@ -1625,6 +1647,59 @@ messages a gripper host uses.</p>
 </tbody>
 </table>
 <hr />
+<h2 id="parameters-a-gripper-uses">Parameters a gripper uses<a class="headerlink" href="#parameters-a-gripper-uses" title="Permanent link">&para;</a></h2>
+<p>Settings without a message of their own are numbered parameters. Send_Parameter (ID 36) writes one,
+Send_Get_Parameter (ID 37) asks for one, and the driver answers with Respond_Parameter (ID 38). The frames and the
+whole list are on the STEPFOC site,
+<a href="https://docs.source-robotics.com/STEPFOC-docs/latest/reference/can/parameters/">Parameters</a>. These concern a
+gripper:</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>What it is</th>
+<th>Values</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>16</td>
+<td>the driver's current limit in mA, for the motor modes; gripper moves and the gripper calibration leave it as it is</td>
+<td>a float</td>
+</tr>
+<tr>
+<td>18</td>
+<td>brake or coast when idle; kept by Send_Save_config</td>
+<td>1 brake, 0 coast; a driver that never saved it brakes</td>
+</tr>
+<tr>
+<td>90</td>
+<td><code>#Rstint</code>: zero the velocity and current integrators on every setpoint command</td>
+<td>0 or 1; 0 on a gripper</td>
+</tr>
+<tr>
+<td>91</td>
+<td><code>#Term</code>: the thermistor measurement</td>
+<td>0 or 1; 1 on a gripper</td>
+</tr>
+<tr>
+<td>92</td>
+<td><code>#Gripper</code>: gripper mode, in force at once; written only while the driver is idle</td>
+<td>0 or 1; 1 on a gripper</td>
+</tr>
+<tr>
+<td>93</td>
+<td>read only: the gripper's stroke between positions 0 and 255, in encoder ticks</td>
+<td>0 until the gripper is calibrated</td>
+</tr>
+</tbody>
+</table>
+<p>Parameters 90 to 93 are new in firmware 110, and from 110 Send_Save_config keeps 18 too; it keeps 90 to 92 like
+the other settings. A value outside the range is refused, and the value in force stays.</p>
+<p>The Python library names them from 1.22 (<code>PARAM_RSTINT</code>, <code>PARAM_THERMISTOR</code>, <code>PARAM_GRIPPER_MODE</code>,
+<code>PARAM_GRIPPER_STROKE</code>); 1.21 takes the numbers. <code>gripper.Send_Parameter(92, 1)</code> writes one;
+<code>gripper.Send_Get_Parameter(93)</code> asks for one, and its answer, passed through <code>UnpackData</code>, lands in
+<code>gripper.parameters[93]</code>.</p>
 
   
   
@@ -1665,7 +1740,7 @@ messages a gripper host uses.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="October 29, 2026 15:30:49 UTC">October 29, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 13, 2026 22:22:07 UTC">November 13, 2026</span>
   </span>
 
     

@@ -2479,10 +2479,11 @@ The adapter's port is <code>/dev/tty.usbmodem</code> and a number (<code>ls /dev
 </span></code></pre></div>
 <p>The answer to a move command is sent before the gripper acts on it, so it still carries the state from before:
 after a finished move, object detection 3. The example reads that answer and drops it.</p>
-<p>At the very start of a
-move the jaws are still slow, and with the current near its limit the object detection can briefly read 1 or 2;
-the pause of 0.1 s covers that. While the gripper calibration runs, send only empty frames: a full command or
-Send_Clear_Error ends the calibration, and the gripper stays uncalibrated.</p>
+<p>An object is reported only after the jaws have stood still against it for 50 ms, so the slow start of a move
+does not read as one. The pause of 0.1 s is for firmware 109 and older, where the start of a move could briefly
+read 1 or 2.</p>
+<p>While the gripper calibration runs, send only empty frames: a full command or Send_Clear_Error ends the
+calibration, and the gripper keeps the calibration it had before (none after a power-up).</p>
 <p><code>Send_gripper_data_pack</code> with all seven arguments sends the move; without arguments it sends the empty status
 poll. <code>receive_can_messages</code> returns the raw <code>python-can</code> message and the node ID, command ID and error bit from
 the identifier; <code>UnpackData</code> fills the gripper attributes:</p>
@@ -2580,7 +2581,7 @@ two grippers this way.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 11, 2026 14:53:32 UTC">November 11, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 13, 2026 22:18:26 UTC">November 13, 2026</span>
   </span>
 
     

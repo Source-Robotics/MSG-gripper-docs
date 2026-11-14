@@ -1547,7 +1547,7 @@ explains what the gripper does with them.</p>
 <div class="cmd-facts">
 <p><span class="fact">ID 62</span><span class="fact">host → driver</span><span class="fact">0 bytes</span><span class="fact">Python: <code>Send_gripper_calibrate()</code></span></p>
 </div>
-<p>Starts the gripper calibration (the jaws find their end stops). Needed after every power-up. It has no answer: poll with empty Send_gripper_data_pack frames until the calibrated bit is 1, and send nothing else meanwhile, since a full gripper command or Send_Clear_Error ends the calibration. With an error active the request is dropped: clear first.</p>
+<p>Starts the gripper calibration (the jaws find their end stops). Needed after every power-up. It has no answer: poll with empty Send_gripper_data_pack frames until the calibrated bit is 1, and send nothing else meanwhile, since a full gripper command or Send_Clear_Error ends the calibration. With an error active the request is dropped: clear first. Each end is read under a light 100 mA push; position 0 is set 32 encoder ticks inside the open stop and 255 16 ticks from the closed one. Ends less than 1000 ticks apart leave the gripper uncalibrated. A new request starts the routine from the beginning. The driver's current limit (parameter 16) is not touched.</p>
 <p>The driver does not answer this command.</p>
 <hr />
 

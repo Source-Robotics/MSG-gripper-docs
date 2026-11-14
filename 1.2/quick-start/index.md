@@ -109,8 +109,9 @@ The current limit sets an approximate force limit; [Force and speed](https://doc
 explains the relationship and the motor's limits.
 
 !!! success "Check"
-    The position follows the command; on an object the jaws stop before fully closed and the panel reports an
-    object. If it does not move, slips or reports an error, use [Troubleshooting](https://docs.source-robotics.com/MSG-gripper-docs/1.2/09-troubleshooting/).
+    The position follows the command, and **Open** and **Close** end *at position* without pressing on the
+    stops; on an object the jaws stop before fully closed and the panel reports an object. If it does not move,
+    slips or reports an error, use [Troubleshooting](https://docs.source-robotics.com/MSG-gripper-docs/1.2/09-troubleshooting/).
 
 ## 7. Finish and continue
 

@@ -46,5 +46,9 @@ Wait until `#Gripinfo` reports the gripper calibrated before the first `#Grippos
 during the calibration ends it. After `#Gripstop 1`, send `#Gripstop 0` before `#Clear`, or the E-stop error
 comes straight back.
 
+`#Estop` is the driver's E-stop over UART, as Send_ESTOP is over CAN. The motor is released, a running
+calibration ends, and the E-stop error stays until `#Clear`. Motor GUI's **STOP** sends it over UART from version
+0.7.0.
+
 The [UART reference](https://docs.source-robotics.com/MSG-gripper-docs/1.2/reference/uart/) has these and the driver commands a gripper needs; the driver's
 whole command set is on the [STEPFOC site](https://docs.source-robotics.com/STEPFOC-docs/latest/reference/uart/).

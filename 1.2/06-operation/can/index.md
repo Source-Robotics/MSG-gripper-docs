@@ -57,10 +57,11 @@ The answer to every frame tells the whole state, so a host never has to ask twic
 - **Clear, then calibrate.** With an error active, the driver drops the calibration request; a clear sent during
   the calibration ends it.
 - **During the calibration, only empty frames.** A full Send_gripper_data_pack ends the calibration as well, and
-  the gripper stays uncalibrated. Wait for the calibrated bit; the routine gives up after 24 s.
-- **The first answer is old.** The answer to a full command is sent before the gripper acts on it. Ignore it,
-  and give the move about 100 ms before you trust the object detection: at the start of a move the jaws are
-  slow, which can briefly read as an object found.
+  the gripper keeps the calibration it had before (none after a power-up). Wait for the calibrated bit; the
+  routine gives up after 24 s. A new Send_gripper_calibrate starts it from the beginning.
+- **The first answer is old.** The answer to a full command is sent before the gripper acts on it. Ignore it.
+  The polls after it can be trusted at once: an object is reported only after the jaws have stood still against
+  it for 50 ms, so the slow start of a move does not read as one.
 - **The action status repeats your bit.** It is the action bit you last sent and stays 1 while the gripper
   holds. Follow a move by its object detection.
 - **An identical command does nothing.** To repeat a move to the position the gripper holds, change the speed
@@ -71,7 +72,11 @@ The answer to every frame tells the whole state, so a host never has to ask twic
   reset it; Send_Clear_Error and Send_gripper_calibrate do not. After a timeout, fix the host, clear, and
   resume.
 - **Current:** keep the commanded current within the stepper's maximum, 1.5, 2.0 or 2.1 A; the firmware clamps
-  it only at 2800 mA ([Force and speed](https://docs.source-robotics.com/MSG-gripper-docs/1.2/03-technical-data/force-and-speed/)).
+  it only at 2800 mA ([Force and speed](https://docs.source-robotics.com/MSG-gripper-docs/1.2/03-technical-data/force-and-speed/)). The commanded current is the
+  gripper's own limit; the driver's current limit (parameter 16) stays as you set it.
+- **Settings by number:** gripper mode, the thermistor and the gripper's measured stroke are parameters 92, 91
+  and 93, read and written with Send_Get_Parameter and Send_Parameter
+  ([Parameters a gripper uses](https://docs.source-robotics.com/MSG-gripper-docs/1.2/reference/can/system/#parameters-a-gripper-uses)).
 
 ## From a PC
 

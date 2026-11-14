@@ -13,7 +13,7 @@ is the procedure.
 | `#Cal` | Get |  | Runs the driver's motor calibration (see Driver configuration): enter PP, R and L first, with the pinion not yet in the rack. | the calibration log |
 | `#Cal` | Get |  | Runs the driver's motor calibration (see Driver configuration): enter PP, R and L first, with the pinion not yet in the rack. | the calibration log |
 | `#Save` | Action |  | Writes the configuration to the EEPROM. Do it after calibration and after tuning. | `Save` |
-| `#Ilim` | Set/Get | int: current in mA | The driver's Iq current limit outside gripper mode; the firmware clamps it to 2800 mA. Gripper moves use Gripcur instead. | the current limit |
+| `#Ilim` | Set/Get | int: current in mA | The driver's Iq current limit outside gripper mode; the firmware clamps it to 2800 mA. Gripper moves use Gripcur instead and leave this limit as it is. | the current limit |
 | `#Tlim` | Set/Get | int: temperature in °C | The temperature at which the temperature error is raised; 75 by default. | `Temp limit N` |
 | `#Default` | Action |  | Writes the factory defaults to the EEPROM, including the serial number, hardware version and batch date, and clears the gripper flag, heartbeat and watchdog. Back those up first. | `Loaded default config!` |
 | `#Term` | Set/Get | int: 0 or 1 | Enables the thermistor measurement and the temperature error (off by default). | the setting |

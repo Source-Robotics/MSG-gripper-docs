@@ -23,7 +23,7 @@ The driver does not answer this command.
 
 <div class="cmd-facts" markdown><span class="fact">ID 0</span><span class="fact">host → driver</span><span class="fact">0 bytes</span><span class="fact">Python: `Send_ESTOP()`</span></div>
 
-Stops the motor and raises the E-stop error, which stays until Send_Clear_Error.
+Stops the motor and raises the E-stop error, which stays until Send_Clear_Error. A running calibration ends. From firmware 110 `#Estop` does the same over UART.
 
 The driver does not answer this command.
 
@@ -43,7 +43,7 @@ The driver does not answer this command.
 
 <div class="cmd-facts" markdown><span class="fact">ID 13</span><span class="fact">host → driver</span><span class="fact">0 bytes</span><span class="fact">Python: `Send_Save_config()`</span></div>
 
-Writes the current configuration (gains, limits, calibration, CAN ID, heartbeat, watchdog, gripper flag) to the EEPROM.
+Writes the current configuration (gains, limits, the motor calibration, CAN ID, heartbeat, watchdog, gripper flag, and from firmware 110 brake or coast) to the EEPROM. The gripper calibration is not saved: it runs after every power-up.
 
 The driver does not answer this command.
 
@@ -73,14 +73,14 @@ The driver does not answer this command.
 
 <div class="cmd-facts" markdown><span class="fact">ID 15</span><span class="fact">host → driver</span><span class="fact">5 bytes</span><span class="fact">Python: `Send_Watchdog()`</span></div>
 
-Sets the watchdog: the gripper command (full or empty) and the status requests reset it, Send_Clear_Error, Send_gripper_calibrate and the setup messages do not; when the time runs out the driver reports a watchdog error and stops. 0 turns it off (the default). The action byte is stored but not acted on by this firmware: the driver always stops into its idle behaviour.
+Sets the watchdog: the gripper command (full or empty) and the status requests reset it, Send_Clear_Error, Send_gripper_calibrate and the setup messages do not; when the time runs out the driver reports a watchdog error and does what the action byte says. 0 turns it off (the default). Hold and descend run for the fallback time, then the after-action (parameters 2 and 5), and only when the watchdog runs out while the driver is in gripper mode. From firmware 110 a watchdog that runs out while the driver is idle starts neither, also not when the next gripper command arrives. The STEPFOC site explains each action, [The watchdog](https://docs.source-robotics.com/STEPFOC-docs/latest/06-operation/watchdog/).
 
 **5 bytes**
 
 | Byte | Bit | Field | Type | Meaning |
 |---|---|---|---|---|
 | 0-3 |  | Time | unsigned 32-bit | ms; 0 = off |
-| 4 |  | Action | unsigned 8-bit | 0 idle, 1 hold, 2 brake (stored only) |
+| 4 |  | Action | unsigned 8-bit | 0 legacy (brake or coast as idle does), 1 hold the position, 2 brake, 3 coast, 4 descend at the fallback current and speed; other values act as 0 |
 
 The driver does not answer this command.
 
@@ -99,3 +99,28 @@ Sets the heartbeat interval in ms; 0 turns the heartbeat off (the default). Kept
 | 0-3 |  | Interval | unsigned 32-bit | ms; 0 = off |
 
 ---
+
+## Parameters a gripper uses
+
+Settings without a message of their own are numbered parameters. Send_Parameter (ID 36) writes one,
+Send_Get_Parameter (ID 37) asks for one, and the driver answers with Respond_Parameter (ID 38). The frames and the
+whole list are on the STEPFOC site,
+[Parameters](https://docs.source-robotics.com/STEPFOC-docs/latest/reference/can/parameters/). These concern a
+gripper:
+
+| Parameter | What it is | Values |
+|---|---|---|
+| 16 | the driver's current limit in mA, for the motor modes; gripper moves and the gripper calibration leave it as it is | a float |
+| 18 | brake or coast when idle; kept by Send_Save_config | 1 brake, 0 coast; a driver that never saved it brakes |
+| 90 | `#Rstint`: zero the velocity and current integrators on every setpoint command | 0 or 1; 0 on a gripper |
+| 91 | `#Term`: the thermistor measurement | 0 or 1; 1 on a gripper |
+| 92 | `#Gripper`: gripper mode, in force at once; written only while the driver is idle | 0 or 1; 1 on a gripper |
+| 93 | read only: the gripper's stroke between positions 0 and 255, in encoder ticks | 0 until the gripper is calibrated |
+
+Parameters 90 to 93 are new in firmware 110, and from 110 Send_Save_config keeps 18 too; it keeps 90 to 92 like
+the other settings. A value outside the range is refused, and the value in force stays.
+
+The Python library names them from 1.22 (`PARAM_RSTINT`, `PARAM_THERMISTOR`, `PARAM_GRIPPER_MODE`,
+`PARAM_GRIPPER_STROKE`); 1.21 takes the numbers. `gripper.Send_Parameter(92, 1)` writes one;
+`gripper.Send_Get_Parameter(93)` asks for one, and its answer, passed through `UnpackData`, lands in
+`gripper.parameters[93]`.

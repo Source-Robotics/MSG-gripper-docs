@@ -8,13 +8,13 @@
 
 **MSG gripper release:** 1.2
 
-**Firmware:** STEPFOC 109
+**Firmware:** STEPFOC 110
 
-**Revision:** 2026.D
+**Revision:** 2026.E
 
-**Published:** 2026-11-10
+**Published:** 2026-11-13
 
-**Applies to:** MSG gripper release 1.2 with the STEPFOC driver PCB v1, STEPFOC firmware 109
+**Applies to:** MSG gripper release 1.2 with the STEPFOC driver PCB v1, STEPFOC firmware 110
 
 *Original instructions*
 

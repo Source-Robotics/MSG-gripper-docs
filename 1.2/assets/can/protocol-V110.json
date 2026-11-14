@@ -1,7 +1,7 @@
 {
   "product": "MSG gripper",
-  "firmware": "V109",
-  "commit": "56741ac67678",
+  "firmware": "V110",
+  "commit": "9c9165c08e29",
   "byte_order": "big-endian",
   "bitrate": 1000000,
   "commands": [
@@ -247,7 +247,7 @@
       "key": "IN_GRIPPER_CALIB",
       "id": 62,
       "name": "Send_gripper_calibrate",
-      "description": "Starts the gripper calibration (the jaws find their end stops). Needed after every power-up. It has no answer: poll with empty Send_gripper_data_pack frames until the calibrated bit is 1, and send nothing else meanwhile, since a full gripper command or Send_Clear_Error ends the calibration. With an error active the request is dropped: clear first.",
+      "description": "Starts the gripper calibration (the jaws find their end stops). Needed after every power-up. It has no answer: poll with empty Send_gripper_data_pack frames until the calibrated bit is 1, and send nothing else meanwhile, since a full gripper command or Send_Clear_Error ends the calibration. With an error active the request is dropped: clear first. Each end is read under a light 100 mA push; position 0 is set 32 encoder ticks inside the open stop and 255 16 ticks from the closed one. Ends less than 1000 ticks apart leave the gripper uncalibrated. A new request starts the routine from the beginning. The driver's current limit (parameter 16) is not touched.",
       "forms": [
         {
           "direction": "host",
@@ -289,7 +289,7 @@
       "key": "IN_ESTOP",
       "id": 0,
       "name": "Send_ESTOP",
-      "description": "Stops the motor and raises the E-stop error, which stays until Send_Clear_Error.",
+      "description": "Stops the motor and raises the E-stop error, which stays until Send_Clear_Error. A running calibration ends. From firmware 110 `#Estop` does the same over UART.",
       "forms": [
         {
           "direction": "host",
@@ -319,7 +319,7 @@
       "key": "IN_SAVE_CONFIG",
       "id": 13,
       "name": "Send_Save_config",
-      "description": "Writes the current configuration (gains, limits, calibration, CAN ID, heartbeat, watchdog, gripper flag) to the EEPROM.",
+      "description": "Writes the current configuration (gains, limits, the motor calibration, CAN ID, heartbeat, watchdog, gripper flag, and from firmware 110 brake or coast) to the EEPROM. The gripper calibration is not saved: it runs after every power-up.",
       "forms": [
         {
           "direction": "host",
@@ -364,7 +364,7 @@
       "key": "IN_WATCHDOG_TIMEOUT",
       "id": 15,
       "name": "Send_Watchdog",
-      "description": "Sets the watchdog: the gripper command (full or empty) and the status requests reset it, Send_Clear_Error, Send_gripper_calibrate and the setup messages do not; when the time runs out the driver reports a watchdog error and stops. 0 turns it off (the default). The action byte is stored but not acted on by this firmware: the driver always stops into its idle behaviour.",
+      "description": "Sets the watchdog: the gripper command (full or empty) and the status requests reset it, Send_Clear_Error, Send_gripper_calibrate and the setup messages do not; when the time runs out the driver reports a watchdog error and does what the action byte says. 0 turns it off (the default). Hold and descend run for the fallback time, then the after-action (parameters 2 and 5), and only when the watchdog runs out while the driver is in gripper mode. From firmware 110 a watchdog that runs out while the driver is idle starts neither, also not when the next gripper command arrives. The STEPFOC site explains each action, [The watchdog](https://docs.source-robotics.com/STEPFOC-docs/latest/06-operation/watchdog/).",
       "forms": [
         {
           "direction": "host",
@@ -392,7 +392,7 @@
               "signed": false,
               "float": false,
               "lsb_first": false,
-              "meaning": "0 idle, 1 hold, 2 brake (stored only)"
+              "meaning": "0 legacy (brake or coast as idle does), 1 hold the position, 2 brake, 3 coast, 4 descend at the fallback current and speed; other values act as 0"
             }
           ]
         }

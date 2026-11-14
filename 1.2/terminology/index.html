@@ -2073,7 +2073,7 @@ repository. <code>#Info</code> prints the release a gripper runs. This documenta
 selector switches between them.</dd>
 <dt><strong>Gripper calibration</strong></dt>
 <dd>The routine (<code>Send_gripper_calibrate</code>, <code>#Gripcal</code>) that opens the jaws fully, then closes them fully, at low
-force, and records both end stops as positions 0 and 255. Needed after every power-up.</dd>
+force, finds both end stops and sets positions 0 and 255 just inside them. Needed after every power-up.</dd>
 <dt><strong>Gripper mode</strong></dt>
 <dd>The driver's mode in which it runs a gripper (<code>#Gripper 1</code>, saved): move commands with a jaw position, a speed
 and a current limit, and object detection.</dd>

@@ -2247,7 +2247,7 @@
 what to do until they are. The pages that describe each part say the same where it matters; this page collects
 them in one place. Which versions work together is in <a href="../../appendix/compatibility/">Versions and compatibility</a>.</p>
 <h3 id="stepfoc-firmware">STEPFOC firmware<a class="headerlink" href="#stepfoc-firmware" title="Permanent link">&para;</a></h3>
-<p>Seen in: 109 (the driver's firmware, gripper mode).</p>
+<p>Seen in: 110 (the driver's firmware, gripper mode).</p>
 <table>
 <thead>
 <tr>
@@ -2267,14 +2267,8 @@ them in one place. Which versions work together is in <a href="../../appendix/co
 <tr>
 <td>KI-2</td>
 <td>The answer to a full gripper command is sent before the gripper acts on it, so it carries the state from before the command, for example object detection 3 of the move before.</td>
-<td>Ignore that answer. Poll with empty Send_gripper_data_pack frames, and give a move about 100 ms before you trust its object detection.</td>
+<td>Ignore that answer, and follow the move with empty Send_gripper_data_pack frames. On firmware 109 and older, also give a move about 100 ms before you trust its object detection.</td>
 <td><a href="../../06-operation/how-it-works/#the-answer">How the gripper works, the answer</a></td>
-</tr>
-<tr>
-<td>KI-3</td>
-<td>A full gripper command or a clear sent while the gripper calibration runs ends it, and the gripper stays uncalibrated. The routine's progress and its 24 s timer are not reset, so the next calibration can start part way through or give up early.</td>
-<td>Clear first, then calibrate, and send only empty status polls until the calibrated bit is 1. After an interrupted calibration, switch the gripper off and on before you calibrate again.</td>
-<td><a href="../../06-operation/how-it-works/#the-states">How the gripper works, the states</a></td>
 </tr>
 <tr>
 <td>KI-4</td>
@@ -2328,6 +2322,12 @@ them in one place. Which versions work together is in <a href="../../appendix/co
 </thead>
 <tbody>
 <tr>
+<td>KI-3</td>
+<td>A full gripper command or a clear sent while the gripper calibration runs ends it, and the gripper stays uncalibrated. The routine's progress and its 24 s timer are not reset, so the next calibration can start part way through or give up early.</td>
+<td>110: a new calibration starts from the beginning, with its whole 24 s; a command or a clear still ends a running one, and the gripper keeps the calibration it had before</td>
+<td><a href="../../06-operation/how-it-works/#the-states">How the gripper works, the states</a></td>
+</tr>
+<tr>
 <td>KI-5</td>
 <td>The motor calibration (<code>#Cal</code>) leaves the driver's current limit at 1600 mA, whatever it was before, which is more than the 21.5 mm stepper's 1.5 A. Gripper moves use the current of each command; the limit applies when the driver runs as a motor (Motor GUI's Motor side, the <abbr title="the serial port of the driver inside the gripper, 3.3 V, 256000 baud">UART</abbr> motor modes).</td>
 <td>109: calibration puts back the current limit that was in force when it started</td>
@@ -2344,6 +2344,36 @@ them in one place. Which versions work together is in <a href="../../appendix/co
 <td>A status poll (an empty Send_gripper_data_pack) or a repeat of the command that reaches the driver within one control cycle (about 0.16 ms) of a new move command cancels it as new. The move then runs in position mode, and object detection reads 3 while the jaws press on an object.</td>
 <td>109: only a new command marks itself new, so a poll or a repeat no longer cancels the move</td>
 <td><a href="../../06-operation/can/#host-checklist">Over <abbr title="Controller Area Network, the bus between the robot or the PC and the gripper">CAN</abbr>, host checklist</a></td>
+</tr>
+<tr>
+<td>KI-11</td>
+<td>After a move the current took a second or more to settle, and some of it stayed while the gripper held the position. The velocity loop carried the current of the move into the hold and unwound it slowly through the rail's friction.</td>
+<td>110: the integral is dropped on arrival, the last stretch is slower and the hold has a small dead zone; a few mA are left after a move</td>
+<td><a href="../../06-operation/how-it-works/#the-states">How the gripper works, the states</a></td>
+</tr>
+<tr>
+<td>KI-12</td>
+<td>The gripper calibration read the two ends while it pushed into the stops at 500 mA, so positions 0 and 255 lay inside the stops. A full open or close with less current stopped short, kept pressing on the stop with the grip current, and often reported an object (1 or 2) instead of 3.</td>
+<td>110: each end is read under a light 100 mA push; 0 lies 32 encoder ticks inside the open stop, 255 16 ticks from the closed one</td>
+<td><a href="../../06-operation/how-it-works/#the-states">How the gripper works, the states</a></td>
+</tr>
+<tr>
+<td>KI-13</td>
+<td>Gripper moves set the driver's current limit (<code>#Ilim</code>, parameter 16) to the current of each command, and the gripper calibration set it to 500 mA. A Send_Save_config or <code>#Save</code> then stored that as the driver's limit.</td>
+<td>110: the gripper and its calibration push with their own current; the driver's limit stays as set</td>
+<td><a href="../../build/first-run/#current-limit">Driver setup, current limit</a></td>
+</tr>
+<tr>
+<td>KI-14</td>
+<td>Brake or coast when idle (parameter 18) was not saved. After every power-up the driver braked, whatever was set before Send_Save_config.</td>
+<td>110: Send_Save_config keeps it; a driver that never saved it brakes, as before</td>
+<td><a href="../../reference/can/system/#parameters-a-gripper-uses">System, parameters a gripper uses</a></td>
+</tr>
+<tr>
+<td>KI-15</td>
+<td>With the watchdog's action set to hold or descend, a watchdog that ran out while the gripper was idle started the hold or the descend later, when the next gripper command arrived, for the whole fallback time.</td>
+<td>110: hold and descend start only when the watchdog runs out in gripper mode</td>
+<td><a href="../../reference/can/system/#send_watchdog">System, Send_Watchdog</a></td>
 </tr>
 </tbody>
 </table>

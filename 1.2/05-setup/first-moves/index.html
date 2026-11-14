@@ -2354,9 +2354,11 @@ at 0 before you clear. <a href="../../06-operation/errors/">Errors and recovery<
 <a href="../../06-operation/errors/">Errors and recovery</a>.</p>
 </div>
 <h2 id="3-calibrate">3. Calibrate<a class="headerlink" href="#3-calibrate" title="Permanent link">&para;</a></h2>
-<p>The gripper calibration finds the two end stops: the jaws open fully, pause, then close fully, at low force
-(500 mA) and low speed. Each end is recognised when the jaws have stood still against it for half a second. It
-takes about ten seconds; the result is not kept over a power cycle, so this runs at every power-up.</p>
+<p>The gripper calibration finds the two end stops: the jaws open fully, then close fully, at low force
+(500 mA) and low speed. Each end is recognised when the jaws have stood still against it for half a second, and
+read under a light 100 mA push.</p>
+<p>Positions 0 and 255 lie just inside the two stops, so a full open or close does not press on them.</p>
+<p>It takes about ten seconds; the result is not kept over a power cycle, so this runs at every power-up.</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="2:3"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><input id="__tabbed_2_3" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Motor GUI</label><label for="__tabbed_2_2">Python</label><label for="__tabbed_2_3"><abbr title="the serial port of the driver inside the gripper, 3.3 V, 256000 baud">UART</abbr></label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
@@ -2377,8 +2379,11 @@ takes about ten seconds; the result is not kept over a power cycle, so this runs
 step 2), or the stepper is not calibrated.</p>
 <p>If the routine runs for 24 seconds and gives up, an end stop was not
 found: something blocks the jaws short of the end, or the mechanism is too stiff for 500 mA.</p>
+<p>If the jaws barely move, less than 1000 encoder ticks between the two ends, the routine ends without a
+calibration: something jams them.</p>
 <p>Until the gripper reports <em>Calibrated</em>, send nothing but status polls: a move command or a clear during the
-calibration ends it, and the gripper stays uncalibrated.</p>
+calibration ends it. The gripper then keeps the calibration it had before, none after a power-up. Calibrate
+again, and the routine starts from the beginning.</p>
 <div class="admonition success">
 <p class="admonition-title">Check</p>
 <p>The jaws opened fully, then closed fully, and the gripper reports <em>Calibrated</em>: in Motor GUI's panel, as
@@ -2488,7 +2493,7 @@ goes through them.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 11, 2026 14:53:32 UTC">November 11, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 13, 2026 22:18:26 UTC">November 13, 2026</span>
   </span>
 
     

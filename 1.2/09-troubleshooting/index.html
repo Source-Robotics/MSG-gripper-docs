@@ -2266,8 +2266,12 @@ faults in the firmware and the software that are known and not yet fixed, with w
 <td>a phase of the stepper not connected (self-built), or the stepper not calibrated</td>
 </tr>
 <tr>
+<td>the routine ends within a few seconds, and the gripper is still not calibrated</td>
+<td>the jaws travelled less than 1000 encoder ticks between the two ends: something jams them</td>
+</tr>
+<tr>
 <td>255 is not fully closed, or 0 not fully open</td>
-<td>something stopped the jaws short of the end during calibration; calibrate again with the stroke free</td>
+<td>something stopped the jaws short of the end during calibration; calibrate again with the stroke free. By design 0 lies 32 encoder ticks inside the open stop and 255 16 ticks from the closed one (about 0.1 and 0.05 mm at each jaw), so that a full open or close does not press on the stop</td>
 </tr>
 </tbody>
 </table>
@@ -2300,6 +2304,10 @@ faults in the firmware and the software that are known and not yet fixed, with w
 <td>the jaws creep or hum when holding</td>
 <td>the position loop against a hard object; lower the current, or hold a soft object with a position slightly beyond the contact</td>
 </tr>
+<tr>
+<td>the current takes a second or more to settle after a move; a full open or close keeps drawing the grip current and reports an object</td>
+<td>firmware 109 or older: update to 110 (<a href="known-issues/">Known issues</a>, KI-11 and KI-12)</td>
+</tr>
 </tbody>
 </table>
 <h2 id="noise-and-heat">Noise and heat<a class="headerlink" href="#noise-and-heat" title="Permanent link">&para;</a></h2>
@@ -2307,6 +2315,8 @@ faults in the firmware and the software that are known and not yet fixed, with w
 debris. The motor gets warm in use and hot under a long grip; the thermistor stops it at 75 °C. A self-built
 gripper without the thermistor on its motor has no such protection.</p>
 <h2 id="after-a-firmware-update">After a firmware update<a class="headerlink" href="#after-a-firmware-update" title="Permanent link">&para;</a></h2>
+<p>The gripper calibration is kept in RAM only: calibrate after an update, as after every power-up. The driver's
+settings and its motor calibration are kept from 109 to 110.</p>
 <p>If the gripper does not calibrate or behaves oddly after an update, check the driver's configuration over <abbr title="the serial port of the driver inside the gripper, 3.3 V, 256000 baud">UART</abbr>:
 <code>#Gripper</code> (gripper mode, 1), <code>#Term</code> (the thermistor, 1) and <code>#Info</code> (the motor calibration and parameters). A
 release note says when an update clears the configuration; <a href="../build/first-run/">Driver configuration</a> restores
@@ -2354,7 +2364,7 @@ the first things.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 3, 2026 14:50:04 UTC">November 3, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 13, 2026 22:18:26 UTC">November 13, 2026</span>
   </span>
 
     

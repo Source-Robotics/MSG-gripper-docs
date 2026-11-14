@@ -51,7 +51,7 @@ The driver's answer to Send_gripper_data_pack: position, measured current, and t
 
 <div class="cmd-facts" markdown><span class="fact">ID 62</span><span class="fact">host → driver</span><span class="fact">0 bytes</span><span class="fact">Python: `Send_gripper_calibrate()`</span></div>
 
-Starts the gripper calibration (the jaws find their end stops). Needed after every power-up. It has no answer: poll with empty Send_gripper_data_pack frames until the calibrated bit is 1, and send nothing else meanwhile, since a full gripper command or Send_Clear_Error ends the calibration. With an error active the request is dropped: clear first.
+Starts the gripper calibration (the jaws find their end stops). Needed after every power-up. It has no answer: poll with empty Send_gripper_data_pack frames until the calibrated bit is 1, and send nothing else meanwhile, since a full gripper command or Send_Clear_Error ends the calibration. With an error active the request is dropped: clear first. Each end is read under a light 100 mA push; position 0 is set 32 encoder ticks inside the open stop and 255 16 ticks from the closed one. Ends less than 1000 ticks apart leave the gripper uncalibrated. A new request starts the routine from the beginning. The driver's current limit (parameter 16) is not touched.
 
 The driver does not answer this command.
 

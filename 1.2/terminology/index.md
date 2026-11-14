@@ -43,7 +43,7 @@
 
 **Gripper calibration**
 :   The routine (`Send_gripper_calibrate`, `#Gripcal`) that opens the jaws fully, then closes them fully, at low
-    force, and records both end stops as positions 0 and 255. Needed after every power-up.
+    force, finds both end stops and sets positions 0 and 255 just inside them. Needed after every power-up.
 
 **Gripper mode**
 :   The driver's mode in which it runs a gripper (`#Gripper 1`, saved): move commands with a jaw position, a speed

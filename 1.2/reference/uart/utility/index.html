@@ -1289,6 +1289,13 @@
 </thead>
 <tbody>
 <tr>
+<td><code>#Estop</code></td>
+<td>Action</td>
+<td></td>
+<td>The driver's E-stop, as Send_ESTOP over <abbr title="Controller Area Network, the bus between the robot or the PC and the gripper">CAN</abbr>: the motor is released, a running calibration (the motor's or the gripper's) ends, and the E-stop error stays until <code>#Clear</code>. It shows in <code>#Error</code> and in Send_Respond_State_of_Errors, not in the gripper's own E-stop bit. New in firmware 110.</td>
+<td><code>E-stop</code></td>
+</tr>
+<tr>
 <td><code>#Magnet</code></td>
 <td>Get</td>
 <td></td>

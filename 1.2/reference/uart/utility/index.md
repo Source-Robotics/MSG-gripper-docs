@@ -2,6 +2,7 @@
 
 | Command | Kind | Argument | What it does | Response |
 |---|---|---|---|---|
+| `#Estop` | Action |  | The driver's E-stop, as Send_ESTOP over CAN: the motor is released, a running calibration (the motor's or the gripper's) ends, and the E-stop error stays until `#Clear`. It shows in `#Error` and in Send_Respond_State_of_Errors, not in the gripper's own E-stop bit. New in firmware 110. | `E-stop` |
 | `#Magnet` | Get |  | Reads the encoder's magnet status. | `Magnet Good` or `Magnet Bad` |
 | `#Reset` | Action |  | Resets the driver. From firmware 105 the reset lands in the bootloader, which waits 2 s for a flashing host and then starts the firmware again. | nothing |
 | `#Temp` | Get |  | Prints the thermistor temperature. | °C, or `Temp Off` while the thermistor is disabled |

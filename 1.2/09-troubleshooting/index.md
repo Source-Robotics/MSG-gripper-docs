@@ -40,7 +40,8 @@ flowchart TD
 |---|---|
 | the jaws move to one end and stop; after 24 s the gripper is still not calibrated | the other end is blocked, or the mechanism is too stiff for the calibration's 500 mA: a tight rail, a pinion pressed too hard into the racks, debris in the racks |
 | the jaws jitter and do not travel | a phase of the stepper not connected (self-built), or the stepper not calibrated |
-| 255 is not fully closed, or 0 not fully open | something stopped the jaws short of the end during calibration; calibrate again with the stroke free |
+| the routine ends within a few seconds, and the gripper is still not calibrated | the jaws travelled less than 1000 encoder ticks between the two ends: something jams them |
+| 255 is not fully closed, or 0 not fully open | something stopped the jaws short of the end during calibration; calibrate again with the stroke free. By design 0 lies 32 encoder ticks inside the open stop and 255 16 ticks from the closed one (about 0.1 and 0.05 mm at each jaw), so that a full open or close does not press on the stop |
 
 ## The grip
 
@@ -51,6 +52,7 @@ flowchart TD
 | *object detected* while nothing is there | the current limit too low for the mechanism's friction at that speed; raise the current a little or lower the speed |
 | the gripper stops with a temperature error after a while | a long hold at a high current; hold with the lowest current that keeps the object |
 | the jaws creep or hum when holding | the position loop against a hard object; lower the current, or hold a soft object with a position slightly beyond the contact |
+| the current takes a second or more to settle after a move; a full open or close keeps drawing the grip current and reports an object | firmware 109 or older: update to 110 ([Known issues](https://docs.source-robotics.com/MSG-gripper-docs/1.2/09-troubleshooting/known-issues/), KI-11 and KI-12) |
 
 ## Noise and heat
 
@@ -59,6 +61,9 @@ debris. The motor gets warm in use and hot under a long grip; the thermistor sto
 gripper without the thermistor on its motor has no such protection.
 
 ## After a firmware update
+
+The gripper calibration is kept in RAM only: calibrate after an update, as after every power-up. The driver's
+settings and its motor calibration are kept from 109 to 110.
 
 If the gripper does not calibrate or behaves oddly after an update, check the driver's configuration over UART:
 `#Gripper` (gripper mode, 1), `#Term` (the thermistor, 1) and `#Info` (the motor calibration and parameters). A
