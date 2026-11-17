@@ -2,7 +2,7 @@
 
 !!! note "This is a copy"
     The original is [BOM.md](https://github.com/Source-Robotics/MSG-compliant-AI-stepper-gripper/blob/main/BOM.md) in the gripper's repository; this page is that file as of
-    2026-11-17 (commit `71abe66`), with the reference images shown inline. If a link is broken or a part is wrong,
+    2026-11-17 (commit `e2c423a`), with the reference images shown inline. If a link is broken or a part is wrong,
     [open an issue](https://github.com/Source-Robotics/MSG-compliant-AI-stepper-gripper/issues/new) there, and the fix lands here with the next sync. The shop's
     [starter kit](index.md#kits-and-the-shop) covers the driver and everything its setup needs.
 
@@ -71,7 +71,7 @@ This BOM lists all components required to build the MSG gripper. Quantities are 
 | 100K Thermistor | 1 | NTC temperature sensor<br>![Thermistor](../assets/bom/Thermistor.webp){ width="120" } | [Link](https://source-robotics.com/products/100k-ntc-thermistor) |
 | XH 2.54 mm cable | 1 | 300 mm, 2P, double-ended (24 V power)<br>![XH_cable](../assets/bom/XH_cable.webp){ width="120" } | [Link](https://s.click.aliexpress.com/e/_c3f1efET)<br>[amazon.de](https://www.amazon.de/dp/B0CBWZLB5C?tag=sourcerobotic-20)<br>[amazon.com](https://www.amazon.com/dp/B0D6KSMK1Q?tag=sourcerobotic-20) |
 | ZH 1.5 mm cable | 1 | 300 mm, 2P, double-ended (CAN bus)<br>![ZH_cable](../assets/bom/ZH_cable.webp){ width="120" } | [Link](https://s.click.aliexpress.com/e/_c3f1efET)<br>[amazon.de](https://www.amazon.de/dp/B0FMCW2R5B?tag=sourcerobotic-20)<br>[amazon.com](https://www.amazon.com/dp/B0DSPCFH9D?tag=sourcerobotic-20) |
-| M8 Male 4-pin connector | 1 | ![M8connectormale4pin](../assets/bom/M8connectormale4pin.webp){ width="120" } | [Link](https://s.click.aliexpress.com/e/_c4OWHPKF)<br>[amazon.com](https://www.amazon.com/dp/B0FKVL6772?tag=sourcerobotic-20) |
+| M8 Male 4-pin connector | 1 | ![M8connectormale4pin](../assets/bom/M8connectormale4pin.webp){ width="120" } | [Link](https://s.click.aliexpress.com/e/_c4OWHPKF)<br>[amazon.de](https://www.amazon.de/dp/B0CTTQTVPK?tag=sourcerobotic-20)<br>[amazon.com](https://www.amazon.com/dp/B0FKVL6772?tag=sourcerobotic-20) |
 | OV9732 Camera | 1 | 100 Degree version<br>![camera_OV9732](../assets/bom/camera_OV9732.webp){ width="120" } | [Link](https://s.click.aliexpress.com/e/_c3WWVLjl)<br>[amazon.de](https://www.amazon.de/dp/B0DYJW1S1N?tag=sourcerobotic-20)<br>[amazon.com](https://www.amazon.com/dp/B0FB8N3BDH?tag=sourcerobotic-20) |
 
 
