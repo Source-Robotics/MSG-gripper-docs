@@ -2,13 +2,13 @@
 
 !!! note "This is a copy"
     The original is [BOM.md](https://github.com/Source-Robotics/MSG-compliant-AI-stepper-gripper/blob/main/BOM.md) in the gripper's repository; this page is that file as of
-    2026-10-31 (commit `9862f62`), with the reference images shown inline. If a link is broken or a part is wrong,
+    2026-11-17 (commit `7e64b5b`), with the reference images shown inline. If a link is broken or a part is wrong,
     [open an issue](https://github.com/Source-Robotics/MSG-compliant-AI-stepper-gripper/issues/new) there, and the fix lands here with the next sync. The shop's
     [starter kit](index.md#kits-and-the-shop) covers the driver and everything its setup needs.
 
 <div class="bom-variants" data-variants="{&quot;choices&quot;:{&quot;rail&quot;:{&quot;label&quot;:&quot;Rail&quot;,&quot;options&quot;:{&quot;100&quot;:{&quot;label&quot;:&quot;100 mm&quot;,&quot;detail&quot;:&quot;55 mm stroke&quot;},&quot;150&quot;:{&quot;label&quot;:&quot;150 mm&quot;,&quot;detail&quot;:&quot;105 mm stroke&quot;},&quot;200&quot;:{&quot;label&quot;:&quot;200 mm&quot;,&quot;detail&quot;:&quot;155 mm stroke&quot;}}},&quot;stepper&quot;:{&quot;label&quot;:&quot;Stepper&quot;,&quot;options&quot;:{&quot;21.5&quot;:{&quot;label&quot;:&quot;21.5 mm&quot;,&quot;detail&quot;:&quot;17HS08-1004S, about 31 N&quot;},&quot;40&quot;:{&quot;label&quot;:&quot;40 mm&quot;,&quot;detail&quot;:&quot;17HS16-2004S1, about 50 N&quot;},&quot;60&quot;:{&quot;label&quot;:&quot;60 mm&quot;,&quot;detail&quot;:&quot;17HS24-2104S, about 76 N&quot;}}},&quot;camera&quot;:{&quot;label&quot;:&quot;Camera&quot;,&quot;options&quot;:{&quot;with&quot;:{&quot;label&quot;:&quot;With camera&quot;,&quot;phrase&quot;:&quot;with a camera&quot;},&quot;without&quot;:{&quot;label&quot;:&quot;Without camera&quot;,&quot;phrase&quot;:&quot;without a camera&quot;}}}},&quot;rows&quot;:[{&quot;section&quot;:&quot;Screws and Nuts&quot;,&quot;first&quot;:&quot;M3&quot;,&quot;has&quot;:&quot;For 17HS08-1004S stepper&quot;,&quot;only&quot;:{&quot;stepper&quot;:[&quot;21.5&quot;]}},{&quot;section&quot;:&quot;Screws and Nuts&quot;,&quot;first&quot;:&quot;M3&quot;,&quot;has&quot;:&quot;For 17HS16-2004S1 stepper&quot;,&quot;only&quot;:{&quot;stepper&quot;:[&quot;40&quot;]}},{&quot;section&quot;:&quot;Screws and Nuts&quot;,&quot;first&quot;:&quot;M3&quot;,&quot;has&quot;:&quot;For 17HS24-2104S stepper&quot;,&quot;only&quot;:{&quot;stepper&quot;:[&quot;60&quot;]}},{&quot;section&quot;:&quot;Motors (You need one of these per gripper!)&quot;,&quot;first&quot;:&quot;17HS08-1004S&quot;,&quot;only&quot;:{&quot;stepper&quot;:[&quot;21.5&quot;]}},{&quot;section&quot;:&quot;Motors (You need one of these per gripper!)&quot;,&quot;first&quot;:&quot;17HS16-2004S1&quot;,&quot;only&quot;:{&quot;stepper&quot;:[&quot;40&quot;]}},{&quot;section&quot;:&quot;Motors (You need one of these per gripper!)&quot;,&quot;first&quot;:&quot;17HS24-2104S&quot;,&quot;only&quot;:{&quot;stepper&quot;:[&quot;60&quot;]}},{&quot;section&quot;:&quot;Mechanical Components&quot;,&quot;first&quot;:&quot;Linear guide&quot;,&quot;note&quot;:{&quot;rail&quot;:{&quot;100&quot;:&quot;100 mm long&quot;,&quot;150&quot;:&quot;150 mm long&quot;,&quot;200&quot;:&quot;200 mm long&quot;}}},{&quot;section&quot;:&quot;Electronics&quot;,&quot;first&quot;:&quot;OV9732 Camera&quot;,&quot;only&quot;:{&quot;camera&quot;:[&quot;with&quot;]}}],&quot;print&quot;:{&quot;url&quot;:&quot;https://github.com/Source-Robotics/MSG-compliant-AI-stepper-gripper/tree/main/Print%20files&quot;,&quot;common&quot;:[&quot;Common_parts_MSG_gripper&quot;],&quot;rail&quot;:{&quot;100&quot;:[&quot;MSG_Gripper_body_100mm&quot;,&quot;gripper_jaws_100mm&quot;],&quot;150&quot;:[&quot;MSG_Gripper_body_150mm&quot;,&quot;gripper_jaws_150mm&quot;],&quot;200&quot;:[&quot;MSG_Gripper_body_200mm&quot;,&quot;gripper_jaws_200mm&quot;]},&quot;stepper&quot;:{&quot;21.5&quot;:[&quot;Stepper_cover_21_5mm&quot;],&quot;40&quot;:[&quot;Stepper_cover_40mm&quot;],&quot;60&quot;:[&quot;Stepper_cover_60mm&quot;]},&quot;without camera&quot;:&quot;the common parts include the camera mount and its lid; leave them off the print&quot;}}"></div>
 
-This BOM lists all components required to build the MSG gripper. Quantities are for **one gripper**.
+This BOM lists all components required to build the MSG gripper. Quantities are for **one gripper**. Many of the links are affiliate links to AliExpress, StepperOnline and Amazon: if you buy through them, we earn a small commission at no extra cost to you. As an Amazon Associate we earn from qualifying purchases.
 
 !!! note
     If any product links are broken, unavailable, or no longer point to the correct item, please [open an issue](https://github.com/Source-Robotics/MSG-compliant-AI-stepper-gripper/issues/new), send us a message on Discord, or contact us via email. You can also use the reference images to find the same or an equivalent part from another supplier.
@@ -44,23 +44,23 @@ This BOM lists all components required to build the MSG gripper. Quantities are 
 
 | Type | Quantity | Description | Link |
 |------|----------|-------------|------|
-| 17HS08-1004S | 1 | 21.5mm stepper<br>![stepper_21_5mm](../assets/bom/stepper_21_5mm.webp){ width="120" } | [Link](https://www.omc-stepperonline.com/nema-17-bipolar-1-8deg-16ncm-22-6oz-in-1a-3-7v-42x42x20mm-4-wires-17hs08-1004s?tracking=6543849d6ff69) |
-| 17HS16-2004S1 | 1 | 40mm stepper<br>![stepper_40mm](../assets/bom/stepper_40mm.webp){ width="120" } | [Link](https://www.omc-stepperonline.com/nema-17-bipolar-45ncm-64oz-in-2a-42x42x40mm-4-wires-w-1m-cable-connector-17hs16-2004s1?tracking=6543849d6ff69)  |
-| 17HS24-2104S | 1 | 60mm stepper<br>![stepper_60mm](../assets/bom/stepper_60mm.webp){ width="120" } | [Link](https://www.omc-stepperonline.com/nema-17-bipolar-1-8deg-65ncm-92oz-in-2-1a-3-36v-42x42x60mm-4-wires-17hs24-2104s?tracking=6543849d6ff69)  |
+| 17HS08-1004S | 1 | 21.5mm stepper<br>![stepper_21_5mm](../assets/bom/stepper_21_5mm.webp){ width="120" } | [Link](https://www.omc-stepperonline.com/nema-17-bipolar-1-8deg-16ncm-22-6oz-in-1a-3-7v-42x42x20mm-4-wires-17hs08-1004s?tracking=6543849d6ff69)<br>[amazon.de](https://www.amazon.de/dp/B0BPRN6XSD?tag=sourcerobotic-20)<br>[amazon.com](https://www.amazon.com/dp/B0HJ791T2L?tag=sourcerobotic-20) |
+| 17HS16-2004S1 | 1 | 40mm stepper<br>![stepper_40mm](../assets/bom/stepper_40mm.webp){ width="120" } | [Link](https://www.omc-stepperonline.com/nema-17-bipolar-45ncm-64oz-in-2a-42x42x40mm-4-wires-w-1m-cable-connector-17hs16-2004s1?tracking=6543849d6ff69)<br>[amazon.de](https://www.amazon.de/dp/B0GH5T458C?tag=sourcerobotic-20)<br>[amazon.com](https://www.amazon.com/dp/B0FKGQP5DJ?tag=sourcerobotic-20) |
+| 17HS24-2104S | 1 | 60mm stepper<br>![stepper_60mm](../assets/bom/stepper_60mm.webp){ width="120" } | [Link](https://www.omc-stepperonline.com/nema-17-bipolar-1-8deg-65ncm-92oz-in-2-1a-3-36v-42x42x60mm-4-wires-17hs24-2104s?tracking=6543849d6ff69)<br>[amazon.de](https://www.amazon.de/dp/B07SPZRGQ1?tag=sourcerobotic-20)<br>[amazon.com](https://www.amazon.com/dp/B0GW8G5RJM?tag=sourcerobotic-20) |
 
 
 ## Mechanical Components
 
 | Type | Quantity | Description | Link |
 |------|----------|-------------|------|
-| Shaft coupler | 1 | 8 mm bore, M4 screw holes<br>![shaft_coupler](../assets/bom/shaft_coupler.webp){ width="120" } | [Link](https://s.click.aliexpress.com/e/_c2xnQgI7) |
-| MGN7C slider | 2 | Linear guide carriage<br>![MGN7C_carriage](../assets/bom/MGN7C_carriage.webp){ width="120" } | [Link](https://s.click.aliexpress.com/e/_c4EMqbrV) |
-| Linear guide | 1 | 100 mm, 150 mm and 200 length works<br>![MGN7_rail](../assets/bom/MGN7_rail.webp){ width="120" } | [Link](https://s.click.aliexpress.com/e/_c4sRNxXV) |
+| Shaft coupler | 1 | 8 mm bore, M4 screw holes<br>![shaft_coupler](../assets/bom/shaft_coupler.webp){ width="120" } | [Link](https://s.click.aliexpress.com/e/_c2xnQgI7)<br>[amazon.de](https://www.amazon.de/dp/B0FNWRLWR4?tag=sourcerobotic-20)<br>[amazon.com](https://www.amazon.com/dp/B08335MYGW?tag=sourcerobotic-20) |
+| MGN7C slider | 2 | Linear guide carriage<br>![MGN7C_carriage](../assets/bom/MGN7C_carriage.webp){ width="120" } | [Link](https://s.click.aliexpress.com/e/_c4EMqbrV)<br>[amazon.com](https://www.amazon.com/dp/B08ZS6DFCN?tag=sourcerobotic-20) |
+| Linear guide | 1 | 100 mm, 150 mm and 200 length works<br>![MGN7_rail](../assets/bom/MGN7_rail.webp){ width="120" } | [Link](https://s.click.aliexpress.com/e/_c4sRNxXV)<br>[amazon.com](https://www.amazon.com/s?k=mgn7c+linear+rail&tag=sourcerobotic-20) |
 | Diametrical Neodymium Magnet | 1 | 6 mm diameter, 2.5 mm thickness<br>![magnet_diametrically](../assets/bom/magnet_diametrically.webp){ width="120" } | [Link](https://source-robotics.com/products/6x2-5mm-diametrical-neodymium-magnet) |
 | Magnet 8 x 2.5mm or 8 x 3mm | 1 | ![Magnet](../assets/bom/Magnet.webp){ width="120" } | [Link](https://s.click.aliexpress.com/e/_c4tF3Rzf) |
-| Gear 32P 21T for 5mm shaft | 1 | ![gear_32P_21T](../assets/bom/gear_32P_21T.webp){ width="120" } | [Link](https://s.click.aliexpress.com/e/_c3oAnoc7) |
-| Thermal cement | 1 | ![Thermal_cement](../assets/bom/Thermal_cement.webp){ width="120" } | [Link](https://s.click.aliexpress.com/e/_c3dBOwTD) |
-| Sponge tape — 30 mm width, 1 mm thickness | 1 |   | [Link](https://s.click.aliexpress.com/e/_c2zNJUaR) |
+| Gear 32P 21T for 5mm shaft | 1 | ![gear_32P_21T](../assets/bom/gear_32P_21T.webp){ width="120" } | [Link](https://s.click.aliexpress.com/e/_c3oAnoc7)<br>[amazon.com](https://www.amazon.com/s?k=Gear+32P+21T+for+5mm+shaft&tag=sourcerobotic-20) |
+| Thermal cement | 1 | ![Thermal_cement](../assets/bom/Thermal_cement.webp){ width="120" } | [Link](https://s.click.aliexpress.com/e/_c3dBOwTD)<br>[amazon.com](https://www.amazon.com/dp/B0C5D8JQ7R?tag=sourcerobotic-20) |
+| Sponge tape — 30 mm width, 1 mm thickness | 1 |   | [Link](https://s.click.aliexpress.com/e/_c2zNJUaR)<br>[amazon.com](https://www.amazon.com/s?k=Sponge+tape+30+mm+x+1+mm&tag=sourcerobotic-20) |
 
 
 ## Electronics
@@ -71,8 +71,8 @@ This BOM lists all components required to build the MSG gripper. Quantities are 
 | 100K Thermistor | 1 | NTC temperature sensor<br>![Thermistor](../assets/bom/Thermistor.webp){ width="120" } | [Link](https://source-robotics.com/products/100k-ntc-thermistor) |
 | XH 2.54 mm cable | 1 | 300 mm, 2P, double-ended (24 V power)<br>![XH_cable](../assets/bom/XH_cable.webp){ width="120" } | [Link](https://s.click.aliexpress.com/e/_c3f1efET) |
 | ZH 1.5 mm cable | 1 | 300 mm, 2P, double-ended (CAN bus)<br>![ZH_cable](../assets/bom/ZH_cable.webp){ width="120" } | [Link](https://s.click.aliexpress.com/e/_c3f1efET)  |
-| M8 Male 4-pin connector | 1 | ![M8connectormale4pin](../assets/bom/M8connectormale4pin.webp){ width="120" } | [Link](https://s.click.aliexpress.com/e/_c4OWHPKF) |
-| OV9732 Camera | 1 | 100 Degree version<br>![camera_OV9732](../assets/bom/camera_OV9732.webp){ width="120" } | [Link](https://s.click.aliexpress.com/e/_c3WWVLjl) |
+| M8 Male 4-pin connector | 1 | ![M8connectormale4pin](../assets/bom/M8connectormale4pin.webp){ width="120" } | [Link](https://s.click.aliexpress.com/e/_c4OWHPKF)<br>[amazon.com](https://www.amazon.com/dp/B0FKVL6772?tag=sourcerobotic-20) |
+| OV9732 Camera | 1 | 100 Degree version<br>![camera_OV9732](../assets/bom/camera_OV9732.webp){ width="120" } | [Link](https://s.click.aliexpress.com/e/_c3WWVLjl)<br>[amazon.com](https://www.amazon.com/dp/B0FB8N3BDH?tag=sourcerobotic-20) |
 
 
 
